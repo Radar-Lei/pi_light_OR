@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+    <!-- Arterial: westbound boundary to C1 -->
+    <edge id="W_in2C1" from="W_in" to="C1" numLanes="3" speed="13.89"/>
+    <edge id="C12W_in" from="C1" to="W_in" numLanes="3" speed="13.89"/>
+    <!-- Arterial segment C1 <-> C2 -->
+    <edge id="C12C2" from="C1" to="C2" numLanes="3" speed="13.89"/>
+    <edge id="C22C1" from="C2" to="C1" numLanes="3" speed="13.89"/>
+    <!-- Arterial segment C2 <-> C3 -->
+    <edge id="C22C3" from="C2" to="C3" numLanes="3" speed="13.89"/>
+    <edge id="C32C2" from="C3" to="C2" numLanes="3" speed="13.89"/>
+    <!-- Arterial segment C3 <-> C4 -->
+    <edge id="C32C4" from="C3" to="C4" numLanes="3" speed="13.89"/>
+    <edge id="C42C3" from="C4" to="C3" numLanes="3" speed="13.89"/>
+    <!-- Arterial segment C4 <-> C5 -->
+    <edge id="C42C5" from="C4" to="C5" numLanes="3" speed="13.89"/>
+    <edge id="C52C4" from="C5" to="C4" numLanes="3" speed="13.89"/>
+    <!-- Arterial: C5 to eastbound boundary -->
+    <edge id="C52E_out" from="C5" to="E_out" numLanes="3" speed="13.89"/>
+    <edge id="E_out2C5" from="E_out" to="C5" numLanes="3" speed="13.89"/>
+    <!-- Side streets at C1 -->
+    <edge id="N12C1" from="N1" to="C1" numLanes="3" speed="13.89"/>
+    <edge id="C12N1" from="C1" to="N1" numLanes="3" speed="13.89"/>
+    <edge id="S12C1" from="S1" to="C1" numLanes="3" speed="13.89"/>
+    <edge id="C12S1" from="C1" to="S1" numLanes="3" speed="13.89"/>
+    <!-- Side streets at C2 -->
+    <edge id="N22C2" from="N2" to="C2" numLanes="3" speed="13.89"/>
+    <edge id="C22N2" from="C2" to="N2" numLanes="3" speed="13.89"/>
+    <edge id="S22C2" from="S2" to="C2" numLanes="3" speed="13.89"/>
+    <edge id="C22S2" from="C2" to="S2" numLanes="3" speed="13.89"/>
+    <!-- Side streets at C3 -->
+    <edge id="N32C3" from="N3" to="C3" numLanes="3" speed="13.89"/>
+    <edge id="C32N3" from="C3" to="N3" numLanes="3" speed="13.89"/>
+    <edge id="S32C3" from="S3" to="C3" numLanes="3" speed="13.89"/>
+    <edge id="C32S3" from="C3" to="S3" numLanes="3" speed="13.89"/>
+    <!-- Side streets at C4 -->
+    <edge id="N42C4" from="N4" to="C4" numLanes="3" speed="13.89"/>
+    <edge id="C42N4" from="C4" to="N4" numLanes="3" speed="13.89"/>
+    <edge id="S42C4" from="S4" to="C4" numLanes="3" speed="13.89"/>
+    <edge id="C42S4" from="C4" to="S4" numLanes="3" speed="13.89"/>
+    <!-- Side streets at C5 -->
+    <edge id="N52C5" from="N5" to="C5" numLanes="3" speed="13.89"/>
+    <edge id="C52N5" from="C5" to="N5" numLanes="3" speed="13.89"/>
+    <edge id="S52C5" from="S5" to="C5" numLanes="3" speed="13.89"/>
+    <edge id="C52S5" from="C5" to="S5" numLanes="3" speed="13.89"/>
+</edges>

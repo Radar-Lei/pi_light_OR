@@ -1,0 +1,420 @@
+{
+  "experiment": "block0_dual_sanity",
+  "status": "PASSED",
+  "epsilon": 0.001,
+  "criteria": {
+    "dual_rank_matches_finite_difference_rank": true,
+    "pressure_rank_matches_dual_rank_when_storage_nonbinding": true
+  },
+  "results": [
+    {
+      "scenario": "toy_nonbinding",
+      "links": [
+        "up_a",
+        "up_b",
+        "down_a",
+        "down_b"
+      ],
+      "movements": [
+        {
+          "up": "up_a",
+          "down": "down_a"
+        },
+        {
+          "up": "up_b",
+          "down": "down_b"
+        }
+      ],
+      "queue": [
+        18.0,
+        9.0,
+        4.0,
+        3.0
+      ],
+      "downstream_capacity": [
+        80.0,
+        80.0,
+        80.0,
+        80.0
+      ],
+      "objective": 290.0,
+      "service": [
+        10.0,
+        -0.0
+      ],
+      "queue_duals": [
+        18.0,
+        9.0,
+        4.0,
+        3.0
+      ],
+      "storage_duals": [
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "green_budget_dual": -6.0,
+      "dual_movement_values": [
+        14.0,
+        6.0
+      ],
+      "finite_difference_values": [
+        14.000000000010004,
+        6.000000000028649
+      ],
+      "pressure_scores": [
+        14.0,
+        6.0
+      ],
+      "dual_rank": [
+        0,
+        1
+      ],
+      "finite_difference_rank": [
+        0,
+        1
+      ],
+      "pressure_rank": [
+        0,
+        1
+      ],
+      "dual_fd_correlation": 1.0,
+      "rank_match_finite_difference": true,
+      "nonbinding_storage": true,
+      "pressure_special_case_pass": true
+    },
+    {
+      "scenario": "toy_storage_binding",
+      "links": [
+        "up_a",
+        "up_b",
+        "down_a",
+        "down_b"
+      ],
+      "movements": [
+        {
+          "up": "up_a",
+          "down": "down_a"
+        },
+        {
+          "up": "up_b",
+          "down": "down_b"
+        }
+      ],
+      "queue": [
+        18.0,
+        9.0,
+        80.0,
+        3.0
+      ],
+      "downstream_capacity": [
+        80.0,
+        80.0,
+        80.0,
+        80.0
+      ],
+      "objective": 6760.0,
+      "service": [
+        0.0,
+        9.0
+      ],
+      "queue_duals": [
+        18.0,
+        3.0,
+        80.0,
+        3.0
+      ],
+      "storage_duals": [
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "green_budget_dual": -0.0,
+      "dual_movement_values": [
+        -62.0,
+        0.0
+      ],
+      "finite_difference_values": [
+        -87.00000000044383,
+        6.000000000312866
+      ],
+      "pressure_scores": [
+        -62.0,
+        6.0
+      ],
+      "dual_rank": [
+        1,
+        0
+      ],
+      "finite_difference_rank": [
+        1,
+        0
+      ],
+      "pressure_rank": [
+        1,
+        0
+      ],
+      "dual_fd_correlation": 1.0,
+      "rank_match_finite_difference": true,
+      "nonbinding_storage": true,
+      "pressure_special_case_pass": true
+    },
+    {
+      "scenario": "single_intersection_proxy",
+      "links": [
+        "N_in",
+        "S_in",
+        "E_in",
+        "W_in",
+        "N_out",
+        "S_out",
+        "E_out",
+        "W_out"
+      ],
+      "movements": [
+        {
+          "up": "N_in",
+          "down": "S_out"
+        },
+        {
+          "up": "S_in",
+          "down": "N_out"
+        },
+        {
+          "up": "E_in",
+          "down": "W_out"
+        },
+        {
+          "up": "W_in",
+          "down": "E_out"
+        }
+      ],
+      "queue": [
+        20.0,
+        16.0,
+        8.0,
+        7.0,
+        5.0,
+        6.0,
+        4.0,
+        4.0
+      ],
+      "downstream_capacity": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "objective": 628.0,
+      "service": [
+        12.0,
+        6.0,
+        0.0,
+        0.0
+      ],
+      "queue_duals": [
+        20.0,
+        16.0,
+        8.0,
+        7.0,
+        5.0,
+        6.0,
+        4.0,
+        4.0
+      ],
+      "storage_duals": [
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "green_budget_dual": -11.0,
+      "dual_movement_values": [
+        14.0,
+        11.0,
+        4.0,
+        3.0
+      ],
+      "finite_difference_values": [
+        14.000000000010004,
+        10.999999999967258,
+        4.000000000019099,
+        2.9999999999290594
+      ],
+      "pressure_scores": [
+        14.0,
+        11.0,
+        4.0,
+        3.0
+      ],
+      "dual_rank": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "finite_difference_rank": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "pressure_rank": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "dual_fd_correlation": 1.0,
+      "rank_match_finite_difference": true,
+      "nonbinding_storage": true,
+      "pressure_special_case_pass": true
+    },
+    {
+      "scenario": "arterial_bottleneck_proxy",
+      "links": [
+        "C1C2",
+        "C2C3",
+        "C3C4",
+        "C4C5",
+        "C2_side",
+        "C3_side",
+        "C5_out"
+      ],
+      "movements": [
+        {
+          "up": "C1C2",
+          "down": "C2C3"
+        },
+        {
+          "up": "C2C3",
+          "down": "C3C4"
+        },
+        {
+          "up": "C3C4",
+          "down": "C4C5"
+        },
+        {
+          "up": "C4C5",
+          "down": "C5_out"
+        },
+        {
+          "up": "C2_side",
+          "down": "C2C3"
+        },
+        {
+          "up": "C3_side",
+          "down": "C3C4"
+        }
+      ],
+      "queue": [
+        35.0,
+        28.0,
+        18.0,
+        12.0,
+        11.0,
+        10.0,
+        80.0
+      ],
+      "downstream_capacity": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        70.0,
+        70.0,
+        80.0
+      ],
+      "objective": 8904.0,
+      "service": [
+        10.0,
+        10.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "queue_duals": [
+        35.0,
+        28.0,
+        18.0,
+        12.0,
+        11.0,
+        10.0,
+        110.0
+      ],
+      "storage_duals": [
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -0.0,
+        -30.0
+      ],
+      "green_budget_dual": -6.0,
+      "dual_movement_values": [
+        7.0,
+        10.0,
+        6.0,
+        -98.0,
+        -17.0,
+        -8.0
+      ],
+      "finite_difference_values": [
+        6.999999999607098,
+        10.000000000218279,
+        5.9999999994033715,
+        -97.99999999995634,
+        -16.999999999825377,
+        -7.999999999810825
+      ],
+      "pressure_scores": [
+        7.0,
+        10.0,
+        6.0,
+        -68.0,
+        -17.0,
+        -8.0
+      ],
+      "dual_rank": [
+        1,
+        0,
+        2,
+        5,
+        4,
+        3
+      ],
+      "finite_difference_rank": [
+        1,
+        0,
+        2,
+        5,
+        4,
+        3
+      ],
+      "pressure_rank": [
+        1,
+        0,
+        2,
+        5,
+        4,
+        3
+      ],
+      "dual_fd_correlation": 0.9999999999999997,
+      "rank_match_finite_difference": true,
+      "nonbinding_storage": false,
+      "pressure_special_case_pass": true
+    }
+  ]
+}

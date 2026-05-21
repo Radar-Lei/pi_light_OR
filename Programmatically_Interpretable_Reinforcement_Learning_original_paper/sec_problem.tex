@@ -1,0 +1,167 @@
+\section{Programmatically Interpretable Reinforcement Learning}
+\label{sec:sygurl}
+
+In this section, we formalize the problem of programmatically interpretable reinforcement learning (\sygurl). 
+
+\newcommand{\Cals}{\mathcal{S}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\Lang}{\mathcal{L}}
+\newcommand{\sem}[1]{[\![#1]\!]}
+\newcommand{\Prob}{\mathbf{Pr}}
+\newcommand{\Expec}{\mathbf{E}}
+\newcommand{\Policies}{\mathcal{P}}
+\newcommand{\Observ}{\mathcal{O}}
+\newcommand{\Init}{\mathit{Init}}
+\newcommand{\Op}{\mathit{Ops}}
+\renewcommand{\S}{\mathcal{S}}
+
+
+\newcommand{\combinec}{\mathbf{combine}}
+\newcommand{\op}{\oplus}
+
+\newcommand{\mapc}{\mathbf{map}}
+\newcommand{\filterc}{\mathbf{filter}}
+\newcommand{\headc}{\mathbf{hd}}
+\newcommand{\tailc}{\mathbf{tl}}
+\newcommand{\pickc}{\mathbf{peek}}
+
+\newcommand{\hole}{\chi}
+
+\newcommand{\ifc}{\mathbf{if}}
+\newcommand{\letc}{\mathbf{let}}
+\newcommand{\thenc}{\mathbf{then}}
+\newcommand{\pushc}{\mathbf{push}}
+\newcommand{\alphac}{x}
+
+\newcommand{\elsec}{\mathbf{else}}
+\newcommand{\foldc}{\mathbf{fold}}
+\newcommand{\orc}{\mathbf{or}}
+\newcommand{\andc}{\mathbf{and}}
+\newcommand{\Action}{\mathit{Action}}
+\newcommand{\Obs}{\mathit{Obs}}
+\newcommand{\Accel}{\mathit{Accel}}
+\newcommand{\latest}{\mathtt{Latest}}
+\newcommand{\previous}{\mathtt{Previous}}
+\newcommand{\rpm}{\mathtt{RPM}}
+\newcommand{\tangle}{\mathtt{TrackPos}}
+\newcommand{\Param}{\mathit{Param}}
+
+
+
+We model a reinforcement learning setting as a {\em Partially Observable Markov Decision Process (\pomdp)} $M = (\Cals, \A, \Observ, T(\cdot | s, a), Z(\cdot | s), r, \Init, \gamma)$. Here, $\Cals$ is the set of {(environment) states}. $\A$ is the set of {\em actions} that the learning agent can perform, and $\Observ$ is the set of {\em observations} about the current state that the agent can make. An agent action $a$ at the state $s$ causes the environment state to change probabilistically, and the destination state follows the distribution $T(\cdot | s, a)$. The probability that the agent makes an observation $o$ at state $s$ is $Z(o | s)$. The {\em reward} that the agent receives on performing action $a$ in state $s$ is given by $r(s, a)$.  $\Init$ is the {initial distribution} over environment states.  Finally, $0 < \gamma < 1$ is a real constant that is used to define the agent's aggregate reward over time.
+
+A {\em history} of $M$ is a sequence $h = o_0, a_0, \dots, a_{k-1}, o_k$, where $o_i$ and $a_i$ are, respectively, the agent's observation and action at the $i$-th time step. Let $\mathcal{H}_M$ be the set of histories in $M$. A {\em policy} is a function $\pi: \mathcal{H}_M \ra \A$ that maps each history as above to an action $a_k$.
+For each policy, we can define a set of histories that are possible when the agent follows $\pi$. We assume a mechanism to simulate the POMDP and sample histories that are possible under a policy.  
+The policy also induces a distribution over possible rewards $R_i$ that the agent receives at the $i$-th time step. 
+The agent's {\em expected aggregate reward} under $\pi$ is given by $R(\pi) = \Expec[\sum_{i = 0}^\infty \gamma^i R_i]$. The goal in reinforcement learning is to discover a policy $\pi^*$ that maximizes $R(\pi)$. 
+
+\parag{A Programming Language for Policies} The distinctive feature of
+\sygurl is that policies here are expressed in a high-level, domain-specific programming language. 
+Such a language can be defined in many ways. However, to facilitate search through the space of programs expressible 
+in the language, it is desirable for the language to express computations as compactly and canonically as possible. Because of this, we propose to express parameterized policies using a functional language based on a small number of side-effect-free combinators. It is known from prior work on program synthesis~\cite{DBLP:conf/pldi/FeserCD15} that such languages offer natural advantages in program synthesis.
+
+We collectively refer to observations and actions, as well as auxiliary integers and reals generated during computation, as {\em atoms}. Our language considers two kinds of data: atoms and sequences of atoms (including histories). We assume a finite set of {\em basic operators} over atoms that is rich enough to capture all common operations on observations and actions. 
+  
+\figref{language} shows the syntax of this language. The nonterminals $E$ and $\alphac$ represent expressions that evaluate to atoms and histories, respectively. We sketch the semantics of the various language constructs below. 
+\begin{itemize}
+\item $c$ ranges over a universe of numerical constants, and $\op$ is a basic operator;
+\item $\pickc~(\alphac, i)$ returns the observation from the $i$-th time step from a history $\alphac$, and $\pickc~(\alphac, -1)$ is used as shorthand for the most recent observation;
+\item $\foldc$ is a standard higher-order combinators over sequences with the semantics: \\
+ $\foldc(f, [e_1, \ldots, e_k], e) = f(e_k, f(e_{k-1}, ... f(e_1, e)))$
+%\item $[~]$ is the empty sequence, $\headc$ returns the element in an input sequence representing the most recent time point, and $\tailc$ returns the prefix of the sequence up to (and excluding) this element. ``$\pushc~e~a$'' evaluates the atom-valued expression $e$, then puts the result on top of the history to which $a$ evaluates; 
+%\item $\mapc$, $\foldc$, $\filterc$ are the standard higher-order combinators over sequences with the semantics: \\
+%$\mapc(f, [e_1, \ldots, e_k]) = [f(e_1), \ldots, f(e_k)]$ \\ $\foldc(f, [e_1, \ldots, e_k], e) = f(e_k, f(e_{k-1}, ... f(e_1, e)))$ \\
+%$\filterc(f, [e_1, \ldots, e_k]) = [e_{f_1}, \ldots, e_{f_j}]$ where for all $1 \leq i \leq j$, $f(e_{f_i})$ is true;
+\item $x, x_1, x_2$ are variables.
+As usual, unbound variables are assumed to be inputs. 
+\end{itemize}
+The language comes with a type system that distinguishes between different types of atoms, and ensures that language constructs are used consistently. The type system can catch common errors, such as applying $\pickc~(\alphac, k+1)$ to a history of size $k$. This type system identifies a set of expressions whose inputs are histories and outputs are actions. These expressions are known as {\em programmatic policies}, or simply {\em programs}. 
+
+The combinator over sequences, $\foldc$, will be operating over histories in our programs. Since histories can be of variable lengths, we restrict these combinators to operate on only the last $n$ elements of a sequence, for some fixed $n$. This restriction provides us the ability to use these combinators in a consistent manner.
+
+
+\begin{figure}
+{\small
+\begin{eqnarray*}
+E & ::= & c \mid x \mid \op(E_1,\dots, E_k) \mid \pickc~(\alphac, i) \mid \\& & 
+\foldc~((\lambda x_1, x_2.~E_1),\alpha) 
+\\
+%\alpha & ::= & x \mid [~] \mid \tailc~(\alpha_1) \mid \pushc~(E, \alpha_1) \mid  
+%\mapc~((\lambda x.~E),\alpha_1) \mid 
+%\\ 
+%& & \filterc~((\lambda x.~E),\alpha_1)
+\end{eqnarray*}
+}
+\vspace{-0.3in}
+\caption{Syntax of the policy language.}\figlabel{language}
+\label{fig:syntax}
+\vspace{-0.1in}
+\end{figure}
+
+\paragraph{Sketches.} 
+
+Discovering an optimal programmatic policy from the vast space of legitimate programs is typically impractical without some prior on the shape of target policies. \sygurl allows the specification of such priors through instance-specific syntactic models called {\em sketches}. 
+
+We define a sketch as a grammar of expressions over atoms and
+sequences of atoms. The sketch places restrictions on the kinds of basic operators that will be considered during policy search. Formally, the sketch is obtained by restricting the grammar in
+\figref{language}. The set of programs permitted by a
+sketch $\S$ is denoted by $\sem{\S}$.
+
+\paragraph{\sygurl.}
+
+The \sygurl problem can now be stated as follows. Suppose we are given a \pomdp $M$ and a sketch $\S$. Our goal is to find a {program} $e^* \in \sem{\S}$ 
+with optimal reward:
+\begin{eqnarray}
+\label{eq:synthesis}
+e^* &= &  \argmax_{e \in \sem{\S}} R(e).
+\end{eqnarray}
+
+\paragraph{Example.}
+
+Now we consider a concrete example of \sygurl, considered in more detail in  Section \ref{sec:evaluation}. 
+
+Suppose our goal is to make a (simulated) car complete laps on a track. We want to do so by learning policies for tasks like steering and acceleration.
+Suppose we know that we could get well-behaved policies by using PID control --- specifically, by switching back and forth between a set of PID controllers. However, we do not know the parameters of these controllers, and neither do we know the conditions under which we should switch from one controller to another.
+We can express this knowledge using the following sketch:
+\begin{eqnarray*}
+P & ::= & \pickc((\epsilon - h_i), -1) \\
+I & ::= & \foldc(+, \epsilon - h_i) \\
+D & ::= & \pickc(h_i, -2)- \pickc(h_i, -1) \\
+C &::=& c_1 * P + c_2 * I + c_3 * D \\
+B & ::=  & c_0 + c_1 * \pickc(h_1, -1) + \dots  \\
+& & \dots + c_k * \pickc(h_m, -1) > 0 \mid \\
+& & \qquad B_1 ~\orc~ B_2 \mid B_1 ~\andc~ B_2 \\
+E  & ::= & C \mid \ifc~B~\thenc~E_1~\elsec~E_2. 
+\end{eqnarray*}
+
+Here, $E$ represents programs permitted by the sketch. The program's
+input is a history $h$. We assume that this sequence is split into a
+set of sequences $\{h_1, \dots, h_m\}$,  where $h_i$ is the sequence
+of observations from the $i$-th of $m$ sensors. The sensor's most recent reading is given by $\pickc(h_k, -1)$, and its second most recent reading is $\pickc(h_k, -2)$. 
+The operators $+$, $-$, $*$, $>$, and if-then-else are as usual. 
+The program (optionally) evaluates a set of boolean conditions  ($B$)
+over the current sensor readings, then chooses among a set of discretized PID
+controllers, represented by $C$. 
+In the definition of $C$, $P$ is the proportional term, $I$ is the discretized
+integral term (calculated via a $\foldc$), and $D$ is a
+finite-difference approximation of the derivative term, $\epsilon$ is a known constant and represents a fixed target for the controller, $(\epsilon - h_i)$ performs an element-wise operation on the sequence $h_i$. The symbols $c_i$ are real-valued parameters. Recall that the $\foldc$ acts over a fixed-sized window on the history, and hence can be used as a discrete approximation of the integral term in a PID controller.
+
+The program in Figure~\ref{fig:code} shows the body of a policy for
+acceleration that the \algo algorithm finds given this sketch in the
+\torcs car racing environment. The program's input consists of histories for 29 sensors; however, only two of them, $\tangle$ and $\rpm$, are actually used in the program. While the sensor $\tangle$ (for the position of the car relative to the track axis) is used to decide which controller to use, only the $\rpm$ sensor is needed to calculate the acceleration. 
+
+\begin{figure*}[ht]
+	\vskip 0.1in
+	$$
+	\begin{array}{l}
+	\ifc~(0.001 - \pickc(h_\tangle, -1) > 0 )~\andc~(0.001 + \pickc(h_\tangle, -1) > 0) \\
+	\quad \thenc~ 3.97 * \pickc((0.44 - h_\rpm), -1) +  0.01 * \foldc(+, (0.44 - h_\rpm)) + 48.79 * ( \pickc(h_\rpm, -2)- \pickc(h_\rpm, -1)) \\
+	\quad \elsec~ \;\, 3.97 * \pickc((0.40 - h_\rpm), -1) + 0.01 * \foldc(+, (0.40 - h_\rpm)) +  48.79* ( \pickc(h_\rpm, -2)- \pickc(h_\rpm, -1))
+	\end{array}
+	$$
+	\caption{A programmatic policy for acceleration, automatically discovered by the \algo algorithm. $h_\rpm$ and $h_\tangle$ represent histories for the $\rpm$ and $\tangle$ sensors, respectively.
+	}
+	\label{fig:code}
+\end{figure*}

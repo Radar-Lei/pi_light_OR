@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <!-- TLS program for intersection C1 (4 phases, state length 20) -->
+    <tlLogic id="C1" type="static" programID="coordinated" offset="0">
+        <phase duration="30" state="GGGGgrrrrrGGGGgrrrrr" minDur="10" maxDur="45"/>
+        <phase duration="3" state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="30" state="rrrrrGGGGgrrrrrGGGGg" minDur="10" maxDur="45"/>
+        <phase duration="3" state="rrrrryyyyyrrrrryyyyy"/>
+    </tlLogic>
+    <!-- TLS program for intersection C2 (4 phases, state length 20) -->
+    <tlLogic id="C2" type="static" programID="coordinated" offset="8">
+        <phase duration="30" state="GGGGgrrrrrGGGGgrrrrr" minDur="10" maxDur="45"/>
+        <phase duration="3" state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="30" state="rrrrrGGGGgrrrrrGGGGg" minDur="10" maxDur="45"/>
+        <phase duration="3" state="rrrrryyyyyrrrrryyyyy"/>
+    </tlLogic>
+    <!-- TLS program for intersection C3 (4 phases, state length 20) -->
+    <tlLogic id="C3" type="static" programID="coordinated" offset="16">
+        <phase duration="30" state="GGGGgrrrrrGGGGgrrrrr" minDur="10" maxDur="45"/>
+        <phase duration="3" state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="30" state="rrrrrGGGGgrrrrrGGGGg" minDur="10" maxDur="45"/>
+        <phase duration="3" state="rrrrryyyyyrrrrryyyyy"/>
+    </tlLogic>
+    <!-- TLS program for intersection C4 (4 phases, state length 20) -->
+    <tlLogic id="C4" type="static" programID="coordinated" offset="24">
+        <phase duration="30" state="GGGGgrrrrrGGGGgrrrrr" minDur="10" maxDur="45"/>
+        <phase duration="3" state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="30" state="rrrrrGGGGgrrrrrGGGGg" minDur="10" maxDur="45"/>
+        <phase duration="3" state="rrrrryyyyyrrrrryyyyy"/>
+    </tlLogic>
+    <!-- TLS program for intersection C5 (4 phases, state length 20) -->
+    <tlLogic id="C5" type="static" programID="coordinated" offset="32">
+        <phase duration="30" state="GGGGgrrrrrGGGGgrrrrr" minDur="10" maxDur="45"/>
+        <phase duration="3" state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="30" state="rrrrrGGGGgrrrrrGGGGg" minDur="10" maxDur="45"/>
+        <phase duration="3" state="rrrrryyyyyrrrrryyyyy"/>
+    </tlLogic>
+</additional>

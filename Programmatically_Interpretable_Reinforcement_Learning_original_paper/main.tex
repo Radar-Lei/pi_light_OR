@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+\usepackage{amsopn} % for declareMathOperator
+\usepackage{mathtools}
+\usepackage{amsmath, amssymb}
+\usepackage{bbm}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{xspace}
+
+\newcommand{\doi}[1]{}
+
+
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+\newcommand*{\everymodeprime}{\ensuremath{\prime}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newcommand{\parag}[1]{\medskip \noindent \textbf{{#1}.}}
+\newcommand{\pomdp}{\textsc{Pomdp}\xspace}
+
+\usepackage[accepted]{icml2018}
+
+\icmltitlerunning{Programmatically Interpretable Reinforcement Learning}
+
+\newcommand{\rl}{\textsc{Rl}\xspace}
+\newcommand{\pirl}{\textsc{Pirl}\xspace}
+\newcommand{\sygurl}{\textsc{Pirl}\xspace}
+\newcommand{\sygurllang}{\textsc{Sygurl-Lang}\xspace}
+\newcommand{\sygus}{\textsc{Sygus}\xspace}
+\newcommand{\algo}{\textsc{Ndps}\xspace}
+\newcommand{\torcs}{\textsc{Torcs}\xspace}
+\newcommand{\drl}{\textsc{Drl}\xspace}
+
+
+\newcommand{\figlabel}[1]{\label{fig:#1}}
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{Programmatically Interpretable Reinforcement Learning}
+
+\begin{icmlauthorlist}
+\icmlauthor{Abhinav Verma}{rice}
+\icmlauthor{Vijayaraghavan Murali}{rice}
+\icmlauthor{Rishabh Singh}{gb}
+\icmlauthor{Pushmeet Kohli}{deepmind}
+\icmlauthor{Swarat Chaudhuri}{rice}
+\end{icmlauthorlist}
+
+\icmlaffiliation{rice}{Rice University}
+\icmlaffiliation{gb}{Google Brain}
+\icmlaffiliation{deepmind}{Deepmind}
+
+\icmlcorrespondingauthor{Abhinav Verma}{averma@rice.edu}
+
+\icmlkeywords{Reinforcement Learning, Program Synthesis}
+
+\vskip 0.3in
+]
+
+\printAffiliationsAndNotice{}
+
+\input{abs}
+
+\input{sec_intro}
+
+\input{sec_problem}
+
+\input{sec_algo}
+
+\input{sec_environs}
+
+\input{sec_eval}
+
+\input{sec_related}
+
+\input{sec_conclusion}
+
+\section*{Acknowledgements}
+
+This research was partially supported by NSF Award CCF-1162076 and DARPA MUSE Award \#FA8750-14-2-0270. 
+
+
+%\newpage
+\bibliography{ogsyn-bibfile}
+\bibliographystyle{icml2018}
+
+%\input{main.bbl}
+\newpage
+\twocolumn[
+\icmltitle{Appendix: Programmatically Interpretable Reinforcement Learning}
+]
+\input{sec_appendix}
+
+\end{document}

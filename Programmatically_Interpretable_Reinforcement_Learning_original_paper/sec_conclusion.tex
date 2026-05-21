@@ -1,0 +1,7 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We have introduced a framework for interpretable reinforcement learning, called \pirl. Here, policies are represented in a high-level language. The goal is to find a policy that fits a syntactic ``sketch'' and also has optimal long-term reward. We have given an algorithm inspired by imitation learning, called \algo, to achieve this goal. Our results show that the method is able to generate interpretable policies that clear reasonable performance goals, are amenable to symbolic verification, and, assuming a well-designed sketch, are robust and easily transferred to unseen environments.
+
+The experiments in this paper only considered environments with symbolic inputs. Handling perceptual inputs may raise additional algorithmic challenges, and is a natural next step. Also, in this paper, we only considered deterministic (if memoryful) policies. Extending our framework to stochastic policies is a goal for future work. 
+Finally, while we explored policies in the context of reinforcement learning, one could define similar frameworks for other learning settings. 

@@ -1,0 +1,71 @@
+\section{Introduction}\label{sec:intro}
+
+Deep reinforcement learning (\drl) has had a massive impact on the
+field of machine learning and has led to remarkable successes in the
+solution of many challenging
+tasks~\citep{mnih2015human,AlphaGo,silver2017mastering}.  While neural
+networks have been shown to be very effective in learning good
+policies, the expressivity of these models makes them difficult to
+interpret or to be checked for consistency for some desired
+properties, and casts a cloud over the use of such representations in
+safety-critical applications.
+
+Motivated to overcome this problem, we propose a learning framework,
+called {\em Programmatically Interpretable Reinforcement Learning}
+(\pirl)\footnote{\pirl is pronounced Pi-R-L (as in $\pi$-\rl)}, that is based on the idea of learning policies that are
+represented in a human-readable language.  The \pirl framework is
+parameterized on a high-level {\em programming language} for policies.
+A problem instance in \pirl is similar to a one in traditional \rl,
+but also includes a {\em (policy) sketch} that syntactically defines a set of programmatic policies
+in this language.  The objective is to find a program in this set with
+maximal long-term reward.
+
+Intuitively, the policy programming language and the sketch characterize what we
+consider ``interpretable''. In addition to interpretability, the
+syntactic restriction on policies has three key benefits. First, the language
+can be used to implicitly encode the learner's inductive bias that will
+be used for generalization. Second, the language can allow effective
+pruning of undesired policies to make the search for a good policy
+more efficient. Finally, it 
+allows us to use symbolic program verification techniques to formally reason
+about the learned policies and check consistency with correctness
+properties. At the same time, policies in \pirl can have rich 
+semantics, for example allowing actions to depend on events far back
+in history. 
+
+A key technical challenge in \pirl is that the space of policies
+permitted in an instance can be vast and nonsmooth, making
+optimization extremely challenging. To address this, we propose a new
+algorithm called {\em Neurally Directed Program Synthesis}
+(\algo). The algorithm first uses \drl to compute a neural policy
+network that has high performance, but may not be expressible in the
+policy language. This network is then used to direct a local search
+over programmatic policies. In each iteration of this search, we
+maintain a set of ``interesting'' inputs, and update the program so as
+to minimize the distance between its outputs and the outputs of the
+neural policy (an ``oracle'') on these inputs. The set of interesting
+inputs is updated as the search progresses. This strategy, inspired by
+imitation learning~\cite{dagger,schaal1999imitation}, allows us to
+perform direct policy search in a highly nonsmooth policy space.
+
+We evaluate our approach in the task of learning to drive a simulated
+car in the \torcs car-racing environment~\citep{TORCS}, as well as
+three classic control games (we discuss the former in the main paper,
+and the latter in the Appendix). Experiments demonstrate that \algo is
+able to find interpretable policies that, while not as performant as
+the policies computed by \drl, pass some significant performance
+bars. Specifically, in \torcs, our policy sketch allows an unbounded
+set of programs with branches guarded by unknown conditions, each
+branch representing a Proportional-Integral-Derivative (PID)
+controller~\citep{aastrom1995pid} with unknown parameters. The policy we
+obtain can successfully
+complete a lap of the race, and the use of the neural oracle is
+key to doing so. Our results also suggest that a well-designed sketch can serve as a
+regularizer. Due to constraints imposed by the sketch, the
+policies for \torcs that \algo learns lead to smoother trajectories
+than the corresponding neural policies, and can tolerate greater noise. The policies are also more easily transferred to new
+domains, in particular race tracks not seen during training. Finally,
+we show, using several properties, that the programmatic
+policies that we discover are amenable to verification using
+off-the-shelf symbolic techniques.
+

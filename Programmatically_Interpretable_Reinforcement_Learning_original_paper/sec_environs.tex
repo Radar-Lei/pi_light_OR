@@ -1,0 +1,17 @@
+\section{Environments for Experiments}
+\label{sec:environments}
+In this section, we describe the environments (modeled by POMDPs) on which we evaluated the \algo algorithm. 
+
+\paragraph{\torcs.} We use \algo to generate controllers for cars in \emph{The Open Racing Car Simulator} (\torcs) \cite{TORCS}. \torcs has been used extensively in AI research, for example in \cite{TORCS:FuzzyControl}, \cite{TORCS:NN}, and \cite{TORCS:Overtake} among others. \cite{NN:DDPG} has shown that a Deep Deterministic Policy Gradient (DDPG) network can be used in \rl environments with continuous action spaces. The \drl agents for \torcs in this paper implement this approach.
+
+In its full generality \torcs provides a rich environment with input from up to $89$ sensors, and optionally the 3D graphic from a chosen camera angle in the race. The controllers have to decide the values of 5 parameters during game play, which correspond to the acceleration, brake, clutch, gear and steering of the car. 
+Apart from the immediate challenge of driving the car on the track, controllers also have to make race-level strategy decisions, like making pit-stops for fuel. A lower level of complexity is provided in the \emph{Practice Mode} setting of TORCS. In this mode all race-level strategies are removed. Currently, so far as we know, state-of-the-art \drl models are capable of racing only in \emph{Practice Mode}, and this is also the environment that we use. Here we consider the input from $29$ sensors, and decide values for the acceleration and steering actions.
+
+The sketches used in our experiments are as in the example in Section~\ref{sec:sygurl}, and provide the basic structure of a proportional-integral-derivative (PID) program, with appropriate holes for parameter and observation values. To obtain a practical implementation, we constrain the fold calculation to the five latest observations of the history. This constraint corresponds to the standard strategy of automatic (integral) error reset in discretized PID controllers \cite{PIDControl}.
+
+Each track in \torcs can we viewed as a distinct \pomdp. In our implementation of \algo for \torcs we choose one track and synthesize a program for it. Whenever the algorithm needs to interact with the \pomdp, we use the program or \drl agent to race on the track. For example, in the procedure $\mathtt{collect\_reward}$ we use the synthesized program to race one lap, and the reward is a function of the speed, angle and position of the car at each time step.
+
+For the $\mathtt{create\_histories}$ procedure we use the \drl agent to complete one lap of the track (an {\em episode}), recording the sensor values and environment state at each time step. The $\mathtt{update\_histories}$ procedure uses a two step process. First, the synthesized program is used to race one lap and we store the sequence of observations (given by sensor values) $o_1,o_2,\dots$ provided by \torcs during this lap. Then, we use the \drl agent to generate the corresponding action $a_i$ for each observation $o_i$. Each tuple $(o_i, a_i)$ is then added to the set of histories.
+
+\paragraph{Classic Control Games.} 
+In addition to \torcs, we evaluated our approach in three classic control games, \emph{Acrobot}, {\em CartPole}, and {\em MountainCar}. These games provide simpler \rl environments, with fewer input sensors than \torcs and only a single discrete action at each time step, compared to two continuous actions in \torcs. These results appear in Appendix~\ref{apn:evaluations}.

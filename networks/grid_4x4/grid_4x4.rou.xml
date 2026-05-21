@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType id="car" length="5" minGap="2.5" maxSpeed="13.89" accel="2.6" decel="4.5"/>
+
+    <route id="route_0" edges="b_N0_to_n_0_0 n_0_0_to_n_1_0 n_1_0_to_n_2_0 n_2_0_to_n_3_0 n_3_0_to_b_S0"/>
+    <route id="route_1" edges="b_N0_to_n_0_0 n_0_0_to_n_1_0 n_1_0_to_n_1_1 n_1_1_to_n_1_2 n_1_2_to_n_1_3 n_1_3_to_b_E1"/>
+    <route id="route_2" edges="b_N0_to_n_0_0 n_0_0_to_n_1_0 n_1_0_to_b_W1"/>
+    <route id="route_3" edges="b_N1_to_n_0_1 n_0_1_to_n_1_1 n_1_1_to_n_2_1 n_2_1_to_n_3_1 n_3_1_to_b_S1"/>
+    <route id="route_4" edges="b_N1_to_n_0_1 n_0_1_to_n_1_1 n_1_1_to_n_1_2 n_1_2_to_n_1_3 n_1_3_to_b_E1"/>
+    <route id="route_5" edges="b_N1_to_n_0_1 n_0_1_to_n_1_1 n_1_1_to_n_1_0 n_1_0_to_b_W1"/>
+    <route id="route_6" edges="b_N2_to_n_0_2 n_0_2_to_n_1_2 n_1_2_to_n_2_2 n_2_2_to_n_3_2 n_3_2_to_b_S2"/>
+    <route id="route_7" edges="b_N2_to_n_0_2 n_0_2_to_n_1_2 n_1_2_to_n_1_3 n_1_3_to_b_E1"/>
+    <route id="route_8" edges="b_N2_to_n_0_2 n_0_2_to_n_1_2 n_1_2_to_n_1_1 n_1_1_to_n_1_0 n_1_0_to_b_W1"/>
+    <route id="route_9" edges="b_N3_to_n_0_3 n_0_3_to_n_1_3 n_1_3_to_n_2_3 n_2_3_to_n_3_3 n_3_3_to_b_S3"/>
+    <route id="route_10" edges="b_N3_to_n_0_3 n_0_3_to_n_1_3 n_1_3_to_b_E1"/>
+    <route id="route_11" edges="b_N3_to_n_0_3 n_0_3_to_n_1_3 n_1_3_to_n_1_2 n_1_2_to_n_1_1 n_1_1_to_n_1_0 n_1_0_to_b_W1"/>
+    <route id="route_12" edges="b_S0_to_n_3_0 n_3_0_to_n_2_0 n_2_0_to_n_1_0 n_1_0_to_n_0_0 n_0_0_to_b_N0"/>
+    <route id="route_13" edges="b_S0_to_n_3_0 n_3_0_to_n_2_0 n_2_0_to_b_W2"/>
+    <route id="route_14" edges="b_S0_to_n_3_0 n_3_0_to_n_2_0 n_2_0_to_n_2_1 n_2_1_to_n_2_2 n_2_2_to_n_2_3 n_2_3_to_b_E2"/>
+    <route id="route_15" edges="b_S1_to_n_3_1 n_3_1_to_n_2_1 n_2_1_to_n_1_1 n_1_1_to_n_0_1 n_0_1_to_b_N1"/>
+    <route id="route_16" edges="b_S1_to_n_3_1 n_3_1_to_n_2_1 n_2_1_to_n_2_0 n_2_0_to_b_W2"/>
+    <route id="route_17" edges="b_S1_to_n_3_1 n_3_1_to_n_2_1 n_2_1_to_n_2_2 n_2_2_to_n_2_3 n_2_3_to_b_E2"/>
+    <route id="route_18" edges="b_S2_to_n_3_2 n_3_2_to_n_2_2 n_2_2_to_n_1_2 n_1_2_to_n_0_2 n_0_2_to_b_N2"/>
+    <route id="route_19" edges="b_S2_to_n_3_2 n_3_2_to_n_2_2 n_2_2_to_n_2_1 n_2_1_to_n_2_0 n_2_0_to_b_W2"/>
+    <route id="route_20" edges="b_S2_to_n_3_2 n_3_2_to_n_2_2 n_2_2_to_n_2_3 n_2_3_to_b_E2"/>
+    <route id="route_21" edges="b_S3_to_n_3_3 n_3_3_to_n_2_3 n_2_3_to_n_1_3 n_1_3_to_n_0_3 n_0_3_to_b_N3"/>
+    <route id="route_22" edges="b_S3_to_n_3_3 n_3_3_to_n_2_3 n_2_3_to_n_2_2 n_2_2_to_n_2_1 n_2_1_to_n_2_0 n_2_0_to_b_W2"/>
+    <route id="route_23" edges="b_S3_to_n_3_3 n_3_3_to_n_2_3 n_2_3_to_b_E2"/>
+    <route id="route_24" edges="b_W0_to_n_0_0 n_0_0_to_n_0_1 n_0_1_to_n_0_2 n_0_2_to_n_0_3 n_0_3_to_b_E0"/>
+    <route id="route_25" edges="b_W0_to_n_0_0 n_0_0_to_n_0_1 n_0_1_to_b_N1"/>
+    <route id="route_26" edges="b_W0_to_n_0_0 n_0_0_to_n_0_1 n_0_1_to_n_1_1 n_1_1_to_n_2_1 n_2_1_to_n_3_1 n_3_1_to_b_S1"/>
+    <route id="route_27" edges="b_W1_to_n_1_0 n_1_0_to_n_1_1 n_1_1_to_n_1_2 n_1_2_to_n_1_3 n_1_3_to_b_E1"/>
+    <route id="route_28" edges="b_W1_to_n_1_0 n_1_0_to_n_1_1 n_1_1_to_n_0_1 n_0_1_to_b_N1"/>
+    <route id="route_29" edges="b_W1_to_n_1_0 n_1_0_to_n_1_1 n_1_1_to_n_2_1 n_2_1_to_n_3_1 n_3_1_to_b_S1"/>
+    <route id="route_30" edges="b_W2_to_n_2_0 n_2_0_to_n_2_1 n_2_1_to_n_2_2 n_2_2_to_n_2_3 n_2_3_to_b_E2"/>
+    <route id="route_31" edges="b_W2_to_n_2_0 n_2_0_to_n_2_1 n_2_1_to_n_1_1 n_1_1_to_n_0_1 n_0_1_to_b_N1"/>
+    <route id="route_32" edges="b_W2_to_n_2_0 n_2_0_to_n_2_1 n_2_1_to_n_3_1 n_3_1_to_b_S1"/>
+    <route id="route_33" edges="b_W3_to_n_3_0 n_3_0_to_n_3_1 n_3_1_to_n_3_2 n_3_2_to_n_3_3 n_3_3_to_b_E3"/>
+    <route id="route_34" edges="b_W3_to_n_3_0 n_3_0_to_n_3_1 n_3_1_to_n_2_1 n_2_1_to_n_1_1 n_1_1_to_n_0_1 n_0_1_to_b_N1"/>
+    <route id="route_35" edges="b_W3_to_n_3_0 n_3_0_to_n_3_1 n_3_1_to_b_S1"/>
+    <route id="route_36" edges="b_E0_to_n_0_3 n_0_3_to_n_0_2 n_0_2_to_n_0_1 n_0_1_to_n_0_0 n_0_0_to_b_W0"/>
+    <route id="route_37" edges="b_E0_to_n_0_3 n_0_3_to_n_0_2 n_0_2_to_n_1_2 n_1_2_to_n_2_2 n_2_2_to_n_3_2 n_3_2_to_b_S2"/>
+    <route id="route_38" edges="b_E0_to_n_0_3 n_0_3_to_n_0_2 n_0_2_to_b_N2"/>
+    <route id="route_39" edges="b_E1_to_n_1_3 n_1_3_to_n_1_2 n_1_2_to_n_1_1 n_1_1_to_n_1_0 n_1_0_to_b_W1"/>
+    <route id="route_40" edges="b_E1_to_n_1_3 n_1_3_to_n_1_2 n_1_2_to_n_2_2 n_2_2_to_n_3_2 n_3_2_to_b_S2"/>
+    <route id="route_41" edges="b_E1_to_n_1_3 n_1_3_to_n_1_2 n_1_2_to_n_0_2 n_0_2_to_b_N2"/>
+    <route id="route_42" edges="b_E2_to_n_2_3 n_2_3_to_n_2_2 n_2_2_to_n_2_1 n_2_1_to_n_2_0 n_2_0_to_b_W2"/>
+    <route id="route_43" edges="b_E2_to_n_2_3 n_2_3_to_n_2_2 n_2_2_to_n_3_2 n_3_2_to_b_S2"/>
+    <route id="route_44" edges="b_E2_to_n_2_3 n_2_3_to_n_2_2 n_2_2_to_n_1_2 n_1_2_to_n_0_2 n_0_2_to_b_N2"/>
+    <route id="route_45" edges="b_E3_to_n_3_3 n_3_3_to_n_3_2 n_3_2_to_n_3_1 n_3_1_to_n_3_0 n_3_0_to_b_W3"/>
+    <route id="route_46" edges="b_E3_to_n_3_3 n_3_3_to_n_3_2 n_3_2_to_b_S2"/>
+    <route id="route_47" edges="b_E3_to_n_3_3 n_3_3_to_n_3_2 n_3_2_to_n_2_2 n_2_2_to_n_1_2 n_1_2_to_n_0_2 n_0_2_to_b_N2"/>
+
+    <flow id="f_0" route="route_0" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_1" route="route_1" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_2" route="route_2" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_3" route="route_3" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_4" route="route_4" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_5" route="route_5" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_6" route="route_6" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_7" route="route_7" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_8" route="route_8" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_9" route="route_9" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_10" route="route_10" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_11" route="route_11" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_12" route="route_12" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_13" route="route_13" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_14" route="route_14" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_15" route="route_15" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_16" route="route_16" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_17" route="route_17" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_18" route="route_18" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_19" route="route_19" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_20" route="route_20" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_21" route="route_21" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_22" route="route_22" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_23" route="route_23" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_24" route="route_24" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_25" route="route_25" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_26" route="route_26" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_27" route="route_27" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_28" route="route_28" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_29" route="route_29" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_30" route="route_30" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_31" route="route_31" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_32" route="route_32" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_33" route="route_33" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_34" route="route_34" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_35" route="route_35" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_36" route="route_36" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_37" route="route_37" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_38" route="route_38" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_39" route="route_39" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_40" route="route_40" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_41" route="route_41" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_42" route="route_42" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_43" route="route_43" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_44" route="route_44" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_45" route="route_45" begin="0" end="3600" period="48.00" departSpeed="max" departLane="best"/>
+    <flow id="f_46" route="route_46" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+    <flow id="f_47" route="route_47" begin="0" end="3600" period="144.00" departSpeed="max" departLane="best"/>
+</routes>

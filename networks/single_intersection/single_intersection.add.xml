@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <!-- Default fixed-time program (will be overridden by TraCI) -->
+    <tlLogic id="C" type="static" programID="default" offset="0">
+        <!-- NS through+right green -->
+        <phase duration="30" state="GGgrrrGGgrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyrrryyyrrr"/>
+        <!-- NS left green -->
+        <phase duration="15" state="rrrGGgrrrGGg" minDur="8" maxDur="25"/>
+        <!-- NS left yellow -->
+        <phase duration="3"  state="rrryyyrrryyy"/>
+        <!-- EW through+right green -->
+        <phase duration="30" state="rrrGGgrrrGGg" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrryyyrrryyy"/>
+        <!-- EW left green -->
+        <phase duration="15" state="GGgrrrGGgrrr" minDur="8" maxDur="25"/>
+        <!-- EW left yellow -->
+        <phase duration="3"  state="yyyrrryyyrrr"/>
+    </tlLogic>
+</additional>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <tlLogic id="n_0_0" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_0_1" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_0_2" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_0_3" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_1_0" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_1_1" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_1_2" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_1_3" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_2_0" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_2_1" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_2_2" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_2_3" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_3_0" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_3_1" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_3_2" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+    <tlLogic id="n_3_3" type="static" programID="default" offset="0">
+        <!-- NS green -->
+        <phase duration="30" state="GGGgrrrrGGGgrrrr" minDur="10" maxDur="45"/>
+        <!-- NS yellow -->
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <!-- EW green -->
+        <phase duration="30" state="rrrrGGGGrrrrGGGG" minDur="10" maxDur="45"/>
+        <!-- EW yellow -->
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+</additional>

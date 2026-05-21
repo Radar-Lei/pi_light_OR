@@ -1,0 +1,241 @@
+{
+  "experiment": "block1_offline_recovery_pilot",
+  "status": "PASSED",
+  "scope": "equal-complexity one-atom scaffold on Block 0 proxy states",
+  "results": [
+    {
+      "scenario": "toy_nonbinding",
+      "oracle_values": [
+        14.000000000010004,
+        6.000000000028649
+      ],
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            0,
+            1
+          ]
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            0,
+            1
+          ]
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            0,
+            1
+          ]
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 0,
+          "oracle_regret": 7.999999999981355,
+          "score_rank": [
+            1,
+            0
+          ]
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            0,
+            1
+          ]
+        }
+      ],
+      "dual_tied_best": true,
+      "note": "This is a scaffold/pilot on proxy states, not the full sparse MIP recovery."
+    },
+    {
+      "scenario": "single_intersection_proxy",
+      "oracle_values": [
+        14.000000000010004,
+        10.999999999967258,
+        4.000000000019099,
+        2.9999999999290594
+      ],
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 2,
+          "oracle_best_movement": 0,
+          "oracle_regret": 9.999999999990905,
+          "score_rank": [
+            2,
+            3,
+            1,
+            0
+          ]
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "dual_tied_best": true,
+      "note": "This is a scaffold/pilot on proxy states, not the full sparse MIP recovery."
+    },
+    {
+      "scenario": "arterial_bottleneck_proxy",
+      "oracle_values": [
+        6.999999999607098,
+        10.000000000218279,
+        5.9999999994033715,
+        -97.99999999995634,
+        -16.999999999825377,
+        -7.999999999810825
+      ],
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 1,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            1,
+            0,
+            2,
+            5,
+            4,
+            3
+          ]
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 1,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            1,
+            0,
+            2,
+            5,
+            4,
+            3
+          ]
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 1,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            1,
+            0,
+            2,
+            5,
+            4,
+            3
+          ]
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 5,
+          "oracle_best_movement": 1,
+          "oracle_regret": 18.000000000029104,
+          "score_rank": [
+            5,
+            4,
+            2,
+            1,
+            3,
+            0
+          ]
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 1,
+          "oracle_regret": 0.0,
+          "score_rank": [
+            1,
+            0,
+            2,
+            5,
+            4,
+            3
+          ]
+        }
+      ],
+      "dual_tied_best": true,
+      "note": "This is a scaffold/pilot on proxy states, not the full sparse MIP recovery."
+    }
+  ]
+}

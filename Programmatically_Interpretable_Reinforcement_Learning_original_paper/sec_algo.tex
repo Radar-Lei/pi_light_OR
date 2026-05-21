@@ -1,0 +1,65 @@
+\newcommand{\NN}{\mathcal{N}}
+\newcommand{\syn}{\mathit{syn}}
+
+\section{Neurally Directed Program Search}
+\label{sec:algorithm}
+
+\paragraph{Imitating a Neural Policy Oracle.}
+
+The \algo algorithm is a direct policy search that is guided by a neural ``oracle''. Searching over policies is a standard approach in reinforcement learning. However, the nonsmoothness of the space of programmatic policies poses a fundamental challenge 
+to the use of such an approach in \sygurl. For example, a conceivable way of solving the search problem would be to 
+define a neighborhood relation over programs and perform local search. However, in practice, the objective $R(e)$ of such a search can vary irregularly, leading to poor performance (see Section~\ref{sec:evaluation} for experimental results on this).
+
+In contrast, \algo starts by using \drl to compute a neural policy oracle $e_\NN$ for the given environment. This policy is an approximation of the programmatic policy that we seek to find. To a first approximation, \algo is a local search over programmatic policies that seeks to find a program $e^*$ that closely imitates the behavior of $e_\NN$. The main intuition here is that distance from $e_\NN$ is a simpler objective than the reward function $R(e)$, which aggregates rewards over a lengthy time horizon. This approach can be seen to be a form of imitation learning~\citep{schaal1999imitation}.
+
+The {\em distance} between $e_\NN$ and the estimate $e$ of $e^*$ in a search iteration is defined as 
+$
+d(e_\NN, e) = \sum_{h \in \mathcal{H}} \norm{e(h) - e_\NN(h)}, 
+$
+where $\mathcal{H}$ is a set of ``interesting'' inputs (histories) and $\norm{\cdot}$ is a suitable norm. During the iteration, we search the neighborhood of $e$ for a program $e'$ that minimizes this distance. At the end of the iteration, 
+$e'$ becomes the new estimate for $e^*$.
+
+\parag{Input Augmentation} One challenge in the algorithm is that under the policy $e$, the agent may encounter histories that are not possible under $e_\NN$, or any of the programs encountered in previous iterations of the search. For example, while searching for a steering controller, we may arrive at a program that, under certain conditions, steers the car into a wall, an illegal behavior that the neural policy does not exhibit. Such histories would be irrelevant to the distance between $e_\NN$ and $e$ if the set $\mathcal{H}$ were constructed ahead of time by simulating $e_\NN$, and never updated. This would be unfortunate as these are precisely the inputs on which the programmatic policy needs guidance. 
+
+Our solution to this problem is {\em input augmentation}, or periodic updates to the set $\mathcal{H}$.  More precisely, after a certain number of search steps for a fixed set $\mathcal{H}$, and after choosing the best available synthesized program for this set, we sample a set of additional histories by simulating the current programmatic policy, and add these samples to $\mathcal{H}$.
+
+\subsection{Algorithm Details} 
+\label{algodetails}
+
+
+\begin{algorithm}[h]
+	\caption{Neurally Directed Program Search}
+	\label{alg:ogSynthesis}
+{
+	\begin{algorithmic}
+		\STATE {\bfseries Input:} POMDP $M$, neural policy $e_{\NN}$, sketch $\S$
+		\STATE $ \mathcal{H} \gets \mathtt{create\_histories}(e_{\NN}, M)$
+		\STATE $e \gets \mathtt{initialize}(e_{\NN}, \mathcal{H}, M, \S)$
+		\STATE $R \gets  \mathtt{collect\_reward}(e, M)$
+		\REPEAT
+		\STATE $ (e^\prime, R^\prime) \gets (e, R) $ 
+		\STATE $\mathcal{H} \gets \mathtt{update\_histories}(e, e_\NN, M, \mathcal{H})$
+		\STATE $\mathcal{E} \gets \mathtt{neighborhood\_pool}(e)$
+		\STATE $e \gets  \argmin_{e' \in \mathcal{E}} \sum_{h \in \mathcal{H}} \norm{e'(h) - e_\NN(h)}$ 
+		\STATE $R \gets  \mathtt{collect\_reward}(e, M)$
+	    \UNTIL{$R^\prime \geq R$}  
+		\STATE {\bfseries Output:} $ e^\prime$		
+	\end{algorithmic}
+}
+\end{algorithm}
+
+We show pseudocode for \algo in Algorithm~\ref{alg:ogSynthesis}. 
+The inputs to the algorithm are a \pomdp $M$, a neural policy $e_\NN$ for $M$ that serves as an oracle, and a sketch $\S$. The algorithm first samples a set of histories of $e_\NN$ using the procedure $\mathtt{create\_histories}$. Next it uses the routine $\mathtt{initialize}$ to generate the program that is the starting point of the policy search. Then the procedure $\mathtt{collect\_reward}$ calculates the expected aggregate reward $R(e)$ (described in Section~\ref{sec:sygurl}), by simulating the program in the \pomdp. 
+
+From this point on, \algo iteratively updates its estimate $e$ of the target program, as well as its estimate $\mathcal{H}$ of the set of interesting inputs used for distance computation. To do the former, \algo uses the procedure $\mathtt{neighborhood\_pool}$ to generate a space of programs that are structurally similar to $e$, then finds the program in this space that minimizes distance from $e_\NN$. The latter task is done by the routine $\mathtt{update\_histories}$, which heuristically picks interesting inputs in the trajectory of the learned program and then obtains the corresponding actions from the oracle for those inputs. This process goes on until the iterative search fails to improve the estimated reward $R$ of $e$.
+
+The subroutines used in the above description can be implemented in many ways. Now we elaborate on our implementation of the important subroutines of \algo. 
+
+\paragraph{The optimization step.}
+The search for a program $e'$ at minimal distance from the neural oracle can be implemented in many ways. The approach we use has two steps. First, we enumerate a set of {\em program templates} --- numerically parameterized programs --- that are structurally similar to $e$ and are permitted by the sketch $\S$, giving priority to shorter templates. Next, we find optimal parameters for the enumerated templates.
+Our primary tool for the second step is Bayesian optimization \cite{BayesianOpt}, though we also explored a symbolic optimization technique based on Satisfiability Modulo Theories (SMT) solving  (Appendix~\ref{sec:opt}).
+
+\paragraph{The initialization step.}
+The performance of \algo turns out to be quite sensitive to the choice of the program that is the starting point of the search. 
+Our initialization routine $\mathtt{initialize}$ is broadly similar to the optimization step, in that it attempts to find programs that closely imitate the oracle through a combination of template enumeration and parameter optimization. 
+However, rather than settling on a single program, $\mathtt{initialize}$ generates a pool of programs that are close in behavior to the oracle. After this, it simulates the programs in the POMDP and returns the program that achieves the highest reward.

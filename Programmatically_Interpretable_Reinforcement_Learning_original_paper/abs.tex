@@ -1,0 +1,26 @@
+\begin{abstract}
+We present a reinforcement learning framework, called {\em Programmatically
+    Interpretable Reinforcement Learning} (\pirl), that is designed to 
+generate interpretable and verifiable
+  agent policies. Unlike the popular Deep
+  Reinforcement Learning (\drl) paradigm, which represents policies by
+  neural networks, \pirl 
+represents policies using a high-level, domain-specific programming language. Such 
+  programmatic policies have the benefits of being more easily
+  interpreted than neural networks, and being amenable to verification by symbolic
+  methods. We propose a new method, called {\em
+    Neurally Directed Program Search} (\algo), for solving the
+  challenging nonsmooth optimization problem of finding a
+  programmatic policy with maximal reward. \algo works by first learning a neural policy
+  network using \drl, and then performing a local search over
+  programmatic policies that
+  seeks to minimize a distance from this neural
+  ``oracle''. We evaluate \algo on the task of learning to drive a
+  simulated car in the \torcs car-racing environment. We demonstrate
+  that \algo is able to discover human-readable policies that pass
+  some significant performance bars. We also show that
+\pirl policies can have 
+  smoother trajectories, and can be 
+  more easily transferred to environments not encountered during
+  training, than corresponding policies discovered by \drl.
+\end{abstract}

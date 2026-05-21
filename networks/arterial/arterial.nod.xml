@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+    <node id="C1" x="0.0" y="0" type="traffic_light"/>
+    <node id="C2" x="300.0" y="0" type="traffic_light"/>
+    <node id="C3" x="600.0" y="0" type="traffic_light"/>
+    <node id="C4" x="900.0" y="0" type="traffic_light"/>
+    <node id="C5" x="1200.0" y="0" type="traffic_light"/>
+    <node id="W_in" x="-300.0" y="0"/>
+    <node id="E_out" x="1500.0" y="0"/>
+    <node id="N1" x="0.0" y="300.0"/>
+    <node id="S1" x="0.0" y="-300.0"/>
+    <node id="N2" x="300.0" y="300.0"/>
+    <node id="S2" x="300.0" y="-300.0"/>
+    <node id="N3" x="600.0" y="300.0"/>
+    <node id="S3" x="600.0" y="-300.0"/>
+    <node id="N4" x="900.0" y="300.0"/>
+    <node id="S4" x="900.0" y="-300.0"/>
+    <node id="N5" x="1200.0" y="300.0"/>
+    <node id="S5" x="1200.0" y="-300.0"/>
+</nodes>

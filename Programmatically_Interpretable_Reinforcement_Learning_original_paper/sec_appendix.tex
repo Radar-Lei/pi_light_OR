@@ -1,0 +1,143 @@
+\appendix
+\section{Evaluation on Classic Control Games}
+\label{apn:evaluations}
+In this section, we provide results of additional experimental evaluation on some classic control games. We use the OpenAI Gym environment implementation of these games. A brief description of these games is given below.
+
+We used the {\sc Duel-DDQN} algorithm~\citep{duel} to obtain our neural policy oracle for these games, rather than \textsc{Ddpg}, as an implementation of Duel-DDQN already appears on the OpenAI Gym leader-board.  
+
+\begin{table}[h]
+	\caption{Rewards achieved in Classic Control Games. Acrobot does not have threshold at which it is considered solved.}
+	\label{table:openai}
+	\begin{center}
+		\begin{small}
+			\begin{sc}
+				\begin{tabular}{l c c c}
+					\toprule
+					& Acrobot & CartPole & MountainCar  \\
+					\midrule
+                          \textsc{Solved} & $-$ & 195 & -110  \\
+                                        \drl & -63.17 & 197.53 & -84.73  \\
+					\algo-SMT & -84.16  &  183.15 &  -108.06 \\
+                                        \algo-BOPT & -127.21 & 143.21 & -143.86 \\
+                                                    \textsc{Minimum} & -200 & 8 & -200  \\
+					\bottomrule
+				\end{tabular}
+			\end{sc}
+		\end{small}
+	\end{center}
+\end{table}
+
+
+\paragraph{Acrobot.} This environment consists of a two link, two joint robot. The joint between the links is actuated. At the start of the episode, the links are hanging downwards. At every timestep the agent chooses an action that correspond to applying a force to move the actuated link to the right, to the left, or to not applying a force. The episode is over once the end of the lower link swings above a certain height. The goal is to end the episode in the fewest possible timesteps. 
+
+We use the OpenAI Gym `Acrobot-v1' environment. This implementation is based on the system presented in~\citep{JMLR:v16:geramifard15a}. Each observation is a set consisting of readings from six sensors, corresponding to the rotational joint angles and velocities of joints and links. The action space is discrete with three elements, and at each timestep the environment returns the observation and a reward of $-1$. An episode is terminated after 200 time steps irrespective of the state of the robot. This is an unsolved environment, which means it does not have a specified reward threshold at which it's considered solved.
+
+\paragraph{CartPole.} This environment consists of a pole attached by an un-actuated joint to a cart that moves along a frictionless track. At the beginning, the pole is balanced vertically on the cart. The episode ends when the pole is more than $15^\circ$ from vertical, or the cart moves more than 2.4 units from the center.  At every timestep the agent chooses to apply a force to move the cart to the right or to the left, and the goal is to prevent an episode from ending for the maximum possible timesteps. 
+
+We use the OpenAI Gym `CartPole-v0' environment, based on the system presented in~\citep{Barto83}. The sensor values correspond to the cart position, cart velocity, pole angle and pole velocity. The action space is discrete with two elements, and at each timestep the environment returns the observation and a reward of $+1$. An episode is terminated after 200 time steps irrespective of the state of the cart. CartPole-v0 defines ``solving" as getting an average reward of at least 195.0 over 100 consecutive trials.
+
+\paragraph{MountainCar.} This environment consists of an underpowered car on a one-dimensional track. At the beginning, the car is placed between two `hills'. The episode ends when the car reaches the top of the hill in front of it. Since the car is underpowered, the agent needs to drive it back and forth to build momentum. At every timestep the agent chooses to apply a force to move the car to the right, to the left, or to not apply a force. The goal is to end the episode in the fewest possible timesteps. 
+
+We use the OpenAI Gym `MountainCar-v0' environment. This implementation is based on the system presented in~\citep{Moore-1991-15826}. The sensors provide the position and velocity of the car. The action space is discrete with three elements, and at each timestep the environment returns the observation and a reward of $-1$. An episode is terminated after 200 time steps irrespective of the state of the robot. MountainCar-v0  is considered ``solved" if the average reward over 100 consecutive trials is not less than -110.0.
+
+\begin{figure*}[h]
+	\vskip 0.1in
+	\begin{equation*}
+	\begin{array}{l}
+0.97 * \pickc((0.0 - h_\tangle), -1) \hspace{-2pt}+ 0.05 * \foldc(+, (0.0 - h_\tangle))   \hspace{-2pt}+ 49.98 * (\pickc(h_\tangle, -2) - \pickc(h_\tangle, -1))
+	\end{array}
+	\end{equation*}
+	\caption{A programmatic policy for steering, automatically discovered by the \algo algorithm with training on Aalborg. 
+	}
+	\label{fig:codesteer}
+	\begin{equation*}
+	\begin{array}{l }
+	\ifc~(0.0001 - \pickc(h_\tangle, -1) > 0 )~\andc~(0.0001 + \pickc(h_\tangle, -1) > 0) \\
+	\hspace{10pt} \thenc~ 0.95 * \pickc((0.64 - h_\rpm), -1)+ 5.02 * \foldc(+, (0.64 - h_\rpm))+ 43.89 * (\pickc(h_\rpm, -2) - \pickc(h_\rpm, -1)) \\
+	\hspace{10pt} \elsec~ \;\, 0.95 * \pickc((0.60 - h_\rpm), -1)+ 5.02 * \foldc(+, (0.60 - h_\rpm))+ 43.89 * (\pickc(h_\rpm, -2) - \pickc(h_\rpm, -1))
+	\end{array}
+	\end{equation*}
+	\caption{A programmatic policy for acceleration, automatically discovered by the \algo algorithm with training on CG-Speedway-1.}
+	\label{fig:cgaccel}
+	\begin{equation*}
+	\begin{array}{l }
+0.86 * \pickc((0.0 - h_\tangle), -1) \hspace{-2pt}+ 0.09 * \foldc(+, (0.0 - h_\tangle))   \hspace{-2pt}+ 46.51 * (\pickc(h_\tangle, -2) - \pickc(h_\tangle, -1))
+	\end{array}
+	\end{equation*}
+	\caption{A programmatic policy for steering, automatically discovered by the \algo algorithm with training on CG-Speedway-1.}
+	\label{fig:cgsteer}
+\end{figure*}
+
+\paragraph{Results.} Table~\ref{table:openai} shows rewards obtained by optimal policies found using various methods in these environments. The first row gives numbers for the \drl method. The rows \algo-SMT and \algo-BOPT  for versions of the \algo algorithm that respectively use SMT-based optimization and Bayesian optimization to find template parameters (more on this below). 
+
+
+\section{Additional Details on Algorithm}\label{sec:opt}
+
+Now we elaborate on the optimization techniques we used in the distance computation step $\argmin_{e'} \sum_{h \in \mathcal{H}} \norm{e'(h) - e_\NN(h)}$, to find a program similar to a given program $e$, in Algorithm~1.
+
+As mentioned in the main paper, we start by enumerating a list of {\em program templates}, or programs with numerical-valued parameters $\theta$. This is  done by first replacing the numerical constants in $e$ by parameters, eliding some subexpressions from the resulting parameterized program, and then regenerating the subexpressions using the rules of $\S$ (without instantiating the parameters), giving priority to shorter expressions. The resulting program template $e_\theta$ follows the sketch $\S$ and is also structurally close to $e$. Now we search for values for parameters $\theta$ that optimally imitate the neural oracle. 
+
+\paragraph{Bayesian optimization.}
+We use Bayesian optimization as our primary tool when searching for such optimal parameter values. This method applies to problems in which actions (program outputs) can be represented as 
+vectors of real numbers. All problems considered in our experiments fall in this category. The distance of individual pairs of outputs of the synthesized program and the policy oracle is then simply the Euclidean distance between them. The sum of these distances is used to define the aggregate cost across all inputs in $\mathcal{H}$. We then use Bayesian optimization to find parameters that minimize this cost.
+
+\begin{figure}[h]
+	\begin{equation*}
+	\begin{array}{l }
+	\ifc~(0.1357 +\pickc(h_4, -1))< 0 \\
+	\hspace{15pt}\thenc~2\\
+	\hspace{15pt}\elsec~0
+	\end{array}
+	\end{equation*}
+	\caption{A programmatic policy for Acrobot, automatically discovered by the \algo algorithm.}
+	\label{fig:acro}
+	
+	\begin{equation*}
+	\begin{array}{l }
+	\ifc~(\foldc(+, h_0) - \pickc(h_3, -1)) > 0  \\
+	\hspace{15pt}\thenc~0\\
+	\hspace{15pt}\elsec~1
+	\end{array}
+	\end{equation*}
+	\caption{A programmatic policy for CartPole, automatically discovered by the \algo algorithm.}
+	\label{fig:cpole}
+	
+	
+	\begin{equation*}
+	\begin{array}{l }
+	\ifc~(0.2498 - \pickc(h_0, -1) > 0 )\\ \hspace{15pt}\andc~(0.0035 - \pickc(h_1, -1) < 0) \\
+	\hspace{30pt}\thenc~0\\
+	\hspace{30pt}\elsec~2
+	\end{array}
+	\end{equation*}
+	\caption{A programmatic policy for MountainCar, automatically discovered by the \algo algorithm.}
+	\label{fig:mcar}
+	
+	
+\end{figure}
+
+
+
+\paragraph{SMT-based Optimization.}  
+We also use a second parameter search technique based on SMT (Satisfiability Modulo Theories) solving.
+Here, we generate a constraint that stipulates that for each $h \in \mathcal{H}$, the output $e_\theta(h)$ must match $e_\NN(h)$ up to a constant error. Here, $e_\NN(h)$ is a constant value obtained by executing $e_\NN$. The output $e_\theta(h)$ depends on unknown parameters $\theta$; however, constraints over $e_\theta(h)$ can be represented as constraints over $\theta$ using techniques for {\em symbolic execution} of programs~\citep{cadar2013symbolic}.
+Because the oracle is only an approximation to the optimal policy in our setting, we do not insist that the generated constraint is satisfied entirely. Instead, we 
+set up a Max-Sat problem which assigns a weight to the constraint for each input $h$, and then solve this problem with a Max-Sat solver. 
+
+Unfortunately, SMT-based optimization does not scale well in environments with continuous actions. Consequently, we exclusively use Bayesian optimization for all \torcs based experiments. SMT-based optimization can be used in the classic control games, however, and Table~\ref{table:openai} shows results generated using this technique (in row \algo-SMT).
+
+The results in Table~\ref{table:openai} show that for the classic control games, SMT-based optimization gives better results. This is because the small number of legal actions in these games, limited to at most three values $\{0,1,2\}$, are well suited for the SMT setting. The SMT solver is able to efficiently perform  parameter optimization, with a small set of histories. Whereas, the limited variability in actions forces the  Bayesian optimization method to use a larger set of histories, and makes it harder for the method to avoid getting trapped in local minimas. 
+
+\section{Policy Examples}\label{sec:examples}
+In this section we present more examples of the policies found by the \algo algorithm.
+
+The program in Figure~\ref{fig:codesteer} shows the body of a policy for steering, which  together with the acceleration policy given in the paper (Figure~\ref{fig:code}), was found by the \algo algorithm  by training on the Aalborg track. Figures~\ref{fig:cgaccel} \& \ref{fig:cgsteer} likewise show the policies for acceleration and steering respectively, when trained on the CG-Speedway-1 track. Similarly, Figures~\ref{fig:acro}, \ref{fig:cpole} \& \ref{fig:mcar} show policies found for Acrobot, CartPole, and MountainCar respectively. Here $h_i$ is the sequence
+of observations from the $i$-th of $k$ sensors, for example $h_0$ is the $0$-th sensor. The sensor order is determined by the OpenAI simulator.
+
+
+\section{\torcs Video}
+We provide a video at the following link, which depicts clips of the \drl agent and the \algo algorithm synthesized program, on the training track and one of the transfer (unseen) tracks, in that order:
+ 
+\verb|https://goo.gl/Z2X5x6|
+
+On the training track, we can see that the steering actions taken by the \drl agent are very irregular, especially when compared to the smooth steering actions of the \algo agent in the following clip. For the transfer track, we show the agents driving on the E-Road track. We can see that the \drl agent crashes before completing a full lap, while the \algo agent does not crash. We have provided only small clips of the car during a race, to keep the video length and size small, but the behavior is representative of the agent for the entire race.

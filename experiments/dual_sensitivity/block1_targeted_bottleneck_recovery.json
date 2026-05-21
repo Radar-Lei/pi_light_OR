@@ -1,0 +1,916 @@
+{
+  "experiment": "block1_sumo_sampled_recovery",
+  "status": "PASSED",
+  "scope": "SUMO sampled states + one-step LP + one-atom equal-complexity pilot",
+  "input_states": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+  "tls": "C3",
+  "num_results": 16,
+  "gate_dual_valid": true,
+  "gate_dual_tied_best": true,
+  "gate_dual_beats_raw_atoms": true,
+  "aggregate_regret": {
+    "local_only": {
+      "sum": 405.38240000387304,
+      "mean": 25.336400000242065,
+      "zero_regret": 12,
+      "count": 16
+    },
+    "raw_neighbor": {
+      "sum": 1857.7696000029391,
+      "mean": 116.1106000001837,
+      "zero_regret": 0,
+      "count": 16
+    },
+    "all_neighbor": {
+      "sum": 1267.065600000933,
+      "mean": 79.19160000005832,
+      "zero_regret": 0,
+      "count": 16
+    },
+    "pressure_backpressure": {
+      "sum": 0.0,
+      "mean": 0.0,
+      "zero_regret": 16,
+      "count": 16
+    },
+    "random_price": {
+      "sum": 1057.3856000009982,
+      "mean": 66.08660000006239,
+      "zero_regret": 0,
+      "count": 16
+    },
+    "dual_sensitivity": {
+      "sum": 0.0,
+      "mean": 0.0,
+      "zero_regret": 16,
+      "count": 16
+    }
+  },
+  "results": [
+    {
+      "scenario": "sumo_C3_t0",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 1,
+          "oracle_regret": 101.20959999767365
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 1,
+          "oracle_regret": 101.20959999767365
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 1,
+          "oracle_regret": 101.20959999767365
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 1,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 4,
+          "oracle_best_movement": 1,
+          "oracle_regret": 32.73599999738508
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 1,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t1",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 0,
+          "oracle_regret": 106.81280000062543
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 0,
+          "oracle_regret": 106.81280000062543
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 5,
+          "oracle_best_movement": 0,
+          "oracle_regret": 33.007999998517334
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t2",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 0.9999999999999996,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 2,
+          "oracle_best_movement": 0,
+          "oracle_regret": 106.81280000062543
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 2,
+          "oracle_best_movement": 0,
+          "oracle_regret": 106.81280000062543
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 5,
+          "oracle_best_movement": 0,
+          "oracle_regret": 139.5488000016485
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t3",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 4,
+          "oracle_best_movement": 4,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 4,
+          "oracle_best_movement": 4,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t4",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 0.9999999999999996,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 3,
+          "oracle_regret": 139.5488000016485
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 4,
+          "oracle_best_movement": 3,
+          "oracle_regret": 106.81280000062543
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 7,
+          "oracle_best_movement": 3,
+          "oracle_regret": 30.832000000373228
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t5",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 0.9999999999999999,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 2,
+          "oracle_best_movement": 3,
+          "oracle_regret": 139.5488000016485
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 5,
+          "oracle_best_movement": 3,
+          "oracle_regret": 106.81280000062543
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 7,
+          "oracle_best_movement": 3,
+          "oracle_regret": 30.832000000373228
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t6",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 0.9999999999999999,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 7,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 7,
+          "oracle_regret": 137.75359999999637
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 7,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 7,
+          "oracle_best_movement": 7,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 7,
+          "oracle_regret": 137.75359999999637
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 7,
+          "oracle_best_movement": 7,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t7",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 6,
+          "oracle_regret": 137.75359999999637
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 7,
+          "oracle_best_movement": 6,
+          "oracle_regret": 101.4815999988059
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 5,
+          "oracle_best_movement": 6,
+          "oracle_regret": 36.54399999868474
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t8",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 2,
+          "oracle_best_movement": 6,
+          "oracle_regret": 143.0848000018159
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 8,
+          "oracle_best_movement": 6,
+          "oracle_regret": 106.81280000062543
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 6,
+          "oracle_regret": 36.27200000119046
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t9",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 10,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 10,
+          "oracle_regret": 137.75359999999637
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 10,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 10,
+          "oracle_best_movement": 10,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 11,
+          "oracle_best_movement": 10,
+          "oracle_regret": 0.2720000011322554
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 10,
+          "oracle_best_movement": 10,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t10",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 0.9999999999999999,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 9,
+          "oracle_regret": 137.75359999999637
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 10,
+          "oracle_best_movement": 9,
+          "oracle_regret": 101.4815999988059
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 10,
+          "oracle_best_movement": 9,
+          "oracle_regret": 101.4815999988059
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t11",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 9,
+          "oracle_regret": 143.0848000018159
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 11,
+          "oracle_best_movement": 9,
+          "oracle_regret": 106.81280000062543
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 5,
+          "oracle_best_movement": 9,
+          "oracle_regret": 36.54400000232272
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t12",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 0,
+          "oracle_regret": 4.460800002561882
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 0,
+          "oracle_regret": 4.460800002561882
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 8,
+          "oracle_best_movement": 0,
+          "oracle_regret": 107.85279999981867
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t13",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 3,
+          "oracle_regret": 108.12479999731295
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 4,
+          "oracle_best_movement": 3,
+          "oracle_regret": 4.460800002561882
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 11,
+          "oracle_best_movement": 3,
+          "oracle_regret": 107.85279999981867
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t14",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 2,
+          "oracle_best_movement": 6,
+          "oracle_regret": 113.56479999813018
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 8,
+          "oracle_best_movement": 6,
+          "oracle_regret": 4.4607999952859245
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 5,
+          "oracle_best_movement": 6,
+          "oracle_regret": 113.56479999813018
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    },
+    {
+      "scenario": "sumo_C3_t15",
+      "num_movements": 12,
+      "num_feasible_movements": 12,
+      "rank_match_finite_difference": true,
+      "pressure_special_case_pass": true,
+      "nonbinding_storage": true,
+      "dual_fd_correlation": 1.0,
+      "variants": [
+        {
+          "variant": "local_only",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "raw_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 1,
+          "oracle_best_movement": 9,
+          "oracle_regret": 99.29279999778373
+        },
+        {
+          "variant": "all_neighbor",
+          "program_complexity": 1,
+          "chosen_movement": 11,
+          "oracle_best_movement": 9,
+          "oracle_regret": 4.4607999952859245
+        },
+        {
+          "variant": "pressure_backpressure",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "variant": "random_price",
+          "program_complexity": 1,
+          "chosen_movement": 2,
+          "oracle_best_movement": 9,
+          "oracle_regret": 11.081600001489278
+        },
+        {
+          "variant": "dual_sensitivity",
+          "program_complexity": 1,
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ],
+      "dual_tied_best": true
+    }
+  ],
+  "caveat": "Still not full sparse MIP recovery; pressure/backpressure is reported as a strong diagnostic baseline, not a recovered raw one-atom program."
+}

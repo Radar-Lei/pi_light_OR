@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType id="car" length="5" minGap="2.5" maxSpeed="13.89" accel="2.6" decel="4.5"/>
+
+    <route id="route_N2C_C2S" edges="N2C C2S"/>
+    <route id="route_N2C_C2E" edges="N2C C2E"/>
+    <route id="route_N2C_C2W" edges="N2C C2W"/>
+    <route id="route_S2C_C2N" edges="S2C C2N"/>
+    <route id="route_S2C_C2W" edges="S2C C2W"/>
+    <route id="route_S2C_C2E" edges="S2C C2E"/>
+    <route id="route_E2C_C2W" edges="E2C C2W"/>
+    <route id="route_E2C_C2S" edges="E2C C2S"/>
+    <route id="route_E2C_C2N" edges="E2C C2N"/>
+    <route id="route_W2C_C2E" edges="W2C C2E"/>
+    <route id="route_W2C_C2N" edges="W2C C2N"/>
+    <route id="route_W2C_C2S" edges="W2C C2S"/>
+
+    <flow id="f_0" route="route_N2C_C2S" begin="0" end="3600" period="10.00" departSpeed="max" departLane="best"/>
+    <flow id="f_1" route="route_N2C_C2E" begin="0" end="3600" period="30.00" departSpeed="max" departLane="best"/>
+    <flow id="f_2" route="route_N2C_C2W" begin="0" end="3600" period="30.00" departSpeed="max" departLane="best"/>
+    <flow id="f_3" route="route_S2C_C2N" begin="0" end="3600" period="10.00" departSpeed="max" departLane="best"/>
+    <flow id="f_4" route="route_S2C_C2W" begin="0" end="3600" period="30.00" departSpeed="max" departLane="best"/>
+    <flow id="f_5" route="route_S2C_C2E" begin="0" end="3600" period="30.00" departSpeed="max" departLane="best"/>
+    <flow id="f_6" route="route_E2C_C2W" begin="0" end="3600" period="10.00" departSpeed="max" departLane="best"/>
+    <flow id="f_7" route="route_E2C_C2S" begin="0" end="3600" period="30.00" departSpeed="max" departLane="best"/>
+    <flow id="f_8" route="route_E2C_C2N" begin="0" end="3600" period="30.00" departSpeed="max" departLane="best"/>
+    <flow id="f_9" route="route_W2C_C2E" begin="0" end="3600" period="10.00" departSpeed="max" departLane="best"/>
+    <flow id="f_10" route="route_W2C_C2N" begin="0" end="3600" period="30.00" departSpeed="max" departLane="best"/>
+    <flow id="f_11" route="route_W2C_C2S" begin="0" end="3600" period="30.00" departSpeed="max" departLane="best"/>
+</routes>

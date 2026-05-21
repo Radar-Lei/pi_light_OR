@@ -1,0 +1,271 @@
+\begin{thebibliography}{38}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abolafia et~al.(2018)Abolafia, Norouzi, and Le]{rlbf}
+Abolafia, D.~A., Norouzi, M., and Le, Q.~V.
+\newblock Neural program synthesis with priority queue training.
+\newblock \emph{CoRR}, abs/1801.03526, 2018.
+
+\bibitem[Alur et~al.(2015)Alur, Bod{\'{\i}}k, Dallal, Fisman, Garg, Juniwal,
+  Kress{-}Gazit, Madhusudan, Martin, Raghothaman, Saha, Seshia, Singh,
+  Solar{-}Lezama, Torlak, and Udupa]{sygus}
+Alur, R., Bod{\'{\i}}k, R., Dallal, E., Fisman, D., Garg, P., Juniwal, G.,
+  Kress{-}Gazit, H., Madhusudan, P., Martin, M. M.~K., Raghothaman, M., Saha,
+  S., Seshia, S.~A., Singh, R., Solar{-}Lezama, A., Torlak, E., and Udupa, A.
+\newblock Syntax-guided synthesis.
+\newblock In \emph{Dependable Software Systems Engineering}, pp.\  1--25. 2015.
+\newblock \doi{10.3233/978-1-61499-495-4-1}.
+
+\bibitem[Astrom \& Hagglund(1984)Astrom and Hagglund]{PIDControl}
+Astrom, K. and Hagglund, T.
+\newblock Automatic tuning of simple regulators with specifications on phase
+  and amplitude margins.
+\newblock \emph{Automatica}, 20\penalty0 (5):\penalty0 645 -- 651, 1984.
+\newblock ISSN 0005-1098.
+\newblock \doi{https://doi.org/10.1016/0005-1098(84)90014-1}.
+
+\bibitem[{\AA}str{\"o}m \& H{\"a}gglund(1995){\AA}str{\"o}m and
+  H{\"a}gglund]{aastrom1995pid}
+{\AA}str{\"o}m, K.~J. and H{\"a}gglund, T.
+\newblock \emph{PID controllers: Theory, Design, and Tuning}.
+\newblock Instrument society of America, 1995.
+
+\bibitem[Balog et~al.(2016)Balog, Gaunt, Brockschmidt, Nowozin, and
+  Tarlow]{DeepCoder}
+Balog, M., Gaunt, A.~L., Brockschmidt, M., Nowozin, S., and Tarlow, D.
+\newblock Deepcoder: Learning to write programs.
+\newblock \emph{CoRR}, abs/1611.01989, 2016.
+
+\bibitem[Barto et~al.(1983)Barto, Sutton, and Anderson]{Barto83}
+Barto, A.~G., Sutton, R.~S., and Anderson, C.~W.
+\newblock Neuronlike adaptive elements that can solve difficult learning
+  control problems.
+\newblock \emph{IEEE Transactions on Systems, Man, and Cybernetics},
+  SMC-13\penalty0 (5):\penalty0 834--846, Sept 1983.
+\newblock ISSN 0018-9472.
+\newblock \doi{10.1109/TSMC.1983.6313077}.
+
+\bibitem[Bunel et~al.(2018)Bunel, Hausknecht, Devlin, Singh, and
+  Kohli]{rlkarel}
+Bunel, R., Hausknecht, M., Devlin, J., Singh, R., and Kohli, P.
+\newblock Leveraging grammar and reinforcement learning for neural program
+  synthesis.
+\newblock In \emph{ICLR}, 2018.
+
+\bibitem[Cadar \& Sen(2013)Cadar and Sen]{cadar2013symbolic}
+Cadar, C. and Sen, K.
+\newblock Symbolic execution for software testing: three decades later.
+\newblock \emph{Communications of the ACM}, 56\penalty0 (2):\penalty0 82--90,
+  2013.
+
+\bibitem[Devlin et~al.(2017)Devlin, Uesato, Bhupatiraju, Singh, Mohamed, and
+  Kohli]{RobustFill}
+Devlin, J., Uesato, J., Bhupatiraju, S., Singh, R., Mohamed, A., and Kohli, P.
+\newblock Robustfill: Neural program learning under noisy {I/O}.
+\newblock \emph{CoRR}, abs/1703.07469, 2017.
+
+\bibitem[Feser et~al.(2015)Feser, Chaudhuri, and
+  Dillig]{DBLP:conf/pldi/FeserCD15}
+Feser, J.~K., Chaudhuri, S., and Dillig, I.
+\newblock Synthesizing data structure transformations from input-output
+  examples.
+\newblock In \emph{Proceedings of the 36th {ACM} {SIGPLAN} Conference on
+  Programming Language Design and Implementation, Portland, OR, USA, June
+  15-17, 2015}, pp.\  229--239, 2015.
+\newblock \doi{10.1145/2737924.2737977}.
+
+\bibitem[Garnelo et~al.(2016)Garnelo, Arulkumaran, and Shanahan]{SymbolicRL}
+Garnelo, M., Arulkumaran, K., and Shanahan, M.
+\newblock Towards deep symbolic reinforcement learning.
+\newblock \emph{CoRR}, abs/1609.05518, 2016.
+
+\bibitem[Geramifard et~al.(2015)Geramifard, Dann, Klein, Dabney, and
+  How]{JMLR:v16:geramifard15a}
+Geramifard, A., Dann, C., Klein, R.~H., Dabney, W., and How, J.~P.
+\newblock Rlpy: A value-function-based reinforcement learning framework for
+  education and research.
+\newblock \emph{Journal of Machine Learning Research}, 16:\penalty0 1573--1578,
+  2015.
+
+\bibitem[Graves et~al.(2014)Graves, Wayne, and Danihelka]{ntm}
+Graves, A., Wayne, G., and Danihelka, I.
+\newblock Neural turing machines.
+\newblock \emph{CoRR}, abs/1410.5401, 2014.
+
+\bibitem[Joulin \& Mikolov(2015)Joulin and Mikolov]{stackrnn}
+Joulin, A. and Mikolov, T.
+\newblock Inferring algorithmic patterns with stack-augmented recurrent nets.
+\newblock In \emph{Advances in Neural Information Processing Systems 28: Annual
+  Conference on Neural Information Processing Systems 2015, December 7-12,
+  2015, Montreal, Quebec, Canada}, pp.\  190--198, 2015.
+
+\bibitem[Katz et~al.(2017)Katz, Barrett, Dill, Julian, and
+  Kochenderfer]{reluplex}
+Katz, G., Barrett, C.~W., Dill, D.~L., Julian, K., and Kochenderfer, M.~J.
+\newblock Reluplex: An efficient smt solver for verifying deep neural networks.
+\newblock In \emph{Computer Aided Verification}, pp.\  97--117, 2017.
+
+\bibitem[King(1976)]{king1976symbolic}
+King, J.~C.
+\newblock Symbolic execution and program testing.
+\newblock \emph{Communications of the ACM}, 19\penalty0 (7):\penalty0 385--394,
+  1976.
+
+\bibitem[Koutn{\'{\i}}k et~al.(2013)Koutn{\'{\i}}k, Cuccu, Schmidhuber, and
+  Gomez]{TORCS:NN}
+Koutn{\'{\i}}k, J., Cuccu, G., Schmidhuber, J., and Gomez, F.~J.
+\newblock Evolving large-scale neural networks for vision-based {TORCS}.
+\newblock In \emph{Proceedings of the 8th International Conference on the
+  Foundations of Digital Games, {FDG} 2013, Chania, Crete, Greece, May 14-17,
+  2013.}, pp.\  206--212, 2013.
+
+\bibitem[Kurach et~al.(2015)Kurach, Andrychowicz, and Sutskever]{nram}
+Kurach, K., Andrychowicz, M., and Sutskever, I.
+\newblock Neural random-access machines.
+\newblock \emph{CoRR}, abs/1511.06392, 2015.
+
+\bibitem[Lake et~al.(2016)Lake, Ullman, Tenenbaum, and Gershman]{SymbRL4}
+Lake, B.~M., Ullman, T.~D., Tenenbaum, J.~B., and Gershman, S.~J.
+\newblock Building machines that learn and think like people.
+\newblock \emph{CoRR}, abs/1604.00289, 2016.
+
+\bibitem[Lillicrap et~al.(2015{\natexlab{a}})Lillicrap, Hunt, Pritzel, Heess,
+  Erez, Tassa, Silver, and Wierstra]{NN:DDPG}
+Lillicrap, T.~P., Hunt, J.~J., Pritzel, A., Heess, N., Erez, T., Tassa, Y.,
+  Silver, D., and Wierstra, D.
+\newblock Continuous control with deep reinforcement learning.
+\newblock \emph{CoRR}, abs/1509.02971, 2015{\natexlab{a}}.
+
+\bibitem[Lillicrap et~al.(2015{\natexlab{b}})Lillicrap, Hunt, Pritzel, Heess,
+  Erez, Tassa, Silver, and Wierstra]{ddpg}
+Lillicrap, T.~P., Hunt, J.~J., Pritzel, A., Heess, N., Erez, T., Tassa, Y.,
+  Silver, D., and Wierstra, D.
+\newblock Continuous control with deep reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:1509.02971}, 2015{\natexlab{b}}.
+
+\bibitem[Lipton(2016)]{NN:Mythos}
+Lipton, Z.~C.
+\newblock The mythos of model interpretability.
+\newblock \emph{CoRR}, abs/1606.03490, 2016.
+
+\bibitem[Loiacono et~al.(2010)Loiacono, Prete, Lanzi, and
+  Cardamone]{TORCS:Overtake}
+Loiacono, D., Prete, A., Lanzi, P.~L., and Cardamone, L.
+\newblock Learning to overtake in {TORCS} using simple reinforcement learning.
+\newblock In \emph{Proceedings of the {IEEE} Congress on Evolutionary
+  Computation, {CEC} 2010, Barcelona, Spain, 18-23 July 2010}, pp.\  1--8,
+  2010.
+\newblock \doi{10.1109/CEC.2010.5586191}.
+
+\bibitem[Mnih et~al.(2015)Mnih, Kavukcuoglu, Silver, Rusu, Veness, Bellemare,
+  Graves, Riedmiller, Fidjeland, Ostrovski, et~al.]{mnih2015human}
+Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare,
+  M.~G., Graves, A., Riedmiller, M., Fidjeland, A.~K., Ostrovski, G., et~al.
+\newblock Human-level control through deep reinforcement learning.
+\newblock \emph{Nature}, 518\penalty0 (7540):\penalty0 529, 2015.
+
+\bibitem[Montavon et~al.(2017)Montavon, Samek, and
+  M{\"{u}}ller]{NN:Understanding}
+Montavon, G., Samek, W., and M{\"{u}}ller, K.
+\newblock Methods for interpreting and understanding deep neural networks.
+\newblock \emph{CoRR}, abs/1706.07979, 2017.
+
+\bibitem[Moore(1991)]{Moore-1991-15826}
+Moore, A.
+\newblock Variable resolution dynamic programming: Efficiently learning action
+  maps in multivariate real-valued state-spaces.
+\newblock In \emph{Proceedings of the Eighth International Conference on
+  Machine Learning}. Morgan Kaufmann, January 1991.
+
+\bibitem[Murali et~al.(2018)Murali, Chaudhuri, and Jermaine]{Bayou}
+Murali, V., Chaudhuri, S., and Jermaine, C.
+\newblock Neural sketch learning for conditional program generation.
+\newblock In \emph{ICLR}, 2018.
+
+\bibitem[Ross et~al.(2011)Ross, Gordon, and Bagnell]{dagger}
+Ross, S., Gordon, G.~J., and Bagnell, D.
+\newblock A reduction of imitation learning and structured prediction to
+  no-regret online learning.
+\newblock In \emph{Proceedings of the Fourteenth International Conference on
+  Artificial Intelligence and Statistics, {AISTATS} 2011, Fort Lauderdale, USA,
+  April 11-13, 2011}, pp.\  627--635, 2011.
+
+\bibitem[Salem et~al.(2017)Salem, Mora, Merelo, and
+  Garc{\'{\i}}a{-}S{\'{a}}nchez]{TORCS:FuzzyControl}
+Salem, M., Mora, A.~M., Merelo, J.~J., and Garc{\'{\i}}a{-}S{\'{a}}nchez, P.
+\newblock Driving in {TORCS} using modular fuzzy controllers.
+\newblock In \emph{Applications of Evolutionary Computation - 20th European
+  Conference, EvoApplications 2017, Amsterdam, The Netherlands, April 19-21,
+  2017, Proceedings, Part {I}}, pp.\  361--376, 2017.
+
+\bibitem[Schaal(1999)]{schaal1999imitation}
+Schaal, S.
+\newblock Is imitation learning the route to humanoid robots?
+\newblock \emph{Trends in cognitive sciences}, 3\penalty0 (6):\penalty0
+  233--242, 1999.
+
+\bibitem[Shanahan(2005)]{SymbRL3}
+Shanahan, M.
+\newblock Perception as abduction: Turning sensor data into meaningful
+  representation.
+\newblock \emph{Cognitive Science}, 29\penalty0 (1):\penalty0 103--134, 2005.
+\newblock ISSN 1551-6709.
+\newblock \doi{10.1207/s15516709cog2901_5}.
+
+\bibitem[Silver et~al.(2016)Silver, Huang, Maddison, Guez, Sifre, van~den
+  Driessche, Schrittwieser, Antonoglou, Panneershelvam, Lanctot, Dieleman,
+  Grewe, Nham, Kalchbrenner, Sutskever, Lillicrap, Leach, Kavukcuoglu, Graepel,
+  and Hassabis]{AlphaGo}
+Silver, D., Huang, A., Maddison, C.~J., Guez, A., Sifre, L., van~den Driessche,
+  G., Schrittwieser, J., Antonoglou, I., Panneershelvam, V., Lanctot, M.,
+  Dieleman, S., Grewe, D., Nham, J., Kalchbrenner, N., Sutskever, I.,
+  Lillicrap, T.~P., Leach, M., Kavukcuoglu, K., Graepel, T., and Hassabis, D.
+\newblock Mastering the game of {Go} with deep neural networks and tree search.
+\newblock \emph{Nature}, 529\penalty0 (7587):\penalty0 484--489, 2016.
+
+\bibitem[Silver et~al.(2017)Silver, Hubert, Schrittwieser, Antonoglou, Lai,
+  Guez, Lanctot, Sifre, Kumaran, Graepel, et~al.]{silver2017mastering}
+Silver, D., Hubert, T., Schrittwieser, J., Antonoglou, I., Lai, M., Guez, A.,
+  Lanctot, M., Sifre, L., Kumaran, D., Graepel, T., et~al.
+\newblock Mastering chess and {Shogi} by self-play with a general reinforcement
+  learning algorithm.
+\newblock \emph{arXiv preprint arXiv:1712.01815}, 2017.
+
+\bibitem[Snoek et~al.(2012)Snoek, Larochelle, and Adams]{BayesianOpt}
+Snoek, J., Larochelle, H., and Adams, R.~P.
+\newblock Practical bayesian optimization of machine learning algorithms.
+\newblock In \emph{Proceedings of the 25th International Conference on Neural
+  Information Processing Systems - Volume 2}, NIPS'12, pp.\  2951--2959, USA,
+  2012. Curran Associates Inc.
+
+\bibitem[Solar{-}Lezama(2009)]{Sketch:Main}
+Solar{-}Lezama, A.
+\newblock The sketching approach to program synthesis.
+\newblock In \emph{Programming Languages and Systems, 7th Asian Symposium,
+  {APLAS} 2009, Seoul, Korea, December 14-16, 2009. Proceedings}, pp.\  4--13,
+  2009.
+\newblock \doi{10.1007/978-3-642-10672-9_3}.
+
+\bibitem[Wang et~al.(2015)Wang, de~Freitas, and Lanctot]{duel}
+Wang, Z., de~Freitas, N., and Lanctot, M.
+\newblock Dueling network architectures for deep reinforcement learning.
+\newblock \emph{CoRR}, abs/1511.06581, 2015.
+\newblock URL \url{http://arxiv.org/abs/1511.06581}.
+
+\bibitem[Wymann et~al.(2014)Wymann, Espi{\'e}, Guionneau, Dimitrakakis, Coulom,
+  and Sumner]{TORCS}
+Wymann, B., Espi{\'e}, E., Guionneau, C., Dimitrakakis, C., Coulom, R., and
+  Sumner, A.
+\newblock {TORCS}, {T}he {O}pen {R}acing {C}ar {S}imulator.
+\newblock http://www.torcs.org, 2014.
+
+\bibitem[Zahavy et~al.(2016)Zahavy, Ben{-}Zrihem, and Mannor]{SymbRL2}
+Zahavy, T., Ben{-}Zrihem, N., and Mannor, S.
+\newblock Graying the black box: Understanding dqns.
+\newblock \emph{CoRR}, abs/1602.02658, 2016.
+
+\end{thebibliography}
