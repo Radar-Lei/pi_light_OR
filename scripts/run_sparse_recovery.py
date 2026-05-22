@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import math
 import time
@@ -240,6 +241,24 @@ def normalized_tensor(examples: list[dict[str, Any]], atoms: list[str]) -> list[
     return [np.vstack([ex["features"][atom] / scales[atom] for atom in atoms]) for ex in examples]
 
 
+def derived_artifact_paths(out_path: Path, csv_out: str | None, rules_out: str | None) -> tuple[Path, Path]:
+    csv_path = Path(csv_out) if csv_out else out_path.with_suffix(".csv")
+    if rules_out:
+        rules_path = Path(rules_out)
+    else:
+        rules_path = out_path.with_name(f"{out_path.stem}_rules.txt")
+    return csv_path, rules_path
+
+
+def format_float(value: Any) -> str:
+    if value is None:
+        return ""
+    try:
+        return f"{float(value):.10g}"
+    except (TypeError, ValueError):
+        return str(value)
+
+
 def atom_indices_by_metadata(atoms: list[str]) -> dict[str, list[int]]:
     indices: dict[str, list[int]] = {
         "neighbor": [],
@@ -267,21 +286,238 @@ def count_selected(indices: list[int], selected_mask: np.ndarray) -> int:
     return int(sum(bool(selected_mask[j]) for j in indices))
 
 
-def render_rule_text(library: str, max_atoms: int, selected_atoms: list[str], weights: np.ndarray, atoms: list[str]) -> str:
+def render_rule_text(run: dict[str, Any], atom_metadata: dict[str, dict[str, Any]]) -> str:
+    selected_atoms = list(run.get("selected_atoms", []))
+    weights = dict(run.get("weights", {}))
     if not selected_atoms:
         expression = "0.0"
     else:
         terms = []
         for atom in selected_atoms:
-            weight = float(weights[atoms.index(atom)])
-            atom_expr = str(ATOM_REGISTRY[atom]["expression"])
-            terms.append(f"{weight:.6g} * ({atom_expr})")
-        expression = " + ".join(terms)
-    return (
-        f"library={library}; max_atoms={max_atoms}; "
-        "choose movement m maximizing normalized score(m); "
-        f"score(m) = {expression}"
-    )
+            metadata = atom_metadata[atom]
+            weight = float(weights.get(atom, 0.0))
+            terms.append(f"{weight:.6g} * ({metadata['expression']})  # {atom}")
+        expression = "\n  + ".join(terms)
+
+    lines = [
+        f"Run: library={run.get('library')}, max_atoms={run.get('max_atoms')}, "
+        f"max_neighbor_atoms={run.get('max_neighbor_atoms')}, max_dual_atoms={run.get('max_dual_atoms')}, "
+        f"max_placebo_atoms={run.get('max_placebo_atoms')}",
+        "Counts: "
+        f"program={run.get('program_complexity', 0)}, "
+        f"neighbor={run.get('neighbor_atom_count', 0)}, "
+        f"dual={run.get('dual_atom_count', 0)}, "
+        f"placebo={run.get('placebo_atom_count', 0)}, "
+        f"pressure={run.get('pressure_atom_count', 0)}, "
+        f"raw_neighbor={run.get('raw_neighbor_atom_count', 0)}, "
+        f"capacity={run.get('capacity_atom_count', 0)}",
+        "Regret: "
+        f"total={format_float(run.get('realized_total_regret'))}, "
+        f"mean={format_float(run.get('realized_mean_regret'))}, "
+        f"max={format_float(run.get('max_regret'))}; "
+        f"action_agreement={format_float(run.get('action_agreement'))}; "
+        f"solve_time_sec={format_float(run.get('solve_time_sec'))}",
+        "Rule: choose movement m maximizing score(m)",
+        f"score(m) = {expression}",
+        "Selected atoms:",
+    ]
+    if selected_atoms:
+        for atom in selected_atoms:
+            metadata = atom_metadata[atom]
+            lines.append(
+                f"- {atom}: weight={format_float(weights.get(atom))}, "
+                f"family={metadata['family']}, expression={metadata['expression']}"
+            )
+    else:
+        lines.append("- none")
+    lines.append("Note: atom values are normalized by training-sample max absolute value before scoring.")
+    lines.append("Note: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules.")
+    return "\n".join(lines)
+
+
+def render_rules_file(runs: list[dict[str, Any]], note: str) -> str:
+    sections = [
+        "Phase 2 Sparse Recovery Rule Text",
+        note,
+        "Generated rules are finite-dictionary, sample-relative audit artifacts.",
+    ]
+    for run in runs:
+        if run.get("status") != "SOLVED":
+            continue
+        sections.append("\n---\n")
+        sections.append(str(run.get("rule_text", "")))
+    return "\n".join(sections).rstrip() + "\n"
+
+
+def csv_rows_for_runs(
+    experiment: str,
+    input_states: list[str],
+    tls: str,
+    runs: list[dict[str, Any]],
+    rules_path: Path,
+    penalties: dict[str, float],
+) -> list[dict[str, Any]]:
+    rows = []
+    for run in runs:
+        selected_metadata = run.get("selected_atom_metadata", [])
+        rows.append(
+            {
+                "experiment": experiment,
+                "input_states": ";".join(input_states),
+                "tls": tls,
+                "library": run.get("library"),
+                "max_atoms": run.get("max_atoms", run.get("budget")),
+                "max_neighbor_atoms": run.get("max_neighbor_atoms"),
+                "max_dual_atoms": run.get("max_dual_atoms"),
+                "max_placebo_atoms": run.get("max_placebo_atoms"),
+                "complexity_penalty": penalties["complexity_penalty"],
+                "neighbor_penalty": penalties["neighbor_penalty"],
+                "dual_penalty": penalties["dual_penalty"],
+                "placebo_penalty": penalties["placebo_penalty"],
+                "status": run.get("status"),
+                "solver_status": run.get("solver_status"),
+                "objective_value_with_penalties": run.get("objective_value_with_penalties"),
+                "realized_total_regret": run.get("realized_total_regret"),
+                "realized_mean_regret": run.get("realized_mean_regret"),
+                "max_regret": run.get("max_regret"),
+                "action_agreement": run.get("action_agreement"),
+                "solve_time_sec": run.get("solve_time_sec"),
+                "selected_atoms": ";".join(run.get("selected_atoms", [])),
+                "selected_atom_families": ";".join(str(item.get("family", "")) for item in selected_metadata),
+                "program_complexity": run.get("program_complexity"),
+                "neighbor_atom_count": run.get("neighbor_atom_count"),
+                "dual_atom_count": run.get("dual_atom_count"),
+                "placebo_atom_count": run.get("placebo_atom_count"),
+                "pressure_atom_count": run.get("pressure_atom_count"),
+                "raw_neighbor_atom_count": run.get("raw_neighbor_atom_count"),
+                "capacity_atom_count": run.get("capacity_atom_count"),
+                "penalty_breakdown": json.dumps(run.get("penalty_breakdown", {}), sort_keys=True),
+                "rule_text_path": str(rules_path),
+            }
+        )
+    return rows
+
+
+def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
+    fieldnames = [
+        "experiment",
+        "input_states",
+        "tls",
+        "library",
+        "max_atoms",
+        "max_neighbor_atoms",
+        "max_dual_atoms",
+        "max_placebo_atoms",
+        "complexity_penalty",
+        "neighbor_penalty",
+        "dual_penalty",
+        "placebo_penalty",
+        "status",
+        "solver_status",
+        "objective_value_with_penalties",
+        "realized_total_regret",
+        "realized_mean_regret",
+        "max_regret",
+        "action_agreement",
+        "solve_time_sec",
+        "selected_atoms",
+        "selected_atom_families",
+        "program_complexity",
+        "neighbor_atom_count",
+        "dual_atom_count",
+        "placebo_atom_count",
+        "pressure_atom_count",
+        "raw_neighbor_atom_count",
+        "capacity_atom_count",
+        "penalty_breakdown",
+        "rule_text_path",
+    ]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def solved_run_schema_complete(run: dict[str, Any]) -> bool:
+    required = {
+        "library",
+        "max_atoms",
+        "status",
+        "solver_status",
+        "objective_value_with_penalties",
+        "realized_total_regret",
+        "realized_mean_regret",
+        "max_regret",
+        "action_agreement",
+        "solve_time_sec",
+        "selected_atoms",
+        "selected_atom_metadata",
+        "weights",
+        "program_complexity",
+        "neighbor_atom_count",
+        "dual_atom_count",
+        "placebo_atom_count",
+        "pressure_atom_count",
+        "raw_neighbor_atom_count",
+        "capacity_atom_count",
+        "penalty_breakdown",
+        "rule_text",
+        "results",
+    }
+    if not required <= set(run):
+        return False
+    result_required = {
+        "scenario",
+        "source",
+        "chosen_movement",
+        "oracle_best_movement",
+        "oracle_value_chosen",
+        "oracle_value_best",
+        "oracle_regret",
+        "action_agreement",
+        "score_chosen",
+        "score_oracle_best",
+    }
+    return all(result_required <= set(result) for result in run.get("results", []))
+
+
+def gate_schema_complete(payload: dict[str, Any]) -> bool:
+    required = {
+        "experiment",
+        "status",
+        "input_states",
+        "tls",
+        "num_examples",
+        "objective_mode",
+        "budgets",
+        "penalties",
+        "atom_registry",
+        "gate_regret_first_objective",
+        "gate_required_families_present",
+        "gate_outputs_complete",
+        "gate_phase3_claim_deferred",
+        "summary",
+        "runs",
+        "csv_out",
+        "rules_out",
+        "note",
+    }
+    if not required <= set(payload):
+        return False
+    solved = [run for run in payload.get("runs", []) if run.get("status") == "SOLVED"]
+    return bool(solved) and all(solved_run_schema_complete(run) for run in solved)
+
+
+def gate_outputs_complete(json_path: Path, csv_path: Path, rules_path: Path, runs: list[dict[str, Any]]) -> bool:
+    solved = [run for run in runs if run.get("status") == "SOLVED"]
+    if not json_path.exists() or not csv_path.exists() or not rules_path.exists():
+        return False
+    try:
+        rules_text = rules_path.read_text(encoding="utf-8")
+    except OSError:
+        return False
+    return bool(solved) and "score" in rules_text and "choose movement" in rules_text
 
 
 def solve_library(
@@ -421,7 +657,6 @@ def solve_library(
         "placebo_penalty": float(placebo_penalty * placebo_count),
     }
     penalty_breakdown["total_penalty"] = float(sum(penalty_breakdown.values()))
-    rule_text = render_rule_text(library, budget, selected, weights, atoms)
 
     rows_out = []
     total_regret = 0.0
@@ -450,10 +685,11 @@ def solve_library(
                 "action_agreement": bool(matched),
                 "score_chosen": float(scores[chosen_local]),
                 "score_oracle_best": float(scores[int(ex["oracle_best_local"])]),
+                "movement_scores": [float(value) for value in scores],
             }
         )
 
-    return {
+    run = {
         **base_payload,
         "status": "SOLVED",
         "solver_status": int(res.status),
@@ -475,9 +711,10 @@ def solve_library(
         "max_regret": max_regret,
         "action_agreement": agreement / len(examples) if examples else 0.0,
         "penalty_breakdown": penalty_breakdown,
-        "rule_text": rule_text,
         "results": rows_out,
     }
+    run["rule_text"] = render_rule_text(run, ATOM_REGISTRY)
+    return run
 
 
 def main() -> None:
@@ -503,6 +740,8 @@ def main() -> None:
     parser.add_argument("--min-weight", type=float, default=0.1)
     parser.add_argument("--tie-margin", type=float, default=1e-6)
     parser.add_argument("--out", default="experiments/dual_sensitivity/block1_sparse_recovery.json")
+    parser.add_argument("--csv-out", default=None)
+    parser.add_argument("--rules-out", default=None)
     args = parser.parse_args()
 
     validate_atom_registry()
@@ -532,6 +771,8 @@ def main() -> None:
             f"{sorted(allowed_families) if allowed_families is not None else 'all'}"
         )
 
+    out_path = Path(args.out)
+    csv_path, rules_path = derived_artifact_paths(out_path, args.csv_out, args.rules_out)
     state_paths = [Path(p) for p in args.states] or [Path("experiments/dual_sensitivity/targeted_bottleneck_states.json")]
     examples = load_examples(state_paths, args.tls, args.max_samples, args.max_movements, args.epsilon)
     example_feature_atoms = set(examples[0]["features"]) if examples else set()
@@ -623,11 +864,31 @@ def main() -> None:
     gate_k_gt_one_attempted = any(int(r.get("max_atoms", r.get("budget", 0))) > 1 for r in runs)
     gate_k_gt_one_solved = any(int(r.get("max_atoms", r.get("budget", 0))) > 1 for r in solved_runs)
     gate_regret_first_objective = args.objective in {"oracle_regret", "value_gap"}
-    status = "PASSED" if gate_k_gt_one_solved and gate_regret_first_objective else "INCONCLUSIVE"
+    gate_required_families_present = REQUIRED_ATOM_FAMILIES <= {
+        str(metadata["family"]) for metadata in ATOM_REGISTRY.values()
+    }
+    note = (
+        "SciPy/HiGHS MILP backend; Phase 2 produces finite-dictionary, sample-relative "
+        "sparse recovery artifacts. Action agreement is diagnostic only; dual-vs-pressure "
+        "empirical claim routing is deferred to Phase 3."
+    )
+    gate_phase3_claim_deferred = "Phase 3" in note and "deferred" in note
+    penalties_payload = {
+        "complexity_penalty": args.complexity_penalty,
+        "neighbor_penalty": args.neighbor_penalty,
+        "dual_penalty": args.dual_penalty,
+        "placebo_penalty": args.placebo_penalty,
+    }
+    input_states = [str(p) for p in state_paths]
+    csv_rows = csv_rows_for_runs("block2_sparse_recovery", input_states, args.tls, runs, rules_path, penalties_payload)
+    write_csv(csv_path, csv_rows)
+    rules_path.parent.mkdir(parents=True, exist_ok=True)
+    rules_path.write_text(render_rules_file(runs, note), encoding="utf-8")
+
     payload = {
         "experiment": "block2_sparse_recovery",
-        "status": status,
-        "input_states": [str(p) for p in state_paths],
+        "status": "INCONCLUSIVE",
+        "input_states": input_states,
         "tls": args.tls,
         "num_examples": len(examples),
         "objective_mode": args.objective,
@@ -636,17 +897,17 @@ def main() -> None:
         "max_neighbor_atoms": args.max_neighbor_atoms,
         "max_dual_atoms": args.max_dual_atoms,
         "max_placebo_atoms": args.max_placebo_atoms,
-        "penalties": {
-            "complexity_penalty": args.complexity_penalty,
-            "neighbor_penalty": args.neighbor_penalty,
-            "dual_penalty": args.dual_penalty,
-            "placebo_penalty": args.placebo_penalty,
-        },
+        "penalties": penalties_payload,
         "libraries": library_names,
         "atom_families": sorted(allowed_families) if allowed_families is not None else "all",
         "atom_registry": ATOM_REGISTRY,
-        "gate_required_families_present": REQUIRED_ATOM_FAMILIES <= {str(metadata["family"]) for metadata in ATOM_REGISTRY.values()},
+        "csv_out": str(csv_path),
+        "rules_out": str(rules_path),
+        "gate_schema_complete": False,
         "gate_regret_first_objective": gate_regret_first_objective,
+        "gate_required_families_present": gate_required_families_present,
+        "gate_outputs_complete": False,
+        "gate_phase3_claim_deferred": gate_phase3_claim_deferred,
         "gate_k_gt_one_attempted": gate_k_gt_one_attempted,
         "gate_k_gt_one_solved": gate_k_gt_one_solved,
         "gate_dual_budget1_beats_raw": gate_dual_budget1_beats_raw,
@@ -672,12 +933,41 @@ def main() -> None:
             for r in best_by_library.values()
         ],
         "runs": runs,
-        "note": "SciPy/HiGHS MILP backend; Phase 2 artifacts are finite-dictionary and sample-relative. Action agreement is diagnostic only; dual-vs-pressure empirical claim routing is deferred to Phase 3.",
+        "note": note,
     }
-    out_path = Path(args.out)
+    payload["gate_schema_complete"] = gate_schema_complete(payload)
+    payload["status"] = "PASSED" if (
+        payload["gate_schema_complete"]
+        and gate_regret_first_objective
+        and gate_required_families_present
+        and gate_phase3_claim_deferred
+        and gate_k_gt_one_solved
+    ) else "INCONCLUSIVE"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    print(json.dumps({"status": status, "out": str(out_path), "num_examples": len(examples)}, indent=2))
+    payload["gate_outputs_complete"] = gate_outputs_complete(out_path, csv_path, rules_path, runs)
+    payload["gate_schema_complete"] = gate_schema_complete(payload)
+    payload["status"] = "PASSED" if (
+        payload["gate_schema_complete"]
+        and payload["gate_outputs_complete"]
+        and gate_regret_first_objective
+        and gate_required_families_present
+        and gate_phase3_claim_deferred
+        and gate_k_gt_one_solved
+    ) else "INCONCLUSIVE"
+    out_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    print(
+        json.dumps(
+            {
+                "status": payload["status"],
+                "out": str(out_path),
+                "csv_out": str(csv_path),
+                "rules_out": str(rules_path),
+                "num_examples": len(examples),
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":
