@@ -58,4 +58,4 @@ Safer replacements:
 - [x] THRY-04 maps to a sufficient rank-change proposition and Phase 3 empirical routing.
 - [x] THRY-05 maps to a finite-dictionary empirical oracle-regret/value-gap proposition with program-size, neighbor-use, and dual-price dependence budgets or penalties.
 - [x] No Phase 1 row claims global traffic-control optimality.
-- [x] No Phase 1 row claims universal empirical superiority over max-pressure or capacity-aware pressure baselines.
+- [x] No Phase 1 row claims Phase 1 evidence settles empirical ordering against pressure-style or capacity-aware pressure baselines.
