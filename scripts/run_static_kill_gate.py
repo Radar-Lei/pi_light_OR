@@ -12,7 +12,6 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -21,7 +20,6 @@ from run_sparse_recovery import (
     LIBRARIES,
     atoms_for_library,
     build_example,
-    load_examples,
     scenario_from_sample,
     select_library_names,
     solve_library,
@@ -548,22 +546,14 @@ def main() -> None:
     valid_examples_by_regime: dict[str, int] = {}
     regime_metrics: list[dict[str, Any]] = []
 
-    with tempfile.TemporaryDirectory(prefix="static_kill_gate_") as tmp_dir:
-        for regime in sorted(grouped_samples):
-            examples = examples_for_samples(grouped_samples[regime], args.tls, args.max_movements, args.epsilon)
-            valid_examples_by_regime[regime] = len(examples)
-            if not examples:
-                runs_by_regime[regime] = []
-                continue
-            tmp_path = Path(tmp_dir) / f"{regime}.json"
-            tmp_path.write_text(
-                json.dumps({"network": "phase3_regime_slice", "samples": grouped_samples[regime]}, indent=2),
-                encoding="utf-8",
-            )
-            # Exercise the Phase 2 loader path for conversion parity; examples above keep unique source keys.
-            load_examples([tmp_path], args.tls, 0, args.max_movements, args.epsilon)
-            runs = solve_regime(examples, library_names, args.budgets, args)
-            runs_by_regime[regime] = runs
+    for regime in sorted(grouped_samples):
+        examples = examples_for_samples(grouped_samples[regime], args.tls, args.max_movements, args.epsilon)
+        valid_examples_by_regime[regime] = len(examples)
+        if not examples:
+            runs_by_regime[regime] = []
+            continue
+        runs = solve_regime(examples, library_names, args.budgets, args)
+        runs_by_regime[regime] = runs
 
     num_examples_total = sum(valid_examples_by_regime.values())
     sample_target_met = num_examples_total >= args.target_total_states
