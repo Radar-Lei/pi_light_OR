@@ -7,9 +7,9 @@
 | B0.1 | Dual sanity | Implement continuous store-and-forward/CTM-lite relaxation | DONE | A | Implemented proxy SciPy LP in `scripts/run_dual_sanity.py`; no integer phase-dual story |
 | B0.2 | Dual sanity | Extract duals for queue conservation, storage/supply, movement value | DONE | A | Queue/storage duals and movement values exported to JSON |
 | B0.3 | Dual sanity | Run finite-difference validation | DONE | A | PASSED on toy/single/arterial proxy states; see `experiments/dual_sensitivity/block0_dual_sanity.json` |
-| B0.4 | Theory | Derive dual-to-movement marginal-benefit lemma | PARTIAL | A | Empirical finite-difference support exists; formal write-up still needed |
-| B0.5 | Theory | Derive pressure/backpressure special case | PARTIAL | A | Nonbinding-storage pressure ranking sanity passed; formal proof still needed |
-| B1.1 | Recovery | Define OR-mapped DSL atom library | PARTIAL | B | Initial atom libraries implemented: local/raw/all/random/dual/pressure; broader taxonomy still needed for closed-loop programs |
+| B0.4 | Theory | Derive dual-to-movement marginal-benefit lemma | DRAFTED | A | Drafted in `refine-logs/THEORY_AND_ATOMS.md`; needs paper-quality proof polish |
+| B0.5 | Theory | Derive pressure/backpressure special case | DRAFTED | A | Drafted as nonbinding-storage special case in `refine-logs/THEORY_AND_ATOMS.md` |
+| B1.1 | Recovery | Define OR-mapped DSL atom library | DONE | B | Frozen initial OR-mapped taxonomy in `refine-logs/THEORY_AND_ATOMS.md`; corridor atoms deferred until explicit corridor constraints exist |
 | B1.2 | Recovery | Implement sparse MIP recovery objective | DONE | B | SciPy/HiGHS sparse MILP recovery implemented in `scripts/run_sparse_recovery.py` |
 | B1.3 | Recovery | Build sampled-state datasets | DONE | B | TraCI arterial samples and targeted bottleneck/spillback topology states created |
 | B1.4 | Recovery | Compare local/raw/all/random/dual DSL offline | DONE | B | Sparse recovery PASSED on targeted and combined states: dual selected with zero regret; raw/local/random worse |

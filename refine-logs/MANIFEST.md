@@ -28,3 +28,4 @@
 - 2026-05-22 — `../scripts/run_sparse_recovery.py` — Block 1 sparse MILP recovery script using SciPy/HiGHS.
 - 2026-05-22 — `../experiments/dual_sensitivity/block1_sparse_recovery_targeted.json` — Targeted sparse recovery result.
 - 2026-05-22 — `../experiments/dual_sensitivity/block1_sparse_recovery_combined.json` — Passive+targeted sparse recovery result.
+- 2026-05-22 — `THEORY_AND_ATOMS.md` — Primal-dual lemma draft and OR-mapped atom taxonomy freeze.

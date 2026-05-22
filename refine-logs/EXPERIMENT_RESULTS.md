@@ -130,6 +130,25 @@ Interpretation:
 - Gate B now has positive sparse-recovery evidence: the MILP recovery procedure selects dual-sensitivity atoms and achieves lower realized oracle regret than raw/local/random atoms at equal or lower complexity.
 - This remains an offline recovery gate; the next step is closed-loop SUMO validation on arterial bottleneck/platoon scenarios.
 
+## Theory and Atom Taxonomy Freeze
+
+Additional artifact:
+
+- `refine-logs/THEORY_AND_ATOMS.md`
+
+What was frozen:
+
+1. Minimal continuous one-step store-and-forward relaxation with queue conservation, downstream storage, green budget, service bounds, and overflow slack.
+2. Movement marginal-value lemma at the zero-service marginal point: movement value is `lambda_up - lambda_down`, with downstream storage scarcity entering through the downstream link value / storage dual effect.
+3. Pressure/backpressure special case: when storage and coupling constraints are nonbinding, dual movement value reduces to `w_up - w_down`, and to ordinary pressure when `w_l = x_l`.
+4. OR-mapped atom taxonomy: retained atoms must map to a model state, constraint residual, dual value, or reduced movement value.
+5. Claim boundary: Block 0/1 supports dual validity and offline sparse recovery, but not yet closed-loop performance or dominance over max-pressure/C-MP.
+
+Interpretation:
+
+- The formal theory is now drafted sufficiently to support the next closed-loop pilot, though it still needs polishing into paper theorem/proof prose.
+- Corridor atoms remain deferred until an explicit corridor/service-balance constraint is added to the relaxation.
+
 ## AMPL/SUMO Environment Notes
 
 - SUMO, netconvert, TraCI, and sumolib are installed and usable.
