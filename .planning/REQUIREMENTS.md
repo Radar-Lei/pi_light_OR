@@ -11,8 +11,8 @@ Requirements for the TR-B / Transportation Science paper-building milestone. Eac
 
 - [ ] **THRY-01**: The paper defines a continuous capacitated traffic-network relaxation with queue conservation, movement service, phase compatibility, and storage/supply/capacity constraints.
 - [ ] **THRY-02**: The paper derives a movement-level dual-sensitivity decomposition with interpretable upstream, downstream, storage/supply, and corridor/service terms.
-- [ ] **THRY-03**: The paper proves max-pressure/backpressure is a special case when storage/supply/corridor constraints are nonbinding or ranking-neutral.
-- [ ] **THRY-04**: The paper proves or formalizes a spillback/scarcity correction term showing how dual sensitivity can differ from ordinary pressure in binding regimes.
+- [x] **THRY-03**: The paper proves max-pressure/backpressure is a special case when storage/supply/corridor constraints are nonbinding or ranking-neutral.
+- [x] **THRY-04**: The paper proves or formalizes a spillback/scarcity correction term showing how dual sensitivity can differ from ordinary pressure in binding regimes.
 - [ ] **THRY-05**: The paper states a recovery-regret or optimization-quality result for finite dictionary symbolic policy recovery.
 
 ### Recovery Algorithm
@@ -83,8 +83,8 @@ Deferred unless v1 evidence supports expansion.
 |-------------|-------|--------|
 | THRY-01 | Phase 1 | Pending |
 | THRY-02 | Phase 1 | Pending |
-| THRY-03 | Phase 1 | Pending |
-| THRY-04 | Phase 1 | Pending |
+| THRY-03 | Phase 1 | Complete |
+| THRY-04 | Phase 1 | Complete |
 | THRY-05 | Phase 1 | Pending |
 | RECV-01 | Phase 2 | Pending |
 | RECV-02 | Phase 2 | Pending |
