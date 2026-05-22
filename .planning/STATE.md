@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 02-03-PLAN.md
-last_updated: "2026-05-22T18:00:31.379Z"
-last_activity: 2026-05-22
+status: in_progress
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-05-22T18:54:41.774Z"
+last_activity: 2026-05-23
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
-  percent: 40
+  total_plans: 9
+  completed_plans: 8
+  percent: 89
 ---
 
 # Project State
@@ -21,18 +21,18 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-22)
 
 **Core value:** Show that network-optimization dual sensitivities provide a generalized max-pressure principle that reduces to pressure when constraints are slack and adds scarcity-aware corrections when storage, supply, or corridor bottleneck constraints bind, and that this principle can be compressed into compact symbolic traffic-signal policies.
-**Current focus:** Phase 2 — full sparse symbolic recovery
+**Current focus:** Phase 3 — static pressure-failure kill gate
 
 ## Current Position
 
-Phase: 2
-Plan: 02-02-PLAN.md
-Status: In progress
-Last activity: 2026-05-22
+Phase: 3
+Plan: 02
+Status: In progress — 03-01 complete
+Last activity: 2026-05-23
 
-Progress: [██████████] 100%
+Progress: [█████████░] 89%
 
-Next command: `/gsd:execute-phase 2`
+Next command: `/gsd:execute-phase 3`
 
 ## Performance Metrics
 
@@ -64,6 +64,7 @@ Next command: `/gsd:execute-phase 2`
 | Phase 02 P01 | 397s | 2 tasks | 1 file |
 | Phase 02 P02 | 383s | 2 tasks | 1 files |
 | Phase 02 P03 | 350 | 2 tasks | 5 files |
+| Phase 03 P01 | 331s | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 02]: Rendered sparse recovery policies as plain text only; no generated rule is executed or deployed in Phase 2.
 - [Phase 02]: Gated Phase 2 status on schema/output/K>1 solve completeness rather than dual-vs-pressure empirical interpretation.
 - [Phase 02]: Wrote CSV and rules artifacts beside JSON so equal-complexity comparisons can be consumed without manual transcription.
+- [Phase 03 Plan 01]: Represent supply-binding and corridor-bottleneck as proxy regimes because the current conversion schema lacks explicit supply/corridor constraint fields.
+- [Phase 03 Plan 01]: Treat raw generated KILL-03 counts as preliminary until Plan 03-02 validates scenario_from_sample/build_example conversions.
 
 ### Pending Todos
 
@@ -107,6 +110,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T18:00:31.373Z
-Stopped at: Completed 02-03-PLAN.md
+Last session: 2026-05-22T18:53:10Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None

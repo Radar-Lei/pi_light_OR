@@ -120,7 +120,19 @@ Plans:
   2. The report includes the three routing outcomes: strong mainline, generalized-pressure symbolic recovery, or diagnostic framing.
   3. Downstream Phase 4 experiment priorities are updated to match the selected gate route.
 
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [x] 03-01-PLAN.md — Generate labeled static-regime state fixtures with sample sufficiency metadata.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 03-02-PLAN.md — Compute per-regime dual-vs-pressure kill-gate metrics and route decision.
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 03-03-PLAN.md — Render the static kill-gate route report and claim-discipline caveats.
 
 ### Phase 4: Closed-Loop SUMO Evaluation
 
@@ -177,7 +189,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Theoretical Core and Claim Lock | 3/3 | Complete   | 2026-05-22 |
 | 2. Full Sparse Symbolic Recovery | 3/3 | Complete   | 2026-05-22 |
-| 3. Static Pressure-Failure Kill Gate | 0/TBD | Not started | - |
+| 3. Static Pressure-Failure Kill Gate | 1/3 | In Progress|  |
 | 4. Closed-Loop SUMO Evaluation | 0/TBD | Not started | - |
 | 5. Reproducibility and Repository Hardening | 0/TBD | Not started | - |
 

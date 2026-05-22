@@ -25,9 +25,9 @@ Requirements for the TR-B / Transportation Science paper-building milestone. Eac
 
 ### Static Kill-Gate Evidence
 
-- [ ] **KILL-01**: Static benchmarks include slack, downstream storage-binding, supply-binding, corridor-bottleneck, incident/capacity-drop, and demand-shift regimes.
+- [x] **KILL-01**: Static benchmarks include slack, downstream storage-binding, supply-binding, corridor-bottleneck, incident/capacity-drop, and demand-shift regimes.
 - [ ] **KILL-02**: Each static regime reports dual-vs-pressure disagreement rate, dual win rate, mean oracle regret, worst-case regret, and recovered symbolic rules.
-- [ ] **KILL-03**: The static benchmark contains enough sampled states per regime to support stable conclusions, with a target of at least 1k states for the main pressure-failure analysis.
+- [x] **KILL-03**: The static benchmark contains enough sampled states per regime to support stable conclusions, with a target of at least 1k states for the main pressure-failure analysis.
 - [ ] **KILL-04**: The analysis explicitly identifies whether dual sensitivity only recovers pressure, improves over pressure in binding regimes, or fails to match pressure.
 - [ ] **KILL-05**: Claim routing is documented: strong dual advantage supports TR-B/TS mainline; pressure tie routes to generalized pressure / symbolic recovery framing; dual underperformance routes to diagnostic framing.
 
@@ -91,9 +91,9 @@ Deferred unless v1 evidence supports expansion.
 | RECV-03 | Phase 2 | Complete |
 | RECV-04 | Phase 2 | Complete |
 | RECV-05 | Phase 2 | Complete |
-| KILL-01 | Phase 3 | Pending |
+| KILL-01 | Phase 3 | Complete |
 | KILL-02 | Phase 3 | Pending |
-| KILL-03 | Phase 3 | Pending |
+| KILL-03 | Phase 3 | Complete |
 | KILL-04 | Phase 3 | Pending |
 | KILL-05 | Phase 3 | Pending |
 | CLOP-01 | Phase 4 | Pending |
