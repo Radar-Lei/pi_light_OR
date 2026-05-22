@@ -16,7 +16,74 @@ from run_dual_sanity import summarize_scenario
 from run_sumo_sampled_recovery import scenario_from_sample
 
 
-LIBRARIES = {
+ATOM_REGISTRY: dict[str, dict[str, Any]] = {
+    "upstream_queue": {
+        "name": "upstream_queue",
+        "family": "local",
+        "requires_neighbor": False,
+        "uses_dual": False,
+        "is_placebo": False,
+        "expression": "q_up(m)",
+        "description": "Local upstream movement queue length.",
+    },
+    "neg_downstream_queue": {
+        "name": "neg_downstream_queue",
+        "family": "raw_neighbor",
+        "requires_neighbor": True,
+        "uses_dual": False,
+        "is_placebo": False,
+        "expression": "-q_down(m)",
+        "description": "Negative downstream queue, a raw neighboring-link congestion signal.",
+    },
+    "downstream_slack": {
+        "name": "downstream_slack",
+        "family": "capacity",
+        "requires_neighbor": True,
+        "uses_dual": False,
+        "is_placebo": False,
+        "expression": "cap_down(m) - q_down(m)",
+        "description": "Downstream residual storage/capacity slack for the receiving link.",
+    },
+    "neg_downstream_fullness": {
+        "name": "neg_downstream_fullness",
+        "family": "capacity",
+        "requires_neighbor": True,
+        "uses_dual": False,
+        "is_placebo": False,
+        "expression": "-q_down(m) / cap_down(m)",
+        "description": "Negative normalized downstream occupancy/fullness.",
+    },
+    "pressure_backpressure": {
+        "name": "pressure_backpressure",
+        "family": "pressure",
+        "requires_neighbor": True,
+        "uses_dual": False,
+        "is_placebo": False,
+        "expression": "w_up(m) - w_down(m)",
+        "description": "Ordinary pressure/backpressure score from the LP summary weights.",
+    },
+    "dual_sensitivity": {
+        "name": "dual_sensitivity",
+        "family": "dual",
+        "requires_neighbor": True,
+        "uses_dual": True,
+        "is_placebo": False,
+        "expression": "lambda_up(m) - lambda_down(m)",
+        "description": "Genuine movement-level dual-sensitivity value from summarize_scenario().",
+    },
+    "random_price": {
+        "name": "random_price",
+        "family": "placebo",
+        "requires_neighbor": True,
+        "uses_dual": True,
+        "is_placebo": True,
+        "expression": "permutation(dual_sensitivity)(m)",
+        "description": "Permuted dual-sensitivity placebo preserving the dual-value distribution.",
+    },
+}
+
+
+LIBRARIES: dict[str, list[str]] = {
     "local_only": ["upstream_queue"],
     "raw_neighbor": ["upstream_queue", "neg_downstream_queue"],
     "all_neighbor": ["upstream_queue", "neg_downstream_queue", "downstream_slack", "neg_downstream_fullness"],
@@ -25,6 +92,44 @@ LIBRARIES = {
     "dual_plus_raw": ["dual_sensitivity", "upstream_queue", "neg_downstream_queue"],
     "pressure_backpressure": ["pressure_backpressure"],
 }
+
+
+REQUIRED_METADATA_FIELDS = {
+    "name",
+    "family",
+    "requires_neighbor",
+    "uses_dual",
+    "is_placebo",
+    "expression",
+    "description",
+}
+
+
+REQUIRED_ATOM_FAMILIES = {"local", "capacity", "raw_neighbor", "pressure", "dual", "placebo"}
+
+
+def validate_atom_registry() -> None:
+    for atom, metadata in ATOM_REGISTRY.items():
+        missing = REQUIRED_METADATA_FIELDS - set(metadata)
+        if missing:
+            raise ValueError(f"Atom {atom} is missing metadata fields: {sorted(missing)}")
+        if metadata["name"] != atom:
+            raise ValueError(f"Atom metadata name mismatch for {atom}: {metadata['name']}")
+    unknown_by_library = {
+        library: [atom for atom in atoms if atom not in ATOM_REGISTRY]
+        for library, atoms in LIBRARIES.items()
+    }
+    unknown_by_library = {name: atoms for name, atoms in unknown_by_library.items() if atoms}
+    if unknown_by_library:
+        raise ValueError(f"Libraries reference unknown atoms: {unknown_by_library}")
+    families = {str(metadata["family"]) for metadata in ATOM_REGISTRY.values()}
+    missing_families = REQUIRED_ATOM_FAMILIES - families
+    if missing_families:
+        raise ValueError(f"Atom registry missing required families: {sorted(missing_families)}")
+
+
+def metadata_for_atoms(atoms: list[str]) -> list[dict[str, Any]]:
+    return [dict(ATOM_REGISTRY[atom]) for atom in atoms]
 
 
 def load_examples(paths: list[Path], tls: str, max_samples: int, max_movements: int, epsilon: float) -> list[dict[str, Any]]:
@@ -225,6 +330,7 @@ def solve_library(
         "objective": float(res.fun),
         "solve_time_sec": solve_time,
         "selected_atoms": selected,
+        "selected_atom_metadata": metadata_for_atoms(selected),
         "weights": {atom: float(weights[j]) for j, atom in enumerate(atoms)},
         "program_complexity": len(selected),
         "realized_total_regret": total_regret,
@@ -248,8 +354,14 @@ def main() -> None:
     parser.add_argument("--out", default="experiments/dual_sensitivity/block1_sparse_recovery.json")
     args = parser.parse_args()
 
+    validate_atom_registry()
     state_paths = [Path(p) for p in args.states] or [Path("experiments/dual_sensitivity/targeted_bottleneck_states.json")]
     examples = load_examples(state_paths, args.tls, args.max_samples, args.max_movements, args.epsilon)
+    example_feature_atoms = set(examples[0]["features"]) if examples else set()
+    missing_features = sorted(set(ATOM_REGISTRY) - example_feature_atoms)
+    if missing_features:
+        raise ValueError(f"Atom registry contains atoms without computed features: {missing_features}")
+
     runs = []
     seen: set[tuple[str, int]] = set()
     for budget in args.budgets:
@@ -319,6 +431,8 @@ def main() -> None:
         "tls": args.tls,
         "num_examples": len(examples),
         "budgets": args.budgets,
+        "atom_registry": ATOM_REGISTRY,
+        "gate_required_families_present": REQUIRED_ATOM_FAMILIES <= {str(metadata["family"]) for metadata in ATOM_REGISTRY.values()},
         "gate_dual_budget1_beats_raw": gate_dual_budget1_beats_raw,
         "gate_dual_lower_or_equal_complexity": gate_dual_lower_or_equal_complexity,
         "summary": compact_summary,
