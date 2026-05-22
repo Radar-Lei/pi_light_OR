@@ -117,3 +117,78 @@ The present plan only needs the local one-step marginal structure. Later manuscr
 ### Reviewer-facing interpretation
 
 THRY-01 establishes the mathematical object whose duals are later used as interpretable control signals. Queue conservation gives upstream/downstream movement effects; movement service variables encode controllable signal allocation; phase compatibility and green-service feasibility encode signal constraints; storage/supply/capacity constraints encode finite receiving space and spillback risk. This is a capacitated traffic-network relaxation, not a claim that the relaxation alone proves closed-loop traffic performance.
+
+## Sign Convention for Dual Movement Values
+
+This memo follows the minimization convention used in `scripts/run_dual_sanity.py` and SciPy/HiGHS LP marginals.
+
+```text
+LinkValue(l)        := lambda_l
+MovementValue(i,j)  := lambda_i - lambda_j
+```
+
+A positive `MovementValue(i,j)` is interpreted as first-order objective improvement, or marginal service benefit, from increasing service on movement `i -> j` at the zero-service marginal point. In the implementation this is exactly the convention
+
+```text
+movement_values[m] = equality_duals[up] - equality_duals[down]
+```
+
+where `up` and `down` are the upstream and downstream link indices of movement `m`. Because the LP is written as a cost minimization problem, the same statement can also be read as: serving an upstream queue is valuable when it removes vehicles from a high marginal congestion-cost link and sends them toward a lower marginal congestion-cost or less scarce downstream link.
+
+The phrase `dual-sensitivity decomposition` below refers to the decomposition of this movement value into upstream link value, downstream link value, and any modeled scarcity or service feasibility shadow prices that are present in the written primal relaxation.
+
+## THRY-02 — Movement-Level Dual-Sensitivity Decomposition
+
+### Lemma 1 — Movement marginal service value
+
+Consider the capacitated movement-service relaxation in THRY-01 and a feasible base point at which movement `m=(i,j)` can receive an infinitesimal additional service perturbation `epsilon > 0` without immediately hitting its own upper-service bound. Let `V(epsilon)` denote the optimal objective value after forcing `u_m = epsilon` from the same base state and holding the other zero-service marginal comparison conventions fixed. Then, under the sign convention above,
+
+```text
+[V(0) - V(epsilon)] / epsilon = lambda_i - lambda_j + o(1).
+```
+
+Thus the first-order movement value is
+
+```text
+MovementValue(i,j) = upstream link value - downstream link value
+                   = lambda_i - lambda_j.
+```
+
+The upstream term is positive when service removes flow from a link with high marginal congestion cost. The downstream term is subtracted because the same movement contributes flow to the receiving link, whose marginal value may include downstream queue cost and modeled receiving-capacity scarcity.
+
+### Expanded generalized-pressure form
+
+When the written primal model includes finite storage, supply, phase/service, or corridor constraints, the link and movement values can be expanded conceptually as
+
+```text
+MovementValue(i,j)
+  = [local upstream queue value on i]
+    - [local downstream queue value on j]
+    + [modeled upstream/downstream storage or supply correction]
+    + [modeled phase/service feasibility correction]
+    + [modeled corridor or network-coupling correction, if and only if such a primal constraint exists].
+```
+
+More concretely:
+
+- **Upstream value**: the conservation dual `lambda_i` captures the marginal objective effect of one additional vehicle in the upstream queue balance.
+- **Downstream value**: the conservation dual `lambda_j` captures the marginal objective effect of one additional vehicle in the downstream queue balance.
+- **Storage/supply correction**: when `x_j^+ <= S_j + z_j` binds, the storage/supply dual and overflow penalty alter `lambda_j`; the downstream term therefore contains receiving-capacity scarcity rather than only downstream queue length.
+- **Phase/service correction**: if a phase green budget, split constraint, or service feasibility constraint is written explicitly and binds, its KKT multiplier changes the reduced marginal benefit of assigning service to movements that consume that phase resource.
+- **Corridor correction**: a corridor, platoon, or service-balance term exists only if the relaxation explicitly includes a primal corridor/service constraint. Without that constraint, no corridor dual should be claimed and no `CorridorValue` atom should be treated as theory-backed.
+
+This is why the memo describes dual movement value as generalized pressure: ordinary upstream-minus-downstream pressure is the visible skeleton, while binding capacity and service constraints can add scarcity-aware corrections through the LP dual system.
+
+### Proof sketch
+
+Write the Lagrangian for the THRY-01 LP using equality multipliers `lambda_l` for queue conservation and inequality multipliers for storage/supply, phase/service, and service-bound constraints. A perturbation that increases service on `m=(i,j)` changes only the conservation rows for links `i` and `j` at first order, plus any explicit resource constraints that the service variable consumes. The conservation contribution to the directional derivative is `lambda_i - lambda_j` under the implementation convention. If storage/supply or phase/service constraints bind, their multipliers enter through stationarity and reduced-cost terms, either embedded in the affected link values `lambda_l` or appearing as explicit resource-consumption corrections.
+
+Standard LP sensitivity then identifies the derivative of the optimal value with the relevant shadow-price expression for sufficiently small perturbations that preserve the active-set structure. Therefore ranking movements by `lambda_up - lambda_down` is equivalent to ranking first-order service benefits in the relaxation, and any additional scarcity or service terms must be traceable to a corresponding primal constraint.
+
+### Alignment with validation code
+
+`solve_relaxation()` in `scripts/run_dual_sanity.py` extracts `res.eqlin.marginals` as equality duals and computes movement values as `equality_duals[up] - equality_duals[down]`. The validation routine `finite_difference_service_values()` forces a small service amount on each movement and compares the resulting objective decrease with those dual movement values. The script gate `rank_match_finite_difference` is therefore a direct check that this THRY-02 sign convention and dual-sensitivity decomposition are consistent with the project’s current Block 0 LP sanity scaffold.
+
+### Claim boundary for THRY-02
+
+THRY-02 proves an interpretation of marginal service values inside the continuous relaxation. It does not prove that a controller using those values universally dominates max-pressure, capacity-aware pressure, or learned controllers in closed-loop SUMO. Those empirical and regime-specific claims are intentionally deferred to later phase gates.
