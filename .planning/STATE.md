@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-05-22T16:27:59.912Z"
+stopped_at: Completed 01-03-PLAN.md
+last_updated: "2026-05-22T16:34:57.963Z"
 last_activity: 2026-05-22
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
-  percent: 0
+  completed_plans: 3
+  percent: 20
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Phase: 01 (Theoretical Core and Claim Lock) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-05-22
 
-Progress: [███████░░░] 67%
+Progress: [██████████] 100%
 
 Next command: `/gsd:plan-phase 1`
 
@@ -59,6 +59,7 @@ Next command: `/gsd:plan-phase 1`
 - Trend: N/A
 
 | Phase 01 P02 | 146s | 2 tasks | 2 files |
+| Phase 01 P03 | 252s | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 01]: Frame ordinary max-pressure/backpressure as the slack or ranking-neutral special case of dual movement ranking.
 - [Phase 01]: State scarcity deviations only as sufficient rank-change conditions tied to explicit primal constraints.
 - [Phase 01]: Route empirical usefulness of binding-regime corrections to the Phase 3 static pressure-failure kill gate.
+- [Phase 01]: State THRY-05 as deterministic finite-dictionary empirical oracle-regret/value-gap recovery quality plus solver gap.
+- [Phase 01]: Treat action agreement as a secondary diagnostic rather than the primary recovery target.
+- [Phase 01]: Route empirical dual-vs-pressure interpretation to the Phase 3 static pressure-failure kill gate.
 
 ### Pending Todos
 
@@ -91,6 +95,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T16:27:59.479Z
-Stopped at: Completed 01-02-PLAN.md
+Last session: 2026-05-22T16:34:57.956Z
+Stopped at: Completed 01-03-PLAN.md
 Resume file: None

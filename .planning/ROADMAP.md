@@ -13,7 +13,7 @@ This roadmap turns the project into a TR-B / Transportation Science research art
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Theoretical Core and Claim Lock** - Lock the capacitated relaxation, dual decomposition, pressure special case, scarcity correction, and recoverability claim.
+- [x] **Phase 1: Theoretical Core and Claim Lock** - Lock the capacitated relaxation, dual decomposition, pressure special case, scarcity correction, and recoverability claim. (completed 2026-05-22)
 - [ ] **Phase 2: Full Sparse Symbolic Recovery** - Implement auditable K-atom recovery with oracle-regret objective, complexity penalties, and full atom families.
 - [ ] **Phase 3: Static Pressure-Failure Kill Gate** - Decide the paper route by testing dual-vs-pressure behavior across slack and binding static regimes.
 - [ ] **Phase 4: Closed-Loop SUMO Evaluation** - Validate the selected claim route in closed-loop SUMO against strong traffic-control baselines.
@@ -62,7 +62,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 01-03-PLAN.md — Add finite-dictionary recovery quality and reviewer-facing claim checklist.
+- [x] 01-03-PLAN.md — Add finite-dictionary recovery quality and reviewer-facing claim checklist.
 
 ### Phase 2: Full Sparse Symbolic Recovery
 
@@ -163,7 +163,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Theoretical Core and Claim Lock | 2/3 | In Progress|  |
+| 1. Theoretical Core and Claim Lock | 3/3 | Complete   | 2026-05-22 |
 | 2. Full Sparse Symbolic Recovery | 0/TBD | Not started | - |
 | 3. Static Pressure-Failure Kill Gate | 0/TBD | Not started | - |
 | 4. Closed-Loop SUMO Evaluation | 0/TBD | Not started | - |
