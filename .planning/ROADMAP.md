@@ -14,7 +14,7 @@ This roadmap turns the project into a TR-B / Transportation Science research art
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Theoretical Core and Claim Lock** - Lock the capacitated relaxation, dual decomposition, pressure special case, scarcity correction, and recoverability claim. (completed 2026-05-22)
-- [ ] **Phase 2: Full Sparse Symbolic Recovery** - Implement auditable K-atom recovery with oracle-regret objective, complexity penalties, and full atom families.
+- [x] **Phase 2: Full Sparse Symbolic Recovery** - Implement auditable K-atom recovery with oracle-regret objective, complexity penalties, and full atom families. (completed 2026-05-22)
 - [ ] **Phase 3: Static Pressure-Failure Kill Gate** - Decide the paper route by testing dual-vs-pressure behavior across slack and binding static regimes.
 - [ ] **Phase 4: Closed-Loop SUMO Evaluation** - Validate the selected claim route in closed-loop SUMO against strong traffic-control baselines.
 - [ ] **Phase 5: Reproducibility and Repository Hardening** - Make the repository rerunnable, auditable, and table/figure reproducible from raw artifacts.
@@ -97,7 +97,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 02-03-PLAN.md — Emit auditable JSON/CSV/rule text outputs and schema gates.
+- [x] 02-03-PLAN.md — Emit auditable JSON/CSV/rule text outputs and schema gates.
 
 ### Phase 3: Static Pressure-Failure Kill Gate
 
@@ -176,7 +176,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Theoretical Core and Claim Lock | 3/3 | Complete   | 2026-05-22 |
-| 2. Full Sparse Symbolic Recovery | 2/3 | In Progress|  |
+| 2. Full Sparse Symbolic Recovery | 3/3 | Complete   | 2026-05-22 |
 | 3. Static Pressure-Failure Kill Gate | 0/TBD | Not started | - |
 | 4. Closed-Loop SUMO Evaluation | 0/TBD | Not started | - |
 | 5. Reproducibility and Repository Hardening | 0/TBD | Not started | - |
