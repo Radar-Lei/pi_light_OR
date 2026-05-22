@@ -17,7 +17,6 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 3: Static Pressure-Failure Kill Gate** - Decide the paper route by testing dual-vs-pressure behavior across slack and binding static regimes.
 - [ ] **Phase 4: Closed-Loop SUMO Evaluation** - Validate the selected claim route in closed-loop SUMO against strong traffic-control baselines.
 - [ ] **Phase 5: Reproducibility and Repository Hardening** - Make the repository rerunnable, auditable, and table/figure reproducible from raw artifacts.
-- [ ] **Phase 6: TR-B / Transportation Science Manuscript Skeleton** - Assemble the OR/control paper skeleton with honest framing, methods, experiments, and limitations.
 
 ## Gate Routing
 
@@ -119,28 +118,10 @@ Phase 3 is the project kill gate and controls the downstream claim strength:
   3. Known limitations are stated in the repository rather than hidden in ad hoc notes.
 **Plans**: TBD
 
-### Phase 6: TR-B / Transportation Science Manuscript Skeleton
-**Goal**: The paper skeleton presents the project as an OR/control methodology contribution with theory, symbolic recovery, kill-gate evidence, closed-loop evaluation, and honest limitations aligned to TR-B / Transportation Science expectations.
-**Depends on**: Phase 5
-**Dependencies**: Gate routing outcome, reproducible figures/tables, and verified theory/experiment artifacts from Phases 1–5.
-**Requirements**: PAPR-01, PAPR-02, PAPR-03, PAPR-04, PAPR-05
-**Requirements Covered**: PAPR-01, PAPR-02, PAPR-03, PAPR-04, PAPR-05
-**Success Criteria** (what must be TRUE):
-  1. The introduction frames the contribution as OR/control methodology for capacitated traffic-signal networks, not a PI-Light enhancement.
-  2. Related work positions max-pressure/backpressure, adaptive signal control, interpretable/programmatic policies, and OR dual sensitivity without overclaiming novelty.
-  3. The method section presents the continuous relaxation, dual-sensitivity extraction, symbolic recovery formulation, and algorithmic pipeline.
-  4. The experiment section separates sanity checks, static kill-gate, closed-loop main results, robustness, runtime, and ablations.
-  5. The limitations section honestly addresses pressure ties, simulator realism, oracle approximation, recovery scalability, and non-fit for a TR-E logistics framing.
-**Verification/UAT (artifact acceptance checks)**:
-  1. The manuscript skeleton has section headings and placeholders tied to generated tables, figures, theorem statements, and artifact paths.
-  2. The abstract/introduction match the Phase 3 route and do not imply stronger claims than the evidence supports.
-  3. The paper can be reviewed as a TR-B / Transportation Science submission draft rather than an AI-controller benchmark report.
-**Plans**: TBD
-
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -149,7 +130,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Static Pressure-Failure Kill Gate | 0/TBD | Not started | - |
 | 4. Closed-Loop SUMO Evaluation | 0/TBD | Not started | - |
 | 5. Reproducibility and Repository Hardening | 0/TBD | Not started | - |
-| 6. TR-B / Transportation Science Manuscript Skeleton | 0/TBD | Not started | - |
 
 ## Requirement Coverage
 
@@ -180,10 +160,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | REPR-03 | Phase 5 |
 | REPR-04 | Phase 5 |
 | REPR-05 | Phase 5 |
-| PAPR-01 | Phase 6 |
-| PAPR-02 | Phase 6 |
-| PAPR-03 | Phase 6 |
-| PAPR-04 | Phase 6 |
-| PAPR-05 | Phase 6 |
 
-**Coverage:** 30/30 v1 requirements mapped; no orphaned requirements; no duplicate mappings.
+**Coverage:** 25/25 v1 requirements mapped; no orphaned requirements; no duplicate mappings.

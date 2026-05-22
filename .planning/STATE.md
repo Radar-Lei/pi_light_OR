@@ -9,7 +9,7 @@ See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-22)
 
 ## Current Position
 
-Phase: 1 of 6 (Theoretical Core and Claim Lock)
+Phase: 1 of 5 (Theoretical Core and Claim Lock)
 Plan: Not planned yet
 Status: Ready to plan
 Last activity: 2026-05-22 — Roadmap initialized from PROJECT.md, REQUIREMENTS.md, and config.json
