@@ -2,8 +2,8 @@
 
 **Date**: 2026-05-22  
 **Phase**: 01 — Theoretical Core and Claim Lock  
-**Requirements covered in this plan**: THRY-01, THRY-02  
-**Primary references**: `.planning/phases/01-theoretical-core-and-claim-lock/01-CONTEXT.md`, `.planning/phases/01-theoretical-core-and-claim-lock/01-RESEARCH.md`, `refine-logs/THEORY_AND_ATOMS.md`, `scripts/run_dual_sanity.py`
+**Requirements covered in this plan**: THRY-01, THRY-02, THRY-03  
+**Primary references**: `.planning/phases/01-theoretical-core-and-claim-lock/01-CONTEXT.md`, `.planning/phases/01-theoretical-core-and-claim-lock/01-RESEARCH.md`, `refine-logs/THEORY_AND_ATOMS.md`, `scripts/run_dual_sanity.py`, `pi_light_code/agent/rule_based/max_pressure.py`
 
 ## Purpose
 
@@ -191,4 +191,61 @@ Standard LP sensitivity then identifies the derivative of the optimal value with
 
 ### Claim boundary for THRY-02
 
-THRY-02 proves an interpretation of marginal service values inside the continuous relaxation. It does not prove that a controller using those values universally dominates max-pressure, capacity-aware pressure, or learned controllers in closed-loop SUMO. Those empirical and regime-specific claims are intentionally deferred to later phase gates.
+THRY-02 proves an interpretation of marginal service values inside the continuous relaxation. It does not prove that a controller using those values is superior to max-pressure, capacity-aware pressure, or learned controllers in closed-loop SUMO. Those empirical and regime-specific claims are intentionally deferred to later phase gates.
+
+## THRY-03 — Pressure/Backpressure Special Case
+
+### Theorem 1 — Pressure/backpressure is the slack-regime dual ranking
+
+Consider the THRY-01 relaxation at a fixed local traffic state with a fixed set of feasible movements and phase-compatible movement groups. Suppose the following conditions hold for the movements being compared:
+
+1. **Queue-value specialization**: the link value used by the relaxation is a monotone queue weight `w_l`, and in the ordinary pressure case `w_l = x_l`.
+2. **Slack or ranking-neutral scarcity**: storage, supply, downstream receiving-capacity, and optional corridor/service constraints are either nonbinding for the compared infinitesimal services or contribute the same additive or positive affine adjustment to all compared movement scores, so they do not change the ranking.
+3. **Fixed local movement topology**: each candidate phase score is computed by summing the movement values of its feasible lane-link or movement set; the compared movements share the same topology convention.
+4. **No unmodeled correction terms**: any phase/service or corridor correction used in the score is backed by a written primal constraint; if no such constraint is present, its dual term is zero by definition rather than assumed.
+
+Then ranking movements by the THRY-02 dual movement value is identical to ranking ordinary pressure/backpressure:
+
+```text
+MovementValue(i,j) = lambda_i - lambda_j
+                   = w_i - w_j,
+```
+
+and, when `w_l = x_l`,
+
+```text
+MovementValue(i,j) = x_i - x_j.
+```
+
+For a phase `p` with feasible movement set `M_p`, the corresponding phase score reduces to the usual pressure aggregation:
+
+```text
+PhaseScore(p) = sum_{(i,j) in M_p} MovementValue(i,j)
+              = sum_{(i,j) in M_p} (x_i - x_j).
+```
+
+Thus ordinary max-pressure/backpressure is a structural special case of the generalized dual-sensitivity score, not a failed novelty claim.
+
+### Proof sketch
+
+Under THRY-02, a movement `m=(i,j)` has first-order service value `lambda_i - lambda_j`, with any scarcity or resource terms entering only through the link values or explicitly modeled service constraints. In the slack regime, storage/supply inequalities have zero active scarcity contribution. In a ranking-neutral regime, any remaining modeled scarcity or service contribution is common across the movements being compared, or is transformed by the same positive affine map, so it cannot change their order.
+
+With link value specialized to the queue weight, the conservation-dual difference becomes `w_i - w_j`. Setting `w_l = x_l` gives the standard upstream-minus-downstream pressure score. Summing these movement scores over the movements enabled by a phase yields the phase-level backpressure score. Therefore the dual ranking and ordinary pressure/backpressure ranking coincide under the stated slack or ranking-neutral assumptions.
+
+### Alignment with the existing max-pressure implementation
+
+`pi_light_code/agent/rule_based/max_pressure.py` scores each candidate phase by iterating over the phase's available lane links, adding the upstream lane observation and subtracting the downstream lane observation. This is the implementation analogue of
+
+```text
+sum_{(i,j) in M_p} (x_i - x_j).
+```
+
+The implementation is not used as a proof. It is cited only to show that the project baseline's phase-score convention matches the theorem's upstream-minus-downstream queue aggregation when the generalized dual score is in its pressure/backpressure special case.
+
+### Validation-code alignment
+
+`run_dual_sanity.py` computes both `movement_values[m] = equality_duals[up] - equality_duals[down]` and `pressure_scores[m] = queue_weight[up] - queue_weight[down]`. Its gate `pressure_special_case_pass` checks that the dual rank matches the pressure rank when storage duals are nonbinding. This script gate supports notation consistency for THRY-03; it is not closed-loop traffic-control evidence.
+
+### Claim boundary for THRY-03
+
+THRY-03 is a positive equivalence result: the dual-sensitivity construction recovers ordinary pressure/backpressure in slack or ranking-neutral regimes. It should be presented as an expected structural property and as a reason pressure remains a strong baseline. Any claim that scarcity-aware corrections are empirically useful is routed to later phase gates.
