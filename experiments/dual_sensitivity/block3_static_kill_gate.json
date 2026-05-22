@@ -144,14 +144,14 @@
             "dual_sensitivity"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.02134280605\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.02128790598\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         },
         "pressure_backpressure": {
           "selected_atoms": [
             "pressure_backpressure"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01775276207\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01746638992\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         }
       },
       "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
@@ -2587,14 +2587,14 @@
             "dual_sensitivity"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01712639199\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.017369334\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         },
         "pressure_backpressure": {
           "selected_atoms": [
             "pressure_backpressure"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01690139901\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01729600609\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         }
       },
       "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
@@ -5030,14 +5030,14 @@
             "dual_sensitivity"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01716061705\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01735544496\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         },
         "pressure_backpressure": {
           "selected_atoms": [
             "pressure_backpressure"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01711148\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01727478893\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         }
       },
       "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
@@ -7473,14 +7473,14 @@
             "dual_sensitivity"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.017394025\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.01738306205\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         },
         "pressure_backpressure": {
           "selected_atoms": [
             "pressure_backpressure"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.01743324101\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.01748523803\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         }
       },
       "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
@@ -9916,14 +9916,14 @@
             "dual_sensitivity"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01763608993\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01764808595\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         },
         "pressure_backpressure": {
           "selected_atoms": [
             "pressure_backpressure"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01760412205\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01768653397\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         }
       },
       "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
@@ -12359,14 +12359,14 @@
             "dual_sensitivity"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01721477602\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01726387802\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         },
         "pressure_backpressure": {
           "selected_atoms": [
             "pressure_backpressure"
           ],
           "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
-          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01743905002\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+          "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01726435695\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
         }
       },
       "rule_text_path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
@@ -14790,7 +14790,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.021342806052416563,
+        "solve_time_sec": 0.021287905983626842,
         "selected_atoms": [
           "dual_sensitivity"
         ],
@@ -23029,7 +23029,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.02134280605\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.02128790598\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       },
       {
         "library": "pressure_backpressure",
@@ -23045,7 +23045,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.017752762068994343,
+        "solve_time_sec": 0.017466389923356473,
         "selected_atoms": [
           "pressure_backpressure"
         ],
@@ -31284,7 +31284,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01775276207\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01746638992\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       }
     ],
     "demand_shift_proxy": [
@@ -31302,7 +31302,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.0171263919910416,
+        "solve_time_sec": 0.01736933400388807,
         "selected_atoms": [
           "dual_sensitivity"
         ],
@@ -39541,7 +39541,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01712639199\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.017369334\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       },
       {
         "library": "pressure_backpressure",
@@ -39557,7 +39557,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.01690139900892973,
+        "solve_time_sec": 0.017296006088145077,
         "selected_atoms": [
           "pressure_backpressure"
         ],
@@ -47796,7 +47796,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01690139901\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01729600609\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       }
     ],
     "incident_capacity_drop": [
@@ -47814,7 +47814,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.017160617047920823,
+        "solve_time_sec": 0.017355444957502186,
         "selected_atoms": [
           "dual_sensitivity"
         ],
@@ -56053,7 +56053,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01716061705\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01735544496\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       },
       {
         "library": "pressure_backpressure",
@@ -56069,7 +56069,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.017111480003222823,
+        "solve_time_sec": 0.01727478893008083,
         "selected_atoms": [
           "pressure_backpressure"
         ],
@@ -64308,7 +64308,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01711148\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01727478893\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       }
     ],
     "slack": [
@@ -64326,7 +64326,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.00010000014210854716,
         "objective_value_with_penalties": 0.00010000014210854716,
-        "solve_time_sec": 0.017394024995155632,
+        "solve_time_sec": 0.017383062047883868,
         "selected_atoms": [
           "dual_sensitivity"
         ],
@@ -72565,7 +72565,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.017394025\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.01738306205\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       },
       {
         "library": "pressure_backpressure",
@@ -72581,7 +72581,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.00010000014210854716,
         "objective_value_with_penalties": 0.00010000014210854716,
-        "solve_time_sec": 0.01743324100971222,
+        "solve_time_sec": 0.01748523802962154,
         "selected_atoms": [
           "pressure_backpressure"
         ],
@@ -80820,7 +80820,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.01743324101\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.01748523803\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       }
     ],
     "storage_binding": [
@@ -80838,7 +80838,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.017636089934967458,
+        "solve_time_sec": 0.017648085951805115,
         "selected_atoms": [
           "dual_sensitivity"
         ],
@@ -89077,7 +89077,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01763608993\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01764808595\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       },
       {
         "library": "pressure_backpressure",
@@ -89093,7 +89093,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.01760412205476314,
+        "solve_time_sec": 0.01768653397448361,
         "selected_atoms": [
           "pressure_backpressure"
         ],
@@ -97332,7 +97332,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01760412205\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01768653397\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       }
     ],
     "supply_binding_proxy": [
@@ -97350,7 +97350,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.017214776016771793,
+        "solve_time_sec": 0.017263878020457923,
         "selected_atoms": [
           "dual_sensitivity"
         ],
@@ -105589,7 +105589,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01721477602\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01726387802\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity\nSelected atoms:\n- dual_sensitivity: weight=0.1, family=dual, expression=lambda_up(m) - lambda_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       },
       {
         "library": "pressure_backpressure",
@@ -105605,7 +105605,7 @@
         "solver_selected_y_total_regret": 0.0,
         "objective": 0.0001,
         "objective_value_with_penalties": 0.0001,
-        "solve_time_sec": 0.01743905001785606,
+        "solve_time_sec": 0.01726435695309192,
         "selected_atoms": [
           "pressure_backpressure"
         ],
@@ -113844,7 +113844,7 @@
             ]
           }
         ],
-        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01743905002\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
+        "rule_text": "Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1\nCounts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0\nRegret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01726435695\nRule: choose movement m maximizing score(m)\nscore(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure\nSelected atoms:\n- pressure_backpressure: weight=0.1, family=pressure, expression=w_up(m) - w_down(m)\nNote: atom values are normalized by training-sample max absolute value before scoring.\nNote: this is plain-text audit output only; Phase 2 does not execute or deploy rendered rules."
       }
     ]
   },
