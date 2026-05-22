@@ -85,7 +85,19 @@ Plans:
   2. Placebo/random dual atoms are available and reported separately from genuine dual-sensitivity atoms.
   3. Equal-complexity comparisons can be reproduced without manual result transcription.
 
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [x] 02-01-PLAN.md — Add atom metadata registry and library/family selection for full sparse recovery.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 02-02-PLAN.md — Implement K-atom regret-first MILP budgets, constraints, and penalties.
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 02-03-PLAN.md — Emit auditable JSON/CSV/rule text outputs and schema gates.
 
 ### Phase 3: Static Pressure-Failure Kill Gate
 
@@ -164,7 +176,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Theoretical Core and Claim Lock | 3/3 | Complete   | 2026-05-22 |
-| 2. Full Sparse Symbolic Recovery | 0/TBD | Not started | - |
+| 2. Full Sparse Symbolic Recovery | 1/3 | In Progress|  |
 | 3. Static Pressure-Failure Kill Gate | 0/TBD | Not started | - |
 | 4. Closed-Loop SUMO Evaluation | 0/TBD | Not started | - |
 | 5. Reproducibility and Repository Hardening | 0/TBD | Not started | - |

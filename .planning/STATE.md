@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-05-22T16:34:57.963Z"
+status: in_progress
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-05-22T17:39:09.512Z"
 last_activity: 2026-05-22
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
-  percent: 20
+  total_plans: 6
+  completed_plans: 4
+  percent: 67
 ---
 
 # Project State
@@ -21,24 +21,24 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-22)
 
 **Core value:** Show that network-optimization dual sensitivities provide a generalized max-pressure principle that reduces to pressure when constraints are slack and adds scarcity-aware corrections when storage, supply, or corridor bottleneck constraints bind, and that this principle can be compressed into compact symbolic traffic-signal policies.
-**Current focus:** Phase 01 — Theoretical Core and Claim Lock
+**Current focus:** Phase 2 — full sparse symbolic recovery
 
 ## Current Position
 
-Phase: 01 (Theoretical Core and Claim Lock) — EXECUTING
-Plan: 3 of 3
-Status: Ready to execute
+Phase: 2
+Plan: 02-02-PLAN.md
+Status: In progress
 Last activity: 2026-05-22
 
-Progress: [██████████] 100%
+Progress: [███████░░░] 67%
 
-Next command: `/gsd:plan-phase 1`
+Next command: `/gsd:execute-phase 2`
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
+- Total plans completed: 3
 - Average duration: N/A
 - Total execution time: 0.0 hours
 
@@ -52,6 +52,7 @@ Next command: `/gsd:plan-phase 1`
 | 4. Closed-Loop SUMO Evaluation | 0/TBD | N/A | N/A |
 | 5. Reproducibility and Repository Hardening | 0/TBD | N/A | N/A |
 | 6. TR-B / Transportation Science Manuscript Skeleton | 0/TBD | N/A | N/A |
+| 01 | 3 | - | - |
 
 **Recent Trend:**
 
@@ -60,6 +61,7 @@ Next command: `/gsd:plan-phase 1`
 
 | Phase 01 P02 | 146s | 2 tasks | 2 files |
 | Phase 01 P03 | 252s | 2 tasks | 3 files |
+| Phase 02 P01 | 397s | 2 tasks | 1 file |
 
 ## Accumulated Context
 
@@ -76,6 +78,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 01]: State THRY-05 as deterministic finite-dictionary empirical oracle-regret/value-gap recovery quality plus solver gap.
 - [Phase 01]: Treat action agreement as a secondary diagnostic rather than the primary recovery target.
 - [Phase 01]: Route empirical dual-vs-pressure interpretation to the Phase 3 static pressure-failure kill gate.
+- [Phase 02 Plan 01]: Preserve named sparse-recovery libraries while adding full_symbolic and metadata-driven family selection.
+- [Phase 02 Plan 01]: Keep dual/placebo classification explicit in ATOM_REGISTRY rather than inferring atom semantics from names.
 
 ### Pending Todos
 
@@ -95,6 +99,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T16:34:57.956Z
-Stopped at: Completed 01-03-PLAN.md
+Last session: 2026-05-22T17:39:09.505Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
