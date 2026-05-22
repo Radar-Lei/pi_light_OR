@@ -91,6 +91,7 @@ LIBRARIES: dict[str, list[str]] = {
     "dual_sensitivity": ["dual_sensitivity"],
     "dual_plus_raw": ["dual_sensitivity", "upstream_queue", "neg_downstream_queue"],
     "pressure_backpressure": ["pressure_backpressure"],
+    "full_symbolic": list(ATOM_REGISTRY),
 }
 
 
@@ -130,6 +131,32 @@ def validate_atom_registry() -> None:
 
 def metadata_for_atoms(atoms: list[str]) -> list[dict[str, Any]]:
     return [dict(ATOM_REGISTRY[atom]) for atom in atoms]
+
+
+def select_library_names(requested_libraries: list[str] | None) -> list[str]:
+    if not requested_libraries:
+        return list(LIBRARIES)
+    unknown = [name for name in requested_libraries if name not in LIBRARIES]
+    if unknown:
+        raise ValueError(f"Unknown libraries: {unknown}. Available libraries: {sorted(LIBRARIES)}")
+    return requested_libraries
+
+
+def validate_atom_families(requested_families: list[str] | None) -> set[str] | None:
+    if not requested_families:
+        return None
+    known_families = {str(metadata["family"]) for metadata in ATOM_REGISTRY.values()}
+    unknown = sorted(set(requested_families) - known_families)
+    if unknown:
+        raise ValueError(f"Unknown atom families: {unknown}. Available families: {sorted(known_families)}")
+    return set(requested_families)
+
+
+def atoms_for_library(library: str, allowed_families: set[str] | None = None) -> list[str]:
+    atoms = LIBRARIES[library]
+    if allowed_families is None:
+        return list(atoms)
+    return [atom for atom in atoms if str(ATOM_REGISTRY[atom]["family"]) in allowed_families]
 
 
 def load_examples(paths: list[Path], tls: str, max_samples: int, max_movements: int, epsilon: float) -> list[dict[str, Any]]:
@@ -216,12 +243,12 @@ def normalized_tensor(examples: list[dict[str, Any]], atoms: list[str]) -> list[
 def solve_library(
     examples: list[dict[str, Any]],
     library: str,
+    atoms: list[str],
     budget: int,
     complexity_penalty: float,
     min_weight: float,
     tie_margin: float,
 ) -> dict[str, Any]:
-    atoms = LIBRARIES[library]
     budget = min(budget, len(atoms))
     matrices = normalized_tensor(examples, atoms)
     n_atoms = len(atoms)
@@ -348,6 +375,9 @@ def main() -> None:
     parser.add_argument("--max-movements", type=int, default=12)
     parser.add_argument("--epsilon", type=float, default=1e-3)
     parser.add_argument("--budgets", nargs="+", type=int, default=[1, 2])
+    parser.add_argument("--max-atoms", type=int, default=0)
+    parser.add_argument("--libraries", nargs="+", default=None)
+    parser.add_argument("--atom-families", nargs="+", default=None)
     parser.add_argument("--complexity-penalty", type=float, default=1e-4)
     parser.add_argument("--min-weight", type=float, default=0.1)
     parser.add_argument("--tie-margin", type=float, default=1e-6)
@@ -355,6 +385,20 @@ def main() -> None:
     args = parser.parse_args()
 
     validate_atom_registry()
+    library_names = select_library_names(args.libraries)
+    allowed_families = validate_atom_families(args.atom_families)
+    budgets = [args.max_atoms] if args.max_atoms > 0 else args.budgets
+    if any(budget <= 0 for budget in budgets):
+        raise ValueError(f"Atom budgets must be positive: {budgets}")
+    selected_library_atoms = {
+        atom for library in library_names for atom in atoms_for_library(library, allowed_families)
+    }
+    if not selected_library_atoms:
+        raise ValueError(
+            f"No atoms selected by libraries {library_names} and families "
+            f"{sorted(allowed_families) if allowed_families is not None else 'all'}"
+        )
+
     state_paths = [Path(p) for p in args.states] or [Path("experiments/dual_sensitivity/targeted_bottleneck_states.json")]
     examples = load_examples(state_paths, args.tls, args.max_samples, args.max_movements, args.epsilon)
     example_feature_atoms = set(examples[0]["features"]) if examples else set()
@@ -363,11 +407,14 @@ def main() -> None:
         raise ValueError(f"Atom registry contains atoms without computed features: {missing_features}")
 
     runs = []
-    seen: set[tuple[str, int]] = set()
-    for budget in args.budgets:
-        for library, atoms in LIBRARIES.items():
+    seen: set[tuple[str, int, tuple[str, ...]]] = set()
+    for budget in budgets:
+        for library in library_names:
+            atoms = atoms_for_library(library, allowed_families)
+            if not atoms:
+                continue
             effective_budget = min(budget, len(atoms))
-            key = (library, effective_budget)
+            key = (library, effective_budget, tuple(atoms))
             if key in seen:
                 continue
             seen.add(key)
@@ -375,6 +422,7 @@ def main() -> None:
                 solve_library(
                     examples,
                     library,
+                    atoms,
                     effective_budget,
                     args.complexity_penalty,
                     args.min_weight,
@@ -430,7 +478,9 @@ def main() -> None:
         "input_states": [str(p) for p in state_paths],
         "tls": args.tls,
         "num_examples": len(examples),
-        "budgets": args.budgets,
+        "budgets": budgets,
+        "libraries": library_names,
+        "atom_families": sorted(allowed_families) if allowed_families is not None else "all",
         "atom_registry": ATOM_REGISTRY,
         "gate_required_families_present": REQUIRED_ATOM_FAMILIES <= {str(metadata["family"]) for metadata in ATOM_REGISTRY.values()},
         "gate_dual_budget1_beats_raw": gate_dual_budget1_beats_raw,
