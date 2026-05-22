@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Theoretical Core and Claim Lock** - Lock the capacitated relaxation, dual decomposition, pressure special case, scarcity correction, and recoverability claim. (completed 2026-05-22)
 - [x] **Phase 2: Full Sparse Symbolic Recovery** - Implement auditable K-atom recovery with oracle-regret objective, complexity penalties, and full atom families. (completed 2026-05-22)
-- [ ] **Phase 3: Static Pressure-Failure Kill Gate** - Decide the paper route by testing dual-vs-pressure behavior across slack and binding static regimes.
+- [x] **Phase 3: Static Pressure-Failure Kill Gate** - Decide the paper route by testing dual-vs-pressure behavior across slack and binding static regimes. (completed 2026-05-22)
 - [ ] **Phase 4: Closed-Loop SUMO Evaluation** - Validate the selected claim route in closed-loop SUMO against strong traffic-control baselines.
 - [ ] **Phase 5: Reproducibility and Repository Hardening** - Make the repository rerunnable, auditable, and table/figure reproducible from raw artifacts.
 
@@ -132,7 +132,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 03-03-PLAN.md — Render the static kill-gate route report and claim-discipline caveats.
+- [x] 03-03-PLAN.md — Render the static kill-gate route report and claim-discipline caveats.
 
 ### Phase 4: Closed-Loop SUMO Evaluation
 
@@ -189,7 +189,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Theoretical Core and Claim Lock | 3/3 | Complete   | 2026-05-22 |
 | 2. Full Sparse Symbolic Recovery | 3/3 | Complete   | 2026-05-22 |
-| 3. Static Pressure-Failure Kill Gate | 2/3 | In Progress|  |
+| 3. Static Pressure-Failure Kill Gate | 3/3 | Complete   | 2026-05-22 |
 | 4. Closed-Loop SUMO Evaluation | 0/TBD | Not started | - |
 | 5. Reproducibility and Repository Hardening | 0/TBD | Not started | - |
 
