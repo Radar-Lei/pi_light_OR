@@ -17,8 +17,8 @@ Requirements for the TR-B / Transportation Science paper-building milestone. Eac
 
 ### Recovery Algorithm
 
-- [ ] **RECV-01**: The code implements K-atom sparse symbolic recovery beyond one-atom pilots.
-- [ ] **RECV-02**: The recovery objective optimizes oracle regret or value gap, not imitation accuracy alone.
+- [x] **RECV-01**: The code implements K-atom sparse symbolic recovery beyond one-atom pilots.
+- [x] **RECV-02**: The recovery objective optimizes oracle regret or value gap, not imitation accuracy alone.
 - [x] **RECV-03**: The recovery formulation includes explicit penalties or constraints for program size, neighbor atom count, and dual-price atom count.
 - [x] **RECV-04**: The atom library includes local queue/pressure, downstream capacity/slack, raw neighbor queue, pressure/backpressure, dual sensitivity/price imbalance, and random/permuted dual placebo families.
 - [ ] **RECV-05**: Recovery outputs include auditable program text/rules, selected atoms, solve time, oracle regret, action agreement, program length, neighbor count, and dual atom count.
@@ -86,8 +86,8 @@ Deferred unless v1 evidence supports expansion.
 | THRY-03 | Phase 1 | Complete |
 | THRY-04 | Phase 1 | Complete |
 | THRY-05 | Phase 1 | Complete |
-| RECV-01 | Phase 2 | Pending |
-| RECV-02 | Phase 2 | Pending |
+| RECV-01 | Phase 2 | Complete |
+| RECV-02 | Phase 2 | Complete |
 | RECV-03 | Phase 2 | Complete |
 | RECV-04 | Phase 2 | Complete |
 | RECV-05 | Phase 2 | Pending |
