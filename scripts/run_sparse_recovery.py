@@ -267,6 +267,23 @@ def count_selected(indices: list[int], selected_mask: np.ndarray) -> int:
     return int(sum(bool(selected_mask[j]) for j in indices))
 
 
+def render_rule_text(library: str, max_atoms: int, selected_atoms: list[str], weights: np.ndarray, atoms: list[str]) -> str:
+    if not selected_atoms:
+        expression = "0.0"
+    else:
+        terms = []
+        for atom in selected_atoms:
+            weight = float(weights[atoms.index(atom)])
+            atom_expr = str(ATOM_REGISTRY[atom]["expression"])
+            terms.append(f"{weight:.6g} * ({atom_expr})")
+        expression = " + ".join(terms)
+    return (
+        f"library={library}; max_atoms={max_atoms}; "
+        "choose movement m maximizing normalized score(m); "
+        f"score(m) = {expression}"
+    )
+
+
 def solve_library(
     examples: list[dict[str, Any]],
     library: str,
@@ -404,6 +421,7 @@ def solve_library(
         "placebo_penalty": float(placebo_penalty * placebo_count),
     }
     penalty_breakdown["total_penalty"] = float(sum(penalty_breakdown.values()))
+    rule_text = render_rule_text(library, budget, selected, weights, atoms)
 
     rows_out = []
     total_regret = 0.0
@@ -457,6 +475,7 @@ def solve_library(
         "max_regret": max_regret,
         "action_agreement": agreement / len(examples) if examples else 0.0,
         "penalty_breakdown": penalty_breakdown,
+        "rule_text": rule_text,
         "results": rows_out,
     }
 
@@ -596,6 +615,7 @@ def main() -> None:
             "max_regret": r.get("max_regret"),
             "action_agreement": r.get("action_agreement"),
             "solve_time_sec": r.get("solve_time_sec"),
+            "rule_text": r.get("rule_text"),
         }
         for r in runs
     ]
@@ -647,6 +667,7 @@ def main() -> None:
                 "max_regret": r["max_regret"],
                 "action_agreement": r["action_agreement"],
                 "solve_time_sec": r["solve_time_sec"],
+                "rule_text": r["rule_text"],
             }
             for r in best_by_library.values()
         ],
