@@ -63,6 +63,21 @@ def regret(oracle: np.ndarray, scores: np.ndarray) -> float:
     return float(np.max(oracle) - oracle[chosen])
 
 
+def tie_aware_rank_match(reference: np.ndarray, candidate: np.ndarray, tolerance: float) -> tuple[bool, int, int]:
+    checked = 0
+    violations = 0
+    for i in range(len(reference)):
+        for j in range(i + 1, len(reference)):
+            diff = float(reference[i] - reference[j])
+            if abs(diff) <= tolerance:
+                continue
+            checked += 1
+            cand_diff = float(candidate[i] - candidate[j])
+            if diff * cand_diff < -tolerance:
+                violations += 1
+    return violations == 0, checked, violations
+
+
 def evaluate_summary(summary: dict[str, Any]) -> dict[str, Any]:
     oracle_all = np.asarray(summary["finite_difference_values"], dtype=float)
     dual_all = np.asarray(summary["dual_movement_values"], dtype=float)
@@ -106,12 +121,24 @@ def evaluate_summary(summary: dict[str, Any]) -> dict[str, Any]:
         corr = float(np.corrcoef(dual, oracle)[0, 1])
     else:
         corr = 1.0
-    rank_match = [int(i) for i in original_indices[np.argsort(-dual)]] == [int(i) for i in original_indices[np.argsort(-oracle)]]
+    exact_rank_match = [int(i) for i in original_indices[np.argsort(-dual)]] == [int(i) for i in original_indices[np.argsort(-oracle)]]
+    oracle_scale = max(1.0, float(np.max(np.abs(oracle))))
+    tie_tolerance = 1e-6 * oracle_scale
+    tie_rank_match, tie_checked, tie_violations = tie_aware_rank_match(oracle, dual, tie_tolerance)
+    dual_choice = int(np.argmax(dual))
+    oracle_best = int(np.argmax(oracle))
+    top_choice_match = abs(float(np.max(oracle) - oracle[dual_choice])) <= 1e-9
     return {
         "scenario": summary["scenario"],
         "num_movements": len(summary["movements"]),
         "num_feasible_movements": int(np.sum(feasible)),
-        "rank_match_finite_difference": rank_match,
+        "rank_match_finite_difference": exact_rank_match,
+        "tie_aware_rank_match_finite_difference": tie_rank_match,
+        "tie_aware_pairs_checked": tie_checked,
+        "tie_aware_pair_violations": tie_violations,
+        "top_choice_match_finite_difference": top_choice_match,
+        "dual_chosen_movement": int(original_indices[dual_choice]),
+        "oracle_best_movement": int(original_indices[oracle_best]),
         "pressure_special_case_pass": summary["pressure_special_case_pass"],
         "nonbinding_storage": summary["nonbinding_storage"],
         "dual_fd_correlation": corr,
@@ -139,7 +166,10 @@ def main() -> None:
         summary = summarize_scenario(scenario, args.epsilon)
         results.append(evaluate_summary(summary))
 
-    gate_dual_valid = all(r["rank_match_finite_difference"] for r in results)
+    gate_exact_full_rank = all(r["rank_match_finite_difference"] for r in results)
+    gate_tie_aware_full_rank = all(r["tie_aware_rank_match_finite_difference"] for r in results)
+    gate_top_choice = all(r["top_choice_match_finite_difference"] for r in results)
+    gate_dual_valid = gate_tie_aware_full_rank
     gate_dual_best = all(r["dual_tied_best"] for r in results)
     aggregate_regret: dict[str, dict[str, float | int]] = {}
     for r in results:
@@ -171,6 +201,9 @@ def main() -> None:
         "tls": args.tls,
         "num_results": len(results),
         "gate_dual_valid": gate_dual_valid,
+        "gate_exact_full_rank": gate_exact_full_rank,
+        "gate_tie_aware_full_rank": gate_tie_aware_full_rank,
+        "gate_top_choice": gate_top_choice,
         "gate_dual_tied_best": gate_dual_best,
         "gate_dual_beats_raw_atoms": gate_dual_beats_raw_atoms,
         "aggregate_regret": aggregate_regret,

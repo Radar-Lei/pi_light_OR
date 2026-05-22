@@ -1,11 +1,14 @@
 {
   "experiment": "block1_sumo_sampled_recovery",
-  "status": "INCONCLUSIVE",
+  "status": "PASSED",
   "scope": "SUMO sampled states + one-step LP + one-atom equal-complexity pilot",
   "input_states": "experiments/dual_sensitivity/arterial_sampled_states.json",
   "tls": "C3",
   "num_results": 8,
-  "gate_dual_valid": false,
+  "gate_dual_valid": true,
+  "gate_exact_full_rank": true,
+  "gate_tie_aware_full_rank": true,
+  "gate_top_choice": true,
   "gate_dual_tied_best": true,
   "gate_dual_beats_raw_atoms": true,
   "aggregate_regret": {
@@ -34,9 +37,9 @@
       "count": 8
     },
     "random_price": {
-      "sum": 28.000000000012903,
-      "mean": 3.500000000001613,
-      "zero_regret": 3,
+      "sum": 27.000000000025892,
+      "mean": 3.3750000000032365,
+      "zero_regret": 4,
       "count": 8
     },
     "dual_sensitivity": {
@@ -52,6 +55,12 @@
       "num_movements": 12,
       "num_feasible_movements": 6,
       "rank_match_finite_difference": true,
+      "tie_aware_rank_match_finite_difference": true,
+      "tie_aware_pairs_checked": 0,
+      "tie_aware_pair_violations": 0,
+      "top_choice_match_finite_difference": true,
+      "dual_chosen_movement": 6,
+      "oracle_best_movement": 6,
       "pressure_special_case_pass": true,
       "nonbinding_storage": true,
       "dual_fd_correlation": 1.0,
@@ -106,9 +115,15 @@
       "num_movements": 12,
       "num_feasible_movements": 6,
       "rank_match_finite_difference": true,
+      "tie_aware_rank_match_finite_difference": true,
+      "tie_aware_pairs_checked": 13,
+      "tie_aware_pair_violations": 0,
+      "top_choice_match_finite_difference": true,
+      "dual_chosen_movement": 1,
+      "oracle_best_movement": 1,
       "pressure_special_case_pass": true,
       "nonbinding_storage": true,
-      "dual_fd_correlation": 0.9999999999999999,
+      "dual_fd_correlation": 0.9994911085023549,
       "variants": [
         {
           "variant": "local_only",
@@ -141,9 +156,9 @@
         {
           "variant": "random_price",
           "program_complexity": 1,
-          "chosen_movement": 2,
+          "chosen_movement": 3,
           "oracle_best_movement": 1,
-          "oracle_regret": 0.0
+          "oracle_regret": 14.000000000010004
         },
         {
           "variant": "dual_sensitivity",
@@ -160,9 +175,15 @@
       "num_movements": 12,
       "num_feasible_movements": 12,
       "rank_match_finite_difference": true,
+      "tie_aware_rank_match_finite_difference": true,
+      "tie_aware_pairs_checked": 49,
+      "tie_aware_pair_violations": 0,
+      "top_choice_match_finite_difference": true,
+      "dual_chosen_movement": 1,
+      "oracle_best_movement": 1,
       "pressure_special_case_pass": true,
       "nonbinding_storage": true,
-      "dual_fd_correlation": 0.9309493362510591,
+      "dual_fd_correlation": 0.993779099812772,
       "variants": [
         {
           "variant": "local_only",
@@ -213,10 +234,16 @@
       "scenario": "sumo_C3_t241",
       "num_movements": 12,
       "num_feasible_movements": 6,
-      "rank_match_finite_difference": false,
-      "pressure_special_case_pass": false,
+      "rank_match_finite_difference": true,
+      "tie_aware_rank_match_finite_difference": true,
+      "tie_aware_pairs_checked": 13,
+      "tie_aware_pair_violations": 0,
+      "top_choice_match_finite_difference": true,
+      "dual_chosen_movement": 1,
+      "oracle_best_movement": 1,
+      "pressure_special_case_pass": true,
       "nonbinding_storage": true,
-      "dual_fd_correlation": 0.9946348346108682,
+      "dual_fd_correlation": 0.9959531359943897,
       "variants": [
         {
           "variant": "local_only",
@@ -249,9 +276,9 @@
         {
           "variant": "random_price",
           "program_complexity": 1,
-          "chosen_movement": 4,
+          "chosen_movement": 0,
           "oracle_best_movement": 1,
-          "oracle_regret": 5.000000000009663
+          "oracle_regret": 6.000000000000227
         },
         {
           "variant": "dual_sensitivity",
@@ -268,9 +295,15 @@
       "num_movements": 12,
       "num_feasible_movements": 6,
       "rank_match_finite_difference": true,
+      "tie_aware_rank_match_finite_difference": true,
+      "tie_aware_pairs_checked": 13,
+      "tie_aware_pair_violations": 0,
+      "top_choice_match_finite_difference": true,
+      "dual_chosen_movement": 1,
+      "oracle_best_movement": 1,
       "pressure_special_case_pass": true,
       "nonbinding_storage": true,
-      "dual_fd_correlation": 0.9999999999999998,
+      "dual_fd_correlation": 0.9994911294283065,
       "variants": [
         {
           "variant": "local_only",
@@ -303,9 +336,9 @@
         {
           "variant": "random_price",
           "program_complexity": 1,
-          "chosen_movement": 0,
+          "chosen_movement": 2,
           "oracle_best_movement": 1,
-          "oracle_regret": 14.999999999986358
+          "oracle_regret": 0.0
         },
         {
           "variant": "dual_sensitivity",
@@ -321,10 +354,16 @@
       "scenario": "sumo_C3_t361",
       "num_movements": 12,
       "num_feasible_movements": 12,
-      "rank_match_finite_difference": false,
-      "pressure_special_case_pass": false,
+      "rank_match_finite_difference": true,
+      "tie_aware_rank_match_finite_difference": true,
+      "tie_aware_pairs_checked": 43,
+      "tie_aware_pair_violations": 0,
+      "top_choice_match_finite_difference": true,
+      "dual_chosen_movement": 1,
+      "oracle_best_movement": 1,
+      "pressure_special_case_pass": true,
       "nonbinding_storage": true,
-      "dual_fd_correlation": 0.3644054444074692,
+      "dual_fd_correlation": 0.937042571331907,
       "variants": [
         {
           "variant": "local_only",
@@ -357,9 +396,9 @@
         {
           "variant": "random_price",
           "program_complexity": 1,
-          "chosen_movement": 0,
+          "chosen_movement": 2,
           "oracle_best_movement": 1,
-          "oracle_regret": 1.0000000000012221
+          "oracle_regret": 0.0
         },
         {
           "variant": "dual_sensitivity",
@@ -376,9 +415,15 @@
       "num_movements": 12,
       "num_feasible_movements": 9,
       "rank_match_finite_difference": true,
+      "tie_aware_rank_match_finite_difference": true,
+      "tie_aware_pairs_checked": 25,
+      "tie_aware_pair_violations": 0,
+      "top_choice_match_finite_difference": true,
+      "dual_chosen_movement": 1,
+      "oracle_best_movement": 1,
       "pressure_special_case_pass": true,
       "nonbinding_storage": true,
-      "dual_fd_correlation": 0.9347195428041295,
+      "dual_fd_correlation": 0.9909375519965757,
       "variants": [
         {
           "variant": "local_only",
@@ -430,9 +475,15 @@
       "num_movements": 12,
       "num_feasible_movements": 6,
       "rank_match_finite_difference": true,
-      "pressure_special_case_pass": false,
+      "tie_aware_rank_match_finite_difference": true,
+      "tie_aware_pairs_checked": 13,
+      "tie_aware_pair_violations": 0,
+      "top_choice_match_finite_difference": true,
+      "dual_chosen_movement": 1,
+      "oracle_best_movement": 1,
+      "pressure_special_case_pass": true,
       "nonbinding_storage": true,
-      "dual_fd_correlation": 1.0,
+      "dual_fd_correlation": 0.9996816538074664,
       "variants": [
         {
           "variant": "local_only",
@@ -465,7 +516,7 @@
         {
           "variant": "random_price",
           "program_complexity": 1,
-          "chosen_movement": 2,
+          "chosen_movement": 1,
           "oracle_best_movement": 1,
           "oracle_regret": 0.0
         },

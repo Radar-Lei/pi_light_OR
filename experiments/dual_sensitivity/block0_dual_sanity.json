@@ -37,10 +37,10 @@
         80.0,
         80.0
       ],
-      "objective": 290.0,
+      "objective": 430.0,
       "service": [
-        10.0,
-        -0.0
+        0.0,
+        0.0
       ],
       "queue_duals": [
         18.0,
@@ -54,7 +54,7 @@
         -0.0,
         -0.0
       ],
-      "green_budget_dual": -6.0,
+      "green_budget_dual": -0.0,
       "dual_movement_values": [
         14.0,
         6.0
@@ -114,14 +114,14 @@
         80.0,
         80.0
       ],
-      "objective": 6760.0,
+      "objective": 6814.0,
       "service": [
         0.0,
-        9.0
+        0.0
       ],
       "queue_duals": [
         18.0,
-        3.0,
+        9.0,
         80.0,
         3.0
       ],
@@ -134,7 +134,7 @@
       "green_budget_dual": -0.0,
       "dual_movement_values": [
         -62.0,
-        0.0
+        6.0
       ],
       "finite_difference_values": [
         -87.00000000044383,
@@ -211,10 +211,10 @@
         90.0,
         90.0
       ],
-      "objective": 628.0,
+      "objective": 862.0,
       "service": [
-        12.0,
-        6.0,
+        0.0,
+        0.0,
         0.0,
         0.0
       ],
@@ -238,7 +238,7 @@
         -0.0,
         -0.0
       ],
-      "green_budget_dual": -11.0,
+      "green_budget_dual": -0.0,
       "dual_movement_values": [
         14.0,
         11.0,
@@ -335,11 +335,11 @@
         70.0,
         80.0
       ],
-      "objective": 8904.0,
+      "objective": 9098.0,
       "service": [
-        10.0,
-        10.0,
-        4.0,
+        0.0,
+        0.0,
+        0.0,
         0.0,
         0.0,
         0.0
@@ -351,7 +351,7 @@
         12.0,
         11.0,
         10.0,
-        110.0
+        80.0
       ],
       "storage_duals": [
         -0.0,
@@ -360,14 +360,14 @@
         -0.0,
         -0.0,
         -0.0,
-        -30.0
+        -0.0
       ],
-      "green_budget_dual": -6.0,
+      "green_budget_dual": -0.0,
       "dual_movement_values": [
         7.0,
         10.0,
         6.0,
-        -98.0,
+        -68.0,
         -17.0,
         -8.0
       ],
@@ -411,9 +411,9 @@
         4,
         3
       ],
-      "dual_fd_correlation": 0.9999999999999997,
+      "dual_fd_correlation": 0.9945149563873722,
       "rank_match_finite_difference": true,
-      "nonbinding_storage": false,
+      "nonbinding_storage": true,
       "pressure_special_case_pass": true
     }
   ]

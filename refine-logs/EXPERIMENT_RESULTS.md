@@ -88,15 +88,18 @@ What was added:
 
 Passive SUMO sampled-state result:
 
-- **Status**: INCONCLUSIVE
-- Dual-sensitivity still achieved zero top-choice oracle regret in all evaluated passive samples.
-- Full-rank dual-vs-finite-difference checks remain noisy due to ties/infeasible or near-tied movements.
-- Passive fixed-time samples are useful pipeline sanity checks, but are not sufficient evidence for the bottleneck/spillback claim.
+- **Status**: PASSED AS SANITY CHECK
+- After aligning dual values and finite differences at the same zero-service marginal point, passive SUMO states pass all sanity layers:
+  - top-choice sanity: 8/8
+  - exact full-rank dual-vs-finite-difference check: 8/8
+  - tie-aware pairwise full-rank check: 8/8, 0 violations
+- Passive fixed-time samples are useful dual-validity sanity checks, but are not by themselves sufficient evidence for the bottleneck/spillback recovery advantage.
 
 Targeted bottleneck-state result:
 
 - **Status**: PASSED AS TARGETED BLOCK 1 EVIDENCE
 - Dual-sensitivity achieved zero aggregate oracle regret across 16 targeted states.
+- Targeted states also pass all sanity layers: top-choice 16/16, exact full-rank 16/16, tie-aware full-rank 16/16 with 0 violations.
 - Equal-complexity raw atoms failed under the same one-atom budget:
   - local upstream queue: total regret 405.3824, mean 25.3364
   - raw downstream queue: total regret 1857.7696, mean 116.1106
@@ -104,11 +107,28 @@ Targeted bottleneck-state result:
   - random price: total regret 1057.3856, mean 66.0866
 - Pressure/backpressure diagnostic also achieved zero regret, confirming that the constructed cases are traffic-control meaningful rather than arbitrary labels.
 
+Sparse MILP recovery result:
+
+- **Status**: PASSED
+- Implemented `scripts/run_sparse_recovery.py` with a SciPy/HiGHS MILP backend.
+- The recovery objective selects sparse atom subsets under a bounded program budget and reports external deterministic realized oracle regret.
+- Targeted-only dataset: 16 examples.
+  - dual-sensitivity, budget 1: selected `dual_sensitivity`, total regret 0.0, action agreement 1.0
+  - dual+raw library, best recovered program: selected `dual_sensitivity`, total regret 0.0, action agreement 1.0
+  - local/raw/all raw libraries: best recovered atom `upstream_queue`, total regret 405.3824, action agreement 0.75
+  - random price: total regret 761.3792, action agreement 0.125
+- Combined passive+targeted dataset: 26 examples.
+  - dual-sensitivity, budget 1: selected `dual_sensitivity`, total regret 0.0, action agreement 1.0
+  - dual+raw library, best recovered program: selected `dual_sensitivity`, total regret 0.0, action agreement 1.0
+  - local/raw/all raw libraries: best recovered atom `upstream_queue`, total regret 469.3824, action agreement 0.538
+  - random price: total regret 787.3792, action agreement 0.231
+- Pressure/backpressure diagnostic also achieved zero regret, confirming consistency with the pressure special case rather than arbitrary labels.
+
 Interpretation:
 
 - The SUMO/topology state pipeline is working.
-- Gate B now has a positive targeted-data signal that dual-sensitivity beats equal-complexity raw/local atoms under bottleneck/spillback stress.
-- This is still a one-atom scaffold, not full sparse MIP recovery; the next implementation step is the real sparse recovery objective over a larger OR-mapped atom library.
+- Gate B now has positive sparse-recovery evidence: the MILP recovery procedure selects dual-sensitivity atoms and achieves lower realized oracle regret than raw/local/random atoms at equal or lower complexity.
+- This remains an offline recovery gate; the next step is closed-loop SUMO validation on arterial bottleneck/platoon scenarios.
 
 ## AMPL/SUMO Environment Notes
 
@@ -118,15 +138,15 @@ Interpretation:
 
 ## Gate Status
 
-- Gate A — Dual validity: **PASSED for proxy LP sanity; SUMO sampled-state top-choice sanity is usable but full-rank checks are noisy**.
-- Gate B — Offline recovery: **PIPELINE/SCAFFOLD PASSED; main advantage NOT YET PROVEN**.
+- Gate A — Dual validity: **PASSED for proxy LP, passive SUMO, and targeted SUMO; top-choice, exact full-rank, and tie-aware full-rank checks all pass after using a common zero-service marginal point**.
+- Gate B — Offline recovery: **PASSED for targeted/combined offline sparse recovery; full claim still needs closed-loop SUMO validation**.
 - Gate C/D/E: not started.
 
 ## Next Step
 
 Recommended next implementation step:
 
-1. Generate targeted SUMO bottleneck/spillback sampled states instead of passive fixed-time samples.
-2. Implement real sparse MIP recovery over OR-mapped atoms.
-3. Create a state dataset where raw-neighbor/all-neighbor/local baselines diverge from dual-scarcity features.
-4. Optionally install `amplpy` and port the relaxation/recovery to AMPL/HiGHS using the Obsidian license.
+1. Start Block 3 arterial closed-loop pilot with bottleneck/platoon scenarios.
+2. Compare local/raw/random/dual recovered symbolic controllers against max-pressure and fixed/actuated baselines.
+3. Keep pressure/backpressure as a strong diagnostic baseline and claim dual value only where it improves sparse symbolic recovery or deployability.
+4. Optionally add an AMPL backend later; current sparse recovery is already solved through SciPy/HiGHS and does not require committing AMPL license details.

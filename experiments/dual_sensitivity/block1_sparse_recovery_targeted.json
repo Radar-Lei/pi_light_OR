@@ -1,0 +1,1558 @@
+{
+  "experiment": "block1_sparse_recovery",
+  "status": "PASSED",
+  "input_states": [
+    "experiments/dual_sensitivity/targeted_bottleneck_states.json"
+  ],
+  "tls": "C3",
+  "num_examples": 16,
+  "budgets": [
+    1,
+    2
+  ],
+  "gate_dual_budget1_beats_raw": true,
+  "gate_dual_lower_or_equal_complexity": false,
+  "summary": [
+    {
+      "library": "local_only",
+      "budget": 1,
+      "status": "PASSED",
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "solve_time_sec": 0.002223363029770553
+    },
+    {
+      "library": "raw_neighbor",
+      "budget": 1,
+      "status": "PASSED",
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "solve_time_sec": 0.006500217015855014
+    },
+    {
+      "library": "all_neighbor",
+      "budget": 1,
+      "status": "PASSED",
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "solve_time_sec": 0.017559785046614707
+    },
+    {
+      "library": "random_price",
+      "budget": 1,
+      "status": "PASSED",
+      "selected_atoms": [
+        "random_price"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 761.3792000083777,
+      "realized_mean_regret": 47.586200000523604,
+      "action_agreement": 0.125,
+      "solve_time_sec": 0.0017818269552662969
+    },
+    {
+      "library": "dual_sensitivity",
+      "budget": 1,
+      "status": "PASSED",
+      "selected_atoms": [
+        "dual_sensitivity"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 0.0,
+      "realized_mean_regret": 0.0,
+      "action_agreement": 1.0,
+      "solve_time_sec": 0.0017108659958466887
+    },
+    {
+      "library": "dual_plus_raw",
+      "budget": 1,
+      "status": "PASSED",
+      "selected_atoms": [
+        "dual_sensitivity"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 0.0,
+      "realized_mean_regret": 0.0,
+      "action_agreement": 1.0,
+      "solve_time_sec": 0.007334939087741077
+    },
+    {
+      "library": "pressure_backpressure",
+      "budget": 1,
+      "status": "PASSED",
+      "selected_atoms": [
+        "pressure_backpressure"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 0.0,
+      "realized_mean_regret": 0.0,
+      "action_agreement": 1.0,
+      "solve_time_sec": 0.0017400020733475685
+    },
+    {
+      "library": "raw_neighbor",
+      "budget": 2,
+      "status": "PASSED",
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "solve_time_sec": 0.005928825004957616
+    },
+    {
+      "library": "all_neighbor",
+      "budget": 2,
+      "status": "PASSED",
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "solve_time_sec": 0.016819369047880173
+    },
+    {
+      "library": "dual_plus_raw",
+      "budget": 2,
+      "status": "PASSED",
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "solve_time_sec": 0.00654738605953753
+    }
+  ],
+  "best_by_library": [
+    {
+      "library": "local_only",
+      "budget": 1,
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "solve_time_sec": 0.002223363029770553
+    },
+    {
+      "library": "raw_neighbor",
+      "budget": 1,
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "solve_time_sec": 0.006500217015855014
+    },
+    {
+      "library": "all_neighbor",
+      "budget": 1,
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "solve_time_sec": 0.017559785046614707
+    },
+    {
+      "library": "random_price",
+      "budget": 1,
+      "selected_atoms": [
+        "random_price"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 761.3792000083777,
+      "realized_mean_regret": 47.586200000523604,
+      "action_agreement": 0.125,
+      "solve_time_sec": 0.0017818269552662969
+    },
+    {
+      "library": "dual_sensitivity",
+      "budget": 1,
+      "selected_atoms": [
+        "dual_sensitivity"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 0.0,
+      "realized_mean_regret": 0.0,
+      "action_agreement": 1.0,
+      "solve_time_sec": 0.0017108659958466887
+    },
+    {
+      "library": "dual_plus_raw",
+      "budget": 1,
+      "selected_atoms": [
+        "dual_sensitivity"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 0.0,
+      "realized_mean_regret": 0.0,
+      "action_agreement": 1.0,
+      "solve_time_sec": 0.007334939087741077
+    },
+    {
+      "library": "pressure_backpressure",
+      "budget": 1,
+      "selected_atoms": [
+        "pressure_backpressure"
+      ],
+      "program_complexity": 1,
+      "realized_total_regret": 0.0,
+      "realized_mean_regret": 0.0,
+      "action_agreement": 1.0,
+      "solve_time_sec": 0.0017400020733475685
+    }
+  ],
+  "runs": [
+    {
+      "library": "local_only",
+      "budget": 1,
+      "status": "PASSED",
+      "objective": 0.0001,
+      "solve_time_sec": 0.002223363029770553,
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "weights": {
+        "upstream_queue": 0.1
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 1,
+          "oracle_regret": 101.20959999767365
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 7,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 10,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ]
+    },
+    {
+      "library": "raw_neighbor",
+      "budget": 1,
+      "status": "PASSED",
+      "objective": 0.0001,
+      "solve_time_sec": 0.006500217015855014,
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "weights": {
+        "upstream_queue": 0.1,
+        "neg_downstream_queue": 0.0
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 1,
+          "oracle_regret": 101.20959999767365
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 7,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 10,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ]
+    },
+    {
+      "library": "all_neighbor",
+      "budget": 1,
+      "status": "PASSED",
+      "objective": 0.0001,
+      "solve_time_sec": 0.017559785046614707,
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "weights": {
+        "upstream_queue": 0.1,
+        "neg_downstream_queue": 0.0,
+        "downstream_slack": 0.0,
+        "neg_downstream_fullness": 0.0
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 1,
+          "oracle_regret": 101.20959999767365
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 7,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 10,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ]
+    },
+    {
+      "library": "random_price",
+      "budget": 1,
+      "status": "PASSED",
+      "objective": 722.6593000006349,
+      "solve_time_sec": 0.0017818269552662969,
+      "selected_atoms": [
+        "random_price"
+      ],
+      "weights": {
+        "random_price": 0.1
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 761.3792000083777,
+      "realized_mean_regret": 47.586200000523604,
+      "action_agreement": 0.125,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 5,
+          "oracle_best_movement": 1,
+          "oracle_regret": 32.73599999738508
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 5,
+          "oracle_best_movement": 0,
+          "oracle_regret": 33.007999998517334
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 5,
+          "oracle_best_movement": 0,
+          "oracle_regret": 139.5488000016485
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 4,
+          "oracle_best_movement": 4,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 4,
+          "oracle_best_movement": 3,
+          "oracle_regret": 106.81280000062543
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 4,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.2720000011322554
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 1,
+          "oracle_best_movement": 7,
+          "oracle_regret": 36.54399999868474
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 5,
+          "oracle_best_movement": 6,
+          "oracle_regret": 143.0848000018159
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 5,
+          "oracle_best_movement": 10,
+          "oracle_regret": 36.54399999868474
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 2,
+          "oracle_best_movement": 9,
+          "oracle_regret": 36.54399999868474
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 2,
+          "oracle_best_movement": 9,
+          "oracle_regret": 36.54400000232272
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 10,
+          "oracle_best_movement": 0,
+          "oracle_regret": 103.39200000453275
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 7,
+          "oracle_best_movement": 3,
+          "oracle_regret": 5.641600000672042
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 1,
+          "oracle_best_movement": 6,
+          "oracle_regret": 25.35360000183573
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 5,
+          "oracle_best_movement": 9,
+          "oracle_regret": 25.35360000183573
+        }
+      ]
+    },
+    {
+      "library": "dual_sensitivity",
+      "budget": 1,
+      "status": "PASSED",
+      "objective": 0.0001,
+      "solve_time_sec": 0.0017108659958466887,
+      "selected_atoms": [
+        "dual_sensitivity"
+      ],
+      "weights": {
+        "dual_sensitivity": 0.1
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 0.0,
+      "realized_mean_regret": 0.0,
+      "action_agreement": 1.0,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 1,
+          "oracle_best_movement": 1,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 4,
+          "oracle_best_movement": 4,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 7,
+          "oracle_best_movement": 7,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 10,
+          "oracle_best_movement": 10,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ]
+    },
+    {
+      "library": "dual_plus_raw",
+      "budget": 1,
+      "status": "PASSED",
+      "objective": 0.0001,
+      "solve_time_sec": 0.007334939087741077,
+      "selected_atoms": [
+        "dual_sensitivity"
+      ],
+      "weights": {
+        "dual_sensitivity": 0.1,
+        "upstream_queue": 0.0,
+        "neg_downstream_queue": 0.0
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 0.0,
+      "realized_mean_regret": 0.0,
+      "action_agreement": 1.0,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 1,
+          "oracle_best_movement": 1,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 4,
+          "oracle_best_movement": 4,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 7,
+          "oracle_best_movement": 7,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 10,
+          "oracle_best_movement": 10,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ]
+    },
+    {
+      "library": "pressure_backpressure",
+      "budget": 1,
+      "status": "PASSED",
+      "objective": 0.0001,
+      "solve_time_sec": 0.0017400020733475685,
+      "selected_atoms": [
+        "pressure_backpressure"
+      ],
+      "weights": {
+        "pressure_backpressure": 0.1
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 0.0,
+      "realized_mean_regret": 0.0,
+      "action_agreement": 1.0,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 1,
+          "oracle_best_movement": 1,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 4,
+          "oracle_best_movement": 4,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 7,
+          "oracle_best_movement": 7,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 10,
+          "oracle_best_movement": 10,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ]
+    },
+    {
+      "library": "raw_neighbor",
+      "budget": 2,
+      "status": "PASSED",
+      "objective": 0.0001,
+      "solve_time_sec": 0.005928825004957616,
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "weights": {
+        "upstream_queue": 0.1,
+        "neg_downstream_queue": 0.0
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 1,
+          "oracle_regret": 101.20959999767365
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 7,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 10,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ]
+    },
+    {
+      "library": "all_neighbor",
+      "budget": 2,
+      "status": "PASSED",
+      "objective": 0.0001,
+      "solve_time_sec": 0.016819369047880173,
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "weights": {
+        "upstream_queue": 0.1,
+        "neg_downstream_queue": 0.0,
+        "downstream_slack": 0.0,
+        "neg_downstream_fullness": 0.0
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 1,
+          "oracle_regret": 101.20959999767365
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 7,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 10,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ]
+    },
+    {
+      "library": "dual_plus_raw",
+      "budget": 2,
+      "status": "PASSED",
+      "objective": 0.0001,
+      "solve_time_sec": 0.00654738605953753,
+      "selected_atoms": [
+        "upstream_queue"
+      ],
+      "weights": {
+        "dual_sensitivity": 0.0,
+        "upstream_queue": 0.1,
+        "neg_downstream_queue": 0.0
+      },
+      "program_complexity": 1,
+      "realized_total_regret": 405.38240000387304,
+      "realized_mean_regret": 25.336400000242065,
+      "action_agreement": 0.75,
+      "results": [
+        {
+          "scenario": "sumo_C3_t0",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 1,
+          "oracle_regret": 101.20959999767365
+        },
+        {
+          "scenario": "sumo_C3_t1",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t2",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t3",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 4,
+          "oracle_regret": 101.20960000131163
+        },
+        {
+          "scenario": "sumo_C3_t4",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t5",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t6",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 7,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t7",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t8",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t9",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 10,
+          "oracle_regret": 101.48160000244388
+        },
+        {
+          "scenario": "sumo_C3_t10",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t11",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t12",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 0,
+          "oracle_best_movement": 0,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t13",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 3,
+          "oracle_best_movement": 3,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t14",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 6,
+          "oracle_best_movement": 6,
+          "oracle_regret": 0.0
+        },
+        {
+          "scenario": "sumo_C3_t15",
+          "source": "experiments/dual_sensitivity/targeted_bottleneck_states.json",
+          "chosen_movement": 9,
+          "oracle_best_movement": 9,
+          "oracle_regret": 0.0
+        }
+      ]
+    }
+  ],
+  "note": "SciPy/HiGHS MILP backend; AMPL backend can reuse the same atom/regret matrices if amplpy is installed. Pass/fail gates use external deterministic realized regret, not optimistic internal tie choices."
+}

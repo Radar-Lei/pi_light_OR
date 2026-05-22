@@ -251,8 +251,8 @@ def forced_service_objective(s: Scenario, movement_idx: int, eps: float) -> floa
     return float(res.fun)
 
 
-def finite_difference_service_values(s: Scenario, eps: float) -> list[float]:
-    no_service = Scenario(
+def no_service_scenario(s: Scenario) -> Scenario:
+    return Scenario(
         name=s.name,
         links=s.links,
         movements=s.movements,
@@ -264,6 +264,10 @@ def finite_difference_service_values(s: Scenario, eps: float) -> list[float]:
         queue_weight=s.queue_weight,
         storage_penalty=s.storage_penalty,
     )
+
+
+def finite_difference_service_values(s: Scenario, eps: float) -> list[float]:
+    no_service = no_service_scenario(s)
     base = solve_relaxation(no_service)["objective"]
     values = []
     for m_idx in range(len(s.movements)):
@@ -277,7 +281,7 @@ def ranking(values: list[float]) -> list[int]:
 
 
 def summarize_scenario(s: Scenario, eps: float) -> dict[str, Any]:
-    solved = solve_relaxation(s)
+    solved = solve_relaxation(no_service_scenario(s))
     fd_values = finite_difference_service_values(s, eps)
     dual_values = solved["movement_values"]
     pressure_scores = solved["pressure_scores"]

@@ -25,3 +25,6 @@
 - 2026-05-20 — `../scripts/generate_targeted_bottleneck_states.py` — Targeted bottleneck/spillback state generator.
 - 2026-05-20 — `../experiments/dual_sensitivity/targeted_bottleneck_states.json` — Targeted bottleneck/spillback state dataset.
 - 2026-05-20 — `../experiments/dual_sensitivity/block1_targeted_bottleneck_recovery.json` — Targeted Block 1 one-atom recovery result.
+- 2026-05-22 — `../scripts/run_sparse_recovery.py` — Block 1 sparse MILP recovery script using SciPy/HiGHS.
+- 2026-05-22 — `../experiments/dual_sensitivity/block1_sparse_recovery_targeted.json` — Targeted sparse recovery result.
+- 2026-05-22 — `../experiments/dual_sensitivity/block1_sparse_recovery_combined.json` — Passive+targeted sparse recovery result.

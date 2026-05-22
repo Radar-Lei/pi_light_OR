@@ -9,10 +9,10 @@
 | B0.3 | Dual sanity | Run finite-difference validation | DONE | A | PASSED on toy/single/arterial proxy states; see `experiments/dual_sensitivity/block0_dual_sanity.json` |
 | B0.4 | Theory | Derive dual-to-movement marginal-benefit lemma | PARTIAL | A | Empirical finite-difference support exists; formal write-up still needed |
 | B0.5 | Theory | Derive pressure/backpressure special case | PARTIAL | A | Nonbinding-storage pressure ranking sanity passed; formal proof still needed |
-| B1.1 | Recovery | Define OR-mapped DSL atom library | PARTIAL | B | One-atom scaffold implemented; full atom taxonomy still needed |
-| B1.2 | Recovery | Implement sparse MIP recovery objective | TODO | B | Scaffold only; real sparse MIP not implemented yet |
+| B1.1 | Recovery | Define OR-mapped DSL atom library | PARTIAL | B | Initial atom libraries implemented: local/raw/all/random/dual/pressure; broader taxonomy still needed for closed-loop programs |
+| B1.2 | Recovery | Implement sparse MIP recovery objective | DONE | B | SciPy/HiGHS sparse MILP recovery implemented in `scripts/run_sparse_recovery.py` |
 | B1.3 | Recovery | Build sampled-state datasets | DONE | B | TraCI arterial samples and targeted bottleneck/spillback topology states created |
-| B1.4 | Recovery | Compare local/raw/all/random/dual DSL offline | PARTIAL | B | Targeted one-atom pilot PASSED: dual zero regret beats raw/local/random atoms; full sparse MIP still pending |
+| B1.4 | Recovery | Compare local/raw/all/random/dual DSL offline | DONE | B | Sparse recovery PASSED on targeted and combined states: dual selected with zero regret; raw/local/random worse |
 | B2.1 | Single | Run local sanity controllers | TODO | C | fixed/Webster, actuated, MP, local programmatic, dual-zero |
 | B3.1 | Arterial | Configure directional platoon + bottleneck scenarios | TODO | C | main result scenario |
 | B3.2 | Arterial | Implement C-MP or closest coordinated MP baseline | TODO | C/E | high-priority baseline |
@@ -27,8 +27,8 @@
 
 ## Gate Status
 
-- Gate A — Dual validity: PASSED for proxy LP sanity; SUMO sampled-state top-choice sanity usable, but formal lemma and AMPL validation still needed
-- Gate B — Offline recovery: TARGETED ONE-ATOM PASSED; dual beats raw/local/random atoms on bottleneck states, but full sparse MIP still pending
+- Gate A — Dual validity: PASSED for proxy LP, passive SUMO, and targeted SUMO sanity; formal lemma and optional AMPL validation still needed
+- Gate B — Offline recovery: PASSED for sparse offline recovery; dual atom selected with zero regret on targeted and combined states, closed-loop validation pending
 - Gate C — Arterial closed-loop: PENDING
 - Gate D — Grid/demand generality: PENDING
 - Gate E — Baseline honesty/runtime: PENDING
