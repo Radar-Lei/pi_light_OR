@@ -372,7 +372,7 @@ def solve_library(
     if category_indices["placebo"]:
         add({z_offset + j: 1.0 for j in category_indices["placebo"]}, 0.0, float(effective_max_placebo))
 
-    big_m = 10.0 * budget + 1.0 + tie_margin
+    big_m = 10.0 * budget + 1.0
     for ex_idx, ex in enumerate(examples):
         n_moves = len(ex["oracle"])
         y0 = y_offsets[ex_idx]
@@ -384,7 +384,7 @@ def solve_library(
                     continue
                 coeffs = {w_offset + j: float(mat[j, m] - mat[j, k]) for j in range(n_atoms)}
                 coeffs[y0 + m] = -big_m
-                add(coeffs, -big_m + tie_margin, math.inf)
+                add(coeffs, -big_m, math.inf)
 
     a = coo_matrix((data, (rows, cols)), shape=(len(lower), n_vars)).tocsr()
     start = time.perf_counter()
