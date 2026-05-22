@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-05-22T18:54:41.774Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-05-22T19:08:40.622Z"
 last_activity: 2026-05-23
 progress:
   total_phases: 5
@@ -26,8 +26,8 @@ See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Phase: 3
-Plan: 02
-Status: In progress — 03-01 complete
+Plan: 03
+Status: In progress — 03-02 complete
 Last activity: 2026-05-23
 
 Progress: [█████████░] 89%
@@ -65,6 +65,7 @@ Next command: `/gsd:execute-phase 3`
 | Phase 02 P02 | 383s | 2 tasks | 1 files |
 | Phase 02 P03 | 350 | 2 tasks | 5 files |
 | Phase 03 P01 | 331s | 2 tasks | 3 files |
+| Phase 03 P02 | 356s | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -91,6 +92,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 02]: Wrote CSV and rules artifacts beside JSON so equal-complexity comparisons can be consumed without manual transcription.
 - [Phase 03 Plan 01]: Represent supply-binding and corridor-bottleneck as proxy regimes because the current conversion schema lacks explicit supply/corridor constraint fields.
 - [Phase 03 Plan 01]: Treat raw generated KILL-03 counts as preliminary until Plan 03-02 validates scenario_from_sample/build_example conversions.
+- [Phase 03 Plan 02]: Route static kill-gate evidence to pressure-equivalent because dual_sensitivity and pressure_backpressure tie oracle regret across all six supported/proxy regimes.
+- [Phase 03 Plan 02]: Keep static kill-gate outputs sample-relative and defer closed-loop interpretation to Phase 4.
+- [Phase 03 Plan 02]: Support legacy unlabeled fixtures through --default-regime while recording input_labeling_notes and preliminary/proxy caveats.
 
 ### Pending Todos
 
@@ -110,6 +114,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T18:53:10Z
-Stopped at: Completed 03-01-PLAN.md
+Last session: 2026-05-22T19:08:40.608Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None

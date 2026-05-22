@@ -128,7 +128,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 03-02-PLAN.md — Compute per-regime dual-vs-pressure kill-gate metrics and route decision.
+- [x] 03-02-PLAN.md — Compute per-regime dual-vs-pressure kill-gate metrics and route decision.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -189,7 +189,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Theoretical Core and Claim Lock | 3/3 | Complete   | 2026-05-22 |
 | 2. Full Sparse Symbolic Recovery | 3/3 | Complete   | 2026-05-22 |
-| 3. Static Pressure-Failure Kill Gate | 1/3 | In Progress|  |
+| 3. Static Pressure-Failure Kill Gate | 2/3 | In Progress|  |
 | 4. Closed-Loop SUMO Evaluation | 0/TBD | Not started | - |
 | 5. Reproducibility and Repository Hardening | 0/TBD | Not started | - |
 
