@@ -15,6 +15,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from render_static_kill_gate_report import render_report
 from run_sparse_recovery import (
     ATOM_REGISTRY,
     LIBRARIES,
@@ -465,64 +466,6 @@ def render_phase3_rules(runs_by_regime: dict[str, list[dict[str, Any]]], note: s
     return "\n".join(sections).rstrip() + "\n"
 
 
-def render_report(payload: dict[str, Any]) -> str:
-    lines = [
-        "# Phase 3 Static Kill-Gate Report",
-        "",
-        f"Route decision: `{payload['route_decision']}`",
-        f"Route confidence: `{payload['route_confidence']}`",
-        "",
-        "This report is static/sample-relative only; closed-loop SUMO performance and travel-time claims are deferred.",
-        "",
-        "## Rationale",
-        "",
-        str(payload["route_rationale"]),
-        "",
-        "## Sample Sufficiency",
-        "",
-        f"- Valid converted examples: {payload['num_examples_total']}",
-        f"- Target valid examples: {payload['target_total_states']}",
-        f"- Sample target met: {payload['sample_target_met']}",
-        f"- Preliminary regimes: {', '.join(payload['preliminary_regimes']) if payload['preliminary_regimes'] else 'None'}",
-        "",
-        "## Per-Regime Metrics",
-        "",
-        "| Regime | Examples | Disagreement | Dual win | Pressure win | Tie | Δ regret pressure-dual | Scope |",
-        "|---|---:|---:|---:|---:|---:|---:|---|",
-    ]
-    for metric in payload["regime_metrics"]:
-        lines.append(
-            "| {regime} | {num_examples} | {disagreement:.6g} | {dual_win:.6g} | {pressure_win:.6g} | {tie:.6g} | {delta:.6g} | {scope} |".format(
-                regime=metric["regime"],
-                num_examples=metric["num_examples"],
-                disagreement=float(metric["dual_vs_pressure_disagreement_rate"]),
-                dual_win=float(metric["dual_win_rate"]),
-                pressure_win=float(metric["pressure_win_rate"]),
-                tie=float(metric["tie_rate"]),
-                delta=float(metric["mean_oracle_regret_delta_pressure_minus_dual"]),
-                scope=metric["claim_scope"],
-            )
-        )
-    lines.extend(["", "## Caveats", ""])
-    for caveat in payload["route_caveats"]:
-        lines.append(f"- {caveat}")
-    if payload.get("input_labeling_notes"):
-        lines.extend(["", "## Input Labeling Notes", ""])
-        for note in payload["input_labeling_notes"]:
-            lines.append(f"- {note}")
-    lines.extend(
-        [
-            "",
-            "## Artifacts",
-            "",
-            f"- JSON: `{payload['out']}`",
-            f"- CSV: `{payload['csv_out']}`",
-            f"- Rules: `{payload['rules_out']}`",
-        ]
-    )
-    return "\n".join(lines).rstrip() + "\n"
-
-
 def main() -> None:
     args = parse_args()
     validate_args(args)
@@ -662,7 +605,7 @@ def main() -> None:
         **route,
     }
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_text(render_report(payload), encoding="utf-8")
+    report_path.write_text(render_report(payload, out_path, report_path), encoding="utf-8")
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(
