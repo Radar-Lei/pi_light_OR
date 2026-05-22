@@ -240,16 +240,65 @@ def normalized_tensor(examples: list[dict[str, Any]], atoms: list[str]) -> list[
     return [np.vstack([ex["features"][atom] / scales[atom] for atom in atoms]) for ex in examples]
 
 
+def atom_indices_by_metadata(atoms: list[str]) -> dict[str, list[int]]:
+    indices: dict[str, list[int]] = {
+        "neighbor": [],
+        "dual": [],
+        "placebo": [],
+        "pressure": [],
+        "raw_neighbor": [],
+        "capacity": [],
+    }
+    for j, atom in enumerate(atoms):
+        metadata = ATOM_REGISTRY[atom]
+        family = str(metadata["family"])
+        if bool(metadata["requires_neighbor"]):
+            indices["neighbor"].append(j)
+        if bool(metadata["uses_dual"]) and not bool(metadata["is_placebo"]):
+            indices["dual"].append(j)
+        if bool(metadata["is_placebo"]):
+            indices["placebo"].append(j)
+        if family in indices:
+            indices[family].append(j)
+    return indices
+
+
+def count_selected(indices: list[int], selected_mask: np.ndarray) -> int:
+    return int(sum(bool(selected_mask[j]) for j in indices))
+
+
 def solve_library(
     examples: list[dict[str, Any]],
     library: str,
     atoms: list[str],
     budget: int,
     complexity_penalty: float,
+    neighbor_penalty: float,
+    dual_penalty: float,
+    placebo_penalty: float,
+    max_neighbor_atoms: int | None,
+    max_dual_atoms: int | None,
+    max_placebo_atoms: int | None,
+    objective_mode: str,
+    time_limit_sec: float,
     min_weight: float,
     tie_margin: float,
 ) -> dict[str, Any]:
     budget = min(budget, len(atoms))
+    category_indices = atom_indices_by_metadata(atoms)
+    effective_max_neighbor = budget if max_neighbor_atoms is None else min(max_neighbor_atoms, budget)
+    effective_max_dual = budget if max_dual_atoms is None else min(max_dual_atoms, budget)
+    effective_max_placebo = budget if max_placebo_atoms is None else min(max_placebo_atoms, budget)
+    base_payload = {
+        "library": library,
+        "budget": budget,
+        "max_atoms": budget,
+        "max_neighbor_atoms": effective_max_neighbor,
+        "max_dual_atoms": effective_max_dual,
+        "max_placebo_atoms": effective_max_placebo,
+        "objective_mode": objective_mode,
+    }
+
     matrices = normalized_tensor(examples, atoms)
     n_atoms = len(atoms)
     y_offsets = []
@@ -263,6 +312,12 @@ def solve_library(
 
     c = np.zeros(n_vars)
     c[z_offset : z_offset + n_atoms] = complexity_penalty
+    for j in category_indices["neighbor"]:
+        c[z_offset + j] += neighbor_penalty
+    for j in category_indices["dual"]:
+        c[z_offset + j] += dual_penalty
+    for j in category_indices["placebo"]:
+        c[z_offset + j] += placebo_penalty
     for ex_idx, ex in enumerate(examples):
         best = float(np.max(ex["oracle"]))
         for m_idx, value in enumerate(ex["oracle"]):
@@ -293,8 +348,14 @@ def solve_library(
         add({w_offset + j: 1.0, z_offset + j: -1.0}, -math.inf, 0.0)
         add({w_offset + j: 1.0, z_offset + j: -min_weight}, 0.0, math.inf)
     add({z_offset + j: 1.0 for j in range(n_atoms)}, 1.0, float(budget))
+    if category_indices["neighbor"]:
+        add({z_offset + j: 1.0 for j in category_indices["neighbor"]}, 0.0, float(effective_max_neighbor))
+    if category_indices["dual"]:
+        add({z_offset + j: 1.0 for j in category_indices["dual"]}, 0.0, float(effective_max_dual))
+    if category_indices["placebo"]:
+        add({z_offset + j: 1.0 for j in category_indices["placebo"]}, 0.0, float(effective_max_placebo))
 
-    big_m = 10.0 * budget + 1.0
+    big_m = 10.0 * budget + 1.0 + tie_margin
     for ex_idx, ex in enumerate(examples):
         n_moves = len(ex["oracle"])
         y0 = y_offsets[ex_idx]
@@ -306,7 +367,7 @@ def solve_library(
                     continue
                 coeffs = {w_offset + j: float(mat[j, m] - mat[j, k]) for j in range(n_atoms)}
                 coeffs[y0 + m] = -big_m
-                add(coeffs, -big_m, math.inf)
+                add(coeffs, -big_m + tie_margin, math.inf)
 
     a = coo_matrix((data, (rows, cols)), shape=(len(lower), n_vars)).tocsr()
     start = time.perf_counter()
@@ -315,54 +376,87 @@ def solve_library(
         integrality=integrality,
         bounds=Bounds(lb, ub),
         constraints=LinearConstraint(a, np.asarray(lower), np.asarray(upper)),
-        options={"time_limit": 60.0},
+        options={"time_limit": float(time_limit_sec)},
     )
     solve_time = time.perf_counter() - start
     if not res.success or res.x is None:
         return {
-            "library": library,
-            "budget": budget,
+            **base_payload,
             "status": "FAILED",
+            "solver_status": int(res.status),
             "message": res.message,
             "solve_time_sec": solve_time,
         }
 
     weights = np.asarray(res.x[w_offset : w_offset + n_atoms], dtype=float)
-    selected = [atoms[j] for j, weight in enumerate(weights) if weight > 1e-6]
+    selected_mask = weights > 1e-6
+    selected = [atoms[j] for j, is_selected in enumerate(selected_mask) if is_selected]
+    neighbor_count = count_selected(category_indices["neighbor"], selected_mask)
+    dual_count = count_selected(category_indices["dual"], selected_mask)
+    placebo_count = count_selected(category_indices["placebo"], selected_mask)
+    pressure_count = count_selected(category_indices["pressure"], selected_mask)
+    raw_neighbor_count = count_selected(category_indices["raw_neighbor"], selected_mask)
+    capacity_count = count_selected(category_indices["capacity"], selected_mask)
+    penalty_breakdown = {
+        "complexity_penalty": float(complexity_penalty * len(selected)),
+        "neighbor_penalty": float(neighbor_penalty * neighbor_count),
+        "dual_penalty": float(dual_penalty * dual_count),
+        "placebo_penalty": float(placebo_penalty * placebo_count),
+    }
+    penalty_breakdown["total_penalty"] = float(sum(penalty_breakdown.values()))
+
     rows_out = []
     total_regret = 0.0
+    max_regret = 0.0
     agreement = 0
     for ex_idx, ex in enumerate(examples):
         scores = weights @ matrices[ex_idx]
         chosen_local = int(np.argmax(scores))
         chosen_movement = int(ex["original_indices"][chosen_local])
         best = float(np.max(ex["oracle"]))
-        regret = best - float(ex["oracle"][chosen_local])
+        oracle_value_chosen = float(ex["oracle"][chosen_local])
+        regret = best - oracle_value_chosen
+        max_regret = max(max_regret, regret)
         total_regret += regret
-        agreement += int(chosen_local == ex["oracle_best_local"])
+        matched = chosen_local == ex["oracle_best_local"]
+        agreement += int(matched)
         rows_out.append(
             {
                 "scenario": ex["scenario"],
                 "source": ex["source"],
                 "chosen_movement": chosen_movement,
                 "oracle_best_movement": ex["oracle_best_movement"],
+                "oracle_value_chosen": oracle_value_chosen,
+                "oracle_value_best": best,
                 "oracle_regret": regret,
+                "action_agreement": bool(matched),
+                "score_chosen": float(scores[chosen_local]),
+                "score_oracle_best": float(scores[int(ex["oracle_best_local"])]),
             }
         )
 
     return {
-        "library": library,
-        "budget": budget,
-        "status": "PASSED",
+        **base_payload,
+        "status": "SOLVED",
+        "solver_status": int(res.status),
         "objective": float(res.fun),
+        "objective_value_with_penalties": float(res.fun),
         "solve_time_sec": solve_time,
         "selected_atoms": selected,
         "selected_atom_metadata": metadata_for_atoms(selected),
         "weights": {atom: float(weights[j]) for j, atom in enumerate(atoms)},
         "program_complexity": len(selected),
+        "neighbor_atom_count": neighbor_count,
+        "dual_atom_count": dual_count,
+        "placebo_atom_count": placebo_count,
+        "pressure_atom_count": pressure_count,
+        "raw_neighbor_atom_count": raw_neighbor_count,
+        "capacity_atom_count": capacity_count,
         "realized_total_regret": total_regret,
         "realized_mean_regret": total_regret / len(examples) if examples else 0.0,
+        "max_regret": max_regret,
         "action_agreement": agreement / len(examples) if examples else 0.0,
+        "penalty_breakdown": penalty_breakdown,
         "results": rows_out,
     }
 
@@ -379,6 +473,14 @@ def main() -> None:
     parser.add_argument("--libraries", nargs="+", default=None)
     parser.add_argument("--atom-families", nargs="+", default=None)
     parser.add_argument("--complexity-penalty", type=float, default=1e-4)
+    parser.add_argument("--neighbor-penalty", type=float, default=0.0)
+    parser.add_argument("--dual-penalty", type=float, default=0.0)
+    parser.add_argument("--placebo-penalty", type=float, default=0.0)
+    parser.add_argument("--max-neighbor-atoms", type=int, default=None)
+    parser.add_argument("--max-dual-atoms", type=int, default=None)
+    parser.add_argument("--max-placebo-atoms", type=int, default=None)
+    parser.add_argument("--time-limit-sec", type=float, default=60.0)
+    parser.add_argument("--objective", choices=["oracle_regret", "value_gap"], default="oracle_regret")
     parser.add_argument("--min-weight", type=float, default=0.1)
     parser.add_argument("--tie-margin", type=float, default=1e-6)
     parser.add_argument("--out", default="experiments/dual_sensitivity/block1_sparse_recovery.json")
@@ -390,6 +492,18 @@ def main() -> None:
     budgets = [args.max_atoms] if args.max_atoms > 0 else args.budgets
     if any(budget <= 0 for budget in budgets):
         raise ValueError(f"Atom budgets must be positive: {budgets}")
+    category_budgets = [args.max_neighbor_atoms, args.max_dual_atoms, args.max_placebo_atoms]
+    if any(value is not None and value < 0 for value in category_budgets):
+        raise ValueError("Category atom budgets must be nonnegative when supplied")
+    penalties = [args.complexity_penalty, args.neighbor_penalty, args.dual_penalty, args.placebo_penalty]
+    if any(value < 0.0 for value in penalties):
+        raise ValueError("Atom penalties must be nonnegative")
+    if args.time_limit_sec <= 0.0:
+        raise ValueError("--time-limit-sec must be positive")
+    if args.min_weight < 0.0:
+        raise ValueError("--min-weight must be nonnegative")
+    if args.tie_margin < 0.0:
+        raise ValueError("--tie-margin must be nonnegative")
     selected_library_atoms = {
         atom for library in library_names for atom in atoms_for_library(library, allowed_families)
     }
@@ -425,15 +539,23 @@ def main() -> None:
                     atoms,
                     effective_budget,
                     args.complexity_penalty,
+                    args.neighbor_penalty,
+                    args.dual_penalty,
+                    args.placebo_penalty,
+                    args.max_neighbor_atoms,
+                    args.max_dual_atoms,
+                    args.max_placebo_atoms,
+                    args.objective,
+                    args.time_limit_sec,
                     args.min_weight,
                     args.tie_margin,
                 )
             )
 
-    by_key = {(r["library"], r["budget"]): r for r in runs if r["status"] == "PASSED"}
+    by_key = {(r["library"], r["budget"]): r for r in runs if r["status"] == "SOLVED"}
     best_by_library: dict[str, dict[str, Any]] = {}
     for r in runs:
-        if r["status"] != "PASSED":
+        if r["status"] != "SOLVED":
             continue
         current = best_by_library.get(r["library"])
         if current is None or (
@@ -462,27 +584,51 @@ def main() -> None:
         {
             "library": r["library"],
             "budget": r["budget"],
+            "max_atoms": r.get("max_atoms", r["budget"]),
             "status": r["status"],
             "selected_atoms": r.get("selected_atoms", []),
             "program_complexity": r.get("program_complexity", 0),
+            "neighbor_atom_count": r.get("neighbor_atom_count", 0),
+            "dual_atom_count": r.get("dual_atom_count", 0),
+            "placebo_atom_count": r.get("placebo_atom_count", 0),
             "realized_total_regret": r.get("realized_total_regret"),
             "realized_mean_regret": r.get("realized_mean_regret"),
+            "max_regret": r.get("max_regret"),
             "action_agreement": r.get("action_agreement"),
             "solve_time_sec": r.get("solve_time_sec"),
         }
         for r in runs
     ]
+    solved_runs = [r for r in runs if r["status"] == "SOLVED"]
+    gate_k_gt_one_attempted = any(int(r.get("max_atoms", r.get("budget", 0))) > 1 for r in runs)
+    gate_k_gt_one_solved = any(int(r.get("max_atoms", r.get("budget", 0))) > 1 for r in solved_runs)
+    gate_regret_first_objective = args.objective in {"oracle_regret", "value_gap"}
+    status = "PASSED" if gate_k_gt_one_solved and gate_regret_first_objective else "INCONCLUSIVE"
     payload = {
-        "experiment": "block1_sparse_recovery",
+        "experiment": "block2_sparse_recovery",
         "status": status,
         "input_states": [str(p) for p in state_paths],
         "tls": args.tls,
         "num_examples": len(examples),
+        "objective_mode": args.objective,
         "budgets": budgets,
+        "max_atoms": budgets[0] if len(budgets) == 1 else None,
+        "max_neighbor_atoms": args.max_neighbor_atoms,
+        "max_dual_atoms": args.max_dual_atoms,
+        "max_placebo_atoms": args.max_placebo_atoms,
+        "penalties": {
+            "complexity_penalty": args.complexity_penalty,
+            "neighbor_penalty": args.neighbor_penalty,
+            "dual_penalty": args.dual_penalty,
+            "placebo_penalty": args.placebo_penalty,
+        },
         "libraries": library_names,
         "atom_families": sorted(allowed_families) if allowed_families is not None else "all",
         "atom_registry": ATOM_REGISTRY,
         "gate_required_families_present": REQUIRED_ATOM_FAMILIES <= {str(metadata["family"]) for metadata in ATOM_REGISTRY.values()},
+        "gate_regret_first_objective": gate_regret_first_objective,
+        "gate_k_gt_one_attempted": gate_k_gt_one_attempted,
+        "gate_k_gt_one_solved": gate_k_gt_one_solved,
         "gate_dual_budget1_beats_raw": gate_dual_budget1_beats_raw,
         "gate_dual_lower_or_equal_complexity": gate_dual_lower_or_equal_complexity,
         "summary": compact_summary,
@@ -490,17 +636,22 @@ def main() -> None:
             {
                 "library": r["library"],
                 "budget": r["budget"],
+                "max_atoms": r["max_atoms"],
                 "selected_atoms": r["selected_atoms"],
                 "program_complexity": r["program_complexity"],
+                "neighbor_atom_count": r["neighbor_atom_count"],
+                "dual_atom_count": r["dual_atom_count"],
+                "placebo_atom_count": r["placebo_atom_count"],
                 "realized_total_regret": r["realized_total_regret"],
                 "realized_mean_regret": r["realized_mean_regret"],
+                "max_regret": r["max_regret"],
                 "action_agreement": r["action_agreement"],
                 "solve_time_sec": r["solve_time_sec"],
             }
             for r in best_by_library.values()
         ],
         "runs": runs,
-        "note": "SciPy/HiGHS MILP backend; AMPL backend can reuse the same atom/regret matrices if amplpy is installed. Pass/fail gates use external deterministic realized regret, not optimistic internal tie choices.",
+        "note": "SciPy/HiGHS MILP backend; Phase 2 artifacts are finite-dictionary and sample-relative. Action agreement is diagnostic only; dual-vs-pressure empirical claim routing is deferred to Phase 3.",
     }
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
