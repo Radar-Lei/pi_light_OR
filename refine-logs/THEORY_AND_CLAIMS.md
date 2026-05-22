@@ -2,7 +2,7 @@
 
 **Date**: 2026-05-22  
 **Phase**: 01 — Theoretical Core and Claim Lock  
-**Requirements covered in this plan**: THRY-01, THRY-02, THRY-03, THRY-04  
+**Requirements covered in this phase artifact**: THRY-01, THRY-02, THRY-03, THRY-04, THRY-05  
 **Primary references**: `.planning/phases/01-theoretical-core-and-claim-lock/01-CONTEXT.md`, `.planning/phases/01-theoretical-core-and-claim-lock/01-RESEARCH.md`, `refine-logs/THEORY_AND_ATOMS.md`, `scripts/run_dual_sanity.py`, `pi_light_code/agent/rule_based/max_pressure.py`
 
 ## Purpose
@@ -317,3 +317,92 @@ THRY-04 legitimizes why dual sensitivity may differ from ordinary pressure in a 
 3. If evidence shows worse rankings, the paper should pivot to diagnostic framing rather than claiming pressure improvement.
 
 This Phase 3 routing is part of the claim boundary: scarcity correction is a formal possibility under explicit model assumptions, while empirical usefulness remains a downstream gate.
+
+## THRY-05 — Finite-Dictionary Symbolic Recovery Quality
+
+### Definition 2 — Finite symbolic policy dictionary
+
+Let `D_N = {(s_n, Q_n(a))}_{n=1}^N` be a finite set of sampled traffic states and oracle movement or phase values, where `Q_n(a)` is the relaxation-derived finite-difference value, dual-guided oracle value, or other explicitly declared oracle value for action `a` in state `s_n`. A symbolic policy `pi` maps each sampled state to one feasible action through a finite atom dictionary.
+
+For Phase 1 claim-lock purposes, define a **finite-dictionary** class
+
+```text
+Pi(K, B, H, D) = { symbolic policies using
+                  at most K selected atoms,
+                  program size at most B or a program-size penalty,
+                  at most H neighbor-dependent atoms or a neighbor-use penalty,
+                  at most D dual-price-dependent atoms or a dual-price penalty }.
+```
+
+The atom library may include local queue atoms, raw upstream/downstream neighbor atoms, downstream slack/fullness atoms, pressure/backpressure atoms, dual-sensitivity atoms, and placebo/random-price atoms. The current scaffold in `scripts/run_sparse_recovery.py` implements finite libraries such as `local_only`, `raw_neighbor`, `all_neighbor`, `random_price`, `dual_sensitivity`, `dual_plus_raw`, and `pressure_backpressure`; Phase 2 may expand the library, but the recovery-quality statement remains finite-class and budgeted.
+
+The budgets or penalties have the following claim-lock meaning:
+
+- **Atom budget `K`** limits the number of selected scoring atoms.
+- **Program-size budget or penalty `B`** limits rule length or charges a complexity penalty such as `lambda_complexity * selected_atom_count`.
+- **Neighbor-use budget or penalty `H`** limits or charges atoms requiring nonlocal upstream/downstream state beyond the controlled approach.
+- **Dual-price dependence budget or penalty `D`** limits or charges atoms that use LP/KKT shadow prices or dual-sensitivity values rather than raw traffic state alone.
+
+### Empirical recovery target
+
+The primary recovery target is empirical oracle regret or value gap, not action agreement alone. For a deterministic policy `pi`, define
+
+```text
+R_hat_N(pi) = (1/N) sum_{n=1}^N [ max_{a in A(s_n)} Q_n(a) - Q_n(pi(s_n)) ].
+```
+
+Equivalently, when the oracle is expressed as a cost-to-minimize rather than value-to-maximize, use the empirical value gap between the policy action and the sample-best oracle action. In both conventions, lower `R_hat_N` means the recovered symbolic policy is closer to the finite-sample oracle. Action agreement with the oracle argmax may be reported as a secondary diagnostic, but it is not the main recovery objective because ties and near-ties can make agreement misleading relative to value gap.
+
+### Proposition 2 — Deterministic finite-dictionary empirical recovery quality
+
+Fix the sampled states `D_N`, the feasible action sets, the finite atom dictionary, and budgets or penalties `(K, B, H, D)`. Suppose the recovery solver returns a symbolic policy `pi_hat` whose mixed-integer or enumerative objective is within additive optimization gap `epsilon_opt >= 0` of the best feasible policy in `Pi(K, B, H, D)` for the empirical oracle-regret objective plus declared penalties. Then
+
+```text
+R_hat_N(pi_hat)
+  + penalty(pi_hat)
+  <= min_{pi in Pi(K,B,H,D)} [ R_hat_N(pi) + penalty(pi) ] + epsilon_opt.
+```
+
+If the implementation uses hard budgets only, `penalty(pi)=0` for feasible policies and the statement reduces to
+
+```text
+R_hat_N(pi_hat) <= min_{pi in Pi(K,B,H,D)} R_hat_N(pi) + epsilon_opt.
+```
+
+If the implementation uses soft penalties, an example compatible with `scripts/run_sparse_recovery.py` is
+
+```text
+penalty(pi) = lambda_size * selected_atom_count(pi)
+            + lambda_neighbor * neighbor_atom_count(pi)
+            + lambda_dual * dual_price_atom_count(pi).
+```
+
+This is an optimization-quality statement over the declared finite dictionary and the declared sample. It does not claim that the recovered policy is globally optimal for traffic control, globally optimal over all possible symbolic rules, or closed-loop superior to max-pressure. Those empirical and deployment claims require Phase 3 and Phase 4 evidence.
+
+### Alignment with the sparse recovery scaffold
+
+`run_sparse_recovery.py` builds a finite atom matrix for each library, chooses atom weights and one selected action per example, charges a complexity penalty on selected atoms, and evaluates realized oracle regret using
+
+```text
+best oracle value - oracle value of chosen action.
+```
+
+Its outputs include selected atoms, weights, program complexity, realized total regret, realized mean regret, action agreement, and per-example oracle regret. These outputs are sufficient to validate that a Phase 2 implementation is optimizing an empirical oracle-regret or value-gap target under finite-dictionary constraints. The script is supporting scaffold evidence, not a claim that full Phase 2 recovery is complete.
+
+### Optional finite-sample corollary — assumption-bound only
+
+If the sampled states are IID from a declared population distribution, oracle regrets are uniformly bounded in `[0, R_max]`, and the dictionary `Pi(K,B,H,D)` is finite with cardinality `|Pi|`, then standard finite-class uniform convergence can be invoked to state a population-regret corollary of the form
+
+```text
+R(pi_hat) <= min_{pi in Pi(K,B,H,D)} R(pi)
+             + epsilon_opt
+             + O(R_max * sqrt((log |Pi| + log(1/delta)) / N))
+```
+
+with probability at least `1-delta`, up to constants and any penalty accounting. This optional corollary must be labeled statistical, sample-assumption-dependent, and dictionary-relative. It must not be used as evidence of global traffic-control optimality or universal dominance over pressure-style controllers.
+
+### Claim boundary for THRY-05
+
+Allowed: the finite-dictionary recovery procedure can be judged by empirical oracle regret/value gap relative to the best policy in the same constrained dictionary plus solver gap, with program size, neighbor use, and dual-price dependence explicitly budgeted or penalized.
+
+Not allowed: claiming that sparse recovery alone proves closed-loop traffic performance, that action agreement is sufficient evidence of recovery quality, or that a recovered dual-symbolic rule is globally optimal for traffic control before the Phase 3 kill gate and Phase 4 closed-loop validation.
