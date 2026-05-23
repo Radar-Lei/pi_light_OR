@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Explicit Finite-Storage Primal-Dual Separation
 status: executing
-stopped_at: v1.1 roadmap created and Phase 6 ready to plan
-last_updated: "2026-05-23T12:26:35.407Z"
-last_activity: 2026-05-23 -- Phase 06 planning complete
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-05-23T12:38:49.888Z"
+last_activity: 2026-05-23
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 3
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,16 +21,16 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-23)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** Phase 6 — Claim Discipline and Explicit State Foundation
+**Current focus:** Phase 06 — claim-discipline-and-explicit-state-foundation
 
 ## Current Position
 
-Phase: 6 of 12 (first phase of v1.1: Claim Discipline and Explicit State Foundation)
-Plan: Not planned yet
+Phase: 06 (claim-discipline-and-explicit-state-foundation) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
-Last activity: 2026-05-23 -- Phase 06 planning complete
+Last activity: 2026-05-23
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [███░░░░░░░] 33%
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 | 10. Strong Baselines and Stress Scenario Suite | 0/TBD | Not started |
 | 11. Long-Horizon Paired-Seed Evidence | 0/TBD | Not started |
 | 12. Reproducibility and Future Claim Inputs | 0/TBD | Not started |
+| Phase 06 P01 | 9min 11s | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -67,6 +68,8 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 05]: Paper-facing artifacts must fail closed unless upstream source artifacts report `PASSED`, route decisions agree, closed-loop completion gates pass, expected artifacts parse, and closed-loop metric schema is complete.
 - [v1.1 Roadmap]: Do not start paper drafting in this milestone; build only theory, controller, experiments, gates, reproducibility, and future manuscript inputs.
 - [v1.1 Roadmap]: Strong claim remains bounded: recover/tie max-pressure when constraints are slack; claim wins only when finite-storage/spillback/switching/service/incident constraints bind.
+- [Phase 06]: Plan 01 claim scans treat negated/bounded caveats as safe while failing affirmative superiority wording.
+- [Phase 06]: Plan 01 historical v1.0 pressure-equivalent artifacts are quarantined as insufficient_historical_v1_0 rather than treated as binding-regime superiority evidence.
 
 ### Pending Todos
 
@@ -90,6 +93,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-23
-Stopped at: v1.1 roadmap created and Phase 6 ready to plan
+Last session: 2026-05-23T12:38:49.881Z
+Stopped at: Completed 06-01-PLAN.md
 Resume file: None

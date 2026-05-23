@@ -39,7 +39,7 @@ v1.1 converts the v1.0 pressure-equivalent artifact into a bounded strong-claim 
 Plans:
 **Wave 1**
 
-- [ ] 06-01-PLAN.md — Create central bounded claim policy and fail-closed claim audit CLI.
+- [x] 06-01-PLAN.md — Create central bounded claim policy and fail-closed claim audit CLI.
 - [ ] 06-02-PLAN.md — Create finite-storage state/objective schema helpers and deterministic Phase 6 fixtures.
 
 **Wave 2** *(blocked on Wave 1 completion)*
@@ -141,7 +141,7 @@ Plans:
 | 3. Static Pressure-Failure Kill Gate | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 4. Closed-Loop SUMO Evaluation | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 5. Reproducibility and Repository Hardening | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 6. Claim Discipline and Explicit State Foundation | v1.1 | 0/3 | Not started | - |
+| 6. Claim Discipline and Explicit State Foundation | v1.1 | 1/3 | In Progress|  |
 | 7. Theory and Separation Package | v1.1 | 0/TBD | Not started | - |
 | 8. Live Finite-Storage Primal-Dual Controller | v1.1 | 0/TBD | Not started | - |
 | 9. Slack and Binding Kill Gates | v1.1 | 0/TBD | Not started | - |
