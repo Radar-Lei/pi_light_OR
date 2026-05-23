@@ -15,6 +15,12 @@ import random
 from pathlib import Path
 from typing import Any
 
+from finite_storage_schema import (
+    build_finite_storage_state,
+    build_objective_components,
+    validate_state_objective_sample,
+    write_schema_artifact,
+)
 from sample_sumo_states import build_network_metadata
 
 
@@ -88,6 +94,15 @@ def make_sample(
         edge: clamp_queue(queues.get(edge, 0.0), normalized_capacities.get(edge, 1.0))
         for edge in normalized_capacities
     }
+    extra = dict(extra or {})
+    incident_edge = extra.get("capacity_drop_edge") if regime == "incident_capacity_drop" else None
+    capacity_drop_factor = extra.get("capacity_drop_factor") if incident_edge else None
+    spillback_blocking_count = sum(
+        1
+        for edge, queue in normalized_queues.items()
+        if queue / max(normalized_capacities.get(edge, 1.0), 1.0) >= 0.85
+    )
+    switching_count = 1 if int(time) > 0 and int(time) % 2 == 0 else 0
     sample = {
         "time": float(time),
         "queues": normalized_queues,
@@ -97,12 +112,28 @@ def make_sample(
         "regime": regime,
         "regime_detail": regime_detail,
         "generated_by": generated_by,
+        "finite_storage_state": build_finite_storage_state(
+            normalized_queues,
+            normalized_capacities,
+            current_phase=int(time) % 4,
+            time_since_switch=float(time % 10),
+            incident_edge=incident_edge,
+            capacity_drop_factor=capacity_drop_factor,
+        ),
+        "objective_components": build_objective_components(
+            normalized_queues,
+            unfinished_vehicle_count=int(spillback_blocking_count),
+            spillback_blocking_count=int(spillback_blocking_count),
+            switching_count=switching_count,
+            horizon=1.0,
+        ),
     }
     if extra:
         sample.update(extra)
     missing = SAMPLE_REQUIRED_FIELDS - set(sample)
     if missing:
         raise ValueError(f"Internal sample schema error; missing fields: {sorted(missing)}")
+    validate_state_objective_sample(sample)
     return sample
 
 
@@ -392,6 +423,8 @@ def generate_payload(args: argparse.Namespace) -> dict[str, Any]:
         counts_by_regime[sample["regime"]] = counts_by_regime.get(sample["regime"], 0) + 1
 
     return {
+        "experiment": "phase6_state_objective_fixtures",
+        "status": "PASSED",
         "network": "arterial_static_regime_block3",
         "net_file": str(args.net_file),
         "tls": args.tls,
@@ -399,6 +432,18 @@ def generate_payload(args: argparse.Namespace) -> dict[str, Any]:
         "target_per_regime": args.target_per_regime,
         "counts_by_regime": counts_by_regime,
         "regime_status": regime_status,
+        "generated_by": f"{SCRIPT_NAME} --target-per-regime {args.target_per_regime}",
+        "requirements_covered": ["STATE-01", "STATE-02"],
+        "schema_version": "phase6_explicit_state_v1",
+        "objective_formula_metadata": {
+            "shared_builder": "build_objective_components_from_metrics",
+            "static_adapter": "build_objective_components",
+            "switching_lost_time": "switching_count * switching_lost_time_per_switch",
+        },
+        "legacy_proxy_note": (
+            "Old v1.0 proxy regime labels are historical/insufficient for v1.1 binding-regime "
+            "superiority evidence without validated finite_storage_state and objective_components."
+        ),
         "generation_config": {
             "script": SCRIPT_NAME,
             "seed": args.seed,
@@ -426,6 +471,7 @@ def main() -> None:
     parser.add_argument("--capacity-drop-factors", nargs="+", type=positive_float, default=[0.35, 0.50, 0.70])
     parser.add_argument("--demand-shift-factors", nargs="+", type=positive_float, default=[0.75, 1.00, 1.50])
     parser.add_argument("--out", default="experiments/dual_sensitivity/block3_regime_states.json")
+    parser.add_argument("--schema-out", default=None)
     args = parser.parse_args()
 
     try:
@@ -437,10 +483,15 @@ def main() -> None:
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    schema_out = Path(args.schema_out) if args.schema_out else None
+    if schema_out is not None:
+        write_schema_artifact(schema_out)
     print(
         json.dumps(
             {
+                "status": payload["status"],
                 "out": str(out_path),
+                "schema_out": str(schema_out) if schema_out is not None else None,
                 "num_samples": payload["num_samples"],
                 "counts_by_regime": payload["counts_by_regime"],
             },

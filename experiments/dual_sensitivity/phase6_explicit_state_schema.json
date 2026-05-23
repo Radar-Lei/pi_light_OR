@@ -1,0 +1,41 @@
+{
+  "experiment": "phase6_explicit_state_schema",
+  "status": "PASSED",
+  "generated_by": "scripts/finite_storage_schema.py",
+  "requirements_covered": [
+    "STATE-01",
+    "STATE-02"
+  ],
+  "schema_version": "phase6_explicit_state_v1",
+  "finite_storage_state_fields": [
+    "downstream_storage",
+    "incident_capacity_drop",
+    "residual_receiving_capacity",
+    "service_urgency",
+    "spillback_blocking",
+    "switching_loss_state"
+  ],
+  "objective_component_fields": [
+    "delay",
+    "spillback_blocking_time",
+    "switching_lost_time",
+    "unfinished_vehicle_penalty"
+  ],
+  "finite_storage_state_contract": {
+    "downstream_storage": "edge -> finite storage capacity",
+    "residual_receiving_capacity": "edge -> max(storage - queue, 0)",
+    "spillback_blocking": "edge -> explicit spillback/blocking indicators and occupancy ratio",
+    "switching_loss_state": "current_phase plus time_since_switch",
+    "service_urgency": "edge -> queue-derived urgency ratio",
+    "incident_capacity_drop": "active flag, affected edge, and remaining capacity factor"
+  },
+  "objective_formula_metadata": {
+    "shared_builder": "build_objective_components_from_metrics",
+    "delay": "metrics.delay or metrics.total_delay",
+    "unfinished_vehicle_penalty": "unfinished_vehicle_count * horizon",
+    "spillback_blocking_time": "spillback_blocking_count * horizon, or (spillback_count + blocking_count) * horizon",
+    "switching_lost_time": "switching_count * switching_lost_time_per_switch",
+    "default_switching_lost_time_per_switch": 2.0
+  },
+  "legacy_proxy_note": "Old v1.0 proxy fields and regime labels are historical/insufficient for v1.1 binding-regime superiority evidence unless finite_storage_state and objective_components validate."
+}
