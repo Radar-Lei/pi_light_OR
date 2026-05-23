@@ -9,6 +9,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from finite_storage_schema import FINITE_STORAGE_STATE_FIELDS, OBJECTIVE_COMPONENT_FIELDS
 from run_closed_loop_sumo import CLAIM_FRAMING, METRIC_FIELDS, load_route_metadata, run_experiment
 
 CORE_BASELINES = {
@@ -210,6 +211,49 @@ def gates_pass(gates: dict[str, Any]) -> bool:
     return all(seed_gates) and bool(gates["demand_shift_real_mechanism"]) and bool(gates["failure_mode_real_mechanism"]) and bool(gates["failure_mode_pressure_rows"])
 
 
+def objective_component_schema() -> dict[str, Any]:
+    return {
+        "row_field": "objective_components",
+        "fields": sorted(OBJECTIVE_COMPONENT_FIELDS),
+        "component_builder": "build_objective_components_from_metrics",
+        "aggregation_note": "Nested objective components remain row-level audit fields and are not CI-aggregated through METRIC_FIELDS.",
+    }
+
+
+def finite_storage_state_schema() -> dict[str, Any]:
+    return {
+        "row_field": "finite_storage_state",
+        "fields": sorted(FINITE_STORAGE_STATE_FIELDS),
+        "validation_helpers": ["validate_finite_storage_state", "validate_state_objective_sample"],
+    }
+
+
+def build_payload(
+    *,
+    profile: str,
+    route_metadata: dict[str, str],
+    rows: list[dict[str, Any]],
+    controllers: list[str],
+    completion_gates_passed: bool,
+) -> dict[str, Any]:
+    gates = completion_gates(rows)
+    return {
+        "experiment": "block4_closed_loop_suite",
+        "status": "PASSED" if completion_gates_passed else "SMOKE_ONLY" if profile == "smoke" else "FAILED",
+        **route_metadata,
+        "claim_framing": CLAIM_FRAMING,
+        "profile": profile,
+        "scenario_results": rows,
+        "aggregates": aggregate_results(rows),
+        "baseline_coverage": baseline_coverage(rows, controllers),
+        "completion_gates": gates,
+        "completion_gates_passed": completion_gates_passed,
+        "metric_schema": {field: "CLOP-04 metric" for field in METRIC_FIELDS},
+        "objective_component_schema": objective_component_schema(),
+        "finite_storage_state_schema": finite_storage_state_schema(),
+    }
+
+
 def main() -> None:
     args = parse_args()
     route_metadata = load_route_metadata(Path(args.route_json))
@@ -217,19 +261,13 @@ def main() -> None:
     rows = [run_experiment(**item, route_metadata=route_metadata) for item in spec]
     gates = completion_gates(rows)
     completion_gates_passed = gates_pass(gates) if args.profile == "main" else False
-    payload = {
-        "experiment": "block4_closed_loop_suite",
-        "status": "PASSED" if completion_gates_passed else "SMOKE_ONLY" if args.profile == "smoke" else "FAILED",
-        **route_metadata,
-        "claim_framing": CLAIM_FRAMING,
-        "profile": args.profile,
-        "scenario_results": rows,
-        "aggregates": aggregate_results(rows),
-        "baseline_coverage": baseline_coverage(rows, args.controllers),
-        "completion_gates": gates,
-        "completion_gates_passed": completion_gates_passed,
-        "metric_schema": {field: "CLOP-04 metric" for field in METRIC_FIELDS},
-    }
+    payload = build_payload(
+        profile=args.profile,
+        route_metadata=route_metadata,
+        rows=rows,
+        controllers=args.controllers,
+        completion_gates_passed=completion_gates_passed,
+    )
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")

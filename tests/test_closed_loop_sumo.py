@@ -27,7 +27,13 @@ from run_closed_loop_sumo import (  # noqa: E402
     run_experiment,
 )
 from render_closed_loop_report import render_report, write_csv  # noqa: E402
-from run_closed_loop_suite import aggregate_results, build_suite_spec, completion_gates, gates_pass  # noqa: E402
+from run_closed_loop_suite import (  # noqa: E402
+    aggregate_results,
+    build_payload as build_suite_payload,
+    build_suite_spec,
+    completion_gates,
+    gates_pass,
+)
 
 
 def test_controller_registry_smoke_names() -> None:
@@ -272,6 +278,23 @@ def test_aggregate_results_and_completion_gates() -> None:
     assert aggregates
     assert gates_pass(gates)
     assert aggregates[0]["avg_travel_time"]["n_seeds"] >= 1
+    assert "objective_components" not in aggregates[0]
+
+
+def test_suite_payload_includes_phase6_schema_metadata() -> None:
+    payload = build_suite_payload(
+        profile="smoke",
+        route_metadata={"route_decision": "pressure-equivalent", "route_confidence": "MEDIUM", "route_json": "route.json"},
+        rows=[],
+        controllers=["fixed_time", "max_pressure"],
+        completion_gates_passed=False,
+    )
+
+    assert payload["objective_component_schema"]["fields"] == sorted(OBJECTIVE_COMPONENT_FIELDS)
+    assert payload["objective_component_schema"]["component_builder"] == "build_objective_components_from_metrics"
+    assert payload["finite_storage_state_schema"]["fields"] == sorted(FINITE_STORAGE_STATE_FIELDS)
+    assert payload["finite_storage_state_schema"]["row_field"] == "finite_storage_state"
+    assert payload["aggregates"] == []
 
 
 def synthetic_payload() -> dict:
@@ -346,6 +369,7 @@ def main() -> None:
     test_failure_mode_restores_speed_after_window()
     test_suite_spec_contents_and_seed_counts()
     test_aggregate_results_and_completion_gates()
+    test_suite_payload_includes_phase6_schema_metadata()
     test_renderer_report_and_csv()
     test_renderer_rejects_missing_completion_gate()
     test_completion_gates_reject_noop_controller_evidence()
