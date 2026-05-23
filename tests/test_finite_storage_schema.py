@@ -184,7 +184,11 @@ def test_phase6_fixture_generation_and_validation(tmp_path: Path) -> None:
 
     assert payload["status"] == "PASSED"
     assert payload["experiment"] == "phase6_state_objective_fixtures"
+    assert payload["generated_by"].startswith("generate_static_regime_states.py")
+    assert payload["schema_version"] == "phase6_explicit_state_v1"
     assert {"STATE-01", "STATE-02"} <= set(payload["requirements_covered"])
+    assert payload["objective_formula_metadata"]["shared_builder"] == "build_objective_components_from_metrics"
+    assert "historical/insufficient" in payload["legacy_proxy_note"]
     assert payload["num_samples"] == len(payload["samples"])
     assert payload["samples"]
     assert schema["status"] == "PASSED"
