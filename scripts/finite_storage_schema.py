@@ -43,7 +43,7 @@ def _require_object(value: Any, field: str, *, path: Path | None, sample_idx: in
 
 
 def _require_finite_number(value: Any, field: str, *, path: Path | None, sample_idx: int | None) -> float:
-    if not isinstance(value, (int, float)) or not math.isfinite(float(value)):
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(float(value)):
         raise ValueError(f"{_context(path, sample_idx)} field {field} must be a finite number")
     return float(value)
 
@@ -151,7 +151,9 @@ def validate_objective_components(
     if missing:
         raise ValueError(f"{_context(path, sample_idx)} objective_components is missing fields: {sorted(missing)}")
     for field in OBJECTIVE_COMPONENT_FIELDS:
-        _require_finite_number(components[field], f"objective_components.{field}", path=path, sample_idx=sample_idx)
+        component = _require_finite_number(components[field], f"objective_components.{field}", path=path, sample_idx=sample_idx)
+        if component < 0.0:
+            raise ValueError(f"{_context(path, sample_idx)} field objective_components.{field} must be nonnegative")
 
 
 def validate_state_objective_sample(

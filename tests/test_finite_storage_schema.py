@@ -131,6 +131,24 @@ def test_objective_components_required_keys() -> None:
     else:  # pragma: no cover
         raise AssertionError("non-finite objective component was accepted")
 
+    bool_component = explicit_objective()
+    bool_component["delay"] = True  # type: ignore[assignment]
+    try:
+        validate_objective_components(bool_component, path=Path("objective.json"), sample_idx=4)
+    except ValueError as exc:
+        assert "finite number" in str(exc)
+    else:  # pragma: no cover
+        raise AssertionError("boolean objective component was accepted")
+
+    negative_component = explicit_objective()
+    negative_component["delay"] = -1.0
+    try:
+        validate_objective_components(negative_component, path=Path("objective.json"), sample_idx=5)
+    except ValueError as exc:
+        assert "nonnegative" in str(exc)
+    else:  # pragma: no cover
+        raise AssertionError("negative objective component was accepted")
+
 
 def test_objective_components_from_metrics_contract() -> None:
     static_components = build_objective_components_from_metrics(
