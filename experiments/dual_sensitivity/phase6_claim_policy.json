@@ -98,6 +98,6 @@
     "CLAIM-02"
   ],
   "generated_by": "scripts/audit_claim_discipline.py",
-  "generated_at": "2026-05-23T12:36:33.382405+00:00",
+  "generated_at": "2026-05-23T12:36:47.736945+00:00",
   "artifact_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase6_claim_policy.json"
 }
