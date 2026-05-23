@@ -100,12 +100,18 @@ def bounded_claim_policy() -> dict[str, Any]:
     }
 
 
-def is_negated_or_bounded_context(lowered: str, phrase: str) -> bool:
-    index = lowered.find(phrase)
-    if index < 0:
+def _same_sentence_prefix(lowered: str, index: int, *, max_chars: int = 80) -> str:
+    sentence_start = max(lowered.rfind(boundary, 0, index) for boundary in [".", "!", "?", "\n", "\r"])
+    start = max(sentence_start + 1, index - max_chars, 0)
+    return lowered[start:index]
+
+
+def is_negated_or_bounded_context(lowered: str, phrase: str, *, index: int | None = None) -> bool:
+    phrase_index = lowered.find(phrase) if index is None else index
+    if phrase_index < 0:
         return False
-    context = lowered[max(0, index - 240): index]
-    bounded_markers = [
+    prefix = _same_sentence_prefix(lowered, phrase_index).rstrip()
+    allowed_prefixes = (
         "not ",
         "no ",
         "without ",
@@ -113,11 +119,25 @@ def is_negated_or_bounded_context(lowered: str, phrase: str) -> bool:
         "does not ",
         "do not ",
         "cannot ",
-        "out of scope",
+        "can't ",
+        "never ",
         "rather than ",
-        "the relaxation alone proves ",
-    ]
-    return any(marker in context for marker in bounded_markers)
+        "without evidence to ",
+        "without evidence to claim ",
+        "out of scope to claim ",
+    )
+    return any(prefix.endswith(marker.rstrip()) for marker in allowed_prefixes)
+
+
+def has_unbounded_phrase(lowered: str, phrase: str) -> bool:
+    start = 0
+    while True:
+        index = lowered.find(phrase, start)
+        if index < 0:
+            return False
+        if not is_negated_or_bounded_context(lowered, phrase, index=index):
+            return True
+        start = index + len(phrase)
 
 
 def forbidden_claim_hits(text: str, source: str = "<memory>") -> list[dict[str, str]]:
@@ -125,7 +145,7 @@ def forbidden_claim_hits(text: str, source: str = "<memory>") -> list[dict[str, 
     hits: list[dict[str, str]] = []
     for phrase in FORBIDDEN_CLAIM_PATTERNS:
         normalized = phrase.lower()
-        if normalized in lowered and not is_negated_or_bounded_context(lowered, normalized):
+        if has_unbounded_phrase(lowered, normalized):
             hits.append({"source": source, "path": source, "phrase": phrase})
     return hits
 
@@ -148,10 +168,7 @@ def historical_evidence_is_insufficient_for_superiority(payload: dict[str, Any])
         "deployable superiority",
     ]
     has_historical = any(marker in text for marker in historical_markers)
-    has_superiority = any(
-        marker in text and not is_negated_or_bounded_context(text, marker)
-        for marker in superiority_markers
-    )
+    has_superiority = any(has_unbounded_phrase(text, marker) for marker in superiority_markers)
     has_phase6_binding = all(marker in text for marker in ["finite_storage_state", "objective_components"])
     return has_historical and has_superiority and not has_phase6_binding
 

@@ -70,6 +70,14 @@ def test_forbidden_claim_hits_flags_broad_superiority_phrases() -> None:
     assert all(hit["source"] == "draft.md" for hit in hits)
 
 
+def test_forbidden_claim_negation_does_not_leak_across_sentences() -> None:
+    text = "This is not a toy example. The method proves superiority over pressure."
+
+    hits = forbidden_claim_hits(text, source="draft.md")
+
+    assert any(hit["phrase"] == "proves superiority" for hit in hits)
+
+
 def test_v1_pressure_equivalent_superiority_wording_fails_closed(tmp_path: Path) -> None:
     report = tmp_path / "report.md"
     policy_out = tmp_path / "phase6_claim_policy.json"
@@ -167,6 +175,7 @@ def test_generated_claim_artifacts_are_parseable_and_bounded() -> None:
 def main() -> None:
     test_claim_policy_encodes_bounded_claim()
     test_forbidden_claim_hits_flags_broad_superiority_phrases()
+    test_forbidden_claim_negation_does_not_leak_across_sentences()
     tmp = Path("/tmp/test_claim_discipline_manual")
     tmp.mkdir(parents=True, exist_ok=True)
     test_v1_pressure_equivalent_superiority_wording_fails_closed(tmp)
