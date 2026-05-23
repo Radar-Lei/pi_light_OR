@@ -43,7 +43,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--paths", nargs="*", default=None, help="Files or directories to scan; defaults to policy paths")
     parser.add_argument("--policy-out", default=POLICY_ARTIFACT)
     parser.add_argument("--audit-out", default=CLAIM_AUDIT_ARTIFACT)
-    parser.add_argument("--allow-missing-paths", action="store_true", default=True)
+    parser.add_argument("--allow-missing-paths", action="store_true", default=False)
     parser.add_argument("--no-allow-missing-paths", dest="allow_missing_paths", action="store_false")
     return parser.parse_args()
 
@@ -59,8 +59,6 @@ def iter_scan_files(root: Path, rel_path: str, *, allow_missing_paths: bool) -> 
     path = (root / rel_path).resolve() if not Path(rel_path).is_absolute() else Path(rel_path).resolve()
     missing: list[str] = []
     if not path.exists():
-        if allow_missing_paths:
-            return [], missing
         missing.append(rel_path)
         return [], missing
     if path.is_file():
@@ -124,7 +122,7 @@ def validate_policy_artifact(policy: dict[str, Any]) -> list[str]:
     return errors
 
 
-def audit_claim_paths(root: Path, paths: list[str], *, policy_path: Path | None = None, allow_missing_paths: bool = True) -> dict[str, Any]:
+def audit_claim_paths(root: Path, paths: list[str], *, policy_path: Path | None = None, allow_missing_paths: bool = False) -> dict[str, Any]:
     root = root.resolve()
     policy_target = policy_path or (root / POLICY_ARTIFACT)
     generated_by = "scripts/audit_claim_discipline.py"
@@ -173,6 +171,8 @@ def audit_claim_paths(root: Path, paths: list[str], *, policy_path: Path | None 
         "requirements_covered": REQUIREMENTS_COVERED,
         "checked_paths": sorted(dict.fromkeys(checked_paths)),
         "missing_paths": missing_paths,
+        "skipped_paths": sorted(dict.fromkeys(missing_paths)) if allow_missing_paths else [],
+        "allow_missing_paths": allow_missing_paths,
         "parse_errors": parse_errors,
         "forbidden_hits": forbidden_hits,
         "claim_policy": policy,
