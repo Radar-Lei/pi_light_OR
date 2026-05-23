@@ -27,6 +27,8 @@ from run_closed_loop_sumo import (  # noqa: E402
     run_experiment,
 )
 from render_closed_loop_report import render_report, write_csv  # noqa: E402
+from render_paper_artifacts import validate_inputs as validate_paper_inputs  # noqa: E402
+from reproduce_blocks import audit_artifacts, build_block_registry  # noqa: E402
 from run_closed_loop_suite import (  # noqa: E402
     aggregate_results,
     build_payload as build_suite_payload,
@@ -328,6 +330,22 @@ def test_renderer_report_and_csv() -> None:
     assert "controller" in text and "avg_travel_time" in text and "controller_runtime_sec" in text
 
 
+def test_renderer_surfaces_phase6_objective_columns() -> None:
+    payload = synthetic_payload()
+    payload["scenario_results"][0]["objective_components"] = {
+        "delay": 1.0,
+        "unfinished_vehicle_penalty": 2.0,
+        "spillback_blocking_time": 3.0,
+        "switching_lost_time": 4.0,
+    }
+    with tempfile.TemporaryDirectory() as tmp:
+        csv_path = Path(tmp) / "suite.csv"
+        write_csv(payload, csv_path)
+        text = csv_path.read_text(encoding="utf-8")
+    assert "objective_delay" in text
+    assert "objective_switching_lost_time" in text
+
+
 def test_renderer_rejects_missing_completion_gate() -> None:
     payload = synthetic_payload()
     payload["completion_gates"]["arterial_main"]["max_pressure"] = {"completed_seeds": 4, "passed": False}
@@ -337,6 +355,78 @@ def test_renderer_rejects_missing_completion_gate() -> None:
         assert "completion_gates" in str(exc) or "Completion/actuation gate failed" in str(exc)
     else:
         raise AssertionError("renderer should reject incomplete seed gates")
+
+
+def test_paper_artifacts_require_phase6_guard_artifacts() -> None:
+    base_inputs = {
+        "block0": {"status": "PASSED", "results": [1]},
+        "sparse": {"status": "PASSED", "best_by_library": [1]},
+        "static": {"status": "PASSED", "route_decision": "pressure-equivalent", "regime_metrics": [1]},
+        "closed_loop": {
+            "status": "PASSED",
+            "route_decision": "pressure-equivalent",
+            "completion_gates_passed": True,
+            "metric_schema": {field: "metric" for field in [
+                "avg_travel_time",
+                "penalized_avg_travel_time",
+                "total_delay",
+                "completed_vehicles",
+                "completion_rate",
+                "throughput",
+                "mean_queue",
+                "max_queue",
+                "spillback_count",
+                "blocking_count",
+                "switching_count",
+                "controller_runtime_sec",
+            ]},
+            "scenario_results": [1],
+            "aggregates": [1],
+        },
+        "repro_manifest": {"status": "PASSED", "artifact_checks": [{"expected": True, "exists": True, "parse_status": "ok"}]},
+        "phase6_claim_policy": {"status": "PASSED", "experiment": "phase6_claim_policy"},
+        "phase6_claim_audit": {"status": "PASSED", "experiment": "phase6_claim_audit"},
+        "phase6_explicit_state_schema": {"status": "PASSED", "experiment": "phase6_explicit_state_schema"},
+        "phase6_state_objective_fixtures": {"status": "PASSED", "experiment": "phase6_state_objective_fixtures"},
+    }
+    validate_paper_inputs(base_inputs)
+    missing_guard = dict(base_inputs)
+    missing_guard.pop("phase6_claim_audit")
+    try:
+        validate_paper_inputs(missing_guard)
+    except ValueError as exc:
+        assert "phase6_claim_audit" in str(exc)
+    else:
+        raise AssertionError("missing Phase 6 claim audit should fail closed")
+
+
+def test_repro_registry_includes_phase6_guard_artifacts() -> None:
+    registry = build_block_registry()
+    phase6_blocks = [item for item in registry if item["block"] == "phase6_claim_state_guards"]
+    assert phase6_blocks
+    block = phase6_blocks[0]
+    assert {"CLAIM-01", "CLAIM-02", "STATE-01", "STATE-02", "STATE-03"} <= set(block["requirements"])
+    assert "experiments/dual_sensitivity/phase6_claim_policy.json" in block["expected_artifacts"]
+    assert "experiments/dual_sensitivity/phase6_state_objective_fixtures.json" in block["expected_artifacts"]
+
+
+def test_repro_audit_ignores_policy_metadata_for_forbidden_phrase_scan(tmp_path: Path) -> None:
+    artifact = tmp_path / "phase6_claim_policy.json"
+    artifact.write_text(json.dumps({"status": "PASSED", "forbidden_patterns": ["dual universally beats pressure"]}), encoding="utf-8")
+    registry = [
+        {
+            "block": "policy",
+            "description": "policy",
+            "commands": [],
+            "expected_artifacts": ["phase6_claim_policy.json"],
+            "runtime_profile": "short",
+            "requirements": ["CLAIM-01"],
+            "claim_note": "bounded policy metadata",
+        }
+    ]
+    manifest = audit_artifacts(registry, tmp_path)
+    assert manifest["status"] == "PASSED"
+    assert manifest["claim_discipline"]["forbidden_phrases_present"] == []
 
 
 def test_completion_gates_reject_noop_controller_evidence() -> None:
@@ -371,7 +461,11 @@ def main() -> None:
     test_aggregate_results_and_completion_gates()
     test_suite_payload_includes_phase6_schema_metadata()
     test_renderer_report_and_csv()
+    test_renderer_surfaces_phase6_objective_columns()
     test_renderer_rejects_missing_completion_gate()
+    test_paper_artifacts_require_phase6_guard_artifacts()
+    test_repro_registry_includes_phase6_guard_artifacts()
+    test_repro_audit_ignores_policy_metadata_for_forbidden_phrase_scan(Path("/tmp/test_repro_audit_metadata"))
     test_completion_gates_reject_noop_controller_evidence()
     print("closed-loop SUMO tests ok")
 

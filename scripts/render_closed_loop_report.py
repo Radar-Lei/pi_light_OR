@@ -7,6 +7,9 @@ import json
 from pathlib import Path
 from typing import Any
 
+from claim_policy import FORBIDDEN_CLAIM_PATTERNS, forbidden_claim_hits
+from finite_storage_schema import OBJECTIVE_COMPONENT_FIELDS
+
 METRIC_FIELDS = [
     "avg_travel_time",
     "penalized_avg_travel_time",
@@ -31,13 +34,9 @@ CORE_BASELINES = {
 }
 NON_FIXED_CORE_BASELINES = CORE_BASELINES - {"fixed_time"}
 REQUIRED_TOP_LEVEL = {"route_decision", "scenario_results", "aggregates", "baseline_coverage", "completion_gates"}
-FORBIDDEN_PHRASES = [
-    "dual universally beats pressure",
-    "max-pressure strawman",
-    "proves superiority",
-    "deployable superiority",
-    "static evidence proves closed-loop",
-]
+
+RENDERER_FORBIDDEN_PHRASES = ["max-pressure strawman"]
+FORBIDDEN_PHRASES = list(dict.fromkeys([*FORBIDDEN_CLAIM_PATTERNS, *RENDERER_FORBIDDEN_PHRASES]))
 
 
 def parse_args() -> argparse.Namespace:
@@ -261,8 +260,13 @@ def render_report(payload: dict[str, Any], input_path: Path) -> str:
         ]
     )
     report = "\n".join(lines).rstrip() + "\n"
+    forbidden = forbidden_claim_hits(report)
     lowered = report.lower()
-    forbidden = [phrase for phrase in FORBIDDEN_PHRASES if phrase in lowered]
+    forbidden.extend(
+        {"source": "rendered_report", "path": "rendered_report", "phrase": phrase}
+        for phrase in RENDERER_FORBIDDEN_PHRASES
+        if phrase in lowered
+    )
     if forbidden:
         raise ValueError(f"Rendered report contains forbidden overclaim language: {forbidden}")
     return report
@@ -298,6 +302,11 @@ def csv_rows(payload: dict[str, Any]) -> list[dict[str, Any]]:
             "ci95_high": "",
         }
         output.update({field: row.get(field, 0.0) for field in METRIC_FIELDS})
+        components = row.get("objective_components", {})
+        if isinstance(components, dict):
+            output.update({f"objective_{field}": components.get(field, "") for field in OBJECTIVE_COMPONENT_FIELDS})
+        else:
+            output.update({f"objective_{field}": "" for field in OBJECTIVE_COMPONENT_FIELDS})
         rows.append(output)
     for item in payload.get("aggregates", []):
         output = {
@@ -359,6 +368,7 @@ def write_csv(payload: dict[str, Any], csv_path: Path) -> None:
         "ci95_low",
         "ci95_high",
         *METRIC_FIELDS,
+        *[f"objective_{field}" for field in sorted(OBJECTIVE_COMPONENT_FIELDS)],
     ]
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     with csv_path.open("w", encoding="utf-8", newline="") as handle:

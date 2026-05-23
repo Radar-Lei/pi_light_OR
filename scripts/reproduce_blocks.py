@@ -9,13 +9,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-FORBIDDEN_PHRASES = [
-    "dual universally beats pressure",
-    "max-pressure strawman",
-    "proves superiority",
-    "deployable superiority",
-    "static evidence proves closed-loop",
-]
+from claim_policy import FORBIDDEN_CLAIM_PATTERNS, forbidden_claim_hits
+
+REPRO_FORBIDDEN_PHRASES = ["max-pressure strawman"]
+FORBIDDEN_PHRASES = list(dict.fromkeys([*FORBIDDEN_CLAIM_PATTERNS, *REPRO_FORBIDDEN_PHRASES]))
 TEXT_CLAIM_CHECKS = [
     "README.md",
     "experiments/dual_sensitivity/block3_static_kill_gate_report.md",
@@ -152,6 +149,39 @@ def build_block_registry() -> list[dict[str, Any]]:
             "requirements": ["REPR-04", "REPR-05"],
             "claim_note": "Generated paper-facing tables and figure data must trace to raw artifacts.",
         },
+        {
+            "block": "phase6_claim_state_guards",
+            "description": "Phase 6 claim policy, claim audit, explicit state schema, and state/objective fixture guards",
+            "commands": [
+                [
+                    "python3",
+                    "scripts/audit_claim_discipline.py",
+                    "--policy-out",
+                    "experiments/dual_sensitivity/phase6_claim_policy.json",
+                    "--audit-out",
+                    "experiments/dual_sensitivity/phase6_claim_audit.json",
+                ],
+                [
+                    "python3",
+                    "scripts/generate_static_regime_states.py",
+                    "--target-per-regime",
+                    "3",
+                    "--out",
+                    "experiments/dual_sensitivity/phase6_state_objective_fixtures.json",
+                    "--schema-out",
+                    "experiments/dual_sensitivity/phase6_explicit_state_schema.json",
+                ],
+            ],
+            "expected_artifacts": [
+                "experiments/dual_sensitivity/phase6_claim_policy.json",
+                "experiments/dual_sensitivity/phase6_claim_audit.json",
+                "experiments/dual_sensitivity/phase6_explicit_state_schema.json",
+                "experiments/dual_sensitivity/phase6_state_objective_fixtures.json",
+            ],
+            "runtime_profile": "short",
+            "requirements": ["CLAIM-01", "CLAIM-02", "STATE-01", "STATE-02", "STATE-03"],
+            "claim_note": "Phase 6 guard artifacts bound v1.0 evidence to pressure-equivalent claims and require explicit finite-storage/objective schemas.",
+        },
     ]
 
 
@@ -232,15 +262,19 @@ def audit_file(path: Path, rel_path: str, expected_paths: set[str]) -> dict[str,
 
 
 def forbidden_phrase_hits(root: Path) -> list[dict[str, str]]:
-    hits = []
+    hits: list[dict[str, str]] = []
     for rel_path in TEXT_CLAIM_CHECKS:
         path = root / rel_path
         if not path.exists():
             continue
-        lowered = path.read_text(encoding="utf-8").lower()
-        for phrase in FORBIDDEN_PHRASES:
-            if phrase in lowered:
-                hits.append({"path": rel_path, "phrase": phrase})
+        text = path.read_text(encoding="utf-8")
+        hits.extend(forbidden_claim_hits(text, source=rel_path))
+        lowered = text.lower()
+        hits.extend(
+            {"source": rel_path, "path": rel_path, "phrase": phrase}
+            for phrase in REPRO_FORBIDDEN_PHRASES
+            if phrase in lowered
+        )
     return hits
 
 

@@ -7,13 +7,16 @@ import json
 from pathlib import Path
 from typing import Any
 
-FORBIDDEN_PHRASES = [
-    "dual universally beats pressure",
-    "max-pressure strawman",
-    "proves superiority",
-    "deployable superiority",
-    "static evidence proves closed-loop",
-]
+from claim_policy import FORBIDDEN_CLAIM_PATTERNS, forbidden_claim_hits
+
+RENDERER_FORBIDDEN_PHRASES = ["max-pressure strawman"]
+FORBIDDEN_PHRASES = list(dict.fromkeys([*FORBIDDEN_CLAIM_PATTERNS, *RENDERER_FORBIDDEN_PHRASES]))
+PHASE6_GUARD_ARTIFACTS = {
+    "phase6_claim_policy": "phase6_claim_policy",
+    "phase6_claim_audit": "phase6_claim_audit",
+    "phase6_explicit_state_schema": "phase6_explicit_state_schema",
+    "phase6_state_objective_fixtures": "phase6_state_objective_fixtures",
+}
 REQUIRED_CLOSED_LOOP_METRICS = {
     "avg_travel_time",
     "penalized_avg_travel_time",
@@ -54,12 +57,17 @@ def read_json(path: Path) -> dict[str, Any]:
 
 
 def load_inputs(args: argparse.Namespace) -> dict[str, Any]:
+    base = Path(args.out_dir)
     paths = {
         "block0": Path(args.block0_json),
         "sparse": Path(args.sparse_json),
         "static": Path(args.static_json),
         "closed_loop": Path(args.closed_loop_json),
         "repro_manifest": Path(args.manifest_json),
+        "phase6_claim_policy": base / "phase6_claim_policy.json",
+        "phase6_claim_audit": base / "phase6_claim_audit.json",
+        "phase6_explicit_state_schema": base / "phase6_explicit_state_schema.json",
+        "phase6_state_objective_fixtures": base / "phase6_state_objective_fixtures.json",
     }
     payloads = {name: read_json(path) for name, path in paths.items()}
     payloads["paths"] = {name: str(path) for name, path in paths.items()}
@@ -70,6 +78,14 @@ def validate_inputs(inputs: dict[str, Any]) -> None:
     for name in ["block0", "sparse", "static", "closed_loop", "repro_manifest"]:
         if inputs[name].get("status") != "PASSED":
             raise ValueError(f"{name} source artifact is not PASSED")
+    for name, experiment in PHASE6_GUARD_ARTIFACTS.items():
+        guard = inputs.get(name)
+        if not isinstance(guard, dict):
+            raise ValueError(f"Missing Phase 6 guard artifact: {name}")
+        if guard.get("status") != "PASSED":
+            raise ValueError(f"{name} guard artifact is not PASSED")
+        if guard.get("experiment") != experiment:
+            raise ValueError(f"{name} guard artifact has unexpected experiment: {guard.get('experiment')}")
     static_route = inputs["static"].get("route_decision")
     closed_route = inputs["closed_loop"].get("route_decision")
     if static_route != "pressure-equivalent":
@@ -269,14 +285,21 @@ def write_csv(rows: list[dict[str, Any]], path: Path) -> None:
         writer.writerows(rows)
 
 
-def forbidden_hits(rows: list[dict[str, Any]], manifest: dict[str, Any]) -> list[str]:
+def forbidden_hits(rows: list[dict[str, Any]], manifest: dict[str, Any]) -> list[dict[str, str]]:
     checked_manifest = {
         "status": manifest.get("status"),
         "route_decision": manifest.get("route_decision"),
         "claim_framing": manifest.get("claim_discipline", {}).get("framing"),
     }
-    text = json.dumps({"rows": rows, "manifest": checked_manifest}, sort_keys=True).lower()
-    return [phrase for phrase in FORBIDDEN_PHRASES if phrase in text]
+    text = json.dumps({"rows": rows, "manifest": checked_manifest}, sort_keys=True)
+    hits = forbidden_claim_hits(text, source="paper_artifacts")
+    lowered = text.lower()
+    hits.extend(
+        {"source": "paper_artifacts", "path": "paper_artifacts", "phrase": phrase}
+        for phrase in RENDERER_FORBIDDEN_PHRASES
+        if phrase in lowered
+    )
+    return hits
 
 
 def main() -> None:
