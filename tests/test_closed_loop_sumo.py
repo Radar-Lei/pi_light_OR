@@ -10,10 +10,17 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
+from finite_storage_schema import (  # noqa: E402
+    FINITE_STORAGE_STATE_FIELDS,
+    OBJECTIVE_COMPONENT_FIELDS,
+    validate_finite_storage_state,
+    validate_state_objective_sample,
+)
 from run_closed_loop_sumo import (  # noqa: E402
     CONTROLLER_REGISTRY,
     aggregate_metrics,
     apply_failure_mode,
+    build_completed_finite_storage_state,
     choose_controller_action,
     load_route_metadata,
     resolve_network,
@@ -119,6 +126,48 @@ def test_metric_aggregation_schema() -> None:
     assert metrics["spillback_count"] == 1
     assert metrics["blocking_count"] == 1
     assert metrics["switching_count"] == 3
+    assert set(metrics["objective_components"]) == OBJECTIVE_COMPONENT_FIELDS
+    assert metrics["objective_components"]["delay"] == 7.0
+    assert metrics["objective_components"]["unfinished_vehicle_penalty"] == 8.0
+    assert metrics["objective_components"]["spillback_blocking_time"] == 16.0
+    assert metrics["objective_components"]["switching_lost_time"] == 6.0
+
+
+def test_completed_finite_storage_state_schema() -> None:
+    state = build_completed_finite_storage_state(
+        queues={"edge_a": 2.0, "edge_b": 9.0},
+        capacities={"edge_a": 10.0, "edge_b": 10.0},
+        current_phase=1,
+        time_since_switch=5.0,
+        incident_edge="edge_b",
+        capacity_drop_factor=0.35,
+    )
+
+    assert set(state) == FINITE_STORAGE_STATE_FIELDS
+    validate_finite_storage_state(state, path=Path("row.json"), sample_idx=0)
+    row = {"finite_storage_state": state, "objective_components": {field: 0.0 for field in OBJECTIVE_COMPONENT_FIELDS}}
+    validate_state_objective_sample(row, path=Path("row.json"), sample_idx=0)
+
+
+def test_not_feasible_controller_has_explicit_state_and_objective_components() -> None:
+    row = run_experiment(
+        network="single",
+        controller="full_dual_symbolic",
+        seed=1,
+        steps=10,
+        warmup=0,
+        action_interval=5,
+        route_metadata={"route_decision": "pressure-equivalent", "route_confidence": "MEDIUM", "route_json": "route.json"},
+        scenario_tag="single_sanity",
+    )
+
+    assert row["feasibility_status"] == "not_feasible"
+    assert set(row["finite_storage_state"]) == FINITE_STORAGE_STATE_FIELDS
+    assert set(row["objective_components"]) == OBJECTIVE_COMPONENT_FIELDS
+    assert all(value == 0.0 for value in row["objective_components"].values())
+    assert "finite_storage_state_summary" not in row
+    validate_finite_storage_state(row["finite_storage_state"], path=Path("row.json"), sample_idx=0)
+    validate_state_objective_sample(row, path=Path("row.json"), sample_idx=0)
 
 
 def test_route_metadata_loader() -> None:
@@ -161,6 +210,8 @@ def test_not_feasible_controller_metadata() -> None:
     )
     assert row["feasibility_status"] == "not_feasible"
     assert "dual" in row["unsupported_reason"].lower()
+    assert set(row["finite_storage_state"]) == FINITE_STORAGE_STATE_FIELDS
+    assert set(row["objective_components"]) == OBJECTIVE_COMPONENT_FIELDS
 
 
 def test_failure_mode_restores_speed_after_window() -> None:
@@ -286,6 +337,8 @@ def main() -> None:
     test_choose_controller_action_prefers_pressure_phase()
     test_capacity_aware_penalizes_full_downstream()
     test_metric_aggregation_schema()
+    test_completed_finite_storage_state_schema()
+    test_not_feasible_controller_has_explicit_state_and_objective_components()
     test_route_metadata_loader()
     test_route_metadata_loader_rejects_missing_route()
     test_network_resolver_supports_phase4_networks()

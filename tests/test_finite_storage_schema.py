@@ -22,6 +22,7 @@ from finite_storage_schema import (  # noqa: E402
     validate_objective_components,
     validate_state_objective_sample,
 )
+from run_static_kill_gate import load_and_group_samples  # noqa: E402
 
 GENERATOR = SCRIPTS / "generate_static_regime_states.py"
 
@@ -197,10 +198,45 @@ def test_phase6_fixture_generation_and_validation(tmp_path: Path) -> None:
     assert set(schema["objective_component_fields"]) == EXPECTED_OBJECTIVE_FIELDS
     assert schema["objective_formula_metadata"]["shared_builder"] == "build_objective_components_from_metrics"
 
+    grouped, raw_counts, notes, regime_status = load_and_group_samples([out], max_samples=0, default_regime=None)
+    assert grouped
+    assert raw_counts
+    assert any("explicit_state_schema: PASSED" in note for note in notes)
+    assert regime_status
+
     for idx, sample in enumerate(payload["samples"]):
         validate_state_objective_sample(sample, path=out, sample_idx=idx)
         assert set(sample["finite_storage_state"]) == EXPECTED_STATE_FIELDS
         assert set(sample["objective_components"]) == EXPECTED_OBJECTIVE_FIELDS
+
+
+def test_static_kill_gate_rejects_explicit_phase6_samples_missing_state_or_objective(tmp_path: Path) -> None:
+    valid_sample = {
+        "schema_version": "phase6_explicit_state_v1",
+        "time": 0.0,
+        "queues": {"edge_a": 1.0, "edge_b": 0.0},
+        "vehicle_counts": {"edge_a": 1.0, "edge_b": 0.0},
+        "capacities": {"edge_a": 10.0, "edge_b": 10.0},
+        "tls_movements": {"J0": [["edge_a", "edge_b"]]},
+        "regime": "phase6_binding_fixture",
+        "finite_storage_state": explicit_state(),
+        "objective_components": explicit_objective(),
+    }
+    missing_state = dict(valid_sample)
+    missing_state.pop("finite_storage_state")
+    missing_objective = dict(valid_sample)
+    missing_objective.pop("objective_components")
+
+    for sample in [missing_state, missing_objective]:
+        path = tmp_path / "invalid_phase6_samples.json"
+        path.write_text(json.dumps({"samples": [sample]}), encoding="utf-8")
+        try:
+            load_and_group_samples([path], max_samples=0, default_regime=None)
+        except ValueError as exc:
+            message = str(exc)
+            assert "phase6" in message or "finite_storage_state" in message or "objective_components" in message
+        else:  # pragma: no cover
+            raise AssertionError("explicit Phase 6 sample missing schema fields was accepted")
 
 
 def test_schema_artifact_payload_documents_state_and_objective_contracts() -> None:

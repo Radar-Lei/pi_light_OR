@@ -16,6 +16,7 @@ import math
 from pathlib import Path
 from typing import Any
 
+from finite_storage_schema import SCHEMA_VERSION, validate_state_objective_sample
 from render_static_kill_gate_report import render_report
 from run_sparse_recovery import (
     ATOM_REGISTRY,
@@ -108,6 +109,16 @@ def validate_numeric_mapping(sample: dict[str, Any], path: Path, sample_idx: int
             raise ValueError(f"Sample {sample_idx} in {path} field {field}.{key} must be a finite number")
 
 
+def sample_requires_explicit_phase6_validation(sample: dict[str, Any]) -> bool:
+    schema_version = str(sample.get("schema_version", ""))
+    return (
+        schema_version.startswith("phase6")
+        or schema_version == SCHEMA_VERSION
+        or "finite_storage_state" in sample
+        or "objective_components" in sample
+    )
+
+
 def validate_sample_schema(sample: dict[str, Any], path: Path, sample_idx: int) -> None:
     missing = REQUIRED_SAMPLE_FIELDS - set(sample)
     if missing:
@@ -138,6 +149,8 @@ def validate_sample_schema(sample: dict[str, Any], path: Path, sample_idx: int) 
                     f"Sample {sample_idx} in {path} field tls_movements.{tls_id}[{movement_idx}] "
                     f"references links without queue/capacity values: {missing_links}"
                 )
+    if sample_requires_explicit_phase6_validation(sample):
+        validate_state_objective_sample(sample, path=path, sample_idx=sample_idx)
 
 
 def load_and_group_samples(
@@ -147,6 +160,7 @@ def load_and_group_samples(
     raw_counts: dict[str, int] = {}
     notes: list[str] = []
     input_regime_status: list[str] = []
+    explicit_sample_count = 0
     remaining = max_samples
     seen = 0
 
@@ -164,6 +178,8 @@ def load_and_group_samples(
             if not isinstance(sample, dict):
                 raise ValueError(f"Sample {sample_idx} in {path} must be an object")
             validate_sample_schema(sample, path, sample_idx)
+            if sample_requires_explicit_phase6_validation(sample):
+                explicit_sample_count += 1
             regime = sample.get("regime")
             sample_copy = dict(sample)
             if regime is None:
@@ -194,6 +210,14 @@ def load_and_group_samples(
             remaining -= len(selected)
             if remaining <= 0:
                 break
+    if explicit_sample_count:
+        notes.append(
+            f"explicit_state_schema: PASSED - {explicit_sample_count} sample(s) validated with finite_storage_state and objective_components"
+        )
+    else:
+        notes.append(
+            "explicit_state_schema: legacy/proxy-only input - no Phase 6 explicit finite-storage samples were declared"
+        )
     return grouped, raw_counts, notes, input_regime_status
 
 

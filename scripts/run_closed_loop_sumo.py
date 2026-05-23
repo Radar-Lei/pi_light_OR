@@ -11,6 +11,14 @@ from typing import Any
 
 import traci
 
+from claim_policy import forbidden_claim_hits
+from finite_storage_schema import (
+    OBJECTIVE_COMPONENT_FIELDS,
+    build_finite_storage_state,
+    build_objective_components_from_metrics,
+    validate_finite_storage_state,
+    validate_state_objective_sample,
+)
 from sample_sumo_states import build_network_metadata
 
 METRIC_FIELDS = [
@@ -60,7 +68,6 @@ CLAIM_FRAMING = (
     "Phase 3 selected pressure-equivalent; Phase 4 outputs are closed-loop SUMO evidence "
     "for generalized-pressure symbolic recovery, not universal dominance over pressure."
 )
-FORBIDDEN_CLAIM_PHRASES = ["dual universally beats pressure", "max-pressure strawman", "static evidence proves closed-loop"]
 
 
 def parse_args() -> argparse.Namespace:
@@ -239,8 +246,10 @@ def aggregate_metrics(
     horizon = max(steps - warmup, 1)
     total_travel_time = sum(arrived_times)
     censor_penalty = float(horizon)
+    spillback_count = int(sum(obs["spillback"] for obs in observations))
+    blocking_count = int(sum(obs["blocking"] for obs in observations))
     penalized_total = total_travel_time + unfinished * censor_penalty
-    return {
+    metrics = {
         "avg_travel_time": float(total_travel_time / completed) if completed else 0.0,
         "penalized_avg_travel_time": float(penalized_total / departed_total) if departed_total else 0.0,
         "total_delay": float(waiting_delay),
@@ -249,13 +258,65 @@ def aggregate_metrics(
         "throughput": float(completed / horizon),
         "mean_queue": float(statistics.fmean(queues) if queues else 0.0),
         "max_queue": float(max(max_queues, default=0.0)),
-        "spillback_count": int(sum(obs["spillback"] for obs in observations)),
-        "blocking_count": int(sum(obs["blocking"] for obs in observations)),
+        "spillback_count": spillback_count,
+        "blocking_count": blocking_count,
         "switching_count": int(switching_count),
         "controller_runtime_sec": float(runtime),
         "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
         "unfinished_vehicle_count": int(unfinished),
     }
+    metrics["objective_components"] = build_objective_components_from_metrics(
+        {
+            "total_delay": metrics["total_delay"],
+            "unfinished_vehicle_count": metrics["unfinished_vehicle_count"],
+            "spillback_count": spillback_count,
+            "blocking_count": blocking_count,
+            "switching_count": switching_count,
+        },
+        horizon=float(horizon),
+    )
+    return metrics
+
+
+def unavailable_finite_storage_state(reason: str) -> dict[str, Any]:
+    state = {
+        "downstream_storage": {"unavailable": 0.0},
+        "residual_receiving_capacity": {"unavailable": 0.0},
+        "spillback_blocking": {
+            "unavailable": {"spillback": False, "blocking": False, "occupancy_ratio": 0.0}
+        },
+        "switching_loss_state": {"current_phase": None, "time_since_switch": 0.0, "status_reason": reason},
+        "service_urgency": {"unavailable": 0.0},
+        "incident_capacity_drop": {"active": False, "edge": None, "factor": 1.0, "status_reason": reason},
+    }
+    validate_finite_storage_state(state)
+    return state
+
+
+def build_completed_finite_storage_state(
+    queues: dict[str, float],
+    capacities: dict[str, float],
+    *,
+    current_phase: int | None,
+    time_since_switch: float,
+    incident_edge: str | None = None,
+    capacity_drop_factor: float | None = None,
+) -> dict[str, Any]:
+    state = build_finite_storage_state(
+        queues,
+        capacities,
+        current_phase=current_phase,
+        time_since_switch=time_since_switch,
+        incident_edge=incident_edge,
+        capacity_drop_factor=capacity_drop_factor,
+    )
+    validate_finite_storage_state(state)
+    return state
+
+
+def validate_closed_loop_row(row: dict[str, Any]) -> None:
+    validate_finite_storage_state(row["finite_storage_state"])
+    validate_state_objective_sample(row)
 
 
 def infeasible_row(
@@ -269,7 +330,7 @@ def infeasible_row(
     scenario_tag: str,
     reason: str,
 ) -> dict[str, Any]:
-    return {
+    row = {
         "network": network,
         "scenario_tag": scenario_tag,
         "controller": controller,
@@ -289,7 +350,11 @@ def infeasible_row(
         "switching_count": 0,
         "travel_time_source": "not_feasible",
         "unfinished_vehicle_count": 0,
+        "objective_components": {field: 0.0 for field in OBJECTIVE_COMPONENT_FIELDS},
+        "finite_storage_state": unavailable_finite_storage_state(reason),
     }
+    validate_closed_loop_row(row)
+    return row
 
 
 def edge_observation(edge_ids: list[str], capacities: dict[str, float]) -> dict[str, float]:
@@ -371,6 +436,9 @@ def run_experiment(
     observations: list[dict[str, float]] = []
     departed: dict[str, float] = {}
     arrived_times: list[float] = []
+    latest_queues = {edge_id: 0.0 for edge_id in edge_ids}
+    latest_current_phase: int | None = None
+    latest_time_since_switch = 0.0
     switching_count = 0
     controller_runtime = 0.0
     last_phase_by_tls: dict[str, int] = {}
@@ -404,10 +472,13 @@ def run_experiment(
                 if start is not None:
                     arrived_times.append(max(sim_time - start, 0.0))
             queues = {edge_id: float(traci.edge.getLastStepHaltingNumber(edge_id)) for edge_id in edge_ids}
+            latest_queues = queues
             if step >= warmup and (step - warmup) % action_interval == 0:
                 start = time.perf_counter()
                 for tls_id in sorted(tls_movements):
                     current_phase = int(traci.trafficlight.getPhase(tls_id))
+                    latest_current_phase = current_phase
+                    latest_time_since_switch = float(step - phase_since_by_tls.get(tls_id, step))
                     previous_phase = last_phase_by_tls.get(tls_id)
                     if previous_phase is None:
                         last_phase_by_tls[tls_id] = current_phase
@@ -456,6 +527,14 @@ def run_experiment(
         "net_file": str(paths["net_file"]),
         **route_metadata,
         **aggregate_metrics(observations, steps, warmup, departed, arrived_times, waiting_delay, controller_runtime, switching_count),
+        "finite_storage_state": build_completed_finite_storage_state(
+            latest_queues,
+            capacities,
+            current_phase=latest_current_phase,
+            time_since_switch=latest_time_since_switch,
+            incident_edge=target_edge if failure_mode_mechanism else None,
+            capacity_drop_factor=0.35 if failure_mode_mechanism else None,
+        ),
     }
     if demand_shift_mechanism:
         row["demand_shift_mechanism"] = demand_shift_mechanism
@@ -468,6 +547,7 @@ def run_experiment(
         row["failure_mode_end"] = warmup + 120
     if row["completed_vehicles"] == 0:
         row["smoke_notes"] = "Short horizon produced no completed vehicles; queue/switch/runtime metrics remain valid."
+    validate_closed_loop_row(row)
     return row
 
 
@@ -486,8 +566,7 @@ def build_payload(args: argparse.Namespace, route_metadata: dict[str, str], rows
         "scenario_results": rows,
         "metric_schema": {field: "CLOP-04 metric" for field in METRIC_FIELDS},
     }
-    lowered = json.dumps(payload).lower()
-    forbidden = [phrase for phrase in FORBIDDEN_CLAIM_PHRASES if phrase in lowered]
+    forbidden = forbidden_claim_hits(json.dumps({"claim_framing": payload["claim_framing"]}))
     if forbidden:
         raise ValueError(f"Output contains forbidden claim language: {forbidden}")
     return payload
