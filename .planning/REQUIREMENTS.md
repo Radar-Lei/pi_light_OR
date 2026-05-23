@@ -16,8 +16,8 @@ Requirements for the finite-storage separation milestone. Each maps to roadmap p
 
 ### Explicit State and Objective
 
-- [ ] **STATE-01**: Experiment state replaces proxy-only binding labels with explicit downstream storage, residual receiving capacity, spillback/blocking, phase-switching loss, service urgency, and incident/capacity-drop fields.
-- [ ] **STATE-02**: The finite-storage constrained objective predeclares delay, unfinished-vehicle penalty, spillback/blocking time, and switching lost-time terms.
+- [x] **STATE-01**: Experiment state replaces proxy-only binding labels with explicit downstream storage, residual receiving capacity, spillback/blocking, phase-switching loss, service urgency, and incident/capacity-drop fields.
+- [x] **STATE-02**: The finite-storage constrained objective predeclares delay, unfinished-vehicle penalty, spillback/blocking time, and switching lost-time terms.
 - [ ] **STATE-03**: Static fixtures and closed-loop runners emit schema-validated artifacts containing the explicit state fields and objective components needed for audit.
 
 ### Theory and Separation
@@ -92,8 +92,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLAIM-01 | Phase 6 | Complete |
 | CLAIM-02 | Phase 6 | Complete |
 | CLAIM-03 | Phase 12 | Pending |
-| STATE-01 | Phase 6 | Pending |
-| STATE-02 | Phase 6 | Pending |
+| STATE-01 | Phase 6 | Complete |
+| STATE-02 | Phase 6 | Complete |
 | STATE-03 | Phase 6 | Pending |
 | THRY-01 | Phase 7 | Pending |
 | THRY-02 | Phase 7 | Pending |

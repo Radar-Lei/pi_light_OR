@@ -4,13 +4,13 @@ milestone: v1.1
 milestone_name: Explicit Finite-Storage Primal-Dual Separation
 status: executing
 stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-05-23T12:38:49.888Z"
+last_updated: "2026-05-23T12:47:32.001Z"
 last_activity: 2026-05-23
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -26,11 +26,11 @@ See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-23)
 ## Current Position
 
 Phase: 06 (claim-discipline-and-explicit-state-foundation) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-05-23
 
-Progress: [███░░░░░░░] 33%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
@@ -58,6 +58,7 @@ Progress: [███░░░░░░░] 33%
 | 11. Long-Horizon Paired-Seed Evidence | 0/TBD | Not started |
 | 12. Reproducibility and Future Claim Inputs | 0/TBD | Not started |
 | Phase 06 P01 | 9min 11s | 3 tasks | 5 files |
+| Phase 06 P02 | 14min 31s | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,9 @@ Progress: [███░░░░░░░] 33%
 - [v1.1 Roadmap]: Strong claim remains bounded: recover/tie max-pressure when constraints are slack; claim wins only when finite-storage/spillback/switching/service/incident constraints bind.
 - [Phase 06]: Plan 01 claim scans treat negated/bounded caveats as safe while failing affirmative superiority wording.
 - [Phase 06]: Plan 01 historical v1.0 pressure-equivalent artifacts are quarantined as insufficient_historical_v1_0 rather than treated as binding-regime superiority evidence.
+- [Phase 06]: Plan 02 explicit fixtures preserve legacy sample keys while adding validated finite_storage_state and objective_components nested objects.
+- [Phase 06]: Plan 02 build_objective_components_from_metrics is the canonical shared helper for static fixtures and later closed-loop metric rows.
+- [Phase 06]: Plan 02 proxy regime labels remain historical/insufficient unless paired with validated explicit state and objective fields.
 
 ### Pending Todos
 
@@ -93,6 +97,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-23T12:38:49.881Z
+Last session: 2026-05-23T12:46:46.365Z
 Stopped at: Completed 06-01-PLAN.md
 Resume file: None
