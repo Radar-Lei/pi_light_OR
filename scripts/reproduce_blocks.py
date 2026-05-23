@@ -18,6 +18,7 @@ TEXT_CLAIM_CHECKS = [
     "experiments/dual_sensitivity/block3_static_kill_gate_report.md",
     "experiments/dual_sensitivity/block4_closed_loop_suite_report.md",
 ]
+EXPECTED_JSON_WITHOUT_STATUS = set[str]()
 
 
 def repo_root() -> Path:
@@ -237,7 +238,12 @@ def json_count(payload: Any) -> dict[str, int]:
 
 
 def audit_file(path: Path, rel_path: str, expected_paths: set[str]) -> dict[str, Any]:
-    check: dict[str, Any] = {"path": rel_path, "exists": path.exists(), "expected": rel_path in expected_paths}
+    check: dict[str, Any] = {
+        "path": rel_path,
+        "exists": path.exists(),
+        "expected": rel_path in expected_paths,
+        "status_required": rel_path in expected_paths and path.suffix == ".json" and rel_path not in EXPECTED_JSON_WITHOUT_STATUS,
+    }
     if not path.exists():
         check["parse_status"] = "missing"
         return check
@@ -261,6 +267,14 @@ def audit_file(path: Path, rel_path: str, expected_paths: set[str]) -> dict[str,
     return check
 
 
+def artifact_passed(check: dict[str, Any]) -> bool:
+    if not check.get("exists") or check.get("parse_status") != "ok":
+        return False
+    if check.get("status_required") and check.get("status") != "PASSED":
+        return False
+    return True
+
+
 def forbidden_phrase_hits(root: Path) -> list[dict[str, str]]:
     hits: list[dict[str, str]] = []
     for rel_path in TEXT_CLAIM_CHECKS:
@@ -282,7 +296,7 @@ def audit_artifacts(registry: list[dict[str, Any]], root: Path) -> dict[str, Any
     expected_paths = {path for item in registry for path in item["expected_artifacts"]}
     artifact_paths = sorted(expected_paths | set(TEXT_CLAIM_CHECKS))
     checks = [audit_file(root / rel_path, rel_path, expected_paths) for rel_path in artifact_paths]
-    expected_ok = all(check["exists"] and check.get("parse_status") == "ok" for check in checks if check.get("expected"))
+    expected_ok = all(artifact_passed(check) for check in checks if check.get("expected"))
     hits = forbidden_phrase_hits(root)
     status = "PASSED" if expected_ok and not hits else "FAILED"
     return {

@@ -411,6 +411,7 @@ def test_repro_registry_includes_phase6_guard_artifacts() -> None:
 
 
 def test_repro_audit_ignores_policy_metadata_for_forbidden_phrase_scan(tmp_path: Path) -> None:
+    tmp_path.mkdir(parents=True, exist_ok=True)
     artifact = tmp_path / "phase6_claim_policy.json"
     artifact.write_text(json.dumps({"status": "PASSED", "forbidden_patterns": ["dual universally beats pressure"]}), encoding="utf-8")
     registry = [
@@ -427,6 +428,29 @@ def test_repro_audit_ignores_policy_metadata_for_forbidden_phrase_scan(tmp_path:
     manifest = audit_artifacts(registry, tmp_path)
     assert manifest["status"] == "PASSED"
     assert manifest["claim_discipline"]["forbidden_phrases_present"] == []
+
+
+def test_repro_audit_fails_expected_json_with_failed_status(tmp_path: Path) -> None:
+    artifact = tmp_path / "failed_guard.json"
+    artifact.write_text(json.dumps({"status": "FAILED"}), encoding="utf-8")
+    registry = [
+        {
+            "block": "failed_guard",
+            "description": "failed guard",
+            "commands": [],
+            "expected_artifacts": ["failed_guard.json"],
+            "runtime_profile": "short",
+            "requirements": ["CLAIM-01"],
+            "claim_note": "failed status should fail closed",
+        }
+    ]
+
+    manifest = audit_artifacts(registry, tmp_path)
+
+    assert manifest["status"] == "FAILED"
+    check = next(item for item in manifest["artifact_checks"] if item["path"] == "failed_guard.json")
+    assert check["status_required"] is True
+    assert check["status"] == "FAILED"
 
 
 def test_completion_gates_reject_noop_controller_evidence() -> None:
@@ -466,6 +490,8 @@ def main() -> None:
     test_paper_artifacts_require_phase6_guard_artifacts()
     test_repro_registry_includes_phase6_guard_artifacts()
     test_repro_audit_ignores_policy_metadata_for_forbidden_phrase_scan(Path("/tmp/test_repro_audit_metadata"))
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        test_repro_audit_fails_expected_json_with_failed_status(Path(raw_tmp))
     test_completion_gates_reject_noop_controller_evidence()
     print("closed-loop SUMO tests ok")
 
