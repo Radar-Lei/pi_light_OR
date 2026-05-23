@@ -22,6 +22,26 @@ EXPECTED_SAMPLE_FIELDS = {
     "regime",
     "regime_detail",
     "generated_by",
+    "finite_storage_state",
+    "objective_components",
+}
+
+
+EXPECTED_STATE_FIELDS = {
+    "downstream_storage",
+    "residual_receiving_capacity",
+    "spillback_blocking",
+    "switching_loss_state",
+    "service_urgency",
+    "incident_capacity_drop",
+}
+
+
+EXPECTED_OBJECTIVE_FIELDS = {
+    "delay",
+    "unfinished_vehicle_penalty",
+    "spillback_blocking_time",
+    "switching_lost_time",
 }
 
 
@@ -56,6 +76,9 @@ def test_generator_emits_schema_compatible_regime_samples(tmp_path: Path) -> Non
     assert payload["target_per_regime"] == 10
     assert "regime_status" in payload
     assert all(EXPECTED_SAMPLE_FIELDS <= set(sample) for sample in payload["samples"])
+    assert all(set(sample["finite_storage_state"]) == EXPECTED_STATE_FIELDS for sample in payload["samples"])
+    assert all(set(sample["objective_components"]) == EXPECTED_OBJECTIVE_FIELDS for sample in payload["samples"])
+    assert all("proxy_reason" not in sample or "finite_storage_state" in sample for sample in payload["samples"])
 
 
 def test_generator_rejects_invalid_cli_inputs(tmp_path: Path) -> None:
