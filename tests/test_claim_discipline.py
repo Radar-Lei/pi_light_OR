@@ -134,6 +134,36 @@ def test_bounded_claim_language_passes_claim_audit(tmp_path: Path) -> None:
     assert "claim_policy" in audit
 
 
+def test_generated_claim_artifacts_are_parseable_and_bounded() -> None:
+    policy_path = ROOT / "experiments/dual_sensitivity/phase6_claim_policy.json"
+    audit_path = ROOT / "experiments/dual_sensitivity/phase6_claim_audit.json"
+
+    policy = read_json(policy_path)
+    audit = read_json(audit_path)
+    prose_surfaces = {
+        "policy_permitted_claim": policy.get("permitted_claim", ""),
+        "audit_status": audit.get("status", ""),
+        "audit_forbidden_hits": audit.get("forbidden_hits", []),
+        "audit_checked_paths": audit.get("checked_paths", []),
+    }
+    combined_text = json.dumps(prose_surfaces, sort_keys=True).lower()
+
+    assert policy["status"] == "PASSED"
+    assert policy["requirements_covered"] == ["CLAIM-01", "CLAIM-02"]
+    assert audit["status"] == "PASSED"
+    assert audit["requirements_covered"] == ["CLAIM-01", "CLAIM-02"]
+    assert isinstance(audit["checked_paths"], list)
+    for hit in audit["forbidden_hits"]:
+        assert "path" in hit
+        assert "phrase" in hit
+    assert "final manuscript" not in combined_text
+    assert "manuscript drafting" not in combined_text
+    assert "universal dominance" not in combined_text
+    assert "dual universally beats pressure" not in combined_text
+    assert "deployable superiority" not in combined_text
+    assert "static evidence proves closed-loop" not in combined_text
+
+
 def main() -> None:
     test_claim_policy_encodes_bounded_claim()
     test_forbidden_claim_hits_flags_broad_superiority_phrases()
@@ -141,6 +171,7 @@ def main() -> None:
     tmp.mkdir(parents=True, exist_ok=True)
     test_v1_pressure_equivalent_superiority_wording_fails_closed(tmp)
     test_bounded_claim_language_passes_claim_audit(tmp)
+    test_generated_claim_artifacts_are_parseable_and_bounded()
     print("claim discipline tests ok")
 
 
