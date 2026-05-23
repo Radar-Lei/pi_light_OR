@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -101,13 +102,42 @@ def validate_args(args: argparse.Namespace) -> None:
         raise ValueError("Atom penalties must be nonnegative")
 
 
+def validate_numeric_mapping(sample: dict[str, Any], path: Path, sample_idx: int, field: str) -> None:
+    for key, value in sample[field].items():
+        if not isinstance(value, (int, float)) or not math.isfinite(float(value)):
+            raise ValueError(f"Sample {sample_idx} in {path} field {field}.{key} must be a finite number")
+
+
 def validate_sample_schema(sample: dict[str, Any], path: Path, sample_idx: int) -> None:
     missing = REQUIRED_SAMPLE_FIELDS - set(sample)
     if missing:
         raise ValueError(f"Sample {sample_idx} in {path} is missing fields: {sorted(missing)}")
+    if not isinstance(sample["time"], (int, float)) or not math.isfinite(float(sample["time"])):
+        raise ValueError(f"Sample {sample_idx} in {path} field time must be a finite number")
     for field in ["queues", "vehicle_counts", "capacities", "tls_movements"]:
         if not isinstance(sample[field], dict):
             raise ValueError(f"Sample {sample_idx} in {path} field {field} must be an object")
+    for field in ["queues", "vehicle_counts", "capacities"]:
+        validate_numeric_mapping(sample, path, sample_idx, field)
+    for tls_id, movements in sample["tls_movements"].items():
+        if not isinstance(movements, list):
+            raise ValueError(f"Sample {sample_idx} in {path} field tls_movements.{tls_id} must be a list")
+        for movement_idx, movement in enumerate(movements):
+            if (
+                not isinstance(movement, list)
+                or len(movement) != 2
+                or not all(isinstance(link, str) for link in movement)
+            ):
+                raise ValueError(
+                    f"Sample {sample_idx} in {path} field tls_movements.{tls_id}[{movement_idx}] "
+                    "must be a two-string movement"
+                )
+            missing_links = [link for link in movement if link not in sample["queues"] or link not in sample["capacities"]]
+            if missing_links:
+                raise ValueError(
+                    f"Sample {sample_idx} in {path} field tls_movements.{tls_id}[{movement_idx}] "
+                    f"references links without queue/capacity values: {missing_links}"
+                )
 
 
 def load_and_group_samples(
@@ -172,11 +202,14 @@ def examples_for_samples(
 ) -> list[dict[str, Any]]:
     examples: list[dict[str, Any]] = []
     for sample in samples:
-        scenario = scenario_from_sample(sample, tls, max_movements)
-        if scenario is None:
-            continue
-        summary = summarize_scenario(scenario, epsilon)
-        example = build_example(summary)
+        try:
+            scenario = scenario_from_sample(sample, tls, max_movements)
+            if scenario is None:
+                continue
+            summary = summarize_scenario(scenario, epsilon)
+            example = build_example(summary)
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError(f"Invalid sample {sample.get('_source_label', '<unknown>')}: {exc}") from exc
         if example is None:
             continue
         example["source"] = str(sample["_source_label"])
@@ -333,12 +366,29 @@ def compare_dual_pressure(
     }
 
 
+def find_preliminary_regimes(
+    raw_counts: dict[str, int],
+    valid_examples_by_regime: dict[str, int],
+    runs_by_regime: dict[str, list[dict[str, Any]]],
+    min_regime_count: int,
+) -> list[str]:
+    preliminary = []
+    for regime in raw_counts:
+        valid_count = valid_examples_by_regime.get(regime, 0)
+        dual_run = best_run(runs_by_regime.get(regime, []), PRIMARY_DUAL_LIBRARY)
+        pressure_run = best_run(runs_by_regime.get(regime, []), PRIMARY_PRESSURE_LIBRARY)
+        if valid_count < min_regime_count or dual_run is None or pressure_run is None:
+            preliminary.append(regime)
+    return sorted(preliminary)
+
+
 def decide_route(
     metrics: list[dict[str, Any]],
     sample_target_met: bool,
     dual_win_threshold: float,
     regret_improvement_threshold: float,
     equivalence_tolerance: float,
+    preliminary_regimes: list[str] | None = None,
 ) -> dict[str, Any]:
     caveats = [
         "Route is based on static/sample-relative one-step recovery metrics only; closed-loop claims are deferred.",
@@ -349,6 +399,17 @@ def decide_route(
             "route_confidence": "LOW",
             "route_rationale": "No solved regime metrics were available.",
             "route_caveats": caveats + ["No regime evidence was available for routing."],
+        }
+    if preliminary_regimes:
+        return {
+            "route_decision": "diagnostic",
+            "route_confidence": "LOW",
+            "route_rationale": "One or more requested regimes lack sufficient solved dual-vs-pressure evidence.",
+            "route_caveats": caveats
+            + [
+                "preliminary/missing regimes: " + ", ".join(preliminary_regimes),
+                "positive or equivalent route evidence requires every requested regime to meet per-regime sufficiency.",
+            ],
         }
     if not sample_target_met:
         return {
@@ -499,12 +560,13 @@ def main() -> None:
         runs_by_regime[regime] = runs
 
     num_examples_total = sum(valid_examples_by_regime.values())
-    sample_target_met = num_examples_total >= args.target_total_states
-    preliminary_regimes = sorted(
-        regime
-        for regime, count in valid_examples_by_regime.items()
-        if count < args.min_regime_count or not sample_target_met
+    preliminary_regimes = find_preliminary_regimes(
+        raw_counts,
+        valid_examples_by_regime,
+        runs_by_regime,
+        args.min_regime_count,
     )
+    sample_target_met = num_examples_total >= args.target_total_states and not preliminary_regimes
 
     for regime in sorted(runs_by_regime):
         dual_run = best_run(runs_by_regime[regime], PRIMARY_DUAL_LIBRARY)
@@ -529,6 +591,7 @@ def main() -> None:
         dual_win_threshold=args.dual_win_threshold,
         regret_improvement_threshold=args.regret_improvement_threshold,
         equivalence_tolerance=args.equivalence_tolerance,
+        preliminary_regimes=preliminary_regimes,
     )
     if labeling_notes:
         route["route_caveats"] = list(route["route_caveats"]) + [

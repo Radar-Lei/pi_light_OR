@@ -16,8 +16,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Theoretical Core and Claim Lock** - Lock the capacitated relaxation, dual decomposition, pressure special case, scarcity correction, and recoverability claim. (completed 2026-05-22)
 - [x] **Phase 2: Full Sparse Symbolic Recovery** - Implement auditable K-atom recovery with oracle-regret objective, complexity penalties, and full atom families. (completed 2026-05-22)
 - [x] **Phase 3: Static Pressure-Failure Kill Gate** - Decide the paper route by testing dual-vs-pressure behavior across slack and binding static regimes. (completed 2026-05-22)
-- [ ] **Phase 4: Closed-Loop SUMO Evaluation** - Validate the selected claim route in closed-loop SUMO against strong traffic-control baselines.
-- [ ] **Phase 5: Reproducibility and Repository Hardening** - Make the repository rerunnable, auditable, and table/figure reproducible from raw artifacts.
+- [x] **Phase 4: Closed-Loop SUMO Evaluation** - Validate the selected claim route in closed-loop SUMO against strong traffic-control baselines. (completed 2026-05-23)
+- [x] **Phase 5: Reproducibility and Repository Hardening** - Make the repository rerunnable, auditable, and table/figure reproducible from raw artifacts. (completed 2026-05-23)
 
 ## Gate Routing
 
@@ -155,7 +155,19 @@ Plans:
   2. Baseline comparisons are honest: max-pressure and capacity/spillback-aware variants are first-class baselines, not strawmen.
   3. Closed-loop interpretation follows the Phase 3 gate route and does not overclaim beyond the evidence.
 
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [x] 04-01-PLAN.md — Create the real closed-loop SUMO/TraCI runner and single-intersection smoke artifact.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [x] 04-02-PLAN.md — Expand to the multi-network, multi-seed baseline suite with CIs and failure-mode coverage.
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [x] 04-03-PLAN.md — Render claim-disciplined closed-loop report and CSV artifacts.
 
 ### Phase 5: Reproducibility and Repository Hardening
 
@@ -178,7 +190,19 @@ Plans:
   2. Generated tables/figures are traceable to raw artifacts by file path and script.
   3. Known limitations are stated in the repository rather than hidden in ad hoc notes.
 
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [x] 05-01-PLAN.md — Create the repository-level reproducibility entrypoint and CPU environment contract.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [x] 05-02-PLAN.md — Add a minimal block-oriented reproduction harness and manifest for reported artifacts.
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [x] 05-03-PLAN.md — Create deterministic paper table and figure-data generation from raw experiment artifacts.
 
 ## Progress
 
@@ -190,8 +214,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Theoretical Core and Claim Lock | 3/3 | Complete   | 2026-05-22 |
 | 2. Full Sparse Symbolic Recovery | 3/3 | Complete   | 2026-05-22 |
 | 3. Static Pressure-Failure Kill Gate | 3/3 | Complete   | 2026-05-22 |
-| 4. Closed-Loop SUMO Evaluation | 0/TBD | Not started | - |
-| 5. Reproducibility and Repository Hardening | 0/TBD | Not started | - |
+| 4. Closed-Loop SUMO Evaluation | 3/3 | Complete | 2026-05-23 |
+| 5. Reproducibility and Repository Hardening | 3/3 | Complete | 2026-05-23 |
 
 ## Requirement Coverage
 

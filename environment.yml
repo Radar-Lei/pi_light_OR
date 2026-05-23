@@ -1,0 +1,20 @@
+name: pi-light-or
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.10,<3.13
+  - numpy
+  - scipy
+  - pandas
+  - pyyaml
+  - pytest
+  - sumo
+  - pip
+  - pip:
+      - traci
+      - sumolib
+      - amplpy
+
+# Phase 5 reproduction path is CPU/SUMO/optimization oriented.
+# Accelerator stacks, local model-serving stacks, MARL training services, cloud services, and committed secrets are not required.
+# AMPL is optional for workflows that use amplpy; do not store license IDs or activation material in this repository.

@@ -1,0 +1,37 @@
+{
+  "experiment": "paper_artifacts",
+  "status": "PASSED",
+  "generated_by": "scripts/render_paper_artifacts.py",
+  "source_artifacts": {
+    "block0": "experiments/dual_sensitivity/block0_dual_sanity.json",
+    "sparse": "experiments/dual_sensitivity/block2_sparse_recovery.json",
+    "static": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+    "closed_loop": "experiments/dual_sensitivity/block4_closed_loop_suite.json",
+    "repro_manifest": "experiments/dual_sensitivity/reproducibility_manifest.json"
+  },
+  "generated_artifacts": {
+    "paper_tables": "experiments/dual_sensitivity/paper_tables.csv",
+    "paper_figure_data": "experiments/dual_sensitivity/paper_figure_data.csv",
+    "manifest": "experiments/dual_sensitivity/paper_artifacts_manifest.json"
+  },
+  "row_counts": {
+    "paper_tables": 329,
+    "paper_figure_data": 122
+  },
+  "route_decision": "pressure-equivalent",
+  "claim_discipline": {
+    "framing": "pressure-equivalent generalized-pressure symbolic recovery; simulator/network/horizon/seed-relative evidence.",
+    "forbidden_phrases": [
+      "dual universally beats pressure",
+      "max-pressure strawman",
+      "proves superiority",
+      "deployable superiority",
+      "static evidence proves closed-loop"
+    ],
+    "forbidden_phrases_present": []
+  },
+  "requirements_covered": [
+    "REPR-04",
+    "REPR-05"
+  ]
+}

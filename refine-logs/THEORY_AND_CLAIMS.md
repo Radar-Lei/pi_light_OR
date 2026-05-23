@@ -123,11 +123,13 @@ THRY-01 establishes the mathematical object whose duals are later used as interp
 This memo follows the minimization convention used in `scripts/run_dual_sanity.py` and SciPy/HiGHS LP marginals.
 
 ```text
-LinkValue(l)        := lambda_l
-MovementValue(i,j)  := lambda_i - lambda_j
+LinkValue(l)              := lambda_l
+LinkDualPressure(i,j)     := lambda_i - lambda_j
+FullServiceValue(i,j)     := LinkDualPressure(i,j)
+                             + ExplicitResourceCorrection(i,j)
 ```
 
-A positive `MovementValue(i,j)` is interpreted as first-order objective improvement, or marginal service benefit, from increasing service on movement `i -> j` at the zero-service marginal point. In the implementation this is exactly the convention
+A positive `LinkDualPressure(i,j)` is interpreted as the conservation-dual component of first-order objective improvement from increasing service on movement `i -> j` at the zero-service marginal point. In the current Block 0 implementation this is exactly the convention
 
 ```text
 movement_values[m] = equality_duals[up] - equality_duals[down]
@@ -135,7 +137,9 @@ movement_values[m] = equality_duals[up] - equality_duals[down]
 
 where `up` and `down` are the upstream and downstream link indices of movement `m`. Because the LP is written as a cost minimization problem, the same statement can also be read as: serving an upstream queue is valuable when it removes vehicles from a high marginal congestion-cost link and sends them toward a lower marginal congestion-cost or less scarce downstream link.
 
-The phrase `dual-sensitivity decomposition` below refers to the decomposition of this movement value into upstream link value, downstream link value, and any modeled scarcity or service feasibility shadow prices that are present in the written primal relaxation.
+`FullServiceValue(i,j)` denotes the full reduced marginal service value after adding any reduced-cost terms from explicitly written phase, green-budget, service-bound, corridor, or other resource constraints. The equality `FullServiceValue(i,j) = LinkDualPressure(i,j)` holds only when those explicit resource multipliers are absent, slack, or ranking-neutral for the movements being compared.
+
+The phrase `dual-sensitivity decomposition` below refers to the decomposition of the full service value into upstream link value, downstream link value, and any modeled scarcity or service feasibility shadow prices that are present in the written primal relaxation.
 
 ## THRY-02 — Movement-Level Dual-Sensitivity Decomposition
 
@@ -147,12 +151,14 @@ Consider the capacitated movement-service relaxation in THRY-01 and a feasible b
 [V(0) - V(epsilon)] / epsilon = lambda_i - lambda_j + o(1).
 ```
 
-Thus the first-order movement value is
+Thus the conservation-dual component of the first-order movement value is
 
 ```text
-MovementValue(i,j) = upstream link value - downstream link value
-                   = lambda_i - lambda_j.
+LinkDualPressure(i,j) = upstream link value - downstream link value
+                      = lambda_i - lambda_j.
 ```
+
+When explicit resource constraints are absent, slack, or ranking-neutral for the compared movements, this component is also the full reduced service value. Otherwise, the full reduced service value adds the corresponding explicit reduced-cost corrections from those written constraints.
 
 The upstream term is positive when service removes flow from a link with high marginal congestion cost. The downstream term is subtracted because the same movement contributes flow to the receiving link, whose marginal value may include downstream queue cost and modeled receiving-capacity scarcity.
 
@@ -161,7 +167,7 @@ The upstream term is positive when service removes flow from a link with high ma
 When the written primal model includes finite storage, supply, phase/service, or corridor constraints, the link and movement values can be expanded conceptually as
 
 ```text
-MovementValue(i,j)
+FullServiceValue(i,j)
   = [local upstream queue value on i]
     - [local downstream queue value on j]
     + [modeled upstream/downstream storage or supply correction]
@@ -183,7 +189,7 @@ This is why the memo describes dual movement value as generalized pressure: ordi
 
 Write the Lagrangian for the THRY-01 LP using equality multipliers `lambda_l` for queue conservation and inequality multipliers for storage/supply, phase/service, and service-bound constraints. A perturbation that increases service on `m=(i,j)` changes only the conservation rows for links `i` and `j` at first order, plus any explicit resource constraints that the service variable consumes. The conservation contribution to the directional derivative is `lambda_i - lambda_j` under the implementation convention. If storage/supply or phase/service constraints bind, their multipliers enter through stationarity and reduced-cost terms, either embedded in the affected link values `lambda_l` or appearing as explicit resource-consumption corrections.
 
-Standard LP sensitivity then identifies the derivative of the optimal value with the relevant shadow-price expression for sufficiently small perturbations that preserve the active-set structure. Therefore ranking movements by `lambda_up - lambda_down` is equivalent to ranking first-order service benefits in the relaxation, and any additional scarcity or service terms must be traceable to a corresponding primal constraint.
+Standard LP sensitivity then identifies the derivative of the optimal value with the relevant shadow-price expression for sufficiently small perturbations that preserve the active-set structure. Therefore ranking movements by `lambda_up - lambda_down` is equivalent to ranking first-order service benefits only in the Block 0 comparison class where explicit resource corrections are absent, slack, or ranking-neutral. In the general written relaxation, ranking by `FullServiceValue` must include any non-neutral reduced-cost corrections, and every such scarcity or service term must be traceable to a corresponding primal constraint.
 
 ### Alignment with validation code
 
@@ -200,21 +206,23 @@ THRY-02 proves an interpretation of marginal service values inside the continuou
 Consider the THRY-01 relaxation at a fixed local traffic state with a fixed set of feasible movements and phase-compatible movement groups. Suppose the following conditions hold for the movements being compared:
 
 1. **Queue-value specialization**: the link value used by the relaxation is a monotone queue weight `w_l`, and in the ordinary pressure case `w_l = x_l`.
-2. **Slack or ranking-neutral scarcity**: storage, supply, downstream receiving-capacity, and optional corridor/service constraints are either nonbinding for the compared infinitesimal services or contribute the same additive or positive affine adjustment to all compared movement scores, so they do not change the ranking.
-3. **Fixed local movement topology**: each candidate phase score is computed by summing the movement values of its feasible lane-link or movement set; the compared movements share the same topology convention.
-4. **No unmodeled correction terms**: any phase/service or corridor correction used in the score is backed by a written primal constraint; if no such constraint is present, its dual term is zero by definition rather than assumed.
+2. **Interior service perturbations**: upstream queues permit the compared infinitesimal services, next-queue lower bounds remain slack, and movement lower/upper service bounds do not bind non-neutrally.
+3. **Slack or ranking-neutral scarcity and resources**: storage, supply, downstream receiving-capacity, phase/green resources, service-feasibility constraints, and optional corridor/service constraints are either nonbinding for the compared infinitesimal services or contribute the same additive or positive affine adjustment to all compared movement scores, so they do not change the ranking.
+4. **Fixed local movement topology**: each candidate phase score is computed by summing the movement values of its feasible lane-link or movement set; the compared movements share the same topology convention.
+5. **No unmodeled correction terms**: any phase/service or corridor correction used in the score is backed by a written primal constraint; if no such constraint is present, its dual term is zero by definition rather than assumed.
 
-Then ranking movements by the THRY-02 dual movement value is identical to ranking ordinary pressure/backpressure:
+Then ranking movements by the THRY-02 full service value is identical to ranking ordinary pressure/backpressure, because the full value reduces to its link-dual pressure component under these interior/slack or ranking-neutral assumptions:
 
 ```text
-MovementValue(i,j) = lambda_i - lambda_j
-                   = w_i - w_j,
+FullServiceValue(i,j) = LinkDualPressure(i,j)
+                      = lambda_i - lambda_j
+                      = w_i - w_j,
 ```
 
 and, when `w_l = x_l`,
 
 ```text
-MovementValue(i,j) = x_i - x_j.
+FullServiceValue(i,j) = x_i - x_j.
 ```
 
 For a phase `p` with feasible movement set `M_p`, the corresponding phase score reduces to the usual pressure aggregation:
@@ -228,9 +236,9 @@ Thus ordinary max-pressure/backpressure is a structural special case of the gene
 
 ### Proof sketch
 
-Under THRY-02, a movement `m=(i,j)` has first-order service value `lambda_i - lambda_j`, with any scarcity or resource terms entering only through the link values or explicitly modeled service constraints. In the slack regime, storage/supply inequalities have zero active scarcity contribution. In a ranking-neutral regime, any remaining modeled scarcity or service contribution is common across the movements being compared, or is transformed by the same positive affine map, so it cannot change their order.
+Under THRY-02, a movement `m=(i,j)` has conservation-dual pressure component `lambda_i - lambda_j`, while the full reduced service value may include explicit resource corrections. In the interior/slack regime, upstream service feasibility, next-queue lower bounds, movement service bounds, storage/supply inequalities, and phase/green resources have no non-neutral active contribution. In a ranking-neutral regime, any remaining modeled scarcity or service contribution is common across the movements being compared, or is transformed by the same positive affine map, so it cannot change their order.
 
-With link value specialized to the queue weight, the conservation-dual difference becomes `w_i - w_j`. Setting `w_l = x_l` gives the standard upstream-minus-downstream pressure score. Summing these movement scores over the movements enabled by a phase yields the phase-level backpressure score. Therefore the dual ranking and ordinary pressure/backpressure ranking coincide under the stated slack or ranking-neutral assumptions.
+With link value specialized to the queue weight, the conservation-dual pressure component becomes `w_i - w_j`. Setting `w_l = x_l` gives the standard upstream-minus-downstream pressure score. Summing these movement scores over the movements enabled by a phase yields the phase-level backpressure score. Therefore the full dual ranking and ordinary pressure/backpressure ranking coincide only under the stated interior, slack, or ranking-neutral assumptions.
 
 ### Alignment with the existing max-pressure implementation
 

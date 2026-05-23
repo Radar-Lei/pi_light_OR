@@ -58,10 +58,10 @@ Dual and pressure have tie-equivalent static oracle regret across solved regimes
 
 ## Artifact Links
 
-- Gate JSON: `experiments/dual_sensitivity/block3_static_kill_gate.json`
-- CSV metrics: `experiments/dual_sensitivity/block3_static_kill_gate.csv`
-- Recovered rules: `experiments/dual_sensitivity/block3_static_kill_gate_rules.txt`
-- Rendered report: `experiments/dual_sensitivity/block3_static_kill_gate_report.md`
+- Gate JSON: `/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/block3_static_kill_gate.json`
+- CSV metrics: `/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/block3_static_kill_gate.csv`
+- Recovered rules: `/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/block3_static_kill_gate_rules.txt`
+- Rendered report: `/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/block3_static_kill_gate_report.md`
 
 ## Phase 4 Implications / Priorities
 

@@ -11,7 +11,7 @@ Library: dual_sensitivity | max_atoms=1
 Selected atoms: dual_sensitivity
 Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.02128790598
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.02108215995
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity
 Selected atoms:
@@ -23,7 +23,7 @@ Library: pressure_backpressure | max_atoms=1
 Selected atoms: pressure_backpressure
 Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01746638992
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01756740501
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure
 Selected atoms:
@@ -39,7 +39,7 @@ Library: dual_sensitivity | max_atoms=1
 Selected atoms: dual_sensitivity
 Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.017369334
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01722894202
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity
 Selected atoms:
@@ -51,7 +51,7 @@ Library: pressure_backpressure | max_atoms=1
 Selected atoms: pressure_backpressure
 Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01729600609
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01714606292
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure
 Selected atoms:
@@ -67,7 +67,7 @@ Library: dual_sensitivity | max_atoms=1
 Selected atoms: dual_sensitivity
 Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01735544496
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01684945601
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity
 Selected atoms:
@@ -79,7 +79,7 @@ Library: pressure_backpressure | max_atoms=1
 Selected atoms: pressure_backpressure
 Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01727478893
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01742122998
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure
 Selected atoms:
@@ -95,7 +95,7 @@ Library: dual_sensitivity | max_atoms=1
 Selected atoms: dual_sensitivity
 Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0
-Regret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.01738306205
+Regret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.017225791
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity
 Selected atoms:
@@ -107,7 +107,7 @@ Library: pressure_backpressure | max_atoms=1
 Selected atoms: pressure_backpressure
 Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0
-Regret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.01748523803
+Regret: total=1.421085472e-10, mean=7.105427358e-13, max=2.842170943e-11; action_agreement=0.975; solve_time_sec=0.01735105494
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure
 Selected atoms:
@@ -123,7 +123,7 @@ Library: dual_sensitivity | max_atoms=1
 Selected atoms: dual_sensitivity
 Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01764808595
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.017587838
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity
 Selected atoms:
@@ -135,7 +135,7 @@ Library: pressure_backpressure | max_atoms=1
 Selected atoms: pressure_backpressure
 Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01768653397
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.017634877
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure
 Selected atoms:
@@ -151,7 +151,7 @@ Library: dual_sensitivity | max_atoms=1
 Selected atoms: dual_sensitivity
 Run: library=dual_sensitivity, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=1, placebo=0, pressure=0, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01726387802
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01697991998
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (lambda_up(m) - lambda_down(m))  # dual_sensitivity
 Selected atoms:
@@ -163,7 +163,7 @@ Library: pressure_backpressure | max_atoms=1
 Selected atoms: pressure_backpressure
 Run: library=pressure_backpressure, max_atoms=1, max_neighbor_atoms=1, max_dual_atoms=1, max_placebo_atoms=1
 Counts: program=1, neighbor=1, dual=0, placebo=0, pressure=1, raw_neighbor=0, capacity=0
-Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01726435695
+Regret: total=0, mean=0, max=0; action_agreement=1; solve_time_sec=0.01712977502
 Rule: choose movement m maximizing score(m)
 score(m) = 0.1 * (w_up(m) - w_down(m))  # pressure_backpressure
 Selected atoms:

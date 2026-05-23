@@ -1,0 +1,267 @@
+{
+  "experiment": "reproducibility_manifest",
+  "status": "PASSED",
+  "generated_by": "scripts/reproduce_blocks.py --audit",
+  "generated_at": "2026-05-23T02:57:28.112339+00:00",
+  "blocks": [
+    {
+      "block": "block0",
+      "description": "Block 0 dual finite-difference sanity checks",
+      "commands": [
+        "python3 scripts/run_dual_sanity.py --out experiments/dual_sensitivity/block0_dual_sanity.json"
+      ],
+      "command": "python3 scripts/run_dual_sanity.py --out experiments/dual_sensitivity/block0_dual_sanity.json",
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/block0_dual_sanity.json"
+      ],
+      "runtime_profile": "short",
+      "requirements": [
+        "REPR-03",
+        "REPR-04"
+      ],
+      "claim_note": "Dual sanity only; not closed-loop evidence."
+    },
+    {
+      "block": "sparse_recovery",
+      "description": "Block 2 sparse symbolic recovery from targeted bottleneck states",
+      "commands": [
+        "python3 scripts/run_sparse_recovery.py --states experiments/dual_sensitivity/targeted_bottleneck_states.json --out experiments/dual_sensitivity/block2_sparse_recovery.json"
+      ],
+      "command": "python3 scripts/run_sparse_recovery.py --states experiments/dual_sensitivity/targeted_bottleneck_states.json --out experiments/dual_sensitivity/block2_sparse_recovery.json",
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/block2_sparse_recovery.json",
+        "experiments/dual_sensitivity/block2_sparse_recovery.csv",
+        "experiments/dual_sensitivity/block2_sparse_recovery_rules.txt"
+      ],
+      "runtime_profile": "short",
+      "requirements": [
+        "REPR-03",
+        "REPR-04"
+      ],
+      "claim_note": "Plain-text symbolic recovery audit output; Phase 3 owns claim routing."
+    },
+    {
+      "block": "static_kill_gate",
+      "description": "Block 3 static pressure-failure route decision",
+      "commands": [
+        "python3 scripts/run_static_kill_gate.py --states experiments/dual_sensitivity/block3_regime_states.json --out experiments/dual_sensitivity/block3_static_kill_gate.json --csv-out experiments/dual_sensitivity/block3_static_kill_gate.csv --rules-out experiments/dual_sensitivity/block3_static_kill_gate_rules.txt --report-out experiments/dual_sensitivity/block3_static_kill_gate_report.md"
+      ],
+      "command": "python3 scripts/run_static_kill_gate.py --states experiments/dual_sensitivity/block3_regime_states.json --out experiments/dual_sensitivity/block3_static_kill_gate.json --csv-out experiments/dual_sensitivity/block3_static_kill_gate.csv --rules-out experiments/dual_sensitivity/block3_static_kill_gate_rules.txt --report-out experiments/dual_sensitivity/block3_static_kill_gate_report.md",
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/block3_static_kill_gate.json",
+        "experiments/dual_sensitivity/block3_static_kill_gate.csv",
+        "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
+        "experiments/dual_sensitivity/block3_static_kill_gate_report.md"
+      ],
+      "runtime_profile": "short",
+      "requirements": [
+        "REPR-03",
+        "REPR-04"
+      ],
+      "claim_note": "Route decision source of truth; current route is pressure-equivalent."
+    },
+    {
+      "block": "closed_loop_smoke",
+      "description": "Short closed-loop SUMO smoke suite",
+      "commands": [
+        "python3 scripts/run_closed_loop_suite.py --profile smoke --out experiments/dual_sensitivity/block4_closed_loop_suite_smoke.json"
+      ],
+      "command": "python3 scripts/run_closed_loop_suite.py --profile smoke --out experiments/dual_sensitivity/block4_closed_loop_suite_smoke.json",
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/block4_closed_loop_suite_smoke.json"
+      ],
+      "runtime_profile": "SUMO smoke",
+      "requirements": [
+        "REPR-03",
+        "REPR-04"
+      ],
+      "claim_note": "Smoke rerun path only; main closed-loop evidence is audited separately."
+    },
+    {
+      "block": "closed_loop_main",
+      "description": "Main closed-loop SUMO suite and report artifacts",
+      "commands": [
+        "python3 scripts/run_closed_loop_suite.py --profile main --steps 300 --warmup 60 --action-interval 10 --out experiments/dual_sensitivity/block4_closed_loop_suite.json",
+        "python3 scripts/render_closed_loop_report.py --input experiments/dual_sensitivity/block4_closed_loop_suite.json --out experiments/dual_sensitivity/block4_closed_loop_suite_report.md --csv-out experiments/dual_sensitivity/block4_closed_loop_suite.csv"
+      ],
+      "command": "python3 scripts/run_closed_loop_suite.py --profile main --steps 300 --warmup 60 --action-interval 10 --out experiments/dual_sensitivity/block4_closed_loop_suite.json && python3 scripts/render_closed_loop_report.py --input experiments/dual_sensitivity/block4_closed_loop_suite.json --out experiments/dual_sensitivity/block4_closed_loop_suite_report.md --csv-out experiments/dual_sensitivity/block4_closed_loop_suite.csv",
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/block4_closed_loop_suite.json",
+        "experiments/dual_sensitivity/block4_closed_loop_suite.csv",
+        "experiments/dual_sensitivity/block4_closed_loop_suite_report.md"
+      ],
+      "runtime_profile": "SUMO main",
+      "requirements": [
+        "REPR-03",
+        "REPR-04"
+      ],
+      "claim_note": "Closed-loop SUMO evidence is simulator-, network-, horizon-, and seed-relative."
+    },
+    {
+      "block": "paper_artifacts",
+      "description": "Paper-facing table and figure-data generation",
+      "commands": [
+        "python3 scripts/render_paper_artifacts.py --out-dir experiments/dual_sensitivity"
+      ],
+      "command": "python3 scripts/render_paper_artifacts.py --out-dir experiments/dual_sensitivity",
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/paper_tables.csv",
+        "experiments/dual_sensitivity/paper_figure_data.csv",
+        "experiments/dual_sensitivity/paper_artifacts_manifest.json"
+      ],
+      "runtime_profile": "short",
+      "requirements": [
+        "REPR-04",
+        "REPR-05"
+      ],
+      "claim_note": "Generated paper-facing tables and figure data must trace to raw artifacts."
+    }
+  ],
+  "artifact_checks": [
+    {
+      "path": "README.md",
+      "exists": true,
+      "expected": false,
+      "parse_status": "ok",
+      "byte_length": 7364
+    },
+    {
+      "path": "experiments/dual_sensitivity/block0_dual_sanity.json",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "results_count": 4,
+      "experiment": "block0_dual_sanity",
+      "status": "PASSED"
+    },
+    {
+      "path": "experiments/dual_sensitivity/block2_sparse_recovery.csv",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "row_count": 15
+    },
+    {
+      "path": "experiments/dual_sensitivity/block2_sparse_recovery.json",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "runs_count": 15,
+      "summary_count": 15,
+      "best_by_library_count": 8,
+      "experiment": "block2_sparse_recovery",
+      "status": "PASSED"
+    },
+    {
+      "path": "experiments/dual_sensitivity/block2_sparse_recovery_rules.txt",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "byte_length": 10164
+    },
+    {
+      "path": "experiments/dual_sensitivity/block3_static_kill_gate.csv",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "row_count": 6
+    },
+    {
+      "path": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "experiment": "block3_static_pressure_failure_kill_gate",
+      "status": "PASSED",
+      "route_decision": "pressure-equivalent"
+    },
+    {
+      "path": "experiments/dual_sensitivity/block3_static_kill_gate_report.md",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "byte_length": 5013
+    },
+    {
+      "path": "experiments/dual_sensitivity/block3_static_kill_gate_rules.txt",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "byte_length": 9618
+    },
+    {
+      "path": "experiments/dual_sensitivity/block4_closed_loop_suite.csv",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "row_count": 130
+    },
+    {
+      "path": "experiments/dual_sensitivity/block4_closed_loop_suite.json",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "scenario_results_count": 104,
+      "aggregates_count": 26,
+      "experiment": "block4_closed_loop_suite",
+      "status": "PASSED",
+      "route_decision": "pressure-equivalent"
+    },
+    {
+      "path": "experiments/dual_sensitivity/block4_closed_loop_suite_report.md",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "byte_length": 8252
+    },
+    {
+      "path": "experiments/dual_sensitivity/block4_closed_loop_suite_smoke.json",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "scenario_results_count": 45,
+      "aggregates_count": 35,
+      "experiment": "block4_closed_loop_suite",
+      "route_decision": "pressure-equivalent"
+    },
+    {
+      "path": "experiments/dual_sensitivity/paper_artifacts_manifest.json",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "experiment": "paper_artifacts",
+      "status": "PASSED",
+      "route_decision": "pressure-equivalent"
+    },
+    {
+      "path": "experiments/dual_sensitivity/paper_figure_data.csv",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "row_count": 122
+    },
+    {
+      "path": "experiments/dual_sensitivity/paper_tables.csv",
+      "exists": true,
+      "expected": true,
+      "parse_status": "ok",
+      "row_count": 329
+    }
+  ],
+  "claim_discipline": {
+    "route_decision": "pressure-equivalent",
+    "framing": "pressure-equivalent generalized-pressure symbolic recovery",
+    "forbidden_phrases": [
+      "dual universally beats pressure",
+      "max-pressure strawman",
+      "proves superiority",
+      "deployable superiority",
+      "static evidence proves closed-loop"
+    ],
+    "forbidden_phrases_present": []
+  },
+  "requirements_covered": [
+    "REPR-03",
+    "REPR-04"
+  ]
+}

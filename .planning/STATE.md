@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-05-22T19:17:49.806Z"
+status: completed
+stopped_at: Completed Phase 5 verification
+last_updated: "2026-05-23T03:02:43Z"
 last_activity: 2026-05-23
 progress:
   total_phases: 5
-  completed_phases: 3
-  total_plans: 9
-  completed_plans: 10
-  percent: 60
+  completed_phases: 5
+  total_plans: 15
+  completed_plans: 16
+  percent: 100
 ---
 
 # Project State
@@ -21,92 +21,55 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-22)
 
 **Core value:** Show that network-optimization dual sensitivities provide a generalized max-pressure principle that reduces to pressure when constraints are slack and adds scarcity-aware corrections when storage, supply, or corridor bottleneck constraints bind, and that this principle can be compressed into compact symbolic traffic-signal policies.
-**Current focus:** Phase 3 — static pressure-failure kill gate
+**Current focus:** Milestone complete — pressure-equivalent generalized-pressure symbolic recovery artifact hardened for audit.
 
 ## Current Position
 
-Phase: 3
-Plan: 03
-Status: In progress — 03-02 complete
+Phase: 5
+Plan: 05-03
+Status: Completed
 Last activity: 2026-05-23
 
 Progress: [██████████] 100%
 
-Next command: `/gsd:execute-phase 3`
+Next command: external review / manuscript integration
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 3
+- Total plans completed: 16
 - Average duration: N/A
-- Total execution time: 0.0 hours
+- Total execution time: N/A
 
 **By Phase:**
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 1. Theoretical Core and Claim Lock | 0/TBD | N/A | N/A |
-| 2. Full Sparse Symbolic Recovery | 0/TBD | N/A | N/A |
-| 3. Static Pressure-Failure Kill Gate | 0/TBD | N/A | N/A |
-| 4. Closed-Loop SUMO Evaluation | 0/TBD | N/A | N/A |
-| 5. Reproducibility and Repository Hardening | 0/TBD | N/A | N/A |
-| 6. TR-B / Transportation Science Manuscript Skeleton | 0/TBD | N/A | N/A |
-| 01 | 3 | - | - |
-
-**Recent Trend:**
-
-- Last 5 plans: none yet
-- Trend: N/A
-
-| Phase 01 P02 | 146s | 2 tasks | 2 files |
-| Phase 01 P03 | 252s | 2 tasks | 3 files |
-| Phase 02 P01 | 397s | 2 tasks | 1 file |
-| Phase 02 P02 | 383s | 2 tasks | 1 files |
-| Phase 02 P03 | 350 | 2 tasks | 5 files |
-| Phase 03 P01 | 331s | 2 tasks | 3 files |
-| Phase 03 P02 | 356s | 3 tasks | 6 files |
-| Phase 03 P03 | 290s | 3 tasks | 5 files |
+| Phase | Plans | Status |
+|-------|-------|--------|
+| 1. Theoretical Core and Claim Lock | 3/3 | Complete |
+| 2. Full Sparse Symbolic Recovery | 3/3 | Complete |
+| 3. Static Pressure-Failure Kill Gate | 3/3 | Complete |
+| 4. Closed-Loop SUMO Evaluation | 3/3 | Complete |
+| 5. Reproducibility and Repository Hardening | 3/3 | Complete |
 
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecting current work:
-
-- Initialization: Use YOLO, Fine granularity, Sequential phase naming, Balanced model profile.
-- Initialization: Keep research, plan_check, verifier, and nyquist validation enabled.
-- Initialization: Route claims through Phase 3 static kill gate before interpreting closed-loop evidence.
-- [Phase 01]: Frame ordinary max-pressure/backpressure as the slack or ranking-neutral special case of dual movement ranking.
-- [Phase 01]: State scarcity deviations only as sufficient rank-change conditions tied to explicit primal constraints.
-- [Phase 01]: Route empirical usefulness of binding-regime corrections to the Phase 3 static pressure-failure kill gate.
-- [Phase 01]: State THRY-05 as deterministic finite-dictionary empirical oracle-regret/value-gap recovery quality plus solver gap.
-- [Phase 01]: Treat action agreement as a secondary diagnostic rather than the primary recovery target.
-- [Phase 01]: Route empirical dual-vs-pressure interpretation to the Phase 3 static pressure-failure kill gate.
-- [Phase 02 Plan 01]: Preserve named sparse-recovery libraries while adding full_symbolic and metadata-driven family selection.
-- [Phase 02 Plan 01]: Keep dual/placebo classification explicit in ATOM_REGISTRY rather than inferring atom semantics from names.
-- [Phase 02]: Kept empirical oracle regret/value gap as the MILP action-choice objective and left action agreement as diagnostic output.
-- [Phase 02]: Derived neighbor, genuine dual, and placebo counts from ATOM_REGISTRY metadata rather than atom-name heuristics.
-- [Phase 02]: Kept Phase 2 outputs sample-relative and deferred dual-vs-pressure empirical claim routing to Phase 3.
-- [Phase 02]: Rendered sparse recovery policies as plain text only; no generated rule is executed or deployed in Phase 2.
-- [Phase 02]: Gated Phase 2 status on schema/output/K>1 solve completeness rather than dual-vs-pressure empirical interpretation.
-- [Phase 02]: Wrote CSV and rules artifacts beside JSON so equal-complexity comparisons can be consumed without manual transcription.
-- [Phase 03 Plan 01]: Represent supply-binding and corridor-bottleneck as proxy regimes because the current conversion schema lacks explicit supply/corridor constraint fields.
-- [Phase 03 Plan 01]: Treat raw generated KILL-03 counts as preliminary until Plan 03-02 validates scenario_from_sample/build_example conversions.
-- [Phase 03 Plan 02]: Route static kill-gate evidence to pressure-equivalent because dual_sensitivity and pressure_backpressure tie oracle regret across all six supported/proxy regimes.
-- [Phase 03 Plan 02]: Keep static kill-gate outputs sample-relative and defer closed-loop interpretation to Phase 4.
-- [Phase 03 Plan 02]: Support legacy unlabeled fixtures through --default-regime while recording input_labeling_notes and preliminary/proxy caveats.
 - [Phase 03]: Keep the locked static route as pressure-equivalent: dual-recovers/ties pressure under sample-relative oracle-regret evidence, not dual superiority.
-- [Phase 03]: Use the standalone static kill-gate report renderer as the runner's report_out implementation to avoid manual transcription drift.
-- [Phase 03]: Treat supply-binding, corridor-bottleneck, and demand-shift labels as proxy/static limitations until explicit model fields support stronger claims.
+- [Phase 04]: Treat closed-loop evidence as generalized-pressure symbolic recovery under SUMO, with max-pressure and capacity-aware pressure as first-class baselines.
+- [Phase 04]: Mark `local_pilight` and `full_dual_symbolic` as explicit `not_feasible` rather than substituting unsafe queue heuristics.
+- [Phase 04]: Require closed-loop evidence gates to include completed vehicles, actuation evidence for non-fixed controllers, real demand insertion, active failure target traffic, and renderer recomputation from raw rows.
+- [Phase 05]: Treat `README.md`, `environment.yml`, `scripts/reproduce_blocks.py`, `reproducibility_manifest.json`, `scripts/render_paper_artifacts.py`, `paper_tables.csv`, `paper_figure_data.csv`, and `paper_artifacts_manifest.json` as the repository audit surface.
+- [Phase 05]: Paper-facing artifacts must fail closed unless upstream source artifacts report `PASSED`, route decisions agree, closed-loop completion gates pass, expected artifacts parse, and closed-loop metric schema is complete.
 
 ### Pending Todos
 
-None yet.
+None for this milestone.
 
 ### Blockers/Concerns
 
-- Phase 3 is decisive: dual beating, tying, or underperforming pressure changes the paper framing.
+None.
 
 ## Deferred Items
 
@@ -115,9 +78,11 @@ Items acknowledged and carried forward from previous milestone close:
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
 | Extensions | TR-E/freight pivot, larger real-world networks, neural MARL baselines, and extra optimization side frameworks | Deferred to v2 unless v1 evidence supports expansion | Initialization |
+| Experiments | Longer closed-loop horizons and larger real-world networks | Deferred to manuscript/external-review follow-up | Phase 5 |
+| Manuscript | Final plotting/styling from generated figure-data CSVs | Deferred until manuscript outline is fixed | Phase 5 |
 
 ## Session Continuity
 
-Last session: 2026-05-22T19:17:44.970Z
-Stopped at: Completed 03-03-PLAN.md
+Last session: 2026-05-23T03:02:43Z
+Stopped at: Completed milestone verification
 Resume file: None

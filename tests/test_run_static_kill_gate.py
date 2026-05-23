@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
-from run_static_kill_gate import compare_dual_pressure, decide_route
+from run_static_kill_gate import compare_dual_pressure, decide_route, find_preliminary_regimes
 
 
 def test_tie_aware_disagreement_is_not_a_win() -> None:
@@ -88,9 +88,44 @@ def test_sample_shortfall_routes_to_diagnostic() -> None:
     assert any("sample target" in caveat for caveat in route["route_caveats"])
 
 
+def test_missing_requested_regime_routes_to_diagnostic() -> None:
+    preliminary = find_preliminary_regimes(
+        raw_counts={"slack": 200, "storage_binding_proxy": 200},
+        valid_examples_by_regime={"slack": 200, "storage_binding_proxy": 0},
+        runs_by_regime={
+            "slack": [
+                {"status": "SOLVED", "library": "dual_sensitivity", "realized_total_regret": 0.0, "program_complexity": 1},
+                {"status": "SOLVED", "library": "pressure_backpressure", "realized_total_regret": 0.0, "program_complexity": 1},
+            ],
+            "storage_binding_proxy": [],
+        },
+        min_regime_count=30,
+    )
+    route = decide_route(
+        metrics=[
+            {
+                "regime": "slack",
+                "dual_win_rate": 0.0,
+                "pressure_win_rate": 0.0,
+                "mean_oracle_regret_delta_pressure_minus_dual": 0.0,
+            }
+        ],
+        sample_target_met=False,
+        dual_win_threshold=0.55,
+        regret_improvement_threshold=0.05,
+        equivalence_tolerance=1e-9,
+        preliminary_regimes=preliminary,
+    )
+
+    assert preliminary == ["storage_binding_proxy"]
+    assert route["route_decision"] == "diagnostic"
+    assert any("storage_binding_proxy" in caveat for caveat in route["route_caveats"])
+
+
 def main() -> None:
     test_tie_aware_disagreement_is_not_a_win()
     test_sample_shortfall_routes_to_diagnostic()
+    test_missing_requested_regime_routes_to_diagnostic()
     print("static kill-gate tests ok")
 
 

@@ -260,26 +260,26 @@ def format_float(value: Any) -> str:
 
 
 def atom_indices_by_metadata(atoms: list[str]) -> dict[str, list[int]]:
-    indices: dict[str, list[int]] = {
-        "neighbor": [],
-        "dual": [],
-        "placebo": [],
-        "pressure": [],
-        "raw_neighbor": [],
-        "capacity": [],
+    index_sets: dict[str, set[int]] = {
+        "neighbor": set(),
+        "dual": set(),
+        "placebo": set(),
+        "pressure": set(),
+        "raw_neighbor": set(),
+        "capacity": set(),
     }
     for j, atom in enumerate(atoms):
         metadata = ATOM_REGISTRY[atom]
         family = str(metadata["family"])
         if bool(metadata["requires_neighbor"]):
-            indices["neighbor"].append(j)
+            index_sets["neighbor"].add(j)
         if bool(metadata["uses_dual"]) and not bool(metadata["is_placebo"]):
-            indices["dual"].append(j)
+            index_sets["dual"].add(j)
         if bool(metadata["is_placebo"]):
-            indices["placebo"].append(j)
-        if family in indices:
-            indices[family].append(j)
-    return indices
+            index_sets["placebo"].add(j)
+        if family in index_sets:
+            index_sets[family].add(j)
+    return {name: sorted(values) for name, values in index_sets.items()}
 
 
 def count_selected(indices: list[int], selected_mask: np.ndarray) -> int:
@@ -520,6 +520,31 @@ def gate_outputs_complete(json_path: Path, csv_path: Path, rules_path: Path, run
     return bool(solved) and "score" in rules_text and "choose movement" in rules_text
 
 
+def build_phase3_candidate_diagnostics(
+    by_key: dict[tuple[str, int], dict[str, Any]], budgets: list[int]
+) -> dict[str, Any]:
+    dual_b1 = by_key.get(("dual_sensitivity", 1))
+    raw_b1 = [by_key.get((name, 1)) for name in ["local_only", "raw_neighbor", "all_neighbor", "random_price"]]
+    dual_budget1_beats_raw = bool(
+        dual_b1
+        and all(r and dual_b1["realized_total_regret"] < r["realized_total_regret"] - 1e-9 for r in raw_b1)
+    )
+    dual_lower_or_equal_complexity = False
+    if dual_b1:
+        dual_regret = float(dual_b1["realized_total_regret"])
+        for raw_name in ["raw_neighbor", "all_neighbor"]:
+            for budget in budgets:
+                raw_run = by_key.get((raw_name, budget))
+                if raw_run and float(raw_run["realized_total_regret"]) <= dual_regret + 1e-9:
+                    dual_lower_or_equal_complexity = int(dual_b1["program_complexity"]) <= int(raw_run["program_complexity"])
+                    break
+    return {
+        "note": "Non-gating candidate diagnostics only; Phase 3 owns dual-vs-pressure claim routing.",
+        "dual_budget1_beats_raw": dual_budget1_beats_raw,
+        "dual_lower_or_equal_complexity": dual_lower_or_equal_complexity,
+    }
+
+
 def solve_library(
     examples: list[dict[str, Any]],
     library: str,
@@ -662,13 +687,18 @@ def solve_library(
     total_regret = 0.0
     max_regret = 0.0
     agreement = 0
+    selected_y_regret = 0.0
     for ex_idx, ex in enumerate(examples):
         scores = weights @ matrices[ex_idx]
+        y0 = y_offsets[ex_idx]
+        y_values = np.asarray(res.x[y0 : y0 + len(ex["oracle"])], dtype=float)
         chosen_local = int(np.argmax(scores))
+        selected_y_local = int(np.argmax(y_values))
         chosen_movement = int(ex["original_indices"][chosen_local])
         best = float(np.max(ex["oracle"]))
         oracle_value_chosen = float(ex["oracle"][chosen_local])
         regret = best - oracle_value_chosen
+        selected_y_regret += best - float(ex["oracle"][selected_y_local])
         max_regret = max(max_regret, regret)
         total_regret += regret
         matched = chosen_local == ex["oracle_best_local"]
@@ -686,6 +716,8 @@ def solve_library(
                 "score_chosen": float(scores[chosen_local]),
                 "score_oracle_best": float(scores[int(ex["oracle_best_local"])]),
                 "movement_scores": [float(value) for value in scores],
+                "selected_y_local": selected_y_local,
+                "selected_y_values": [float(value) for value in y_values],
             }
         )
 
@@ -693,8 +725,10 @@ def solve_library(
         **base_payload,
         "status": "SOLVED",
         "solver_status": int(res.status),
-        "objective": float(res.fun),
-        "objective_value_with_penalties": float(res.fun),
+        "solver_objective_value": float(res.fun),
+        "solver_selected_y_total_regret": selected_y_regret,
+        "objective": float(total_regret + penalty_breakdown["total_penalty"]),
+        "objective_value_with_penalties": float(total_regret + penalty_breakdown["total_penalty"]),
         "solve_time_sec": solve_time,
         "selected_atoms": selected,
         "selected_atom_metadata": metadata_for_atoms(selected),
@@ -708,6 +742,7 @@ def solve_library(
         "capacity_atom_count": capacity_count,
         "realized_total_regret": total_regret,
         "realized_mean_regret": total_regret / len(examples) if examples else 0.0,
+        "selected_y_total_regret": selected_y_regret,
         "max_regret": max_regret,
         "action_agreement": agreement / len(examples) if examples else 0.0,
         "penalty_breakdown": penalty_breakdown,
@@ -813,6 +848,7 @@ def main() -> None:
             )
 
     by_key = {(r["library"], r["budget"]): r for r in runs if r["status"] == "SOLVED"}
+    phase3_candidate_diagnostics = build_phase3_candidate_diagnostics(by_key, args.budgets)
     best_by_library: dict[str, dict[str, Any]] = {}
     for r in runs:
         if r["status"] != "SOLVED":
@@ -824,22 +860,6 @@ def main() -> None:
             float(current["realized_total_regret"]), int(current["program_complexity"])
         ):
             best_by_library[r["library"]] = r
-    dual_b1 = by_key.get(("dual_sensitivity", 1))
-    raw_b1 = [by_key.get((name, 1)) for name in ["local_only", "raw_neighbor", "all_neighbor", "random_price"]]
-    gate_dual_budget1_beats_raw = bool(
-        dual_b1
-        and all(r and dual_b1["realized_total_regret"] < r["realized_total_regret"] - 1e-9 for r in raw_b1)
-    )
-    gate_dual_lower_or_equal_complexity = False
-    if dual_b1:
-        dual_regret = float(dual_b1["realized_total_regret"])
-        for raw_name in ["raw_neighbor", "all_neighbor"]:
-            for budget in args.budgets:
-                raw_run = by_key.get((raw_name, budget))
-                if raw_run and float(raw_run["realized_total_regret"]) <= dual_regret + 1e-9:
-                    gate_dual_lower_or_equal_complexity = int(dual_b1["program_complexity"]) <= int(raw_run["program_complexity"])
-                    break
-    status = "PASSED" if gate_dual_budget1_beats_raw and dual_b1 and dual_b1["realized_total_regret"] <= 1e-9 else "INCONCLUSIVE"
     compact_summary = [
         {
             "library": r["library"],
@@ -863,6 +883,10 @@ def main() -> None:
     solved_runs = [r for r in runs if r["status"] == "SOLVED"]
     gate_k_gt_one_attempted = any(int(r.get("max_atoms", r.get("budget", 0))) > 1 for r in runs)
     gate_k_gt_one_solved = any(int(r.get("max_atoms", r.get("budget", 0))) > 1 for r in solved_runs)
+    gate_multi_atom_program_observed = any(
+        int(r.get("max_atoms", r.get("budget", 0))) > 1 and int(r.get("program_complexity", 0)) > 1
+        for r in solved_runs
+    )
     gate_regret_first_objective = args.objective in {"oracle_regret", "value_gap"}
     gate_required_families_present = REQUIRED_ATOM_FAMILIES <= {
         str(metadata["family"]) for metadata in ATOM_REGISTRY.values()
@@ -910,8 +934,8 @@ def main() -> None:
         "gate_phase3_claim_deferred": gate_phase3_claim_deferred,
         "gate_k_gt_one_attempted": gate_k_gt_one_attempted,
         "gate_k_gt_one_solved": gate_k_gt_one_solved,
-        "gate_dual_budget1_beats_raw": gate_dual_budget1_beats_raw,
-        "gate_dual_lower_or_equal_complexity": gate_dual_lower_or_equal_complexity,
+        "gate_multi_atom_program_observed": gate_multi_atom_program_observed,
+        "phase3_candidate_diagnostics": phase3_candidate_diagnostics,
         "summary": compact_summary,
         "best_by_library": [
             {

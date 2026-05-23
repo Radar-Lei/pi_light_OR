@@ -92,6 +92,11 @@ def fmt_float(value: Any) -> str:
         return "n/a"
 
 
+def md_cell(value: Any) -> str:
+    text = fmt_list(value) if isinstance(value, list) else str(value)
+    return text.replace("\\", "\\\\").replace("|", "\\|").replace("\r", " ").replace("\n", " ")
+
+
 def route_implication(route_decision: str) -> list[str]:
     if route_decision == "dual-improves-pressure":
         return [
@@ -139,21 +144,21 @@ def render_metric_table(metrics: list[dict[str, Any]]) -> list[str]:
     for metric in metrics:
         lines.append(
             "| {regime} | {examples} | {aligned} | {disagreement} | {dual_win} | {pressure_win} | {tie} | {dual_mean} | {pressure_mean} | {delta} | {dual_worst} | {pressure_worst} | {dual_atoms} | {pressure_atoms} | {scope} |".format(
-                regime=metric.get("regime", "unknown"),
-                examples=metric.get("num_examples", "n/a"),
-                aligned=metric.get("num_aligned_examples", metric.get("num_examples", "n/a")),
-                disagreement=fmt_float(metric.get("dual_vs_pressure_disagreement_rate")),
-                dual_win=fmt_float(metric.get("dual_win_rate")),
-                pressure_win=fmt_float(metric.get("pressure_win_rate")),
-                tie=fmt_float(metric.get("tie_rate")),
-                dual_mean=fmt_float(metric.get("dual_mean_oracle_regret")),
-                pressure_mean=fmt_float(metric.get("pressure_mean_oracle_regret")),
-                delta=fmt_float(metric.get("mean_oracle_regret_delta_pressure_minus_dual")),
-                dual_worst=fmt_float(metric.get("dual_worst_case_regret")),
-                pressure_worst=fmt_float(metric.get("pressure_worst_case_regret")),
-                dual_atoms=fmt_list(metric.get("selected_atoms_dual")),
-                pressure_atoms=fmt_list(metric.get("selected_atoms_pressure")),
-                scope=metric.get("claim_scope", "static_sample_relative"),
+                regime=md_cell(metric.get("regime", "unknown")),
+                examples=md_cell(metric.get("num_examples", "n/a")),
+                aligned=md_cell(metric.get("num_aligned_examples", metric.get("num_examples", "n/a"))),
+                disagreement=md_cell(fmt_float(metric.get("dual_vs_pressure_disagreement_rate"))),
+                dual_win=md_cell(fmt_float(metric.get("dual_win_rate"))),
+                pressure_win=md_cell(fmt_float(metric.get("pressure_win_rate"))),
+                tie=md_cell(fmt_float(metric.get("tie_rate"))),
+                dual_mean=md_cell(fmt_float(metric.get("dual_mean_oracle_regret"))),
+                pressure_mean=md_cell(fmt_float(metric.get("pressure_mean_oracle_regret"))),
+                delta=md_cell(fmt_float(metric.get("mean_oracle_regret_delta_pressure_minus_dual"))),
+                dual_worst=md_cell(fmt_float(metric.get("dual_worst_case_regret"))),
+                pressure_worst=md_cell(fmt_float(metric.get("pressure_worst_case_regret"))),
+                dual_atoms=md_cell(metric.get("selected_atoms_dual")),
+                pressure_atoms=md_cell(metric.get("selected_atoms_pressure")),
+                scope=md_cell(metric.get("claim_scope", "static_sample_relative")),
             )
         )
     return lines

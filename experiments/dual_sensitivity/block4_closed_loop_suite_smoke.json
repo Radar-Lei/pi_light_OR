@@ -1,0 +1,4817 @@
+{
+  "experiment": "block4_closed_loop_suite",
+  "route_decision": "pressure-equivalent",
+  "route_confidence": "MEDIUM",
+  "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+  "claim_framing": "Phase 3 selected pressure-equivalent; Phase 4 outputs are closed-loop SUMO evidence for generalized-pressure symbolic recovery, not universal dominance over pressure.",
+  "profile": "smoke",
+  "scenario_results": [
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "fixed_time",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/single_intersection/single_intersection.sumocfg",
+      "net_file": "networks/single_intersection/single_intersection.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 57.74251497005988,
+      "penalized_avg_travel_time": 87.815,
+      "total_delay": 1125.0,
+      "completed_vehicles": 167,
+      "completion_rate": 0.835,
+      "throughput": 0.6958333333333333,
+      "mean_queue": 4.6875,
+      "max_queue": 6.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 8,
+      "controller_runtime_sec": 0.0007822411134839058,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 33
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "actuated_local_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/single_intersection/single_intersection.sumocfg",
+      "net_file": "networks/single_intersection/single_intersection.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 57.047904191616766,
+      "penalized_avg_travel_time": 87.235,
+      "total_delay": 944.0,
+      "completed_vehicles": 167,
+      "completion_rate": 0.835,
+      "throughput": 0.6958333333333333,
+      "mean_queue": 3.933333333333333,
+      "max_queue": 5.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 12,
+      "controller_runtime_sec": 0.0020188750931993127,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 33
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "max_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/single_intersection/single_intersection.sumocfg",
+      "net_file": "networks/single_intersection/single_intersection.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 57.047904191616766,
+      "penalized_avg_travel_time": 87.235,
+      "total_delay": 944.0,
+      "completed_vehicles": 167,
+      "completion_rate": 0.835,
+      "throughput": 0.6958333333333333,
+      "mean_queue": 3.933333333333333,
+      "max_queue": 5.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 12,
+      "controller_runtime_sec": 0.0009198607876896858,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 33
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "capacity_aware_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/single_intersection/single_intersection.sumocfg",
+      "net_file": "networks/single_intersection/single_intersection.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 57.047904191616766,
+      "penalized_avg_travel_time": 87.235,
+      "total_delay": 944.0,
+      "completed_vehicles": 167,
+      "completion_rate": 0.835,
+      "throughput": 0.6958333333333333,
+      "mean_queue": 3.933333333333333,
+      "max_queue": 5.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 12,
+      "controller_runtime_sec": 0.0013561551459133625,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 33
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "local_pilight",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "No safely adaptable PI-Light local DSL baseline is present in the SUMO runner interface.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "raw_neighbor_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/single_intersection/single_intersection.sumocfg",
+      "net_file": "networks/single_intersection/single_intersection.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 57.047904191616766,
+      "penalized_avg_travel_time": 87.235,
+      "total_delay": 944.0,
+      "completed_vehicles": 167,
+      "completion_rate": 0.835,
+      "throughput": 0.6958333333333333,
+      "mean_queue": 3.933333333333333,
+      "max_queue": 5.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 12,
+      "controller_runtime_sec": 0.0012499319855123758,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 33
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "all_neighbor_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/single_intersection/single_intersection.sumocfg",
+      "net_file": "networks/single_intersection/single_intersection.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 57.047904191616766,
+      "penalized_avg_travel_time": 87.235,
+      "total_delay": 944.0,
+      "completed_vehicles": 167,
+      "completion_rate": 0.835,
+      "throughput": 0.6958333333333333,
+      "mean_queue": 3.933333333333333,
+      "max_queue": 5.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 12,
+      "controller_runtime_sec": 0.0010388059308752418,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 33
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "random_permuted_dual",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/single_intersection/single_intersection.sumocfg",
+      "net_file": "networks/single_intersection/single_intersection.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 68.296,
+      "penalized_avg_travel_time": 132.685,
+      "total_delay": 6178.0,
+      "completed_vehicles": 125,
+      "completion_rate": 0.625,
+      "throughput": 0.5208333333333334,
+      "mean_queue": 25.741666666666667,
+      "max_queue": 29.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 5,
+      "controller_runtime_sec": 0.0017734590219333768,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 75
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "full_dual_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "Closed-loop per-TLS dual Scenario conversion is not yet safe for live SUMO actuation.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "fixed_time",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 64.146408839779,
+      "penalized_avg_travel_time": 101.61086956521739,
+      "total_delay": 9402.0,
+      "completed_vehicles": 724,
+      "completion_rate": 0.7869565217391304,
+      "throughput": 3.0166666666666666,
+      "mean_queue": 39.175,
+      "max_queue": 17.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 40,
+      "controller_runtime_sec": 0.004537549219094217,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 196
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "actuated_local_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 62.45917001338688,
+      "penalized_avg_travel_time": 95.8445652173913,
+      "total_delay": 6890.0,
+      "completed_vehicles": 747,
+      "completion_rate": 0.8119565217391305,
+      "throughput": 3.1125,
+      "mean_queue": 28.708333333333332,
+      "max_queue": 14.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 54,
+      "controller_runtime_sec": 0.010200722143054008,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 173
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "max_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 62.552278820375335,
+      "penalized_avg_travel_time": 96.11304347826086,
+      "total_delay": 6957.0,
+      "completed_vehicles": 746,
+      "completion_rate": 0.8108695652173913,
+      "throughput": 3.1083333333333334,
+      "mean_queue": 28.9875,
+      "max_queue": 14.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.007951858220621943,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 174
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "capacity_aware_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 62.552278820375335,
+      "penalized_avg_travel_time": 96.11304347826086,
+      "total_delay": 6957.0,
+      "completed_vehicles": 746,
+      "completion_rate": 0.8108695652173913,
+      "throughput": 3.1083333333333334,
+      "mean_queue": 28.9875,
+      "max_queue": 14.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.007652049302123487,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 174
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "local_pilight",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "No safely adaptable PI-Light local DSL baseline is present in the SUMO runner interface.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "raw_neighbor_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 62.552278820375335,
+      "penalized_avg_travel_time": 96.11304347826086,
+      "total_delay": 6957.0,
+      "completed_vehicles": 746,
+      "completion_rate": 0.8108695652173913,
+      "throughput": 3.1083333333333334,
+      "mean_queue": 28.9875,
+      "max_queue": 14.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.0066466189455240965,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 174
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "all_neighbor_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 62.552278820375335,
+      "penalized_avg_travel_time": 96.11304347826086,
+      "total_delay": 6957.0,
+      "completed_vehicles": 746,
+      "completion_rate": 0.8108695652173913,
+      "throughput": 3.1083333333333334,
+      "mean_queue": 28.9875,
+      "max_queue": 14.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.007518248166888952,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 174
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "random_permuted_dual",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 66.8914373088685,
+      "penalized_avg_travel_time": 116.94239130434782,
+      "total_delay": 17779.0,
+      "completed_vehicles": 654,
+      "completion_rate": 0.7108695652173913,
+      "throughput": 2.725,
+      "mean_queue": 74.07916666666667,
+      "max_queue": 70.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 46,
+      "controller_runtime_sec": 0.009273755247704685,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 266
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "full_dual_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "Closed-loop per-TLS dual Scenario conversion is not yet safe for live SUMO actuation.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "fixed_time",
+      "seed": 20260601,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/grid_4x4/grid_4x4.sumocfg",
+      "net_file": "networks/grid_4x4/grid_4x4.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 77.50694444444444,
+      "penalized_avg_travel_time": 127.5048076923077,
+      "total_delay": 2153.0,
+      "completed_vehicles": 144,
+      "completion_rate": 0.6923076923076923,
+      "throughput": 0.6,
+      "mean_queue": 8.970833333333333,
+      "max_queue": 3.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 128,
+      "controller_runtime_sec": 0.018395329709164798,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 64
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "actuated_local_pressure",
+      "seed": 20260601,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/grid_4x4/grid_4x4.sumocfg",
+      "net_file": "networks/grid_4x4/grid_4x4.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 84.67375886524823,
+      "penalized_avg_travel_time": 134.70673076923077,
+      "total_delay": 2544.0,
+      "completed_vehicles": 141,
+      "completion_rate": 0.6778846153846154,
+      "throughput": 0.5875,
+      "mean_queue": 10.6,
+      "max_queue": 4.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 177,
+      "controller_runtime_sec": 0.023629962815903127,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 67
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "max_pressure",
+      "seed": 20260601,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/grid_4x4/grid_4x4.sumocfg",
+      "net_file": "networks/grid_4x4/grid_4x4.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 84.67375886524823,
+      "penalized_avg_travel_time": 134.70673076923077,
+      "total_delay": 2544.0,
+      "completed_vehicles": 141,
+      "completion_rate": 0.6778846153846154,
+      "throughput": 0.5875,
+      "mean_queue": 10.6,
+      "max_queue": 4.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 177,
+      "controller_runtime_sec": 0.01855851535219699,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 67
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "capacity_aware_pressure",
+      "seed": 20260601,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/grid_4x4/grid_4x4.sumocfg",
+      "net_file": "networks/grid_4x4/grid_4x4.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 83.5034965034965,
+      "penalized_avg_travel_time": 132.40865384615384,
+      "total_delay": 2450.0,
+      "completed_vehicles": 143,
+      "completion_rate": 0.6875,
+      "throughput": 0.5958333333333333,
+      "mean_queue": 10.208333333333334,
+      "max_queue": 4.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 171,
+      "controller_runtime_sec": 0.015547203132882714,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 65
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "local_pilight",
+      "seed": 20260601,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "No safely adaptable PI-Light local DSL baseline is present in the SUMO runner interface.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "raw_neighbor_symbolic",
+      "seed": 20260601,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/grid_4x4/grid_4x4.sumocfg",
+      "net_file": "networks/grid_4x4/grid_4x4.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 84.67375886524823,
+      "penalized_avg_travel_time": 134.70673076923077,
+      "total_delay": 2544.0,
+      "completed_vehicles": 141,
+      "completion_rate": 0.6778846153846154,
+      "throughput": 0.5875,
+      "mean_queue": 10.6,
+      "max_queue": 4.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 177,
+      "controller_runtime_sec": 0.022047969978302717,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 67
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "all_neighbor_symbolic",
+      "seed": 20260601,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/grid_4x4/grid_4x4.sumocfg",
+      "net_file": "networks/grid_4x4/grid_4x4.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 83.5034965034965,
+      "penalized_avg_travel_time": 132.40865384615384,
+      "total_delay": 2450.0,
+      "completed_vehicles": 143,
+      "completion_rate": 0.6875,
+      "throughput": 0.5958333333333333,
+      "mean_queue": 10.208333333333334,
+      "max_queue": 4.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 171,
+      "controller_runtime_sec": 0.015480019268579781,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 65
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "random_permuted_dual",
+      "seed": 20260601,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/grid_4x4/grid_4x4.sumocfg",
+      "net_file": "networks/grid_4x4/grid_4x4.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 94.703125,
+      "penalized_avg_travel_time": 150.58653846153845,
+      "total_delay": 5698.0,
+      "completed_vehicles": 128,
+      "completion_rate": 0.6153846153846154,
+      "throughput": 0.5333333333333333,
+      "mean_queue": 23.741666666666667,
+      "max_queue": 4.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 101,
+      "controller_runtime_sec": 0.026553059578873217,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 80
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "full_dual_symbolic",
+      "seed": 20260601,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "Closed-loop per-TLS dual Scenario conversion is not yet safe for live SUMO actuation.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "fixed_time",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 64.09418282548476,
+      "penalized_avg_travel_time": 103.14224137931035,
+      "total_delay": 9964.0,
+      "completed_vehicles": 722,
+      "completion_rate": 0.7780172413793104,
+      "throughput": 3.0083333333333333,
+      "mean_queue": 41.516666666666666,
+      "max_queue": 17.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 40,
+      "controller_runtime_sec": 0.006385449203662574,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 206,
+      "demand_shift_mechanism": "traci_vehicle_insertion",
+      "demand_shift_inserted_vehicles": 8
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "actuated_local_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 63.38471849865952,
+      "penalized_avg_travel_time": 98.02262931034483,
+      "total_delay": 7491.0,
+      "completed_vehicles": 746,
+      "completion_rate": 0.8038793103448276,
+      "throughput": 3.1083333333333334,
+      "mean_queue": 31.2125,
+      "max_queue": 16.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.00936115684453398,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 182,
+      "demand_shift_mechanism": "traci_vehicle_insertion",
+      "demand_shift_inserted_vehicles": 8
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "max_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 63.38471849865952,
+      "penalized_avg_travel_time": 98.02262931034483,
+      "total_delay": 7491.0,
+      "completed_vehicles": 746,
+      "completion_rate": 0.8038793103448276,
+      "throughput": 3.1083333333333334,
+      "mean_queue": 31.2125,
+      "max_queue": 16.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.008527345955371857,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 182,
+      "demand_shift_mechanism": "traci_vehicle_insertion",
+      "demand_shift_inserted_vehicles": 8
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "capacity_aware_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 63.38471849865952,
+      "penalized_avg_travel_time": 98.02262931034483,
+      "total_delay": 7491.0,
+      "completed_vehicles": 746,
+      "completion_rate": 0.8038793103448276,
+      "throughput": 3.1083333333333334,
+      "mean_queue": 31.2125,
+      "max_queue": 16.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.008266222081147134,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 182,
+      "demand_shift_mechanism": "traci_vehicle_insertion",
+      "demand_shift_inserted_vehicles": 8
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "local_pilight",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "No safely adaptable PI-Light local DSL baseline is present in the SUMO runner interface.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "raw_neighbor_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 63.38471849865952,
+      "penalized_avg_travel_time": 98.02262931034483,
+      "total_delay": 7491.0,
+      "completed_vehicles": 746,
+      "completion_rate": 0.8038793103448276,
+      "throughput": 3.1083333333333334,
+      "mean_queue": 31.2125,
+      "max_queue": 16.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.006937768426723778,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 182,
+      "demand_shift_mechanism": "traci_vehicle_insertion",
+      "demand_shift_inserted_vehicles": 8
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "all_neighbor_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 63.38471849865952,
+      "penalized_avg_travel_time": 98.02262931034483,
+      "total_delay": 7491.0,
+      "completed_vehicles": 746,
+      "completion_rate": 0.8038793103448276,
+      "throughput": 3.1083333333333334,
+      "mean_queue": 31.2125,
+      "max_queue": 16.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.008781543816439807,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 182,
+      "demand_shift_mechanism": "traci_vehicle_insertion",
+      "demand_shift_inserted_vehicles": 8
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "random_permuted_dual",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 66.80737018425461,
+      "penalized_avg_travel_time": 128.58189655172413,
+      "total_delay": 20743.0,
+      "completed_vehicles": 597,
+      "completion_rate": 0.6433189655172413,
+      "throughput": 2.4875,
+      "mean_queue": 86.42916666666666,
+      "max_queue": 68.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 40,
+      "controller_runtime_sec": 0.007393536390736699,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 331,
+      "demand_shift_mechanism": "traci_vehicle_insertion",
+      "demand_shift_inserted_vehicles": 8
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "full_dual_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "Closed-loop per-TLS dual Scenario conversion is not yet safe for live SUMO actuation.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "fixed_time",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 67.52083333333333,
+      "penalized_avg_travel_time": 105.0163043478261,
+      "total_delay": 9907.0,
+      "completed_vehicles": 720,
+      "completion_rate": 0.782608695652174,
+      "throughput": 3.0,
+      "mean_queue": 41.27916666666667,
+      "max_queue": 35.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 40,
+      "controller_runtime_sec": 0.005391448154114187,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 200,
+      "failure_mode_mechanism": "edge_speed_reduction",
+      "failure_mode_target_edge": "C12C2",
+      "failure_mode_target_max_vehicles": 42.0,
+      "failure_mode_start": 60,
+      "failure_mode_end": 180
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "actuated_local_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 67.04748982360923,
+      "penalized_avg_travel_time": 101.45,
+      "total_delay": 8110.0,
+      "completed_vehicles": 737,
+      "completion_rate": 0.8010869565217391,
+      "throughput": 3.0708333333333333,
+      "mean_queue": 33.791666666666664,
+      "max_queue": 25.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 55,
+      "controller_runtime_sec": 0.010124675114639103,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 183,
+      "failure_mode_mechanism": "edge_speed_reduction",
+      "failure_mode_target_edge": "C12C2",
+      "failure_mode_target_max_vehicles": 34.0,
+      "failure_mode_start": 60,
+      "failure_mode_end": 180
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "max_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 67.08571428571429,
+      "penalized_avg_travel_time": 101.85652173913043,
+      "total_delay": 8208.0,
+      "completed_vehicles": 735,
+      "completion_rate": 0.7989130434782609,
+      "throughput": 3.0625,
+      "mean_queue": 34.2,
+      "max_queue": 25.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 56,
+      "controller_runtime_sec": 0.007730035111308098,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 185,
+      "failure_mode_mechanism": "edge_speed_reduction",
+      "failure_mode_target_edge": "C12C2",
+      "failure_mode_target_max_vehicles": 34.0,
+      "failure_mode_start": 60,
+      "failure_mode_end": 180
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "capacity_aware_pressure",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 67.08571428571429,
+      "penalized_avg_travel_time": 101.85652173913043,
+      "total_delay": 8208.0,
+      "completed_vehicles": 735,
+      "completion_rate": 0.7989130434782609,
+      "throughput": 3.0625,
+      "mean_queue": 34.2,
+      "max_queue": 25.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 56,
+      "controller_runtime_sec": 0.010294867097400129,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 185,
+      "failure_mode_mechanism": "edge_speed_reduction",
+      "failure_mode_target_edge": "C12C2",
+      "failure_mode_target_max_vehicles": 34.0,
+      "failure_mode_start": 60,
+      "failure_mode_end": 180
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "local_pilight",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "No safely adaptable PI-Light local DSL baseline is present in the SUMO runner interface.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "raw_neighbor_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 67.08571428571429,
+      "penalized_avg_travel_time": 101.85652173913043,
+      "total_delay": 8208.0,
+      "completed_vehicles": 735,
+      "completion_rate": 0.7989130434782609,
+      "throughput": 3.0625,
+      "mean_queue": 34.2,
+      "max_queue": 25.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 56,
+      "controller_runtime_sec": 0.006791632971726358,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 185,
+      "failure_mode_mechanism": "edge_speed_reduction",
+      "failure_mode_target_edge": "C12C2",
+      "failure_mode_target_max_vehicles": 34.0,
+      "failure_mode_start": 60,
+      "failure_mode_end": 180
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "all_neighbor_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 67.08571428571429,
+      "penalized_avg_travel_time": 101.85652173913043,
+      "total_delay": 8208.0,
+      "completed_vehicles": 735,
+      "completion_rate": 0.7989130434782609,
+      "throughput": 3.0625,
+      "mean_queue": 34.2,
+      "max_queue": 25.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 56,
+      "controller_runtime_sec": 0.008369244169443846,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 185,
+      "failure_mode_mechanism": "edge_speed_reduction",
+      "failure_mode_target_edge": "C12C2",
+      "failure_mode_target_max_vehicles": 34.0,
+      "failure_mode_start": 60,
+      "failure_mode_end": 180
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "random_permuted_dual",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 69.4421875,
+      "penalized_avg_travel_time": 121.35108695652174,
+      "total_delay": 18234.0,
+      "completed_vehicles": 640,
+      "completion_rate": 0.6956521739130435,
+      "throughput": 2.6666666666666665,
+      "mean_queue": 75.975,
+      "max_queue": 70.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 45,
+      "controller_runtime_sec": 0.010952504933811724,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 280,
+      "failure_mode_mechanism": "edge_speed_reduction",
+      "failure_mode_target_edge": "C12C2",
+      "failure_mode_target_max_vehicles": 24.0,
+      "failure_mode_start": 60,
+      "failure_mode_end": 180
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "full_dual_symbolic",
+      "seed": 20260523,
+      "steps": 300,
+      "warmup": 60,
+      "action_interval": 10,
+      "scenario_status": "not_feasible",
+      "feasibility_status": "not_feasible",
+      "unsupported_reason": "Closed-loop per-TLS dual Scenario conversion is not yet safe for live SUMO actuation.",
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 0.0,
+      "penalized_avg_travel_time": 0.0,
+      "total_delay": 0.0,
+      "completed_vehicles": 0,
+      "completion_rate": 0.0,
+      "throughput": 0.0,
+      "mean_queue": 0.0,
+      "max_queue": 0.0,
+      "spillback_count": 0,
+      "blocking_count": 0,
+      "switching_count": 0,
+      "controller_runtime_sec": 0.0,
+      "travel_time_source": "not_feasible",
+      "unfinished_vehicle_count": 0
+    }
+  ],
+  "aggregates": [
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "actuated_local_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 67.04748982360923,
+        "std_error": 0.0,
+        "ci95_low": 67.04748982360923,
+        "ci95_high": 67.04748982360923
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 101.45,
+        "std_error": 0.0,
+        "ci95_low": 101.45,
+        "ci95_high": 101.45
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 8110.0,
+        "std_error": 0.0,
+        "ci95_low": 8110.0,
+        "ci95_high": 8110.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 737.0,
+        "std_error": 0.0,
+        "ci95_low": 737.0,
+        "ci95_high": 737.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8010869565217391,
+        "std_error": 0.0,
+        "ci95_low": 0.8010869565217391,
+        "ci95_high": 0.8010869565217391
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.0708333333333333,
+        "std_error": 0.0,
+        "ci95_low": 3.0708333333333333,
+        "ci95_high": 3.0708333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 33.791666666666664,
+        "std_error": 0.0,
+        "ci95_low": 33.791666666666664,
+        "ci95_high": 33.791666666666664
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 25.0,
+        "std_error": 0.0,
+        "ci95_low": 25.0,
+        "ci95_high": 25.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.010124675114639103,
+        "std_error": 0.0,
+        "ci95_low": 0.010124675114639103,
+        "ci95_high": 0.010124675114639103
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "all_neighbor_symbolic",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 67.08571428571429,
+        "std_error": 0.0,
+        "ci95_low": 67.08571428571429,
+        "ci95_high": 67.08571428571429
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 101.85652173913043,
+        "std_error": 0.0,
+        "ci95_low": 101.85652173913043,
+        "ci95_high": 101.85652173913043
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 8208.0,
+        "std_error": 0.0,
+        "ci95_low": 8208.0,
+        "ci95_high": 8208.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 735.0,
+        "std_error": 0.0,
+        "ci95_low": 735.0,
+        "ci95_high": 735.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.7989130434782609,
+        "std_error": 0.0,
+        "ci95_low": 0.7989130434782609,
+        "ci95_high": 0.7989130434782609
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.0625,
+        "std_error": 0.0,
+        "ci95_low": 3.0625,
+        "ci95_high": 3.0625
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 34.2,
+        "std_error": 0.0,
+        "ci95_low": 34.2,
+        "ci95_high": 34.2
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 25.0,
+        "std_error": 0.0,
+        "ci95_low": 25.0,
+        "ci95_high": 25.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 56.0,
+        "std_error": 0.0,
+        "ci95_low": 56.0,
+        "ci95_high": 56.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.008369244169443846,
+        "std_error": 0.0,
+        "ci95_low": 0.008369244169443846,
+        "ci95_high": 0.008369244169443846
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "capacity_aware_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 67.08571428571429,
+        "std_error": 0.0,
+        "ci95_low": 67.08571428571429,
+        "ci95_high": 67.08571428571429
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 101.85652173913043,
+        "std_error": 0.0,
+        "ci95_low": 101.85652173913043,
+        "ci95_high": 101.85652173913043
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 8208.0,
+        "std_error": 0.0,
+        "ci95_low": 8208.0,
+        "ci95_high": 8208.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 735.0,
+        "std_error": 0.0,
+        "ci95_low": 735.0,
+        "ci95_high": 735.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.7989130434782609,
+        "std_error": 0.0,
+        "ci95_low": 0.7989130434782609,
+        "ci95_high": 0.7989130434782609
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.0625,
+        "std_error": 0.0,
+        "ci95_low": 3.0625,
+        "ci95_high": 3.0625
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 34.2,
+        "std_error": 0.0,
+        "ci95_low": 34.2,
+        "ci95_high": 34.2
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 25.0,
+        "std_error": 0.0,
+        "ci95_low": 25.0,
+        "ci95_high": 25.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 56.0,
+        "std_error": 0.0,
+        "ci95_low": 56.0,
+        "ci95_high": 56.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.010294867097400129,
+        "std_error": 0.0,
+        "ci95_low": 0.010294867097400129,
+        "ci95_high": 0.010294867097400129
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "fixed_time",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 67.52083333333333,
+        "std_error": 0.0,
+        "ci95_low": 67.52083333333333,
+        "ci95_high": 67.52083333333333
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 105.0163043478261,
+        "std_error": 0.0,
+        "ci95_low": 105.0163043478261,
+        "ci95_high": 105.0163043478261
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 9907.0,
+        "std_error": 0.0,
+        "ci95_low": 9907.0,
+        "ci95_high": 9907.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 720.0,
+        "std_error": 0.0,
+        "ci95_low": 720.0,
+        "ci95_high": 720.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.782608695652174,
+        "std_error": 0.0,
+        "ci95_low": 0.782608695652174,
+        "ci95_high": 0.782608695652174
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.0,
+        "std_error": 0.0,
+        "ci95_low": 3.0,
+        "ci95_high": 3.0
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 41.27916666666667,
+        "std_error": 0.0,
+        "ci95_low": 41.27916666666667,
+        "ci95_high": 41.27916666666667
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 35.0,
+        "std_error": 0.0,
+        "ci95_low": 35.0,
+        "ci95_high": 35.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 40.0,
+        "std_error": 0.0,
+        "ci95_low": 40.0,
+        "ci95_high": 40.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.005391448154114187,
+        "std_error": 0.0,
+        "ci95_low": 0.005391448154114187,
+        "ci95_high": 0.005391448154114187
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "max_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 67.08571428571429,
+        "std_error": 0.0,
+        "ci95_low": 67.08571428571429,
+        "ci95_high": 67.08571428571429
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 101.85652173913043,
+        "std_error": 0.0,
+        "ci95_low": 101.85652173913043,
+        "ci95_high": 101.85652173913043
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 8208.0,
+        "std_error": 0.0,
+        "ci95_low": 8208.0,
+        "ci95_high": 8208.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 735.0,
+        "std_error": 0.0,
+        "ci95_low": 735.0,
+        "ci95_high": 735.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.7989130434782609,
+        "std_error": 0.0,
+        "ci95_low": 0.7989130434782609,
+        "ci95_high": 0.7989130434782609
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.0625,
+        "std_error": 0.0,
+        "ci95_low": 3.0625,
+        "ci95_high": 3.0625
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 34.2,
+        "std_error": 0.0,
+        "ci95_low": 34.2,
+        "ci95_high": 34.2
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 25.0,
+        "std_error": 0.0,
+        "ci95_low": 25.0,
+        "ci95_high": 25.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 56.0,
+        "std_error": 0.0,
+        "ci95_low": 56.0,
+        "ci95_high": 56.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.007730035111308098,
+        "std_error": 0.0,
+        "ci95_low": 0.007730035111308098,
+        "ci95_high": 0.007730035111308098
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "random_permuted_dual",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 69.4421875,
+        "std_error": 0.0,
+        "ci95_low": 69.4421875,
+        "ci95_high": 69.4421875
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 121.35108695652174,
+        "std_error": 0.0,
+        "ci95_low": 121.35108695652174,
+        "ci95_high": 121.35108695652174
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 18234.0,
+        "std_error": 0.0,
+        "ci95_low": 18234.0,
+        "ci95_high": 18234.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 640.0,
+        "std_error": 0.0,
+        "ci95_low": 640.0,
+        "ci95_high": 640.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.6956521739130435,
+        "std_error": 0.0,
+        "ci95_low": 0.6956521739130435,
+        "ci95_high": 0.6956521739130435
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 2.6666666666666665,
+        "std_error": 0.0,
+        "ci95_low": 2.6666666666666665,
+        "ci95_high": 2.6666666666666665
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 75.975,
+        "std_error": 0.0,
+        "ci95_low": 75.975,
+        "ci95_high": 75.975
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 70.0,
+        "std_error": 0.0,
+        "ci95_low": 70.0,
+        "ci95_high": 70.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 45.0,
+        "std_error": 0.0,
+        "ci95_low": 45.0,
+        "ci95_high": 45.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.010952504933811724,
+        "std_error": 0.0,
+        "ci95_low": 0.010952504933811724,
+        "ci95_high": 0.010952504933811724
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_bottleneck_failure_mode",
+      "controller": "raw_neighbor_symbolic",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 67.08571428571429,
+        "std_error": 0.0,
+        "ci95_low": 67.08571428571429,
+        "ci95_high": 67.08571428571429
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 101.85652173913043,
+        "std_error": 0.0,
+        "ci95_low": 101.85652173913043,
+        "ci95_high": 101.85652173913043
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 8208.0,
+        "std_error": 0.0,
+        "ci95_low": 8208.0,
+        "ci95_high": 8208.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 735.0,
+        "std_error": 0.0,
+        "ci95_low": 735.0,
+        "ci95_high": 735.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.7989130434782609,
+        "std_error": 0.0,
+        "ci95_low": 0.7989130434782609,
+        "ci95_high": 0.7989130434782609
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.0625,
+        "std_error": 0.0,
+        "ci95_low": 3.0625,
+        "ci95_high": 3.0625
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 34.2,
+        "std_error": 0.0,
+        "ci95_low": 34.2,
+        "ci95_high": 34.2
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 25.0,
+        "std_error": 0.0,
+        "ci95_low": 25.0,
+        "ci95_high": 25.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 56.0,
+        "std_error": 0.0,
+        "ci95_low": 56.0,
+        "ci95_high": 56.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.006791632971726358,
+        "std_error": 0.0,
+        "ci95_low": 0.006791632971726358,
+        "ci95_high": 0.006791632971726358
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "actuated_local_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 63.38471849865952,
+        "std_error": 0.0,
+        "ci95_low": 63.38471849865952,
+        "ci95_high": 63.38471849865952
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 98.02262931034483,
+        "std_error": 0.0,
+        "ci95_low": 98.02262931034483,
+        "ci95_high": 98.02262931034483
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 7491.0,
+        "std_error": 0.0,
+        "ci95_low": 7491.0,
+        "ci95_high": 7491.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 746.0,
+        "std_error": 0.0,
+        "ci95_low": 746.0,
+        "ci95_high": 746.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8038793103448276,
+        "std_error": 0.0,
+        "ci95_low": 0.8038793103448276,
+        "ci95_high": 0.8038793103448276
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1083333333333334,
+        "std_error": 0.0,
+        "ci95_low": 3.1083333333333334,
+        "ci95_high": 3.1083333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 31.2125,
+        "std_error": 0.0,
+        "ci95_low": 31.2125,
+        "ci95_high": 31.2125
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 16.0,
+        "std_error": 0.0,
+        "ci95_low": 16.0,
+        "ci95_high": 16.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.00936115684453398,
+        "std_error": 0.0,
+        "ci95_low": 0.00936115684453398,
+        "ci95_high": 0.00936115684453398
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "all_neighbor_symbolic",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 63.38471849865952,
+        "std_error": 0.0,
+        "ci95_low": 63.38471849865952,
+        "ci95_high": 63.38471849865952
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 98.02262931034483,
+        "std_error": 0.0,
+        "ci95_low": 98.02262931034483,
+        "ci95_high": 98.02262931034483
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 7491.0,
+        "std_error": 0.0,
+        "ci95_low": 7491.0,
+        "ci95_high": 7491.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 746.0,
+        "std_error": 0.0,
+        "ci95_low": 746.0,
+        "ci95_high": 746.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8038793103448276,
+        "std_error": 0.0,
+        "ci95_low": 0.8038793103448276,
+        "ci95_high": 0.8038793103448276
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1083333333333334,
+        "std_error": 0.0,
+        "ci95_low": 3.1083333333333334,
+        "ci95_high": 3.1083333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 31.2125,
+        "std_error": 0.0,
+        "ci95_low": 31.2125,
+        "ci95_high": 31.2125
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 16.0,
+        "std_error": 0.0,
+        "ci95_low": 16.0,
+        "ci95_high": 16.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.008781543816439807,
+        "std_error": 0.0,
+        "ci95_low": 0.008781543816439807,
+        "ci95_high": 0.008781543816439807
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "capacity_aware_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 63.38471849865952,
+        "std_error": 0.0,
+        "ci95_low": 63.38471849865952,
+        "ci95_high": 63.38471849865952
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 98.02262931034483,
+        "std_error": 0.0,
+        "ci95_low": 98.02262931034483,
+        "ci95_high": 98.02262931034483
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 7491.0,
+        "std_error": 0.0,
+        "ci95_low": 7491.0,
+        "ci95_high": 7491.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 746.0,
+        "std_error": 0.0,
+        "ci95_low": 746.0,
+        "ci95_high": 746.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8038793103448276,
+        "std_error": 0.0,
+        "ci95_low": 0.8038793103448276,
+        "ci95_high": 0.8038793103448276
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1083333333333334,
+        "std_error": 0.0,
+        "ci95_low": 3.1083333333333334,
+        "ci95_high": 3.1083333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 31.2125,
+        "std_error": 0.0,
+        "ci95_low": 31.2125,
+        "ci95_high": 31.2125
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 16.0,
+        "std_error": 0.0,
+        "ci95_low": 16.0,
+        "ci95_high": 16.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.008266222081147134,
+        "std_error": 0.0,
+        "ci95_low": 0.008266222081147134,
+        "ci95_high": 0.008266222081147134
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "fixed_time",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 64.09418282548476,
+        "std_error": 0.0,
+        "ci95_low": 64.09418282548476,
+        "ci95_high": 64.09418282548476
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 103.14224137931035,
+        "std_error": 0.0,
+        "ci95_low": 103.14224137931035,
+        "ci95_high": 103.14224137931035
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 9964.0,
+        "std_error": 0.0,
+        "ci95_low": 9964.0,
+        "ci95_high": 9964.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 722.0,
+        "std_error": 0.0,
+        "ci95_low": 722.0,
+        "ci95_high": 722.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.7780172413793104,
+        "std_error": 0.0,
+        "ci95_low": 0.7780172413793104,
+        "ci95_high": 0.7780172413793104
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.0083333333333333,
+        "std_error": 0.0,
+        "ci95_low": 3.0083333333333333,
+        "ci95_high": 3.0083333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 41.516666666666666,
+        "std_error": 0.0,
+        "ci95_low": 41.516666666666666,
+        "ci95_high": 41.516666666666666
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 17.0,
+        "std_error": 0.0,
+        "ci95_low": 17.0,
+        "ci95_high": 17.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 40.0,
+        "std_error": 0.0,
+        "ci95_low": 40.0,
+        "ci95_high": 40.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.006385449203662574,
+        "std_error": 0.0,
+        "ci95_low": 0.006385449203662574,
+        "ci95_high": 0.006385449203662574
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "max_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 63.38471849865952,
+        "std_error": 0.0,
+        "ci95_low": 63.38471849865952,
+        "ci95_high": 63.38471849865952
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 98.02262931034483,
+        "std_error": 0.0,
+        "ci95_low": 98.02262931034483,
+        "ci95_high": 98.02262931034483
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 7491.0,
+        "std_error": 0.0,
+        "ci95_low": 7491.0,
+        "ci95_high": 7491.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 746.0,
+        "std_error": 0.0,
+        "ci95_low": 746.0,
+        "ci95_high": 746.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8038793103448276,
+        "std_error": 0.0,
+        "ci95_low": 0.8038793103448276,
+        "ci95_high": 0.8038793103448276
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1083333333333334,
+        "std_error": 0.0,
+        "ci95_low": 3.1083333333333334,
+        "ci95_high": 3.1083333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 31.2125,
+        "std_error": 0.0,
+        "ci95_low": 31.2125,
+        "ci95_high": 31.2125
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 16.0,
+        "std_error": 0.0,
+        "ci95_low": 16.0,
+        "ci95_high": 16.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.008527345955371857,
+        "std_error": 0.0,
+        "ci95_low": 0.008527345955371857,
+        "ci95_high": 0.008527345955371857
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "random_permuted_dual",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 66.80737018425461,
+        "std_error": 0.0,
+        "ci95_low": 66.80737018425461,
+        "ci95_high": 66.80737018425461
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 128.58189655172413,
+        "std_error": 0.0,
+        "ci95_low": 128.58189655172413,
+        "ci95_high": 128.58189655172413
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 20743.0,
+        "std_error": 0.0,
+        "ci95_low": 20743.0,
+        "ci95_high": 20743.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 597.0,
+        "std_error": 0.0,
+        "ci95_low": 597.0,
+        "ci95_high": 597.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.6433189655172413,
+        "std_error": 0.0,
+        "ci95_low": 0.6433189655172413,
+        "ci95_high": 0.6433189655172413
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 2.4875,
+        "std_error": 0.0,
+        "ci95_low": 2.4875,
+        "ci95_high": 2.4875
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 86.42916666666666,
+        "std_error": 0.0,
+        "ci95_low": 86.42916666666666,
+        "ci95_high": 86.42916666666666
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 68.0,
+        "std_error": 0.0,
+        "ci95_low": 68.0,
+        "ci95_high": 68.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 40.0,
+        "std_error": 0.0,
+        "ci95_low": 40.0,
+        "ci95_high": 40.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.007393536390736699,
+        "std_error": 0.0,
+        "ci95_low": 0.007393536390736699,
+        "ci95_high": 0.007393536390736699
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_demand_shift",
+      "controller": "raw_neighbor_symbolic",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 63.38471849865952,
+        "std_error": 0.0,
+        "ci95_low": 63.38471849865952,
+        "ci95_high": 63.38471849865952
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 98.02262931034483,
+        "std_error": 0.0,
+        "ci95_low": 98.02262931034483,
+        "ci95_high": 98.02262931034483
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 7491.0,
+        "std_error": 0.0,
+        "ci95_low": 7491.0,
+        "ci95_high": 7491.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 746.0,
+        "std_error": 0.0,
+        "ci95_low": 746.0,
+        "ci95_high": 746.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8038793103448276,
+        "std_error": 0.0,
+        "ci95_low": 0.8038793103448276,
+        "ci95_high": 0.8038793103448276
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1083333333333334,
+        "std_error": 0.0,
+        "ci95_low": 3.1083333333333334,
+        "ci95_high": 3.1083333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 31.2125,
+        "std_error": 0.0,
+        "ci95_low": 31.2125,
+        "ci95_high": 31.2125
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 16.0,
+        "std_error": 0.0,
+        "ci95_low": 16.0,
+        "ci95_high": 16.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.006937768426723778,
+        "std_error": 0.0,
+        "ci95_low": 0.006937768426723778,
+        "ci95_high": 0.006937768426723778
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "actuated_local_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 62.45917001338688,
+        "std_error": 0.0,
+        "ci95_low": 62.45917001338688,
+        "ci95_high": 62.45917001338688
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 95.8445652173913,
+        "std_error": 0.0,
+        "ci95_low": 95.8445652173913,
+        "ci95_high": 95.8445652173913
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 6890.0,
+        "std_error": 0.0,
+        "ci95_low": 6890.0,
+        "ci95_high": 6890.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 747.0,
+        "std_error": 0.0,
+        "ci95_low": 747.0,
+        "ci95_high": 747.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8119565217391305,
+        "std_error": 0.0,
+        "ci95_low": 0.8119565217391305,
+        "ci95_high": 0.8119565217391305
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1125,
+        "std_error": 0.0,
+        "ci95_low": 3.1125,
+        "ci95_high": 3.1125
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 28.708333333333332,
+        "std_error": 0.0,
+        "ci95_low": 28.708333333333332,
+        "ci95_high": 28.708333333333332
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 14.0,
+        "std_error": 0.0,
+        "ci95_low": 14.0,
+        "ci95_high": 14.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 54.0,
+        "std_error": 0.0,
+        "ci95_low": 54.0,
+        "ci95_high": 54.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.010200722143054008,
+        "std_error": 0.0,
+        "ci95_low": 0.010200722143054008,
+        "ci95_high": 0.010200722143054008
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "all_neighbor_symbolic",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 62.552278820375335,
+        "std_error": 0.0,
+        "ci95_low": 62.552278820375335,
+        "ci95_high": 62.552278820375335
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 96.11304347826086,
+        "std_error": 0.0,
+        "ci95_low": 96.11304347826086,
+        "ci95_high": 96.11304347826086
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 6957.0,
+        "std_error": 0.0,
+        "ci95_low": 6957.0,
+        "ci95_high": 6957.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 746.0,
+        "std_error": 0.0,
+        "ci95_low": 746.0,
+        "ci95_high": 746.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8108695652173913,
+        "std_error": 0.0,
+        "ci95_low": 0.8108695652173913,
+        "ci95_high": 0.8108695652173913
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1083333333333334,
+        "std_error": 0.0,
+        "ci95_low": 3.1083333333333334,
+        "ci95_high": 3.1083333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 28.9875,
+        "std_error": 0.0,
+        "ci95_low": 28.9875,
+        "ci95_high": 28.9875
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 14.0,
+        "std_error": 0.0,
+        "ci95_low": 14.0,
+        "ci95_high": 14.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.007518248166888952,
+        "std_error": 0.0,
+        "ci95_low": 0.007518248166888952,
+        "ci95_high": 0.007518248166888952
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "capacity_aware_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 62.552278820375335,
+        "std_error": 0.0,
+        "ci95_low": 62.552278820375335,
+        "ci95_high": 62.552278820375335
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 96.11304347826086,
+        "std_error": 0.0,
+        "ci95_low": 96.11304347826086,
+        "ci95_high": 96.11304347826086
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 6957.0,
+        "std_error": 0.0,
+        "ci95_low": 6957.0,
+        "ci95_high": 6957.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 746.0,
+        "std_error": 0.0,
+        "ci95_low": 746.0,
+        "ci95_high": 746.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8108695652173913,
+        "std_error": 0.0,
+        "ci95_low": 0.8108695652173913,
+        "ci95_high": 0.8108695652173913
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1083333333333334,
+        "std_error": 0.0,
+        "ci95_low": 3.1083333333333334,
+        "ci95_high": 3.1083333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 28.9875,
+        "std_error": 0.0,
+        "ci95_low": 28.9875,
+        "ci95_high": 28.9875
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 14.0,
+        "std_error": 0.0,
+        "ci95_low": 14.0,
+        "ci95_high": 14.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.007652049302123487,
+        "std_error": 0.0,
+        "ci95_low": 0.007652049302123487,
+        "ci95_high": 0.007652049302123487
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "fixed_time",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 64.146408839779,
+        "std_error": 0.0,
+        "ci95_low": 64.146408839779,
+        "ci95_high": 64.146408839779
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 101.61086956521739,
+        "std_error": 0.0,
+        "ci95_low": 101.61086956521739,
+        "ci95_high": 101.61086956521739
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 9402.0,
+        "std_error": 0.0,
+        "ci95_low": 9402.0,
+        "ci95_high": 9402.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 724.0,
+        "std_error": 0.0,
+        "ci95_low": 724.0,
+        "ci95_high": 724.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.7869565217391304,
+        "std_error": 0.0,
+        "ci95_low": 0.7869565217391304,
+        "ci95_high": 0.7869565217391304
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.0166666666666666,
+        "std_error": 0.0,
+        "ci95_low": 3.0166666666666666,
+        "ci95_high": 3.0166666666666666
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 39.175,
+        "std_error": 0.0,
+        "ci95_low": 39.175,
+        "ci95_high": 39.175
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 17.0,
+        "std_error": 0.0,
+        "ci95_low": 17.0,
+        "ci95_high": 17.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 40.0,
+        "std_error": 0.0,
+        "ci95_low": 40.0,
+        "ci95_high": 40.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.004537549219094217,
+        "std_error": 0.0,
+        "ci95_low": 0.004537549219094217,
+        "ci95_high": 0.004537549219094217
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "max_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 62.552278820375335,
+        "std_error": 0.0,
+        "ci95_low": 62.552278820375335,
+        "ci95_high": 62.552278820375335
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 96.11304347826086,
+        "std_error": 0.0,
+        "ci95_low": 96.11304347826086,
+        "ci95_high": 96.11304347826086
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 6957.0,
+        "std_error": 0.0,
+        "ci95_low": 6957.0,
+        "ci95_high": 6957.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 746.0,
+        "std_error": 0.0,
+        "ci95_low": 746.0,
+        "ci95_high": 746.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8108695652173913,
+        "std_error": 0.0,
+        "ci95_low": 0.8108695652173913,
+        "ci95_high": 0.8108695652173913
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1083333333333334,
+        "std_error": 0.0,
+        "ci95_low": 3.1083333333333334,
+        "ci95_high": 3.1083333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 28.9875,
+        "std_error": 0.0,
+        "ci95_low": 28.9875,
+        "ci95_high": 28.9875
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 14.0,
+        "std_error": 0.0,
+        "ci95_low": 14.0,
+        "ci95_high": 14.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.007951858220621943,
+        "std_error": 0.0,
+        "ci95_low": 0.007951858220621943,
+        "ci95_high": 0.007951858220621943
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "random_permuted_dual",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 66.8914373088685,
+        "std_error": 0.0,
+        "ci95_low": 66.8914373088685,
+        "ci95_high": 66.8914373088685
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 116.94239130434782,
+        "std_error": 0.0,
+        "ci95_low": 116.94239130434782,
+        "ci95_high": 116.94239130434782
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 17779.0,
+        "std_error": 0.0,
+        "ci95_low": 17779.0,
+        "ci95_high": 17779.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 654.0,
+        "std_error": 0.0,
+        "ci95_low": 654.0,
+        "ci95_high": 654.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.7108695652173913,
+        "std_error": 0.0,
+        "ci95_low": 0.7108695652173913,
+        "ci95_high": 0.7108695652173913
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 2.725,
+        "std_error": 0.0,
+        "ci95_low": 2.725,
+        "ci95_high": 2.725
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 74.07916666666667,
+        "std_error": 0.0,
+        "ci95_low": 74.07916666666667,
+        "ci95_high": 74.07916666666667
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 70.0,
+        "std_error": 0.0,
+        "ci95_low": 70.0,
+        "ci95_high": 70.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 46.0,
+        "std_error": 0.0,
+        "ci95_low": 46.0,
+        "ci95_high": 46.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.009273755247704685,
+        "std_error": 0.0,
+        "ci95_low": 0.009273755247704685,
+        "ci95_high": 0.009273755247704685
+      }
+    },
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_main",
+      "controller": "raw_neighbor_symbolic",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 62.552278820375335,
+        "std_error": 0.0,
+        "ci95_low": 62.552278820375335,
+        "ci95_high": 62.552278820375335
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 96.11304347826086,
+        "std_error": 0.0,
+        "ci95_low": 96.11304347826086,
+        "ci95_high": 96.11304347826086
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 6957.0,
+        "std_error": 0.0,
+        "ci95_low": 6957.0,
+        "ci95_high": 6957.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 746.0,
+        "std_error": 0.0,
+        "ci95_low": 746.0,
+        "ci95_high": 746.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.8108695652173913,
+        "std_error": 0.0,
+        "ci95_low": 0.8108695652173913,
+        "ci95_high": 0.8108695652173913
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 3.1083333333333334,
+        "std_error": 0.0,
+        "ci95_low": 3.1083333333333334,
+        "ci95_high": 3.1083333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 28.9875,
+        "std_error": 0.0,
+        "ci95_low": 28.9875,
+        "ci95_high": 28.9875
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 14.0,
+        "std_error": 0.0,
+        "ci95_low": 14.0,
+        "ci95_high": 14.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 55.0,
+        "std_error": 0.0,
+        "ci95_low": 55.0,
+        "ci95_high": 55.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.0066466189455240965,
+        "std_error": 0.0,
+        "ci95_low": 0.0066466189455240965,
+        "ci95_high": 0.0066466189455240965
+      }
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "actuated_local_pressure",
+      "seeds": [
+        20260601
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 84.67375886524823,
+        "std_error": 0.0,
+        "ci95_low": 84.67375886524823,
+        "ci95_high": 84.67375886524823
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 134.70673076923077,
+        "std_error": 0.0,
+        "ci95_low": 134.70673076923077,
+        "ci95_high": 134.70673076923077
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 2544.0,
+        "std_error": 0.0,
+        "ci95_low": 2544.0,
+        "ci95_high": 2544.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 141.0,
+        "std_error": 0.0,
+        "ci95_low": 141.0,
+        "ci95_high": 141.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.6778846153846154,
+        "std_error": 0.0,
+        "ci95_low": 0.6778846153846154,
+        "ci95_high": 0.6778846153846154
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.5875,
+        "std_error": 0.0,
+        "ci95_low": 0.5875,
+        "ci95_high": 0.5875
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 10.6,
+        "std_error": 0.0,
+        "ci95_low": 10.6,
+        "ci95_high": 10.6
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 4.0,
+        "std_error": 0.0,
+        "ci95_low": 4.0,
+        "ci95_high": 4.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 177.0,
+        "std_error": 0.0,
+        "ci95_low": 177.0,
+        "ci95_high": 177.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.023629962815903127,
+        "std_error": 0.0,
+        "ci95_low": 0.023629962815903127,
+        "ci95_high": 0.023629962815903127
+      }
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "all_neighbor_symbolic",
+      "seeds": [
+        20260601
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 83.5034965034965,
+        "std_error": 0.0,
+        "ci95_low": 83.5034965034965,
+        "ci95_high": 83.5034965034965
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 132.40865384615384,
+        "std_error": 0.0,
+        "ci95_low": 132.40865384615384,
+        "ci95_high": 132.40865384615384
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 2450.0,
+        "std_error": 0.0,
+        "ci95_low": 2450.0,
+        "ci95_high": 2450.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 143.0,
+        "std_error": 0.0,
+        "ci95_low": 143.0,
+        "ci95_high": 143.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.6875,
+        "std_error": 0.0,
+        "ci95_low": 0.6875,
+        "ci95_high": 0.6875
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.5958333333333333,
+        "std_error": 0.0,
+        "ci95_low": 0.5958333333333333,
+        "ci95_high": 0.5958333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 10.208333333333334,
+        "std_error": 0.0,
+        "ci95_low": 10.208333333333334,
+        "ci95_high": 10.208333333333334
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 4.0,
+        "std_error": 0.0,
+        "ci95_low": 4.0,
+        "ci95_high": 4.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 171.0,
+        "std_error": 0.0,
+        "ci95_low": 171.0,
+        "ci95_high": 171.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.015480019268579781,
+        "std_error": 0.0,
+        "ci95_low": 0.015480019268579781,
+        "ci95_high": 0.015480019268579781
+      }
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "capacity_aware_pressure",
+      "seeds": [
+        20260601
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 83.5034965034965,
+        "std_error": 0.0,
+        "ci95_low": 83.5034965034965,
+        "ci95_high": 83.5034965034965
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 132.40865384615384,
+        "std_error": 0.0,
+        "ci95_low": 132.40865384615384,
+        "ci95_high": 132.40865384615384
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 2450.0,
+        "std_error": 0.0,
+        "ci95_low": 2450.0,
+        "ci95_high": 2450.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 143.0,
+        "std_error": 0.0,
+        "ci95_low": 143.0,
+        "ci95_high": 143.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.6875,
+        "std_error": 0.0,
+        "ci95_low": 0.6875,
+        "ci95_high": 0.6875
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.5958333333333333,
+        "std_error": 0.0,
+        "ci95_low": 0.5958333333333333,
+        "ci95_high": 0.5958333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 10.208333333333334,
+        "std_error": 0.0,
+        "ci95_low": 10.208333333333334,
+        "ci95_high": 10.208333333333334
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 4.0,
+        "std_error": 0.0,
+        "ci95_low": 4.0,
+        "ci95_high": 4.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 171.0,
+        "std_error": 0.0,
+        "ci95_low": 171.0,
+        "ci95_high": 171.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.015547203132882714,
+        "std_error": 0.0,
+        "ci95_low": 0.015547203132882714,
+        "ci95_high": 0.015547203132882714
+      }
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "fixed_time",
+      "seeds": [
+        20260601
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 77.50694444444444,
+        "std_error": 0.0,
+        "ci95_low": 77.50694444444444,
+        "ci95_high": 77.50694444444444
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 127.5048076923077,
+        "std_error": 0.0,
+        "ci95_low": 127.5048076923077,
+        "ci95_high": 127.5048076923077
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 2153.0,
+        "std_error": 0.0,
+        "ci95_low": 2153.0,
+        "ci95_high": 2153.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 144.0,
+        "std_error": 0.0,
+        "ci95_low": 144.0,
+        "ci95_high": 144.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.6923076923076923,
+        "std_error": 0.0,
+        "ci95_low": 0.6923076923076923,
+        "ci95_high": 0.6923076923076923
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.6,
+        "std_error": 0.0,
+        "ci95_low": 0.6,
+        "ci95_high": 0.6
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 8.970833333333333,
+        "std_error": 0.0,
+        "ci95_low": 8.970833333333333,
+        "ci95_high": 8.970833333333333
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 3.0,
+        "std_error": 0.0,
+        "ci95_low": 3.0,
+        "ci95_high": 3.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 128.0,
+        "std_error": 0.0,
+        "ci95_low": 128.0,
+        "ci95_high": 128.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.018395329709164798,
+        "std_error": 0.0,
+        "ci95_low": 0.018395329709164798,
+        "ci95_high": 0.018395329709164798
+      }
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "max_pressure",
+      "seeds": [
+        20260601
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 84.67375886524823,
+        "std_error": 0.0,
+        "ci95_low": 84.67375886524823,
+        "ci95_high": 84.67375886524823
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 134.70673076923077,
+        "std_error": 0.0,
+        "ci95_low": 134.70673076923077,
+        "ci95_high": 134.70673076923077
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 2544.0,
+        "std_error": 0.0,
+        "ci95_low": 2544.0,
+        "ci95_high": 2544.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 141.0,
+        "std_error": 0.0,
+        "ci95_low": 141.0,
+        "ci95_high": 141.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.6778846153846154,
+        "std_error": 0.0,
+        "ci95_low": 0.6778846153846154,
+        "ci95_high": 0.6778846153846154
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.5875,
+        "std_error": 0.0,
+        "ci95_low": 0.5875,
+        "ci95_high": 0.5875
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 10.6,
+        "std_error": 0.0,
+        "ci95_low": 10.6,
+        "ci95_high": 10.6
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 4.0,
+        "std_error": 0.0,
+        "ci95_low": 4.0,
+        "ci95_high": 4.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 177.0,
+        "std_error": 0.0,
+        "ci95_low": 177.0,
+        "ci95_high": 177.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.01855851535219699,
+        "std_error": 0.0,
+        "ci95_low": 0.01855851535219699,
+        "ci95_high": 0.01855851535219699
+      }
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "random_permuted_dual",
+      "seeds": [
+        20260601
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 94.703125,
+        "std_error": 0.0,
+        "ci95_low": 94.703125,
+        "ci95_high": 94.703125
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 150.58653846153845,
+        "std_error": 0.0,
+        "ci95_low": 150.58653846153845,
+        "ci95_high": 150.58653846153845
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 5698.0,
+        "std_error": 0.0,
+        "ci95_low": 5698.0,
+        "ci95_high": 5698.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 128.0,
+        "std_error": 0.0,
+        "ci95_low": 128.0,
+        "ci95_high": 128.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.6153846153846154,
+        "std_error": 0.0,
+        "ci95_low": 0.6153846153846154,
+        "ci95_high": 0.6153846153846154
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.5333333333333333,
+        "std_error": 0.0,
+        "ci95_low": 0.5333333333333333,
+        "ci95_high": 0.5333333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 23.741666666666667,
+        "std_error": 0.0,
+        "ci95_low": 23.741666666666667,
+        "ci95_high": 23.741666666666667
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 4.0,
+        "std_error": 0.0,
+        "ci95_low": 4.0,
+        "ci95_high": 4.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 101.0,
+        "std_error": 0.0,
+        "ci95_low": 101.0,
+        "ci95_high": 101.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.026553059578873217,
+        "std_error": 0.0,
+        "ci95_low": 0.026553059578873217,
+        "ci95_high": 0.026553059578873217
+      }
+    },
+    {
+      "network": "grid_4x4",
+      "scenario_tag": "grid_scalability",
+      "controller": "raw_neighbor_symbolic",
+      "seeds": [
+        20260601
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 84.67375886524823,
+        "std_error": 0.0,
+        "ci95_low": 84.67375886524823,
+        "ci95_high": 84.67375886524823
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 134.70673076923077,
+        "std_error": 0.0,
+        "ci95_low": 134.70673076923077,
+        "ci95_high": 134.70673076923077
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 2544.0,
+        "std_error": 0.0,
+        "ci95_low": 2544.0,
+        "ci95_high": 2544.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 141.0,
+        "std_error": 0.0,
+        "ci95_low": 141.0,
+        "ci95_high": 141.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.6778846153846154,
+        "std_error": 0.0,
+        "ci95_low": 0.6778846153846154,
+        "ci95_high": 0.6778846153846154
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.5875,
+        "std_error": 0.0,
+        "ci95_low": 0.5875,
+        "ci95_high": 0.5875
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 10.6,
+        "std_error": 0.0,
+        "ci95_low": 10.6,
+        "ci95_high": 10.6
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 4.0,
+        "std_error": 0.0,
+        "ci95_low": 4.0,
+        "ci95_high": 4.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 177.0,
+        "std_error": 0.0,
+        "ci95_low": 177.0,
+        "ci95_high": 177.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.022047969978302717,
+        "std_error": 0.0,
+        "ci95_low": 0.022047969978302717,
+        "ci95_high": 0.022047969978302717
+      }
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "actuated_local_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 57.047904191616766,
+        "std_error": 0.0,
+        "ci95_low": 57.047904191616766,
+        "ci95_high": 57.047904191616766
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 87.235,
+        "std_error": 0.0,
+        "ci95_low": 87.235,
+        "ci95_high": 87.235
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 944.0,
+        "std_error": 0.0,
+        "ci95_low": 944.0,
+        "ci95_high": 944.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 167.0,
+        "std_error": 0.0,
+        "ci95_low": 167.0,
+        "ci95_high": 167.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.835,
+        "std_error": 0.0,
+        "ci95_low": 0.835,
+        "ci95_high": 0.835
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.6958333333333333,
+        "std_error": 0.0,
+        "ci95_low": 0.6958333333333333,
+        "ci95_high": 0.6958333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 3.933333333333333,
+        "std_error": 0.0,
+        "ci95_low": 3.933333333333333,
+        "ci95_high": 3.933333333333333
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 5.0,
+        "std_error": 0.0,
+        "ci95_low": 5.0,
+        "ci95_high": 5.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 12.0,
+        "std_error": 0.0,
+        "ci95_low": 12.0,
+        "ci95_high": 12.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.0020188750931993127,
+        "std_error": 0.0,
+        "ci95_low": 0.0020188750931993127,
+        "ci95_high": 0.0020188750931993127
+      }
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "all_neighbor_symbolic",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 57.047904191616766,
+        "std_error": 0.0,
+        "ci95_low": 57.047904191616766,
+        "ci95_high": 57.047904191616766
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 87.235,
+        "std_error": 0.0,
+        "ci95_low": 87.235,
+        "ci95_high": 87.235
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 944.0,
+        "std_error": 0.0,
+        "ci95_low": 944.0,
+        "ci95_high": 944.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 167.0,
+        "std_error": 0.0,
+        "ci95_low": 167.0,
+        "ci95_high": 167.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.835,
+        "std_error": 0.0,
+        "ci95_low": 0.835,
+        "ci95_high": 0.835
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.6958333333333333,
+        "std_error": 0.0,
+        "ci95_low": 0.6958333333333333,
+        "ci95_high": 0.6958333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 3.933333333333333,
+        "std_error": 0.0,
+        "ci95_low": 3.933333333333333,
+        "ci95_high": 3.933333333333333
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 5.0,
+        "std_error": 0.0,
+        "ci95_low": 5.0,
+        "ci95_high": 5.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 12.0,
+        "std_error": 0.0,
+        "ci95_low": 12.0,
+        "ci95_high": 12.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.0010388059308752418,
+        "std_error": 0.0,
+        "ci95_low": 0.0010388059308752418,
+        "ci95_high": 0.0010388059308752418
+      }
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "capacity_aware_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 57.047904191616766,
+        "std_error": 0.0,
+        "ci95_low": 57.047904191616766,
+        "ci95_high": 57.047904191616766
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 87.235,
+        "std_error": 0.0,
+        "ci95_low": 87.235,
+        "ci95_high": 87.235
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 944.0,
+        "std_error": 0.0,
+        "ci95_low": 944.0,
+        "ci95_high": 944.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 167.0,
+        "std_error": 0.0,
+        "ci95_low": 167.0,
+        "ci95_high": 167.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.835,
+        "std_error": 0.0,
+        "ci95_low": 0.835,
+        "ci95_high": 0.835
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.6958333333333333,
+        "std_error": 0.0,
+        "ci95_low": 0.6958333333333333,
+        "ci95_high": 0.6958333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 3.933333333333333,
+        "std_error": 0.0,
+        "ci95_low": 3.933333333333333,
+        "ci95_high": 3.933333333333333
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 5.0,
+        "std_error": 0.0,
+        "ci95_low": 5.0,
+        "ci95_high": 5.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 12.0,
+        "std_error": 0.0,
+        "ci95_low": 12.0,
+        "ci95_high": 12.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.0013561551459133625,
+        "std_error": 0.0,
+        "ci95_low": 0.0013561551459133625,
+        "ci95_high": 0.0013561551459133625
+      }
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "fixed_time",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 57.74251497005988,
+        "std_error": 0.0,
+        "ci95_low": 57.74251497005988,
+        "ci95_high": 57.74251497005988
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 87.815,
+        "std_error": 0.0,
+        "ci95_low": 87.815,
+        "ci95_high": 87.815
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 1125.0,
+        "std_error": 0.0,
+        "ci95_low": 1125.0,
+        "ci95_high": 1125.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 167.0,
+        "std_error": 0.0,
+        "ci95_low": 167.0,
+        "ci95_high": 167.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.835,
+        "std_error": 0.0,
+        "ci95_low": 0.835,
+        "ci95_high": 0.835
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.6958333333333333,
+        "std_error": 0.0,
+        "ci95_low": 0.6958333333333333,
+        "ci95_high": 0.6958333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 4.6875,
+        "std_error": 0.0,
+        "ci95_low": 4.6875,
+        "ci95_high": 4.6875
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 6.0,
+        "std_error": 0.0,
+        "ci95_low": 6.0,
+        "ci95_high": 6.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 8.0,
+        "std_error": 0.0,
+        "ci95_low": 8.0,
+        "ci95_high": 8.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.0007822411134839058,
+        "std_error": 0.0,
+        "ci95_low": 0.0007822411134839058,
+        "ci95_high": 0.0007822411134839058
+      }
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "max_pressure",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 57.047904191616766,
+        "std_error": 0.0,
+        "ci95_low": 57.047904191616766,
+        "ci95_high": 57.047904191616766
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 87.235,
+        "std_error": 0.0,
+        "ci95_low": 87.235,
+        "ci95_high": 87.235
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 944.0,
+        "std_error": 0.0,
+        "ci95_low": 944.0,
+        "ci95_high": 944.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 167.0,
+        "std_error": 0.0,
+        "ci95_low": 167.0,
+        "ci95_high": 167.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.835,
+        "std_error": 0.0,
+        "ci95_low": 0.835,
+        "ci95_high": 0.835
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.6958333333333333,
+        "std_error": 0.0,
+        "ci95_low": 0.6958333333333333,
+        "ci95_high": 0.6958333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 3.933333333333333,
+        "std_error": 0.0,
+        "ci95_low": 3.933333333333333,
+        "ci95_high": 3.933333333333333
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 5.0,
+        "std_error": 0.0,
+        "ci95_low": 5.0,
+        "ci95_high": 5.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 12.0,
+        "std_error": 0.0,
+        "ci95_low": 12.0,
+        "ci95_high": 12.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.0009198607876896858,
+        "std_error": 0.0,
+        "ci95_low": 0.0009198607876896858,
+        "ci95_high": 0.0009198607876896858
+      }
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "random_permuted_dual",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 68.296,
+        "std_error": 0.0,
+        "ci95_low": 68.296,
+        "ci95_high": 68.296
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 132.685,
+        "std_error": 0.0,
+        "ci95_low": 132.685,
+        "ci95_high": 132.685
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 6178.0,
+        "std_error": 0.0,
+        "ci95_low": 6178.0,
+        "ci95_high": 6178.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 125.0,
+        "std_error": 0.0,
+        "ci95_low": 125.0,
+        "ci95_high": 125.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.625,
+        "std_error": 0.0,
+        "ci95_low": 0.625,
+        "ci95_high": 0.625
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.5208333333333334,
+        "std_error": 0.0,
+        "ci95_low": 0.5208333333333334,
+        "ci95_high": 0.5208333333333334
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 25.741666666666667,
+        "std_error": 0.0,
+        "ci95_low": 25.741666666666667,
+        "ci95_high": 25.741666666666667
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 29.0,
+        "std_error": 0.0,
+        "ci95_low": 29.0,
+        "ci95_high": 29.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 5.0,
+        "std_error": 0.0,
+        "ci95_low": 5.0,
+        "ci95_high": 5.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.0017734590219333768,
+        "std_error": 0.0,
+        "ci95_low": 0.0017734590219333768,
+        "ci95_high": 0.0017734590219333768
+      }
+    },
+    {
+      "network": "single",
+      "scenario_tag": "single_sanity",
+      "controller": "raw_neighbor_symbolic",
+      "seeds": [
+        20260523
+      ],
+      "n_seeds": 1,
+      "avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 57.047904191616766,
+        "std_error": 0.0,
+        "ci95_low": 57.047904191616766,
+        "ci95_high": 57.047904191616766
+      },
+      "penalized_avg_travel_time": {
+        "n_seeds": 1,
+        "mean": 87.235,
+        "std_error": 0.0,
+        "ci95_low": 87.235,
+        "ci95_high": 87.235
+      },
+      "total_delay": {
+        "n_seeds": 1,
+        "mean": 944.0,
+        "std_error": 0.0,
+        "ci95_low": 944.0,
+        "ci95_high": 944.0
+      },
+      "completed_vehicles": {
+        "n_seeds": 1,
+        "mean": 167.0,
+        "std_error": 0.0,
+        "ci95_low": 167.0,
+        "ci95_high": 167.0
+      },
+      "completion_rate": {
+        "n_seeds": 1,
+        "mean": 0.835,
+        "std_error": 0.0,
+        "ci95_low": 0.835,
+        "ci95_high": 0.835
+      },
+      "throughput": {
+        "n_seeds": 1,
+        "mean": 0.6958333333333333,
+        "std_error": 0.0,
+        "ci95_low": 0.6958333333333333,
+        "ci95_high": 0.6958333333333333
+      },
+      "mean_queue": {
+        "n_seeds": 1,
+        "mean": 3.933333333333333,
+        "std_error": 0.0,
+        "ci95_low": 3.933333333333333,
+        "ci95_high": 3.933333333333333
+      },
+      "max_queue": {
+        "n_seeds": 1,
+        "mean": 5.0,
+        "std_error": 0.0,
+        "ci95_low": 5.0,
+        "ci95_high": 5.0
+      },
+      "spillback_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "blocking_count": {
+        "n_seeds": 1,
+        "mean": 0.0,
+        "std_error": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "switching_count": {
+        "n_seeds": 1,
+        "mean": 12.0,
+        "std_error": 0.0,
+        "ci95_low": 12.0,
+        "ci95_high": 12.0
+      },
+      "controller_runtime_sec": {
+        "n_seeds": 1,
+        "mean": 0.0012499319855123758,
+        "std_error": 0.0,
+        "ci95_low": 0.0012499319855123758,
+        "ci95_high": 0.0012499319855123758
+      }
+    }
+  ],
+  "baseline_coverage": {
+    "fixed_time": {
+      "status": "run"
+    },
+    "actuated_local_pressure": {
+      "status": "run"
+    },
+    "max_pressure": {
+      "status": "run"
+    },
+    "capacity_aware_pressure": {
+      "status": "run"
+    },
+    "local_pilight": {
+      "status": "not_feasible",
+      "unsupported_reason": "No safely adaptable PI-Light local DSL baseline is present in the SUMO runner interface."
+    },
+    "raw_neighbor_symbolic": {
+      "status": "run"
+    },
+    "all_neighbor_symbolic": {
+      "status": "run"
+    },
+    "random_permuted_dual": {
+      "status": "run"
+    },
+    "full_dual_symbolic": {
+      "status": "not_feasible",
+      "unsupported_reason": "Closed-loop per-TLS dual Scenario conversion is not yet safe for live SUMO actuation."
+    }
+  },
+  "completion_gates": {
+    "arterial_main": {
+      "all_neighbor_symbolic": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      },
+      "capacity_aware_pressure": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      },
+      "fixed_time": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": "not_required"
+        },
+        "passed": false
+      },
+      "max_pressure": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      },
+      "random_permuted_dual": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      },
+      "raw_neighbor_symbolic": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      }
+    },
+    "grid_scalability": {
+      "all_neighbor_symbolic": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      },
+      "capacity_aware_pressure": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      },
+      "fixed_time": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": "not_required"
+        },
+        "passed": false
+      },
+      "max_pressure": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      },
+      "random_permuted_dual": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      },
+      "raw_neighbor_symbolic": {
+        "completed_seeds": 1,
+        "actuation": {
+          "passed": true,
+          "switching_rows": 1,
+          "no_switch_rows": 0
+        },
+        "passed": false
+      }
+    },
+    "demand_shift_real_mechanism": true,
+    "failure_mode_real_mechanism": true,
+    "failure_mode_pressure_rows": true
+  },
+  "completion_gates_passed": false,
+  "metric_schema": {
+    "avg_travel_time": "CLOP-04 metric",
+    "penalized_avg_travel_time": "CLOP-04 metric",
+    "total_delay": "CLOP-04 metric",
+    "completed_vehicles": "CLOP-04 metric",
+    "completion_rate": "CLOP-04 metric",
+    "throughput": "CLOP-04 metric",
+    "mean_queue": "CLOP-04 metric",
+    "max_queue": "CLOP-04 metric",
+    "spillback_count": "CLOP-04 metric",
+    "blocking_count": "CLOP-04 metric",
+    "switching_count": "CLOP-04 metric",
+    "controller_runtime_sec": "CLOP-04 metric"
+  }
+}
