@@ -7,7 +7,7 @@
 - **Status:** `PASSED`
 - **Experiment:** `block3_static_pressure_failure_kill_gate`
 
-This is a static sample-relative, pre-closed-loop route decision. It does not claim closed-loop results, travel-time gains, throughput gains, deployable traffic-control performance, or universal dominance over max-pressure/backpressure.
+This is a static sample-relative, pre-closed-loop route decision. It does not claim closed-loop results, travel-time gains, throughput gains, deployable traffic-control performance, or dominance across all max-pressure/backpressure regimes.
 
 ## Route Alias Mapping
 

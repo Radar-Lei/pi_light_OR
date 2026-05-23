@@ -407,7 +407,7 @@ R(pi_hat) <= min_{pi in Pi(K,B,H,D)} R(pi)
              + O(R_max * sqrt((log |Pi| + log(1/delta)) / N))
 ```
 
-with probability at least `1-delta`, up to constants and any penalty accounting. This optional corollary must be labeled statistical, sample-assumption-dependent, and dictionary-relative. It must not be used as evidence of global traffic-control optimality or universal dominance over pressure-style controllers.
+with probability at least `1-delta`, up to constants and any penalty accounting. This optional corollary must be labeled statistical, sample-assumption-dependent, and dictionary-relative. It must not be used as evidence of global traffic-control optimality or dominance across all pressure-style controller regimes.
 
 ### Claim boundary for THRY-05
 
