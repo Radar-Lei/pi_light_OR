@@ -13,7 +13,7 @@ v1.1 converts the v1.0 pressure-equivalent artifact into a bounded strong-claim 
 
 **Phase Numbering:** continuing from shipped v1.0 Phases 1–5.
 
-- [ ] **Phase 6: Claim Discipline and Explicit State Foundation** - Lock bounded claim rules and replace proxy regimes with explicit finite-storage state/objective artifacts.
+- [x] **Phase 6: Claim Discipline and Explicit State Foundation** - Lock bounded claim rules and replace proxy regimes with explicit finite-storage state/objective artifacts. (completed 2026-05-23)
 - [ ] **Phase 7: Theory and Separation Package** - Prove slack max-pressure recovery, binding-regime separation, strict one-step improvement, and one additional guarantee candidate.
 - [ ] **Phase 8: Live Finite-Storage Primal-Dual Controller** - Implement a safely deployable controller path with auditable score decompositions and slack-regime reduction tests.
 - [ ] **Phase 9: Slack and Binding Kill Gates** - Build fail-closed gates for slack recovery and binding-state action/objective separation.
@@ -44,7 +44,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 06-03-PLAN.md — Integrate claim/state safeguards into static, closed-loop, report, and reproducibility surfaces.
+- [x] 06-03-PLAN.md — Integrate claim/state safeguards into static, closed-loop, report, and reproducibility surfaces.
 
 ### Phase 7: Theory and Separation Package
 
@@ -141,7 +141,7 @@ Plans:
 | 3. Static Pressure-Failure Kill Gate | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 4. Closed-Loop SUMO Evaluation | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 5. Reproducibility and Repository Hardening | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 6. Claim Discipline and Explicit State Foundation | v1.1 | 2/3 | In Progress|  |
+| 6. Claim Discipline and Explicit State Foundation | v1.1 | 3/3 | Complete   | 2026-05-23 |
 | 7. Theory and Separation Package | v1.1 | 0/TBD | Not started | - |
 | 8. Live Finite-Storage Primal-Dual Controller | v1.1 | 0/TBD | Not started | - |
 | 9. Slack and Binding Kill Gates | v1.1 | 0/TBD | Not started | - |
