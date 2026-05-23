@@ -212,7 +212,6 @@ def test_phase6_fixture_generation_and_validation(tmp_path: Path) -> None:
 
 def test_static_kill_gate_rejects_explicit_phase6_samples_missing_state_or_objective(tmp_path: Path) -> None:
     valid_sample = {
-        "schema_version": "phase6_explicit_state_v1",
         "time": 0.0,
         "queues": {"edge_a": 1.0, "edge_b": 0.0},
         "vehicle_counts": {"edge_a": 1.0, "edge_b": 0.0},
@@ -229,7 +228,7 @@ def test_static_kill_gate_rejects_explicit_phase6_samples_missing_state_or_objec
 
     for sample in [missing_state, missing_objective]:
         path = tmp_path / "invalid_phase6_samples.json"
-        path.write_text(json.dumps({"samples": [sample]}), encoding="utf-8")
+        path.write_text(json.dumps({"schema_version": "phase6_explicit_state_v1", "samples": [sample]}), encoding="utf-8")
         try:
             load_and_group_samples([path], max_samples=0, default_regime=None)
         except ValueError as exc:

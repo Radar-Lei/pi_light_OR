@@ -119,7 +119,9 @@ def sample_requires_explicit_phase6_validation(sample: dict[str, Any]) -> bool:
     )
 
 
-def validate_sample_schema(sample: dict[str, Any], path: Path, sample_idx: int) -> None:
+def validate_sample_schema(
+    sample: dict[str, Any], path: Path, sample_idx: int, *, force_explicit_phase6: bool = False
+) -> None:
     missing = REQUIRED_SAMPLE_FIELDS - set(sample)
     if missing:
         raise ValueError(f"Sample {sample_idx} in {path} is missing fields: {sorted(missing)}")
@@ -149,7 +151,7 @@ def validate_sample_schema(sample: dict[str, Any], path: Path, sample_idx: int) 
                     f"Sample {sample_idx} in {path} field tls_movements.{tls_id}[{movement_idx}] "
                     f"references links without queue/capacity values: {missing_links}"
                 )
-    if sample_requires_explicit_phase6_validation(sample):
+    if force_explicit_phase6 or sample_requires_explicit_phase6_validation(sample):
         validate_state_objective_sample(sample, path=path, sample_idx=sample_idx)
 
 
@@ -169,6 +171,8 @@ def load_and_group_samples(
         samples = data.get("samples")
         if not isinstance(samples, list):
             raise ValueError(f"State file {path} must contain a samples list")
+        artifact_schema_version = str(data.get("schema_version", ""))
+        force_explicit_phase6 = artifact_schema_version.startswith("phase6") or artifact_schema_version == SCHEMA_VERSION
         file_regime_status = data.get("regime_status")
         if isinstance(file_regime_status, dict):
             for regime, status in file_regime_status.items():
@@ -177,8 +181,8 @@ def load_and_group_samples(
         for sample_idx, sample in enumerate(selected):
             if not isinstance(sample, dict):
                 raise ValueError(f"Sample {sample_idx} in {path} must be an object")
-            validate_sample_schema(sample, path, sample_idx)
-            if sample_requires_explicit_phase6_validation(sample):
+            validate_sample_schema(sample, path, sample_idx, force_explicit_phase6=force_explicit_phase6)
+            if force_explicit_phase6 or sample_requires_explicit_phase6_validation(sample):
                 explicit_sample_count += 1
             regime = sample.get("regime")
             sample_copy = dict(sample)
