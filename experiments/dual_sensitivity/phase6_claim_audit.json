@@ -1,0 +1,218 @@
+{
+  "experiment": "phase6_claim_audit",
+  "status": "PASSED",
+  "generated_by": "scripts/audit_claim_discipline.py",
+  "generated_at": "2026-05-23T12:35:37.027621+00:00",
+  "requirements_covered": [
+    "CLAIM-01",
+    "CLAIM-02"
+  ],
+  "checked_paths": [
+    ".planning/PROJECT.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    "experiments/dual_sensitivity/block3_static_kill_gate_report.md",
+    "experiments/dual_sensitivity/block4_closed_loop_suite_report.md",
+    "experiments/dual_sensitivity/paper_artifacts_manifest.json",
+    "experiments/dual_sensitivity/paper_figure_data.csv",
+    "experiments/dual_sensitivity/paper_tables.csv",
+    "experiments/dual_sensitivity/reproducibility_manifest.json",
+    "refine-logs/EXPERIMENT_PLAN.md",
+    "refine-logs/EXPERIMENT_PLAN_20260520.md",
+    "refine-logs/EXPERIMENT_RESULTS.md",
+    "refine-logs/EXPERIMENT_RESULTS_20260520.md",
+    "refine-logs/EXPERIMENT_TRACKER.md",
+    "refine-logs/EXPERIMENT_TRACKER_20260520.md",
+    "refine-logs/FINAL_PROPOSAL.md",
+    "refine-logs/FINAL_PROPOSAL_20260520.md",
+    "refine-logs/MANIFEST.md",
+    "refine-logs/PIPELINE_SUMMARY.md",
+    "refine-logs/PIPELINE_SUMMARY_20260520.md",
+    "refine-logs/REFINEMENT_REPORT.md",
+    "refine-logs/REFINEMENT_REPORT_20260520.md",
+    "refine-logs/REVIEW_SUMMARY.md",
+    "refine-logs/REVIEW_SUMMARY_20260520.md",
+    "refine-logs/THEORY_AND_ATOMS.md",
+    "refine-logs/THEORY_AND_CLAIMS.md",
+    "refine-logs/THEORY_REVIEW_CHECKLIST.md"
+  ],
+  "missing_paths": [],
+  "parse_errors": [],
+  "forbidden_hits": [],
+  "claim_policy": {
+    "experiment": "phase6_claim_policy",
+    "status": "PASSED",
+    "permitted_claim": "recover_or_tie_max_pressure_when_constraints_slack; improvement_claims_only_for_explicit_binding_finite_storage_spillback_switching_service_incident_regimes",
+    "allowed_claims": {
+      "slack_recovery_or_tie": {
+        "description": "When finite-storage and operational constraints are slack, the controller may be described as recovering or tying max-pressure/backpressure.",
+        "evidence_prerequisites": [
+          "finite_storage_state",
+          "objective_components",
+          "slack_regime_label",
+          "max_pressure_comparator"
+        ],
+        "allowed_language": [
+          "recovers max-pressure when constraints are slack",
+          "ties max-pressure in slack regimes",
+          "pressure-equivalent recovery evidence"
+        ]
+      },
+      "binding_regime_improvement_only": {
+        "description": "Improvement claims require explicit binding finite-storage, spillback, switching, service, or incident evidence plus objective components.",
+        "evidence_prerequisites": [
+          "finite_storage_state",
+          "objective_components",
+          "binding_regime_separation",
+          "closed_loop_binding_stress_or_one_step_objective_improvement",
+          "paired_or_predeclared_baseline_comparator_when_closed_loop"
+        ],
+        "allowed_language": [
+          "improves only in explicit binding regimes",
+          "binding finite-storage evidence supports this improvement claim",
+          "strict generalization is bounded to binding operational constraints"
+        ]
+      }
+    },
+    "evidence_categories": {
+      "pressure_equivalent_recovery": {
+        "supports": [
+          "slack_recovery_or_tie",
+          "compression_or_equivalence"
+        ],
+        "does_not_support": [
+          "dual_superiority",
+          "deployment_superiority",
+          "universal_dominance"
+        ]
+      },
+      "binding_regime_separation": {
+        "supports": [
+          "action_separation_in_explicit_binding_states"
+        ],
+        "requires": [
+          "finite_storage_state",
+          "objective_components"
+        ]
+      },
+      "closed_loop_binding_stress": {
+        "supports": [
+          "bounded_closed_loop_improvement_in_predeclared_binding_stress_regimes"
+        ],
+        "requires": [
+          "paired_seeds",
+          "strong_baselines",
+          "explicit_binding_state_or_stress_metadata"
+        ]
+      },
+      "insufficient_historical_v1_0": {
+        "applies_to": [
+          "v1.0 static kill gate",
+          "v1.0 closed-loop suite",
+          "pressure-equivalent generalized-pressure recovery"
+        ],
+        "reason": "Historical v1.0 artifacts are pressure-equivalent recovery evidence and cannot support dual-superiority wording."
+      }
+    },
+    "forbidden_patterns": [
+      "dual universally beats pressure",
+      "proves superiority",
+      "deployable superiority",
+      "static evidence proves closed-loop",
+      "universal dominance",
+      "universally dominates pressure"
+    ],
+    "default_scan_paths": [
+      ".planning/PROJECT.md",
+      ".planning/REQUIREMENTS.md",
+      ".planning/STATE.md",
+      "refine-logs",
+      "experiments/dual_sensitivity/block3_static_kill_gate_report.md",
+      "experiments/dual_sensitivity/block4_closed_loop_suite_report.md",
+      "experiments/dual_sensitivity/reproducibility_manifest.json",
+      "experiments/dual_sensitivity/paper_artifacts_manifest.json",
+      "experiments/dual_sensitivity/paper_tables.csv",
+      "experiments/dual_sensitivity/paper_figure_data.csv"
+    ],
+    "requirements_covered": [
+      "CLAIM-01",
+      "CLAIM-02"
+    ],
+    "generated_by": "scripts/audit_claim_discipline.py",
+    "generated_at": "2026-05-23T12:35:37.021998+00:00",
+    "artifact_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase6_claim_policy.json"
+  },
+  "policy_validation_errors": [],
+  "historical_evidence_quarantine": {
+    "category": "insufficient_historical_v1_0",
+    "rule": "v1.0 pressure-equivalent static or closed-loop evidence cannot support superiority claims",
+    "hits": [
+      {
+        "path": ".planning/PROJECT.md",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": ".planning/REQUIREMENTS.md",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": ".planning/STATE.md",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": "refine-logs/THEORY_AND_CLAIMS.md",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": "refine-logs/THEORY_REVIEW_CHECKLIST.md",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": "experiments/dual_sensitivity/block3_static_kill_gate_report.md",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": "experiments/dual_sensitivity/block4_closed_loop_suite_report.md",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": "experiments/dual_sensitivity/reproducibility_manifest.json",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": "experiments/dual_sensitivity/paper_artifacts_manifest.json",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": "experiments/dual_sensitivity/paper_tables.csv",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": "experiments/dual_sensitivity/paper_figure_data.csv",
+        "category": "insufficient_historical_v1_0"
+      }
+    ],
+    "superiority_violations": []
+  },
+  "scan_contract": {
+    "forbidden_phrase_scope": "report prose, configured content files, CSV text, and JSON prose fields",
+    "metadata_exclusions": [
+      "allowed_claims",
+      "claim_policy",
+      "description",
+      "does_not_support",
+      "forbidden_hits",
+      "forbidden_patterns",
+      "forbidden_phrases",
+      "forbidden_phrases_present",
+      "historical_evidence_quarantine",
+      "permitted_claim",
+      "reason"
+    ],
+    "artifact_validation": "claim policy and claim audit required fields are validated separately from forbidden text scanning",
+    "deferred_to_plan_06_03": [
+      "phase6_explicit_state_schema.json",
+      "phase6_state_objective_fixtures.json"
+    ]
+  }
+}

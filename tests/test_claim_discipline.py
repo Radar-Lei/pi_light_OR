@@ -75,7 +75,7 @@ def test_v1_pressure_equivalent_superiority_wording_fails_closed(tmp_path: Path)
     policy_out = tmp_path / "phase6_claim_policy.json"
     audit_out = tmp_path / "phase6_claim_audit.json"
     report.write_text(
-        "Historical pressure-equivalent evidence proves dual superiority without Phase 6 binding evidence.",
+        "Historical pressure-equivalent evidence proves superiority without Phase 6 binding evidence.",
         encoding="utf-8",
     )
 
