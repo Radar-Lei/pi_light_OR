@@ -358,6 +358,20 @@ def test_renderer_rejects_missing_completion_gate() -> None:
 
 
 def test_paper_artifacts_require_phase6_guard_artifacts() -> None:
+    finite_state = {
+        "downstream_storage": {"edge_a": 10.0},
+        "residual_receiving_capacity": {"edge_a": 8.0},
+        "spillback_blocking": {"edge_a": {"spillback": False, "blocking": False, "occupancy_ratio": 0.2}},
+        "switching_loss_state": {"current_phase": 0, "time_since_switch": 5.0},
+        "service_urgency": {"edge_a": 0.2},
+        "incident_capacity_drop": {"active": False, "edge": None, "factor": 1.0},
+    }
+    objective = {
+        "delay": 1.0,
+        "unfinished_vehicle_penalty": 0.0,
+        "spillback_blocking_time": 0.0,
+        "switching_lost_time": 0.0,
+    }
     base_inputs = {
         "block0": {"status": "PASSED", "results": [1]},
         "sparse": {"status": "PASSED", "best_by_library": [1]},
@@ -384,10 +398,37 @@ def test_paper_artifacts_require_phase6_guard_artifacts() -> None:
             "aggregates": [1],
         },
         "repro_manifest": {"status": "PASSED", "artifact_checks": [{"expected": True, "exists": True, "parse_status": "ok"}]},
-        "phase6_claim_policy": {"status": "PASSED", "experiment": "phase6_claim_policy"},
-        "phase6_claim_audit": {"status": "PASSED", "experiment": "phase6_claim_audit"},
-        "phase6_explicit_state_schema": {"status": "PASSED", "experiment": "phase6_explicit_state_schema"},
-        "phase6_state_objective_fixtures": {"status": "PASSED", "experiment": "phase6_state_objective_fixtures"},
+        "phase6_claim_policy": {
+            "status": "PASSED",
+            "experiment": "phase6_claim_policy",
+            "requirements_covered": ["CLAIM-01", "CLAIM-02"],
+            "allowed_claims": {"slack_recovery_or_tie": {}, "binding_regime_improvement_only": {}},
+        },
+        "phase6_claim_audit": {
+            "status": "PASSED",
+            "experiment": "phase6_claim_audit",
+            "requirements_covered": ["CLAIM-01", "CLAIM-02"],
+            "forbidden_hits": [],
+            "missing_paths": [],
+            "parse_errors": [],
+            "policy_validation_errors": [],
+            "historical_evidence_quarantine": {"hits": []},
+        },
+        "phase6_explicit_state_schema": {
+            "status": "PASSED",
+            "experiment": "phase6_explicit_state_schema",
+            "requirements_covered": ["STATE-01", "STATE-02"],
+            "schema_version": "phase6_explicit_state_v1",
+            "finite_storage_state_fields": sorted(FINITE_STORAGE_STATE_FIELDS),
+            "objective_component_fields": sorted(OBJECTIVE_COMPONENT_FIELDS),
+        },
+        "phase6_state_objective_fixtures": {
+            "status": "PASSED",
+            "experiment": "phase6_state_objective_fixtures",
+            "requirements_covered": ["STATE-01", "STATE-02"],
+            "schema_version": "phase6_explicit_state_v1",
+            "samples": [{"finite_storage_state": finite_state, "objective_components": objective}],
+        },
     }
     validate_paper_inputs(base_inputs)
     missing_guard = dict(base_inputs)
@@ -398,6 +439,18 @@ def test_paper_artifacts_require_phase6_guard_artifacts() -> None:
         assert "phase6_claim_audit" in str(exc)
     else:
         raise AssertionError("missing Phase 6 claim audit should fail closed")
+
+    placeholder_guard = dict(base_inputs)
+    placeholder_guard["phase6_state_objective_fixtures"] = {
+        "status": "PASSED",
+        "experiment": "phase6_state_objective_fixtures",
+    }
+    try:
+        validate_paper_inputs(placeholder_guard)
+    except ValueError as exc:
+        assert "phase6_state_objective_fixtures" in str(exc)
+    else:
+        raise AssertionError("status-only Phase 6 fixtures guard should fail closed")
 
 
 def test_repro_registry_includes_phase6_guard_artifacts() -> None:

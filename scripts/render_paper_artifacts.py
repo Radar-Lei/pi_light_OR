@@ -7,7 +7,13 @@ import json
 from pathlib import Path
 from typing import Any
 
-from claim_policy import FORBIDDEN_CLAIM_PATTERNS, forbidden_claim_hits
+from claim_policy import FORBIDDEN_CLAIM_PATTERNS, REQUIREMENTS_COVERED, forbidden_claim_hits
+from finite_storage_schema import (
+    FINITE_STORAGE_STATE_FIELDS,
+    OBJECTIVE_COMPONENT_FIELDS,
+    SCHEMA_VERSION,
+    validate_state_objective_sample,
+)
 
 RENDERER_FORBIDDEN_PHRASES = ["max-pressure strawman"]
 FORBIDDEN_PHRASES = list(dict.fromkeys([*FORBIDDEN_CLAIM_PATTERNS, *RENDERER_FORBIDDEN_PHRASES]))
@@ -74,10 +80,7 @@ def load_inputs(args: argparse.Namespace) -> dict[str, Any]:
     return payloads
 
 
-def validate_inputs(inputs: dict[str, Any]) -> None:
-    for name in ["block0", "sparse", "static", "closed_loop", "repro_manifest"]:
-        if inputs[name].get("status") != "PASSED":
-            raise ValueError(f"{name} source artifact is not PASSED")
+def validate_phase6_guard_artifacts(inputs: dict[str, Any]) -> None:
     for name, experiment in PHASE6_GUARD_ARTIFACTS.items():
         guard = inputs.get(name)
         if not isinstance(guard, dict):
@@ -86,6 +89,54 @@ def validate_inputs(inputs: dict[str, Any]) -> None:
             raise ValueError(f"{name} guard artifact is not PASSED")
         if guard.get("experiment") != experiment:
             raise ValueError(f"{name} guard artifact has unexpected experiment: {guard.get('experiment')}")
+
+    policy = inputs["phase6_claim_policy"]
+    if policy.get("requirements_covered") != REQUIREMENTS_COVERED:
+        raise ValueError("phase6_claim_policy requirements mismatch")
+    allowed = policy.get("allowed_claims")
+    if not isinstance(allowed, dict) or not {"slack_recovery_or_tie", "binding_regime_improvement_only"} <= set(allowed):
+        raise ValueError("phase6_claim_policy allowed claims are incomplete")
+
+    claim_audit = inputs["phase6_claim_audit"]
+    if claim_audit.get("requirements_covered") != REQUIREMENTS_COVERED:
+        raise ValueError("phase6_claim_audit requirements mismatch")
+    if claim_audit.get("forbidden_hits"):
+        raise ValueError("phase6_claim_audit contains forbidden hits")
+    if claim_audit.get("missing_paths") or claim_audit.get("parse_errors") or claim_audit.get("policy_validation_errors"):
+        raise ValueError("phase6_claim_audit contains missing paths, parse errors, or policy validation errors")
+    historical = claim_audit.get("historical_evidence_quarantine")
+    if not isinstance(historical, dict) or not isinstance(historical.get("hits"), list):
+        raise ValueError("phase6_claim_audit historical quarantine hits are missing")
+
+    schema = inputs["phase6_explicit_state_schema"]
+    if schema.get("schema_version") != SCHEMA_VERSION:
+        raise ValueError("phase6_explicit_state_schema schema_version mismatch")
+    if set(schema.get("finite_storage_state_fields", [])) != FINITE_STORAGE_STATE_FIELDS:
+        raise ValueError("phase6_explicit_state_schema finite state fields are incomplete")
+    if set(schema.get("objective_component_fields", [])) != OBJECTIVE_COMPONENT_FIELDS:
+        raise ValueError("phase6_explicit_state_schema objective fields are incomplete")
+    if not {"STATE-01", "STATE-02"} <= set(schema.get("requirements_covered", [])):
+        raise ValueError("phase6_explicit_state_schema requirements mismatch")
+
+    fixtures = inputs["phase6_state_objective_fixtures"]
+    if fixtures.get("schema_version") != SCHEMA_VERSION:
+        raise ValueError("phase6_state_objective_fixtures schema_version mismatch")
+    if not {"STATE-01", "STATE-02"} <= set(fixtures.get("requirements_covered", [])):
+        raise ValueError("phase6_state_objective_fixtures requirements mismatch")
+    samples = fixtures.get("samples")
+    if not isinstance(samples, list) or not samples:
+        raise ValueError("phase6_state_objective_fixtures.samples must be a non-empty list")
+    for idx, sample in enumerate(samples):
+        if not isinstance(sample, dict):
+            raise ValueError(f"phase6_state_objective_fixtures sample {idx} must be an object")
+        validate_state_objective_sample(sample, path=Path("phase6_state_objective_fixtures"), sample_idx=idx)
+
+
+def validate_inputs(inputs: dict[str, Any]) -> None:
+    for name in ["block0", "sparse", "static", "closed_loop", "repro_manifest"]:
+        if inputs[name].get("status") != "PASSED":
+            raise ValueError(f"{name} source artifact is not PASSED")
+    validate_phase6_guard_artifacts(inputs)
     static_route = inputs["static"].get("route_decision")
     closed_route = inputs["closed_loop"].get("route_decision")
     if static_route != "pressure-equivalent":
