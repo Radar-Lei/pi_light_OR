@@ -850,7 +850,8 @@ def build_payload(
     action_interval = max([int(row.get("action_interval", 0)) for row in spec], default=0)
     seeds = sorted({int(row["seed"]) for row in spec})
     demand_multipliers = sorted({float(row["demand_multiplier"]) for row in spec})
-    missing_row_keys = _missing_row_keys(spec, rows)
+    executed_rows = _completed_rows(rows)
+    missing_row_keys = _missing_row_keys(spec, executed_rows)
     if missing_row_keys:
         missing_row_reasons.append("missing required executed scenario/controller/seed/demand-multiplier rows")
     demand_provenance = sorted(
@@ -861,7 +862,7 @@ def build_payload(
     )
     gate_payload = {"profile": profile, "steps": steps, "warmup": warmup, "dry_run": dry_run, "scenario_results": rows}
     gate_c = evaluate_gate_c(gate_payload)
-    status = _status_for_payload(profile, dry_run, spec, rows, gate_c, missing_row_reasons)
+    status = _status_for_payload(profile, dry_run, spec, executed_rows, gate_c, missing_row_reasons)
     paired_statistics = gate_c.get("primary_metric_rule", {}).get("metric_results", [])
     payload = {
         "experiment": "phase11_long_horizon_paired_seed_evidence",
@@ -909,9 +910,10 @@ def build_payload(
         "paired_statistics": paired_statistics,
         "paired_seed_alignment": paired_seed_alignment(rows, spec),
         "gate_c": gate_c,
-        "actual_row_count": len(rows),
+        "actual_row_count": len(executed_rows),
+        "raw_row_count": len(rows),
         "expected_row_count": len(spec),
-        "all_rows_executed": len(rows) == len(spec) and not dry_run,
+        "all_rows_executed": len(executed_rows) == len(spec) and not dry_run,
         "missing_row_keys": missing_row_keys[:500],
         "missing_row_key_count": len(missing_row_keys),
         "missing_row_reasons": sorted(set(missing_row_reasons)),
@@ -927,6 +929,37 @@ def build_payload(
     return payload
 
 
+def dry_run_placeholder_rows(spec: list[dict[str, Any]], route_metadata: dict[str, str]) -> list[dict[str, Any]]:
+    rows = []
+    for item in spec:
+        rows.append(
+            {
+                "network": item["network"],
+                "scenario_tag": item["scenario_tag"],
+                "controller": item["controller"],
+                "seed": int(item["seed"]),
+                "steps": int(item["steps"]),
+                "warmup": int(item["warmup"]),
+                "action_interval": int(item["action_interval"]),
+                "profile": item["profile"],
+                "scenario_status": "dry_run_placeholder",
+                "feasibility_status": "not_executed",
+                **route_metadata,
+                "sumocfg": item["generated_sumocfg"],
+                "base_sumocfg": item["base_sumocfg"],
+                "demand_multiplier": item["demand_multiplier"],
+                "demand_scaling_method": item["demand_scaling_method"],
+                "base_demand_total": item["base_demand_total"],
+                "scaled_demand_total": item["scaled_demand_total"],
+                "generated_route_file": item["generated_route_file"],
+                "generated_sumocfg": item["generated_sumocfg"],
+                "demand_multiplier_provenance": item["demand_multiplier_provenance"],
+                "placeholder_reason": "dry-run spec-only mode; not executed by SUMO",
+            }
+        )
+    return rows
+
+
 def execute_spec(
     spec: list[dict[str, Any]],
     route_metadata: dict[str, str],
@@ -935,7 +968,7 @@ def execute_spec(
     execution_row_limit: int | None,
 ) -> tuple[list[dict[str, Any]], list[str], str]:
     if dry_run:
-        return [], ["dry-run requested; no SUMO rows executed"], "dry_run_spec_only"
+        return dry_run_placeholder_rows(spec, route_metadata), ["dry-run requested; no SUMO rows executed"], "dry_run_spec_only"
     rows = []
     reasons = []
     if execution_row_limit is not None and len(spec) > execution_row_limit:

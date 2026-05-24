@@ -21,6 +21,7 @@ from run_phase11_paired_evidence import (  # noqa: E402
     PROPOSED_CONTROLLER,
     REQUIRED_GATE_C_COMPARATORS,
     SLACK_CONTEXT_SCENARIOS,
+    build_payload,
     build_phase11_spec,
     generate_scaled_route_and_sumocfg,
     materialize_demand_inputs,
@@ -130,6 +131,39 @@ def test_sumocfg_override_argument_is_exposed_in_run_experiment() -> None:
     signature = inspect.signature(run_experiment)
     assert "sumocfg_override" in signature.parameters
     assert signature.parameters["sumocfg_override"].default is None
+
+
+def test_dry_run_payload_records_phase11_schema_and_rejects_evidence_completion() -> None:
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        spec = build_phase11_spec(
+            profile="pilot",
+            seeds=[7, 8],
+            steps=120,
+            warmup=30,
+            demand_multipliers=[1.0],
+        )
+        enriched = materialize_demand_inputs(spec, Path(raw_tmp))
+        placeholders = []
+        route_metadata = {"route_decision": "pressure-equivalent", "route_confidence": "MEDIUM", "route_json": "synthetic.json"}
+        payload = build_payload(
+            profile="pilot",
+            route_metadata=route_metadata,
+            spec=enriched,
+            rows=placeholders,
+            dry_run=True,
+            execution_mode="dry_run_spec_only",
+            missing_row_reasons=["dry-run requested; no SUMO rows executed"],
+        )
+    assert payload["experiment"] == "phase11_long_horizon_paired_seed_evidence"
+    assert payload["status"] == "PILOT_ONLY"
+    assert payload["profile"] == "pilot"
+    assert payload["paired_statistics"] == []
+    assert payload["gate_c"]["status"] == "INCONCLUSIVE"
+    assert payload["metric_schema"]["penalized_avg_travel_time"] == "CLOP-04 metric"
+    assert payload["objective_component_schema"]["row_field"] == "objective_components"
+    assert payload["finite_storage_state_schema"]["row_field"] == "finite_storage_state"
+    assert payload["demand_scaling_provenance"]
+    assert payload["all_rows_executed"] is False
 
 
 def finite_storage_state() -> dict[str, Any]:
@@ -373,6 +407,7 @@ def main() -> None:
     test_demand_multiplier_contract_requires_actual_sumo_behavior_change()
     test_scaled_route_sumocfg_generation_changes_actual_demand_inputs()
     test_sumocfg_override_argument_is_exposed_in_run_experiment()
+    test_dry_run_payload_records_phase11_schema_and_rejects_evidence_completion()
     test_primary_metric_constants_cover_all_d_11_04_metrics()
     test_paired_metric_summary_reports_direction_ci_effect_and_family_metadata()
     test_gate_c_rule_pass_fail_inconclusive_and_missing_metric_cases()
