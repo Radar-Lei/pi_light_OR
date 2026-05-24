@@ -32,6 +32,34 @@ from run_phase11_paired_evidence import (  # noqa: E402
 )
 
 
+def test_main_spec_enforces_long_horizon_seed_and_multiplier_contracts() -> None:
+    try:
+        build_phase11_spec(profile="main", seeds=[1], demand_multipliers=[0.8, 1.0, 1.2])
+    except ValueError as exc:
+        assert "two paired seeds" in str(exc)
+    else:
+        raise AssertionError("one-seed main profile should fail validation")
+
+    try:
+        build_phase11_spec(profile="main", seeds=[1, 2], demand_multipliers=[1.0])
+    except ValueError as exc:
+        assert "0.8, 1.0, and 1.2" in str(exc)
+    else:
+        raise AssertionError("single-multiplier main profile should fail validation")
+
+    try:
+        build_phase11_spec(profile="main", seeds=[1, 2], steps=3599, warmup=900, demand_multipliers=[0.8, 1.0, 1.2])
+    except ValueError as exc:
+        assert "3600" in str(exc)
+    else:
+        raise AssertionError("sub-3600 main profile should fail validation")
+
+    spec = build_phase11_spec(profile="main", seeds=[1, 2], steps=3600, warmup=900, demand_multipliers=[0.8, 1.0, 1.2])
+    assert spec
+    assert all(row["profile"] == "main" for row in spec)
+
+
+
 def test_phase11_constants_lock_binding_scope_and_comparators() -> None:
     assert PROPOSED_CONTROLLER == "finite_storage_primal_dual"
     assert BINDING_EVIDENCE_SCENARIOS == (
@@ -52,6 +80,8 @@ def test_phase11_constants_lock_binding_scope_and_comparators() -> None:
 
 def test_main_spec_defaults_are_journal_grade_and_paired() -> None:
     spec = build_phase11_spec(profile="main")
+    assert len({row["seed"] for row in spec}) == 20
+    assert {row["demand_multiplier"] for row in spec} == {0.8, 1.0, 1.2}
     assert spec
     assert {row["scenario_tag"] for row in spec} == set(BINDING_EVIDENCE_SCENARIOS)
     assert all(row["steps"] >= 3600 for row in spec)
@@ -131,6 +161,38 @@ def test_sumocfg_override_argument_is_exposed_in_run_experiment() -> None:
     signature = inspect.signature(run_experiment)
     assert "sumocfg_override" in signature.parameters
     assert signature.parameters["sumocfg_override"].default is None
+
+
+def test_main_fail_closed_payload_records_missing_executions() -> None:
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        spec = build_phase11_spec(
+            profile="main",
+            seeds=[7, 8],
+            steps=3600,
+            warmup=900,
+            demand_multipliers=[0.8, 1.0, 1.2],
+        )
+        enriched = materialize_demand_inputs(spec, Path(raw_tmp))
+        route_metadata = {"route_decision": "pressure-equivalent", "route_confidence": "MEDIUM", "route_json": "synthetic.json"}
+        payload = build_payload(
+            profile="main",
+            route_metadata=route_metadata,
+            spec=enriched,
+            rows=[],
+            dry_run=False,
+            execution_mode="fail_closed_runtime_guard",
+            missing_row_reasons=["runtime guard prevented requested rows from starting"],
+        )
+    assert payload["profile"] == "main"
+    assert payload["status"] == "INCONCLUSIVE"
+    assert payload["steps"] >= 3600
+    assert payload["warmup"] >= 900
+    assert {0.8, 1.0, 1.2} <= set(payload["demand_multipliers"])
+    assert payload["actual_row_count"] == 0
+    assert payload["missing_row_key_count"] == payload["expected_row_count"]
+    assert payload["all_rows_executed"] is False
+    assert payload["demand_scaling_provenance"]
+    assert any("runtime guard" in reason for reason in payload["missing_row_reasons"])
 
 
 def test_dry_run_payload_records_phase11_schema_and_rejects_evidence_completion() -> None:
@@ -401,6 +463,7 @@ def test_validate_payload_scope_rejects_forbidden_claim_language() -> None:
 
 
 def main() -> None:
+    test_main_spec_enforces_long_horizon_seed_and_multiplier_contracts()
     test_phase11_constants_lock_binding_scope_and_comparators()
     test_main_spec_defaults_are_journal_grade_and_paired()
     test_pilot_spec_is_pipeline_validation_not_gate_c_evidence()
@@ -408,6 +471,7 @@ def main() -> None:
     test_scaled_route_sumocfg_generation_changes_actual_demand_inputs()
     test_sumocfg_override_argument_is_exposed_in_run_experiment()
     test_dry_run_payload_records_phase11_schema_and_rejects_evidence_completion()
+    test_main_fail_closed_payload_records_missing_executions()
     test_primary_metric_constants_cover_all_d_11_04_metrics()
     test_paired_metric_summary_reports_direction_ci_effect_and_family_metadata()
     test_gate_c_rule_pass_fail_inconclusive_and_missing_metric_cases()
