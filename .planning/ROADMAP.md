@@ -162,7 +162,7 @@ Plans:
 | 8. Live Finite-Storage Primal-Dual Controller | v1.1 | 1/1 | Complete | 2026-05-24 |
 | 9. Slack and Binding Kill Gates | v1.1 | 1/1 | Complete | 2026-05-24 |
 | 10. Strong Baselines and Stress Scenario Suite | v1.1 | 1/1 | Complete | 2026-05-24 |
-| 11. Long-Horizon Paired-Seed Evidence | v1.1 | 0/TBD | Not started | - |
+| 11. Long-Horizon Paired-Seed Evidence | v1.1 | 1/3 | In Progress|  |
 | 12. Reproducibility and Future Claim Inputs | v1.1 | 0/TBD | Not started | - |
 
 ## Coverage

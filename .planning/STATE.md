@@ -4,8 +4,8 @@ milestone: v1.1
 milestone_name: Explicit Finite-Storage Primal-Dual Separation
 status: executing
 stopped_at: Phase 11 context gathered
-last_updated: "2026-05-24T10:42:18.594Z"
-last_activity: 2026-05-24 -- Phase 11 planning complete
+last_updated: "2026-05-24T10:43:07.338Z"
+last_activity: 2026-05-24 -- Phase 11 execution started
 progress:
   total_phases: 7
   completed_phases: 5
@@ -21,14 +21,14 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-24)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** Phase 11 — long-horizon paired-seed evidence
+**Current focus:** Phase 11 — Long-Horizon Paired-Seed Evidence
 
 ## Current Position
 
-Phase: 11
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-05-24 -- Phase 11 planning complete
+Phase: 11 (Long-Horizon Paired-Seed Evidence) — EXECUTING
+Plan: 1 of 3
+Status: Executing Phase 11
+Last activity: 2026-05-24 -- Phase 11 execution started
 
 Progress: [███████░░░] 71%
 
