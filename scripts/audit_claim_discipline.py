@@ -160,8 +160,9 @@ def audit_claim_paths(root: Path, paths: list[str], *, policy_path: Path | None 
                 historical_quarantine_hits.append({"path": rel, "category": "insufficient_historical_v1_0"})
 
     policy_errors = validate_policy_artifact(policy)
+    blocking_missing_paths = [] if allow_missing_paths else missing_paths
     status = "PASSED"
-    if forbidden_hits or historical_superiority_violations or missing_paths or parse_errors or policy_errors:
+    if forbidden_hits or historical_superiority_violations or blocking_missing_paths or parse_errors or policy_errors:
         status = "FAILED"
     audit = {
         "experiment": "phase6_claim_audit",
@@ -170,7 +171,7 @@ def audit_claim_paths(root: Path, paths: list[str], *, policy_path: Path | None 
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "requirements_covered": REQUIREMENTS_COVERED,
         "checked_paths": sorted(dict.fromkeys(checked_paths)),
-        "missing_paths": missing_paths,
+        "missing_paths": sorted(dict.fromkeys(blocking_missing_paths)),
         "skipped_paths": sorted(dict.fromkeys(missing_paths)) if allow_missing_paths else [],
         "allow_missing_paths": allow_missing_paths,
         "parse_errors": parse_errors,

@@ -110,6 +110,35 @@ def test_v1_pressure_equivalent_superiority_wording_fails_closed(tmp_path: Path)
     assert any(hit["phrase"] == "proves superiority" for hit in audit["forbidden_hits"])
 
 
+def test_allow_missing_paths_records_skips_without_failing(tmp_path: Path) -> None:
+    report = tmp_path / "bounded.md"
+    policy_out = tmp_path / "phase6_claim_policy.json"
+    audit_out = tmp_path / "phase6_claim_audit.json"
+    report.write_text(
+        "Slack regimes recover/tie max-pressure. Binding improvement needs explicit finite-storage evidence.",
+        encoding="utf-8",
+    )
+
+    result = run_audit(
+        "--root",
+        str(tmp_path),
+        "--paths",
+        "bounded.md",
+        "missing_report.md",
+        "--allow-missing-paths",
+        "--policy-out",
+        str(policy_out),
+        "--audit-out",
+        str(audit_out),
+    )
+
+    assert result.returncode == 0, result.stderr
+    audit = read_json(audit_out)
+    assert audit["status"] == "PASSED"
+    assert audit["missing_paths"] == []
+    assert audit["skipped_paths"] == ["missing_report.md"]
+
+
 def test_bounded_claim_language_passes_claim_audit(tmp_path: Path) -> None:
     report = tmp_path / "bounded.md"
     policy_out = tmp_path / "phase6_claim_policy.json"
