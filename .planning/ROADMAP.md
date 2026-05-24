@@ -18,7 +18,7 @@ v1.1 converts the v1.0 pressure-equivalent artifact into a bounded strong-claim 
 - [x] **Phase 8: Live Finite-Storage Primal-Dual Controller** - Implement a safely deployable controller path with auditable score decompositions and slack-regime reduction tests. (completed 2026-05-24)
 - [x] **Phase 9: Slack and Binding Kill Gates** - Build fail-closed gates for slack recovery and binding-state action/objective separation. (completed 2026-05-24)
 - [x] **Phase 10: Strong Baselines and Stress Scenario Suite** - Add honest operational/pressure baselines and explicit finite-storage stress scenarios, including the grid fixed-time counterexample. (completed 2026-05-24)
-- [ ] **Phase 11: Long-Horizon Paired-Seed Evidence** - Run journal-grade closed-loop paired-seed experiments and statistical dominance checks only in binding stress regimes.
+- [x] **Phase 11: Long-Horizon Paired-Seed Evidence** - Run journal-grade closed-loop paired-seed experiments and statistical dominance checks only in binding stress regimes. (completed 2026-05-24)
 - [ ] **Phase 12: Reproducibility and Future Claim Inputs** - Regenerate all new evidence from raw artifacts and prepare bounded future claim inputs without drafting the paper.
 
 ## Phase Details
@@ -162,7 +162,7 @@ Plans:
 | 8. Live Finite-Storage Primal-Dual Controller | v1.1 | 1/1 | Complete | 2026-05-24 |
 | 9. Slack and Binding Kill Gates | v1.1 | 1/1 | Complete | 2026-05-24 |
 | 10. Strong Baselines and Stress Scenario Suite | v1.1 | 1/1 | Complete | 2026-05-24 |
-| 11. Long-Horizon Paired-Seed Evidence | v1.1 | 2/3 | In Progress|  |
+| 11. Long-Horizon Paired-Seed Evidence | v1.1 | 3/3 | Complete   | 2026-05-24 |
 | 12. Reproducibility and Future Claim Inputs | v1.1 | 0/TBD | Not started | - |
 
 ## Coverage
