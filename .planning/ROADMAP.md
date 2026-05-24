@@ -15,9 +15,9 @@ v1.1 converts the v1.0 pressure-equivalent artifact into a bounded strong-claim 
 
 - [x] **Phase 6: Claim Discipline and Explicit State Foundation** - Lock bounded claim rules and replace proxy regimes with explicit finite-storage state/objective artifacts. (completed 2026-05-23)
 - [ ] **Phase 7: Theory and Separation Package** - Prove slack max-pressure recovery, binding-regime separation, strict one-step improvement, and one additional guarantee candidate.
-- [ ] **Phase 8: Live Finite-Storage Primal-Dual Controller** - Implement a safely deployable controller path with auditable score decompositions and slack-regime reduction tests.
-- [ ] **Phase 9: Slack and Binding Kill Gates** - Build fail-closed gates for slack recovery and binding-state action/objective separation.
-- [ ] **Phase 10: Strong Baselines and Stress Scenario Suite** - Add honest operational/pressure baselines and explicit finite-storage stress scenarios, including the grid fixed-time counterexample.
+- [x] **Phase 8: Live Finite-Storage Primal-Dual Controller** - Implement a safely deployable controller path with auditable score decompositions and slack-regime reduction tests. (completed 2026-05-24)
+- [x] **Phase 9: Slack and Binding Kill Gates** - Build fail-closed gates for slack recovery and binding-state action/objective separation. (completed 2026-05-24)
+- [x] **Phase 10: Strong Baselines and Stress Scenario Suite** - Add honest operational/pressure baselines and explicit finite-storage stress scenarios, including the grid fixed-time counterexample. (completed 2026-05-24)
 - [ ] **Phase 11: Long-Horizon Paired-Seed Evidence** - Run journal-grade closed-loop paired-seed experiments and statistical dominance checks only in binding stress regimes.
 - [ ] **Phase 12: Reproducibility and Future Claim Inputs** - Regenerate all new evidence from raw artifacts and prepare bounded future claim inputs without drafting the paper.
 
@@ -58,7 +58,11 @@ Plans:
   3. User can audit the separation example and see strict improvement on a predeclared one-step constrained objective, spillback penalty, Lyapunov drift, or equivalent criterion.
   4. User can identify one additional guarantee candidate suitable for later use: throughput/bounded-drift, regret to a constrained LP oracle, or symbolic-compression error bound.
 
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+**Wave 1**
+
+- [x] 07-01-PLAN.md — Create bounded finite-storage theory memo, deterministic separation checker, JSON artifact, and tests.
 
 ### Phase 8: Live Finite-Storage Primal-Dual Controller
 
@@ -72,7 +76,11 @@ Plans:
   3. User can run deterministic slack fixtures and observe pressure-equivalent actions matching existing max-pressure behavior.
   4. User can run binding fixtures and see which shadow-price terms changed the selected action relative to classical pressure.
 
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+**Wave 1**
+
+- [x] 08-01-PLAN.md — Implement safe `finite_storage_primal_dual` controller, audited score decompositions, slack/binding tests, and completed-row action audit.
 
 ### Phase 9: Slack and Binding Kill Gates
 
@@ -86,7 +94,11 @@ Plans:
   3. User can observe gates fail closed when explicit state fields, action decompositions, paired seeds, or required baseline comparators are missing.
   4. User can inspect gate summaries that clearly distinguish recovery evidence from separation evidence.
 
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+**Wave 1**
+
+- [x] 09-01-PLAN.md — Implement deterministic fail-closed Gate A/B runner and artifact for slack recovery and binding separation.
 
 ### Phase 10: Strong Baselines and Stress Scenario Suite
 
@@ -100,7 +112,11 @@ Plans:
   3. User can trigger downstream blockage, spillback, incident/lane capacity drop, oversaturation, turning shock, and switching-loss-sensitive stress scenarios.
   4. User can see infeasible baselines reported honestly rather than replaced by unsafe heuristics.
 
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+**Wave 1**
+
+- [x] 10-01-PLAN.md — Add strong feasible baselines, explicit stress scenario suite coverage, grid fixed-time metadata, and Phase 10 smoke/spec artifact.
 
 ### Phase 11: Long-Horizon Paired-Seed Evidence
 
@@ -142,10 +158,10 @@ Plans:
 | 4. Closed-Loop SUMO Evaluation | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 5. Reproducibility and Repository Hardening | v1.0 | 3/3 | Complete | 2026-05-23 |
 | 6. Claim Discipline and Explicit State Foundation | v1.1 | 3/3 | Complete   | 2026-05-23 |
-| 7. Theory and Separation Package | v1.1 | 0/TBD | Not started | - |
-| 8. Live Finite-Storage Primal-Dual Controller | v1.1 | 0/TBD | Not started | - |
-| 9. Slack and Binding Kill Gates | v1.1 | 0/TBD | Not started | - |
-| 10. Strong Baselines and Stress Scenario Suite | v1.1 | 0/TBD | Not started | - |
+| 7. Theory and Separation Package | v1.1 | 1/1 | Complete | 2026-05-24 |
+| 8. Live Finite-Storage Primal-Dual Controller | v1.1 | 1/1 | Complete | 2026-05-24 |
+| 9. Slack and Binding Kill Gates | v1.1 | 1/1 | Complete | 2026-05-24 |
+| 10. Strong Baselines and Stress Scenario Suite | v1.1 | 1/1 | Complete | 2026-05-24 |
 | 11. Long-Horizon Paired-Seed Evidence | v1.1 | 0/TBD | Not started | - |
 | 12. Reproducibility and Future Claim Inputs | v1.1 | 0/TBD | Not started | - |
 
