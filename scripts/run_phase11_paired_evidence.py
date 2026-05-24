@@ -423,6 +423,155 @@ def evaluate_gate_c_primary_metric_rule(
     }
 
 
+FORBIDDEN_AFFIRMATIVE_PHRASES = (
+    "universal dominance",
+    "universal superiority",
+    "deployment readiness",
+    "final manuscript claim",
+    "manuscript claim",
+    "superior to max-pressure outside binding regimes",
+    "superiority over max-pressure outside binding regimes",
+    "broad superiority over max-pressure",
+    "phase 10 proves superiority",
+    "phase 10 superiority",
+    "phase 10 dominance",
+)
+
+
+def _collect_text(value: Any) -> str:
+    if isinstance(value, dict):
+        return " ".join(_collect_text(item) for item in value.values())
+    if isinstance(value, list):
+        return " ".join(_collect_text(item) for item in value)
+    return str(value)
+
+
+def validate_payload_scope(payload: dict[str, Any]) -> None:
+    text = _collect_text({key: value for key, value in payload.items() if key != "caveats"}).lower()
+    forbidden = [phrase for phrase in FORBIDDEN_AFFIRMATIVE_PHRASES if phrase in text]
+    if forbidden:
+        raise ValueError(f"forbidden Phase 11 claim language: {forbidden}")
+
+
+def _row_id(row: dict[str, Any]) -> str:
+    return f"{row.get('scenario_tag')}/{row.get('demand_multiplier', 1.0)}/{row.get('controller')}/seed={row.get('seed')}"
+
+
+def _validate_demand_provenance(row: dict[str, Any]) -> list[str]:
+    provenance = row.get("demand_multiplier_provenance") or row.get("demand_multiplier_contract")
+    if not isinstance(provenance, dict):
+        return [f"{_row_id(row)} missing demand multiplier provenance"]
+    if provenance.get("metadata_only_valid") is not False:
+        return [f"{_row_id(row)} has metadata-only demand multiplier provenance"]
+    if provenance.get("requires_actual_sumo_behavior_change") is not True:
+        return [f"{_row_id(row)} demand multiplier does not require actual SUMO behavior change"]
+    method = provenance.get("demand_scaling_method")
+    if method not in {"route_demand_scaling", "insertion_intensity_scaling"}:
+        return [f"{_row_id(row)} demand multiplier method is invalid"]
+    has_actual_totals = "base_demand_total" in provenance and "scaled_demand_total" in provenance and "demand_source" in provenance
+    has_contract_requirements = provenance.get("base_demand_total_required") and provenance.get("scaled_demand_total_required") and provenance.get("demand_source_required")
+    if not (has_actual_totals or has_contract_requirements):
+        return [f"{_row_id(row)} demand multiplier lacks actual behavior provenance"]
+    return []
+
+
+def _validate_binding_row(row: dict[str, Any]) -> list[str]:
+    reasons = []
+    row_name = _row_id(row)
+    if not row.get("stress_category") or not row.get("stress_mechanism"):
+        reasons.append(f"{row_name} missing stress metadata")
+    if not isinstance(row.get("finite_storage_state"), dict):
+        reasons.append(f"{row_name} missing finite_storage_state")
+    if not isinstance(row.get("objective_components"), dict):
+        reasons.append(f"{row_name} missing objective_components")
+    for metric in applicable_primary_metrics(str(row.get("scenario_tag")), [row]):
+        if metric not in row or not isinstance(row.get(metric), (int, float)):
+            reasons.append(f"{row_name} missing numeric metric {metric}")
+    if row.get("controller") == PROPOSED_CONTROLLER:
+        action_decomposition = row.get("action_decomposition")
+        if not isinstance(action_decomposition, dict) or not action_decomposition.get("last_decision_by_tls"):
+            reasons.append(f"{row_name} missing action_decomposition")
+    reasons.extend(_validate_demand_provenance(row))
+    return reasons
+
+
+def _classify_rows(rows: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    sections = {
+        "binding_regime_dominance": [],
+        "slack_regime_recovery_or_context": [],
+        "inconclusive": [],
+        "not_evidence": [],
+    }
+    for row in rows:
+        scenario = str(row.get("scenario_tag"))
+        entry = {
+            "scenario_tag": scenario,
+            "controller": row.get("controller"),
+            "seed": row.get("seed"),
+            "demand_multiplier": row.get("demand_multiplier", 1.0),
+        }
+        if scenario in BINDING_EVIDENCE_SCENARIOS and row.get("scenario_status") == "completed" and row.get("feasibility_status") in {"run", "completed"}:
+            sections["binding_regime_dominance"].append(entry)
+        elif scenario in SLACK_CONTEXT_SCENARIOS:
+            sections["slack_regime_recovery_or_context"].append(entry)
+        elif row.get("scenario_status") != "completed":
+            sections["inconclusive"].append(entry)
+        else:
+            sections["not_evidence"].append(entry)
+    return sections
+
+
+def evaluate_gate_c(payload: dict[str, Any]) -> dict[str, Any]:
+    rows = list(payload.get("scenario_results", []))
+    reasons = []
+    profile = payload.get("profile")
+    steps = int(payload.get("steps", max([int(row.get("steps", 0)) for row in rows], default=0)))
+    warmup = int(payload.get("warmup", max([int(row.get("warmup", 0)) for row in rows], default=0)))
+    if profile != "main" or steps < 3600 or warmup < 900:
+        reasons.append("Gate C complete evidence requires main profile with at least 3600 steps and 900 warmup")
+    completed = _completed_rows(rows)
+    present_scenarios = {str(row.get("scenario_tag")) for row in completed}
+    missing_scenarios = sorted(set(BINDING_EVIDENCE_SCENARIOS) - present_scenarios)
+    if missing_scenarios:
+        reasons.append(f"missing required binding scenarios: {missing_scenarios}")
+    for scenario in BINDING_EVIDENCE_SCENARIOS:
+        scenario_rows = [row for row in completed if row.get("scenario_tag") == scenario]
+        controllers = {str(row.get("controller")) for row in scenario_rows}
+        missing_controllers = sorted({PROPOSED_CONTROLLER, *REQUIRED_GATE_C_COMPARATORS} - controllers)
+        if missing_controllers:
+            reasons.append(f"{scenario} missing required comparator/controller rows: {missing_controllers}")
+        for row in scenario_rows:
+            reasons.extend(_validate_binding_row(row))
+    sections = _classify_rows(rows)
+    if reasons and any("main profile" in reason for reason in reasons) and len(reasons) == 1:
+        status = "INCONCLUSIVE"
+        rule = {"status": "INCONCLUSIVE", "metric_results": [], "family_metadata": _holm_bonferroni([]), "reasons": []}
+    elif reasons:
+        status = "FAILED"
+        rule = {"status": "FAILED", "metric_results": [], "family_metadata": _holm_bonferroni([]), "reasons": reasons}
+    else:
+        demand_multipliers = sorted({float(row.get("demand_multiplier", 1.0)) for row in completed if row.get("scenario_tag") in BINDING_EVIDENCE_SCENARIOS})
+        rule = evaluate_gate_c_primary_metric_rule(
+            completed,
+            scenarios=BINDING_EVIDENCE_SCENARIOS,
+            comparators=REQUIRED_GATE_C_COMPARATORS,
+            demand_multipliers=demand_multipliers,
+        )
+        status = rule["status"]
+        reasons.extend(rule.get("reasons", []))
+    result = {
+        "status": status,
+        "binding_regime_dominance": sections["binding_regime_dominance"],
+        "slack_regime_recovery_or_context": sections["slack_regime_recovery_or_context"],
+        "inconclusive": sections["inconclusive"],
+        "not_evidence": sections["not_evidence"],
+        "primary_metric_rule": rule,
+        "reasons": reasons,
+    }
+    validate_payload_scope(result)
+    return result
+
+
 def build_payload(*, profile: str, route_metadata: dict[str, str], spec: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "experiment": "phase11_long_horizon_paired_seed_evidence",

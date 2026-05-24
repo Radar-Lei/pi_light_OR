@@ -20,8 +20,10 @@ from run_phase11_paired_evidence import (  # noqa: E402
     REQUIRED_GATE_C_COMPARATORS,
     SLACK_CONTEXT_SCENARIOS,
     build_phase11_spec,
+    evaluate_gate_c,
     evaluate_gate_c_primary_metric_rule,
     paired_metric_summary,
+    validate_payload_scope,
 )
 
 
@@ -154,11 +156,28 @@ def make_row(
     return row
 
 
-def synthetic_rows(delta: float = 5.0, *, scenario: str = "arterial_spillback_stress") -> list[dict[str, Any]]:
+def synthetic_rows(
+    delta: float = 5.0,
+    *,
+    scenario: str = "arterial_spillback_stress",
+    comparators: list[str] | None = None,
+) -> list[dict[str, Any]]:
     rows = []
+    if comparators is None:
+        comparators = ["max_pressure"]
     for seed in [1, 2, 3, 4]:
         rows.append(make_row(scenario, PROPOSED_CONTROLLER, seed, offset=0.0))
-        rows.append(make_row(scenario, "max_pressure", seed, offset=delta))
+        for comparator in comparators:
+            rows.append(make_row(scenario, comparator, seed, offset=delta))
+    return rows
+
+
+def full_gate_rows(delta: float = 5.0) -> list[dict[str, Any]]:
+    rows = []
+    for scenario in BINDING_EVIDENCE_SCENARIOS:
+        rows.extend(synthetic_rows(delta=delta, scenario=scenario, comparators=list(REQUIRED_GATE_C_COMPARATORS)))
+    rows.append(make_row("single_sanity", PROPOSED_CONTROLLER, 1, offset=0.0))
+    rows.append(make_row("single_sanity", "max_pressure", 1, offset=0.0))
     return rows
 
 
@@ -224,6 +243,82 @@ def test_unpaired_and_switching_metric_fail_closed() -> None:
     assert any("switching_count" in reason for reason in switching["reasons"])
 
 
+def test_gate_c_core_evaluator_passes_and_classifies_slack_context() -> None:
+    result = evaluate_gate_c({"profile": "main", "steps": 3600, "warmup": 900, "scenario_results": full_gate_rows(delta=5.0)})
+    assert result["status"] == "PASSED"
+    assert result["binding_regime_dominance"]
+    assert result["slack_regime_recovery_or_context"]
+    assert not result["not_evidence"]
+
+
+def test_gate_c_core_evaluator_fails_closed_on_missing_inputs() -> None:
+    missing_scenario = [row for row in full_gate_rows(delta=5.0) if row["scenario_tag"] != "arterial_turning_shock"]
+    result = evaluate_gate_c({"profile": "main", "steps": 3600, "warmup": 900, "scenario_results": missing_scenario})
+    assert result["status"] == "FAILED"
+    assert any("arterial_turning_shock" in reason for reason in result["reasons"])
+
+    missing_comparator = [row for row in full_gate_rows(delta=5.0) if row["controller"] != "capacity_aware_pressure"]
+    result = evaluate_gate_c({"profile": "main", "steps": 3600, "warmup": 900, "scenario_results": missing_comparator})
+    assert result["status"] == "FAILED"
+    assert any("capacity_aware_pressure" in reason for reason in result["reasons"])
+
+    missing_metadata = copy.deepcopy(full_gate_rows(delta=5.0))
+    missing_metadata[0].pop("stress_mechanism")
+    result = evaluate_gate_c({"profile": "main", "steps": 3600, "warmup": 900, "scenario_results": missing_metadata})
+    assert result["status"] == "FAILED"
+    assert any("stress" in reason for reason in result["reasons"])
+
+    missing_state = copy.deepcopy(full_gate_rows(delta=5.0))
+    missing_state[0].pop("finite_storage_state")
+    result = evaluate_gate_c({"profile": "main", "steps": 3600, "warmup": 900, "scenario_results": missing_state})
+    assert result["status"] == "FAILED"
+    assert any("finite_storage_state" in reason for reason in result["reasons"])
+
+    missing_objective = copy.deepcopy(full_gate_rows(delta=5.0))
+    missing_objective[0].pop("objective_components")
+    result = evaluate_gate_c({"profile": "main", "steps": 3600, "warmup": 900, "scenario_results": missing_objective})
+    assert result["status"] == "FAILED"
+    assert any("objective_components" in reason for reason in result["reasons"])
+
+    missing_action = copy.deepcopy(full_gate_rows(delta=5.0))
+    for row in missing_action:
+        if row["controller"] == PROPOSED_CONTROLLER:
+            row.pop("action_decomposition")
+            break
+    result = evaluate_gate_c({"profile": "main", "steps": 3600, "warmup": 900, "scenario_results": missing_action})
+    assert result["status"] == "FAILED"
+    assert any("action_decomposition" in reason for reason in result["reasons"])
+
+
+def test_gate_c_rejects_pilot_and_metadata_only_demand_artifacts() -> None:
+    pilot = evaluate_gate_c({"profile": "pilot", "steps": 300, "warmup": 60, "scenario_results": full_gate_rows(delta=5.0)})
+    assert pilot["status"] == "INCONCLUSIVE"
+    assert any("main profile" in reason for reason in pilot["reasons"])
+
+    metadata_only = copy.deepcopy(full_gate_rows(delta=5.0))
+    metadata_only[0]["demand_multiplier_provenance"]["metadata_only_valid"] = True
+    result = evaluate_gate_c({"profile": "main", "steps": 3600, "warmup": 900, "scenario_results": metadata_only})
+    assert result["status"] == "FAILED"
+    assert any("demand multiplier" in reason for reason in result["reasons"])
+
+
+def test_validate_payload_scope_rejects_forbidden_claim_language() -> None:
+    validate_payload_scope({"claim": "closed-loop paired-seed evidence in predeclared binding stress regimes"})
+    for phrase in [
+        "universal dominance",
+        "deployment readiness",
+        "final manuscript claim",
+        "superior to max-pressure outside binding regimes",
+        "Phase 10 proves superiority",
+    ]:
+        try:
+            validate_payload_scope({"claim": phrase})
+        except ValueError as exc:
+            assert phrase.lower().split()[0] in str(exc).lower() or "forbidden" in str(exc).lower()
+        else:
+            raise AssertionError(f"forbidden claim language should fail: {phrase}")
+
+
 def main() -> None:
     test_phase11_constants_lock_binding_scope_and_comparators()
     test_main_spec_defaults_are_journal_grade_and_paired()
@@ -233,6 +328,10 @@ def main() -> None:
     test_paired_metric_summary_reports_direction_ci_effect_and_family_metadata()
     test_gate_c_rule_pass_fail_inconclusive_and_missing_metric_cases()
     test_unpaired_and_switching_metric_fail_closed()
+    test_gate_c_core_evaluator_passes_and_classifies_slack_context()
+    test_gate_c_core_evaluator_fails_closed_on_missing_inputs()
+    test_gate_c_rejects_pilot_and_metadata_only_demand_artifacts()
+    test_validate_payload_scope_rejects_forbidden_claim_language()
     print("phase11 paired evidence tests ok")
 
 
