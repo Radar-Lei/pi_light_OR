@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+import json
 import sys
 import tempfile
 import xml.etree.ElementTree as ET
@@ -29,6 +30,11 @@ from run_phase11_paired_evidence import (  # noqa: E402
     evaluate_gate_c_primary_metric_rule,
     paired_metric_summary,
     validate_payload_scope,
+)
+from run_gate_c_paired_evidence import (  # noqa: E402
+    build_gate_payload,
+    load_input_payload,
+    write_gate_artifact,
 )
 
 
@@ -462,6 +468,86 @@ def test_validate_payload_scope_rejects_forbidden_claim_language() -> None:
             raise AssertionError(f"forbidden claim language should fail: {phrase}")
 
 
+def test_standalone_gate_checker_writes_inconclusive_output_for_missing_main_rows() -> None:
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        input_path = Path(raw_tmp) / "phase11_input.json"
+        out_path = Path(raw_tmp) / "phase11_gate.json"
+        payload = {
+            "experiment": "phase11_long_horizon_paired_seed_evidence",
+            "status": "INCONCLUSIVE",
+            "profile": "main",
+            "steps": 3600,
+            "warmup": 900,
+            "dry_run": False,
+            "actual_row_count": 0,
+            "expected_row_count": 12,
+            "all_rows_executed": False,
+            "demand_scaling_method": "scaled_route_sumocfg_override",
+            "demand_multipliers": [0.8, 1.0, 1.2],
+            "demand_scaling_provenance": [
+                {
+                    "demand_multiplier": 1.0,
+                    "demand_scaling_method": "scaled_route_sumocfg_override",
+                    "requires_actual_sumo_behavior_change": True,
+                    "metadata_only_valid": False,
+                    "base_demand_total": 100.0,
+                    "scaled_demand_total": 100.0,
+                    "generated_route_file": "synthetic.rou.xml",
+                    "generated_sumocfg": "synthetic.sumocfg",
+                    "base_sumocfg": "base.sumocfg",
+                }
+            ],
+            "scenario_results": [],
+            "caveats": ["No dominance claim."],
+        }
+        input_path.write_text(json.dumps(payload), encoding="utf-8")
+        result = write_gate_artifact(input_path, out_path)
+        loaded = json.loads(out_path.read_text(encoding="utf-8"))
+    assert result["status"] == "INCONCLUSIVE"
+    assert loaded["experiment"] == "phase11_gate_c_paired_evidence"
+    assert loaded["requirements_covered"] == ["GATE-03", "EXP-05"]
+    assert loaded["gate_c_primary_metrics"] == list(GATE_C_PRIMARY_METRICS)
+    assert loaded["gate_c_primary_metrics_v1"]["statistical_family"] == GATE_C_STATISTICAL_FAMILY
+    assert loaded["binding_regime_dominance"] == []
+    assert loaded["profile_eligibility"]["eligible"] is False
+    assert loaded["demand_multiplier_provenance_summary"]["valid_actual_behavior"] is True
+    assert any("no executed raw scenario rows" in reason for reason in loaded["reasons"])
+
+
+def test_gate_checker_rejects_pilot_artifacts_and_forbidden_language() -> None:
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        input_path = Path(raw_tmp) / "pilot.json"
+        out_path = Path(raw_tmp) / "gate.json"
+        pilot_payload = {
+            "experiment": "phase11_long_horizon_paired_seed_evidence",
+            "status": "PILOT_ONLY",
+            "profile": "pilot",
+            "steps": 120,
+            "warmup": 30,
+            "dry_run": True,
+            "actual_row_count": 0,
+            "expected_row_count": 0,
+            "all_rows_executed": False,
+            "scenario_results": full_gate_rows(delta=5.0),
+            "demand_scaling_provenance": [],
+        }
+        input_path.write_text(json.dumps(pilot_payload), encoding="utf-8")
+        result = write_gate_artifact(input_path, out_path)
+    assert result["status"] == "INCONCLUSIVE"
+    assert result["profile_eligibility"]["eligible"] is False
+    assert any("pilot-only" in reason for reason in result["profile_eligibility"]["reasons"])
+
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        bad_path = Path(raw_tmp) / "bad.json"
+        bad_path.write_text(json.dumps({"claim": "universal dominance"}), encoding="utf-8")
+        try:
+            load_input_payload(bad_path)
+        except ValueError as exc:
+            assert "forbidden" in str(exc).lower()
+        else:
+            raise AssertionError("forbidden claim language should fail during checker input loading")
+
+
 def main() -> None:
     test_main_spec_enforces_long_horizon_seed_and_multiplier_contracts()
     test_phase11_constants_lock_binding_scope_and_comparators()
@@ -480,6 +566,8 @@ def main() -> None:
     test_gate_c_core_evaluator_fails_closed_on_missing_inputs()
     test_gate_c_rejects_pilot_and_metadata_only_demand_artifacts()
     test_validate_payload_scope_rejects_forbidden_claim_language()
+    test_standalone_gate_checker_writes_inconclusive_output_for_missing_main_rows()
+    test_gate_checker_rejects_pilot_artifacts_and_forbidden_language()
     print("phase11 paired evidence tests ok")
 
 
