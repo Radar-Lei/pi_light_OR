@@ -1,0 +1,124 @@
+{
+  "experiment": "phase11_gate_c_paired_evidence",
+  "status": "INCONCLUSIVE",
+  "requirements_covered": [
+    "GATE-03",
+    "EXP-05"
+  ],
+  "input_artifact": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+  "input_status": "INCONCLUSIVE",
+  "profile_eligibility": {
+    "eligible": false,
+    "profile": "main",
+    "steps": 3600,
+    "warmup": 900,
+    "dry_run": false,
+    "actual_row_count": 0,
+    "expected_row_count": 2160,
+    "all_rows_executed": false,
+    "reasons": [
+      "input artifact has no executed raw scenario rows",
+      "input artifact reports missing required executed rows"
+    ]
+  },
+  "binding_regime_dominance": [],
+  "slack_regime_recovery_or_context": [],
+  "inconclusive": [],
+  "not_evidence": [],
+  "required_binding_scenarios": [
+    "arterial_downstream_blockage",
+    "arterial_spillback_stress",
+    "arterial_incident_capacity_drop",
+    "arterial_oversaturation",
+    "arterial_turning_shock",
+    "arterial_switching_loss_sensitive"
+  ],
+  "slack_context_scenarios": [
+    "single_sanity",
+    "arterial_main",
+    "grid_scalability"
+  ],
+  "required_gate_c_comparators": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "finite_storage_double_pressure"
+  ],
+  "gate_c_primary_metrics": [
+    "penalized_avg_travel_time",
+    "total_delay",
+    "spillback_count",
+    "blocking_count",
+    "unfinished_vehicle_count"
+  ],
+  "gate_c_conditional_primary_metrics": {
+    "arterial_switching_loss_sensitive": [
+      "switching_count"
+    ]
+  },
+  "statistical_family": "gate_c_primary_metrics_v1",
+  "gate_c_primary_metrics_v1": {
+    "status": "INCONCLUSIVE",
+    "statistical_family": "gate_c_primary_metrics_v1",
+    "metric_results": [],
+    "family_metadata": {
+      "family": "gate_c_primary_metrics_v1",
+      "method": "holm_bonferroni",
+      "alpha": 0.05,
+      "num_comparisons": 0,
+      "adjusted_diagnostics": []
+    },
+    "reasons": [
+      "no executed rows available"
+    ]
+  },
+  "demand_multiplier_provenance_summary": {
+    "method": "scaled_route_sumocfg_override",
+    "methods_seen": [
+      "scaled_route_sumocfg_override"
+    ],
+    "demand_multipliers": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "provenance_entry_count": 3,
+    "metadata_only_entry_count": 0,
+    "missing_actual_behavior_fields": [],
+    "valid_actual_behavior": true
+  },
+  "recomputed_gate_c": {
+    "status": "INCONCLUSIVE",
+    "binding_regime_dominance": [],
+    "slack_regime_recovery_or_context": [],
+    "inconclusive": [],
+    "not_evidence": [],
+    "primary_metric_rule": {
+      "status": "INCONCLUSIVE",
+      "metric_results": [],
+      "family_metadata": {
+        "family": "gate_c_primary_metrics_v1",
+        "method": "holm_bonferroni",
+        "alpha": 0.05,
+        "num_comparisons": 0,
+        "adjusted_diagnostics": []
+      },
+      "reasons": [
+        "no executed rows available"
+      ]
+    },
+    "reasons": [
+      "no executed rows available"
+    ]
+  },
+  "reasons": [
+    "input artifact has no executed raw scenario rows",
+    "input artifact reports missing required executed rows",
+    "no executed rows available"
+  ],
+  "caveats": [
+    "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
+    "Slack/control rows are context only and cannot satisfy dominance evidence.",
+    "Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.",
+    "Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts."
+  ]
+}
