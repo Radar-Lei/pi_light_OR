@@ -1,6 +1,6 @@
 ---
 phase: 06-claim-discipline-and-explicit-state-foundation
-reviewed: 2026-05-23T13:23:07Z
+reviewed: 2026-05-24T02:44:30Z
 depth: standard
 files_reviewed: 14
 files_reviewed_list:
@@ -20,54 +20,33 @@ files_reviewed_list:
   - tests/test_generate_static_regime_states.py
 findings:
   critical: 0
-  warning: 1
+  warning: 0
   info: 0
-  total: 1
-status: issues_found
+  total: 0
+status: clean
 ---
 
 # Phase 6: Code Review Report
 
-**Reviewed:** 2026-05-23T13:23:07Z
+**Reviewed:** 2026-05-24T02:44:30Z
 **Depth:** standard
 **Files Reviewed:** 14
-**Status:** issues_found
+**Status:** clean
 
 ## Summary
 
-复审覆盖 Phase 6 claim discipline、显式 finite-storage/objective schema、closed-loop/report/paper artifact/repro gates 以及对应测试。 prior REVIEW 中的 CR-01 到 CR-05 与 WR-01/WR-02 均已按主要失效模式修复：默认 claim audit 已 fail-closed，Phase 6 顶层 schema 会强制样本验证，forbidden-claim 否定上下文不再跨句泄漏，repro manifest 会拒绝 FAILED JSON artifact，paper artifact renderer 会结构化校验 Phase 6 guard，数值 schema 拒绝 bool/负 objective，手动测试入口的目录创建问题也已修复。
+复审覆盖 Phase 6 claim discipline、显式 finite-storage/objective schema、closed-loop/report/paper artifact/repro gates 以及对应测试。此前关于 `--allow-missing-paths` 的 warning 已修复：显式 allow 模式下缺失路径进入 `skipped_paths`，不再导致 audit 失败；默认模式仍然 fail-closed。
 
-验证命令：`python3 -m pytest /home/samuel/projects/pi_light_OR/tests/test_claim_discipline.py /home/samuel/projects/pi_light_OR/tests/test_closed_loop_sumo.py /home/samuel/projects/pi_light_OR/tests/test_finite_storage_schema.py /home/samuel/projects/pi_light_OR/tests/test_generate_static_regime_states.py`，结果：37 passed。
+验证命令：`python3 -m pytest /home/samuel/projects/pi_light_OR/tests/test_claim_discipline.py /home/samuel/projects/pi_light_OR/tests/test_closed_loop_sumo.py /home/samuel/projects/pi_light_OR/tests/test_finite_storage_schema.py /home/samuel/projects/pi_light_OR/tests/test_generate_static_regime_states.py`，结果：38 passed。
+
+All reviewed files meet quality standards. No Critical or Warning issues found.
 
 ## Narrative Findings (AI reviewer)
 
-## Warnings
-
-### WR-01: `--allow-missing-paths` 选项仍然无法真正允许缺失路径
-
-**Severity:** WARNING
-**File:** `scripts/audit_claim_discipline.py:163-174`
-**Issue:** `audit_claim_paths()` 现在默认将 `missing_paths` 置为失败条件，这是 CR-01 的安全默认修复；但即使调用者显式传入 `--allow-missing-paths`，同一个 `missing_paths` 仍会让 `status` 变成 `FAILED`。这使 CLI 暴露的允许缺失路径选项语义失效，并会在直接审计临时/裁剪范围时造成误失败。默认 fail-closed 应保留，但显式 allow 模式应把缺失路径转入 `skipped_paths`，不再作为失败条件。
-**Fix:** 仅在未启用 allow 模式时让缺失路径导致失败，并始终记录显式跳过的路径。
-
-```python
-status = "PASSED"
-blocking_missing_paths = missing_paths if not allow_missing_paths else []
-if (
-    forbidden_hits
-    or historical_superiority_violations
-    or blocking_missing_paths
-    or parse_errors
-    or policy_errors
-):
-    status = "FAILED"
-...
-"missing_paths": blocking_missing_paths,
-"skipped_paths": sorted(dict.fromkeys(missing_paths)) if allow_missing_paths else [],
-```
+No Critical, Warning, or Info findings.
 
 ---
 
-_Reviewed: 2026-05-23T13:23:07Z_
+_Reviewed: 2026-05-24T02:44:30Z_
 _Reviewer: Claude (gsd-code-reviewer)_
 _Depth: standard_
