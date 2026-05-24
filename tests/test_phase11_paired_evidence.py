@@ -514,6 +514,62 @@ def test_standalone_gate_checker_writes_inconclusive_output_for_missing_main_row
     assert any("no executed raw scenario rows" in reason for reason in loaded["reasons"])
 
 
+def test_gate_checker_pass_payload_preserves_binding_scope_and_shared_rule() -> None:
+    payload = {
+        "experiment": "phase11_long_horizon_paired_seed_evidence",
+        "status": "PASSED",
+        "profile": "main",
+        "steps": 3600,
+        "warmup": 900,
+        "dry_run": False,
+        "actual_row_count": len(full_gate_rows(delta=5.0)),
+        "expected_row_count": len(full_gate_rows(delta=5.0)),
+        "all_rows_executed": True,
+        "demand_scaling_method": "scaled_route_sumocfg_override",
+        "demand_scaling_provenance": [make_row("arterial_spillback_stress", PROPOSED_CONTROLLER, 1)["demand_multiplier_provenance"]],
+        "scenario_results": full_gate_rows(delta=5.0),
+    }
+    result = build_gate_payload(payload, Path("synthetic_phase11.json"))
+    assert result["status"] == "PASSED"
+    assert result["profile_eligibility"]["eligible"] is True
+    assert {item["scenario_tag"] for item in result["binding_regime_dominance"]} == set(BINDING_EVIDENCE_SCENARIOS)
+    assert "single_sanity" not in {item["scenario_tag"] for item in result["binding_regime_dominance"]}
+    assert {item["scenario_tag"] for item in result["slack_regime_recovery_or_context"]} == {"single_sanity"}
+    assert result["required_gate_c_comparators"] == list(REQUIRED_GATE_C_COMPARATORS)
+    assert result["gate_c_primary_metrics"] == list(GATE_C_PRIMARY_METRICS)
+    assert result["statistical_family"] == GATE_C_STATISTICAL_FAMILY
+    assert result["gate_c_primary_metrics_v1"]["status"] == "PASSED"
+
+
+def test_gate_checker_fails_when_actual_demand_provenance_is_metadata_only() -> None:
+    rows = full_gate_rows(delta=5.0)
+    bad_payload = {
+        "experiment": "phase11_long_horizon_paired_seed_evidence",
+        "status": "PASSED",
+        "profile": "main",
+        "steps": 3600,
+        "warmup": 900,
+        "dry_run": False,
+        "actual_row_count": len(rows),
+        "expected_row_count": len(rows),
+        "all_rows_executed": True,
+        "demand_scaling_method": "scaled_route_sumocfg_override",
+        "demand_scaling_provenance": [
+            {
+                "demand_multiplier": 1.0,
+                "demand_scaling_method": "scaled_route_sumocfg_override",
+                "requires_actual_sumo_behavior_change": True,
+                "metadata_only_valid": True,
+            }
+        ],
+        "scenario_results": rows,
+    }
+    result = build_gate_payload(bad_payload, Path("metadata_only.json"))
+    assert result["status"] == "FAILED"
+    assert result["demand_multiplier_provenance_summary"]["valid_actual_behavior"] is False
+    assert any("actual demand multiplier" in reason for reason in result["reasons"])
+
+
 def test_gate_checker_rejects_pilot_artifacts_and_forbidden_language() -> None:
     with tempfile.TemporaryDirectory() as raw_tmp:
         input_path = Path(raw_tmp) / "pilot.json"
@@ -567,6 +623,8 @@ def main() -> None:
     test_gate_c_rejects_pilot_and_metadata_only_demand_artifacts()
     test_validate_payload_scope_rejects_forbidden_claim_language()
     test_standalone_gate_checker_writes_inconclusive_output_for_missing_main_rows()
+    test_gate_checker_pass_payload_preserves_binding_scope_and_shared_rule()
+    test_gate_checker_fails_when_actual_demand_provenance_is_metadata_only()
     test_gate_checker_rejects_pilot_artifacts_and_forbidden_language()
     print("phase11 paired evidence tests ok")
 

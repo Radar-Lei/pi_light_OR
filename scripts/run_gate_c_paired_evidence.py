@@ -125,9 +125,12 @@ def build_gate_payload(input_payload: dict[str, Any], input_artifact: Path) -> d
     gate_c = evaluate_gate_c(gate_input)
     profile_eligibility = _profile_eligibility(input_payload)
     demand_summary = _demand_multiplier_provenance_summary(input_payload)
-    combined_reasons = list(dict.fromkeys(profile_eligibility["reasons"] + gate_c.get("reasons", [])))
+    demand_reasons = [] if demand_summary["valid_actual_behavior"] else ["input artifact lacks valid actual demand multiplier behavior provenance"]
+    combined_reasons = list(dict.fromkeys(profile_eligibility["reasons"] + demand_reasons + gate_c.get("reasons", [])))
     if gate_c["status"] == "PASSED" and not profile_eligibility["eligible"]:
         status = "INCONCLUSIVE"
+    elif demand_reasons and profile_eligibility["eligible"]:
+        status = "FAILED"
     else:
         status = gate_c["status"]
     rule = _extract_rule(gate_c)
