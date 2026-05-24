@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Explicit Finite-Storage Primal-Dual Separation
-status: verifying
-stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-05-23T13:01:36.626Z"
+status: ready_to_plan
+stopped_at: Phase 06 complete (3/3) — ready to discuss Phase 7
+last_updated: 2026-05-24T02:50:10.684Z
 last_activity: 2026-05-23
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 3
-  completed_plans: 3
+  completed_plans: 19
   percent: 14
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-23)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** Phase 06 — claim-discipline-and-explicit-state-foundation
+**Current focus:** Phase 7 — theory and separation package
 
 ## Current Position
 
-Phase: 06 (claim-discipline-and-explicit-state-foundation) — EXECUTING
-Plan: 3 of 3
-Status: Phase complete — ready for verification
-Last activity: 2026-05-23
+Phase: 7
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-05-24
 
 Progress: [██████████] 100%
 
@@ -36,7 +36,7 @@ Progress: [██████████] 100%
 
 **Velocity:**
 
-- Total plans completed: 15 from v1.0
+- Total plans completed: 18 from v1.0
 - v1.1 plans completed: 0
 - Average duration: N/A
 - Total execution time: N/A
