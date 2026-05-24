@@ -40,10 +40,13 @@ CONTROLLER_REGISTRY = {
     "actuated_local_pressure": "Queue-triggered local pressure with fixed-time fallback.",
     "max_pressure": "Movement score q_up - q_down.",
     "capacity_aware_pressure": "Pressure with downstream fullness penalty.",
+    "cycle_pressure": "Pressure with deterministic current-cycle hold bias.",
+    "finite_storage_double_pressure": "Pressure with finite-storage receiving-capacity correction.",
     "local_pilight": "Real PI-Light/DSL baseline if adaptable; otherwise explicit not_feasible.",
     "raw_neighbor_symbolic": "Symbolic upstream queue minus downstream queue.",
     "all_neighbor_symbolic": "Symbolic pressure with downstream slack/fullness terms.",
     "random_permuted_dual": "Deterministic seed-based placebo movement score.",
+    "finite_storage_primal_dual": "Finite-storage pressure rule with auditable storage, spillback, switching, service, and incident terms.",
     "full_dual_symbolic": "Per-TLS dual policy where feasible; otherwise explicit not_feasible.",
 }
 NETWORKS = {
@@ -165,6 +168,8 @@ def movement_score(
     capacities: dict[str, float],
     seed: int = 0,
 ) -> float:
+    if controller not in CONTROLLER_REGISTRY:
+        raise ValueError(f"Unknown controller: {controller}. Available: {sorted(CONTROLLER_REGISTRY)}")
     upstream, downstream = movement
     up_q = float(queues.get(upstream, 0.0))
     down_q = float(queues.get(downstream, 0.0))
@@ -173,16 +178,169 @@ def movement_score(
         return pressure
     if controller == "actuated_local_pressure":
         return up_q if sum(queues.values()) >= 1.0 else 0.0
-    if controller in {"capacity_aware_pressure", "all_neighbor_symbolic"}:
+    if controller in {"capacity_aware_pressure", "all_neighbor_symbolic", "finite_storage_double_pressure"}:
         cap = max(float(capacities.get(downstream, 1.0)), 1.0)
         fullness = down_q / cap
         slack = cap - down_q
         blocked_penalty = cap if fullness >= 0.85 else 0.0
-        return pressure + 0.05 * slack - fullness * up_q - blocked_penalty
+        double_pressure = max(up_q - max(slack, 0.0), 0.0) if controller == "finite_storage_double_pressure" else 0.0
+        return pressure + 0.05 * slack - fullness * up_q - blocked_penalty - double_pressure
     if controller == "random_permuted_dual":
         key = sum(ord(ch) for ch in upstream + downstream) + int(seed)
         return pressure * (1.0 if key % 2 == 0 else -0.5)
     return 0.0
+
+
+FINITE_STORAGE_DECOMPOSITION_FIELDS = {
+    "pressure",
+    "downstream_storage",
+    "spillback",
+    "switching",
+    "service",
+    "incident",
+    "total",
+}
+SERVICE_URGENCY_NEUTRAL_THRESHOLD = 0.85
+MIN_SWITCHING_HOLD_TIME = 10.0
+
+
+def _spillback_flags(state: dict[str, Any], edge: str) -> dict[str, Any]:
+    flags = state.get("spillback_blocking", {}).get(edge, {})
+    if isinstance(flags, bool):
+        return {"spillback": flags, "blocking": flags, "occupancy_ratio": 1.0 if flags else 0.0}
+    return flags if isinstance(flags, dict) else {}
+
+
+def finite_storage_movement_decomposition(
+    movement: tuple[str, str],
+    queues: dict[str, float],
+    capacities: dict[str, float],
+    finite_storage_state: dict[str, Any],
+) -> dict[str, float]:
+    upstream, downstream = movement
+    up_q = float(queues.get(upstream, 0.0))
+    down_q = float(queues.get(downstream, 0.0))
+    pressure = up_q - down_q
+    capacity = max(float(capacities.get(downstream, finite_storage_state.get("downstream_storage", {}).get(downstream, 1.0))), 1.0)
+    residual = float(finite_storage_state.get("residual_receiving_capacity", {}).get(downstream, capacity))
+    downstream_storage = -max(capacity - max(residual, 0.0), 0.0) if residual < min(up_q, capacity) else 0.0
+    flags = _spillback_flags(finite_storage_state, downstream)
+    spillback = 0.0
+    if bool(flags.get("spillback", False)):
+        spillback -= 0.5 * capacity
+    if bool(flags.get("blocking", False)):
+        spillback -= 0.5 * capacity
+    urgency = float(finite_storage_state.get("service_urgency", {}).get(upstream, 0.0))
+    service = max(urgency - SERVICE_URGENCY_NEUTRAL_THRESHOLD, 0.0) * max(capacity, up_q, 1.0)
+    incident_state = finite_storage_state.get("incident_capacity_drop", {})
+    incident = 0.0
+    incident_edge = incident_state.get("edge")
+    if incident_state.get("active") and incident_edge in {upstream, downstream}:
+        factor = max(float(incident_state.get("factor", 1.0)), 0.0)
+        incident_capacity = max(float(capacities.get(str(incident_edge), capacity)), 1.0)
+        incident = -(1.0 - min(factor, 1.0)) * incident_capacity
+    components = {
+        "pressure": float(pressure),
+        "downstream_storage": float(downstream_storage),
+        "spillback": float(spillback),
+        "switching": 0.0,
+        "service": float(service),
+        "incident": float(incident),
+    }
+    components["total"] = float(sum(components.values()))
+    return components
+
+
+def finite_storage_phase_decomposition(
+    phase_index: int,
+    states: list[str],
+    movements: list[tuple[str, str]],
+    queues: dict[str, float],
+    capacities: dict[str, float],
+    finite_storage_state: dict[str, Any],
+    *,
+    current_phase: int | None = None,
+) -> dict[str, Any]:
+    movement_decompositions = []
+    totals = {field: 0.0 for field in FINITE_STORAGE_DECOMPOSITION_FIELDS}
+    if states:
+        state = states[phase_index % len(states)]
+        for move_idx, movement in enumerate(movements):
+            signal = state[move_idx] if move_idx < len(state) else "r"
+            if signal in "Gg":
+                decomposition = finite_storage_movement_decomposition(movement, queues, capacities, finite_storage_state)
+                movement_decompositions.append({"movement": list(movement), "components": decomposition})
+                for field in FINITE_STORAGE_DECOMPOSITION_FIELDS:
+                    totals[field] += decomposition[field]
+    switching_state = finite_storage_state.get("switching_loss_state", {})
+    active_phase = current_phase if current_phase is not None else switching_state.get("current_phase")
+    time_since_switch = float(switching_state.get("time_since_switch", MIN_SWITCHING_HOLD_TIME))
+    if active_phase is not None and int(phase_index) != int(active_phase) and time_since_switch < MIN_SWITCHING_HOLD_TIME:
+        totals["switching"] -= MIN_SWITCHING_HOLD_TIME - time_since_switch
+    totals["total"] = sum(value for field, value in totals.items() if field != "total")
+    return {
+        "phase_index": int(phase_index),
+        "score": float(totals["total"]),
+        "component_totals": {field: float(totals[field]) for field in sorted(FINITE_STORAGE_DECOMPOSITION_FIELDS)},
+        "movement_decompositions": movement_decompositions,
+    }
+
+
+def select_finite_storage_action_with_audit(
+    tls_id: str,
+    current_phase: int,
+    phase_states: dict[str, list[str]],
+    tls_movements: dict[str, list[tuple[str, str]]],
+    queues: dict[str, float],
+    capacities: dict[str, float],
+    finite_storage_state: dict[str, Any],
+    seed: int = 0,
+) -> dict[str, Any]:
+    states = phase_states.get(tls_id, [])
+    greens = green_phases(states)
+    movements = tls_movements.get(tls_id, [])
+    finite_phase_scores = {
+        int(phase_idx): finite_storage_phase_decomposition(
+            phase_idx,
+            states,
+            movements,
+            queues,
+            capacities,
+            finite_storage_state,
+            current_phase=current_phase,
+        )
+        for phase_idx in greens
+    }
+    pressure_phase_scores = {
+        int(phase_idx): float(phase_score("max_pressure", phase_idx, states, movements, queues, capacities, seed))
+        for phase_idx in greens
+    }
+    pressure_action = max((score, -phase_idx, phase_idx) for phase_idx, score in pressure_phase_scores.items())[2] if pressure_phase_scores else current_phase
+    finite_storage_action = max(
+        (audit["score"], -phase_idx, phase_idx) for phase_idx, audit in finite_phase_scores.items()
+    )[2] if finite_phase_scores else current_phase
+    selected_totals = finite_phase_scores.get(finite_storage_action, {}).get("component_totals", {})
+    changing_terms = sorted(
+        field for field in ["downstream_storage", "spillback", "switching", "service", "incident"] if abs(float(selected_totals.get(field, 0.0))) > 1e-9
+    )
+    if finite_storage_action != pressure_action:
+        pressure_totals = finite_phase_scores.get(pressure_action, {}).get("component_totals", {})
+        changing_terms = sorted(
+            field
+            for field in ["downstream_storage", "spillback", "switching", "service", "incident"]
+            if abs(float(selected_totals.get(field, 0.0))) > 1e-9 or abs(float(pressure_totals.get(field, 0.0))) > 1e-9
+        )
+    return {
+        "tls_id": tls_id,
+        "pressure_action": int(pressure_action),
+        "finite_storage_action": int(finite_storage_action),
+        "selected_action": int(finite_storage_action),
+        "pressure_phase_scores": {str(phase): score for phase, score in pressure_phase_scores.items()},
+        "phase_scores": {str(phase): audit for phase, audit in finite_phase_scores.items()},
+        "selected_component_totals": selected_totals,
+        "action_changed_relative_to_pressure": bool(finite_storage_action != pressure_action),
+        "changing_terms": changing_terms,
+    }
 
 
 def phase_score(
@@ -217,10 +375,32 @@ def choose_controller_action(
     capacities: dict[str, float],
     seed: int = 0,
 ) -> int:
+    if controller not in CONTROLLER_REGISTRY:
+        raise ValueError(f"Unknown controller: {controller}. Available: {sorted(CONTROLLER_REGISTRY)}")
     states = phase_states.get(tls_id, [])
     greens = green_phases(states)
     if controller == "fixed_time" or (controller == "actuated_local_pressure" and sum(queues.values()) < 1.0):
         return greens[(step // action_interval) % len(greens)]
+    if controller == "cycle_pressure" and step - (step // (2 * action_interval)) * (2 * action_interval) < action_interval:
+        return current_phase if current_phase in greens else greens[(step // action_interval) % len(greens)]
+    if controller == "finite_storage_primal_dual":
+        finite_storage_state = build_completed_finite_storage_state(
+            queues,
+            capacities,
+            current_phase=current_phase,
+            time_since_switch=float(action_interval),
+        )
+        audit = select_finite_storage_action_with_audit(
+            tls_id,
+            current_phase,
+            phase_states,
+            tls_movements,
+            queues,
+            capacities,
+            finite_storage_state,
+            seed,
+        )
+        return int(audit["selected_action"])
     scored = [
         (phase_score(controller, phase_idx, states, tls_movements.get(tls_id, []), queues, capacities, seed), -phase_idx, phase_idx)
         for phase_idx in greens
@@ -317,6 +497,13 @@ def build_completed_finite_storage_state(
 def validate_closed_loop_row(row: dict[str, Any]) -> None:
     validate_finite_storage_state(row["finite_storage_state"])
     validate_state_objective_sample(row)
+    if row.get("controller") == "finite_storage_primal_dual" and row.get("scenario_status") == "completed":
+        action_decomposition = row.get("action_decomposition")
+        if not isinstance(action_decomposition, dict):
+            raise ValueError("finite_storage_primal_dual completed row requires action_decomposition")
+        decisions = action_decomposition.get("last_decision_by_tls")
+        if not isinstance(decisions, dict) or not decisions:
+            raise ValueError("finite_storage_primal_dual action_decomposition requires nonempty last_decision_by_tls")
 
 
 def infeasible_row(
@@ -410,6 +597,23 @@ def apply_failure_mode(step: int, warmup: int, target_edge: str | None, original
     return None
 
 
+def scenario_stress_metadata(scenario_tag: str) -> dict[str, Any]:
+    mapping = {
+        "arterial_downstream_blockage": ("downstream_blockage", "edge_speed_reduction"),
+        "arterial_spillback_stress": ("spillback", "finite_storage_occupancy_stress"),
+        "arterial_incident_capacity_drop": ("incident_capacity_drop", "edge_speed_reduction"),
+        "arterial_oversaturation": ("oversaturation", "short_horizon_demand_pressure"),
+        "arterial_turning_shock": ("turning_shock", "traci_vehicle_insertion"),
+        "arterial_switching_loss_sensitive": ("switching_loss_sensitive", "short_action_interval_switching_audit"),
+        "arterial_demand_shift": ("turning_shock", "traci_vehicle_insertion"),
+        "arterial_bottleneck_failure_mode": ("incident_capacity_drop", "edge_speed_reduction"),
+    }
+    if scenario_tag not in mapping:
+        return {}
+    category, mechanism = mapping[scenario_tag]
+    return {"stress_category": category, "stress_mechanism": mechanism}
+
+
 def run_experiment(
     network: str,
     controller: str,
@@ -419,11 +623,17 @@ def run_experiment(
     action_interval: int,
     route_metadata: dict[str, str],
     scenario_tag: str = "single_sanity",
+    sumocfg_override: str | Path | None = None,
 ) -> dict[str, Any]:
+    if controller not in CONTROLLER_REGISTRY:
+        raise ValueError(f"Unknown controller: {controller}. Available: {sorted(CONTROLLER_REGISTRY)}")
     if controller in NOT_FEASIBLE_CONTROLLERS:
         return infeasible_row(network, controller, seed, steps, warmup, action_interval, route_metadata, scenario_tag, NOT_FEASIBLE_CONTROLLERS[controller])
 
     paths = resolve_network(network)
+    sumocfg_path = Path(sumocfg_override) if sumocfg_override is not None else paths["sumocfg"]
+    if not sumocfg_path.exists():
+        raise FileNotFoundError(sumocfg_path)
     metadata = build_network_metadata(paths["net_file"])
     capacities = {str(k): float(v) for k, v in metadata["edge_capacity"].items()}
     tls_movements = read_tls_link_movements(paths["net_file"])
@@ -431,7 +641,8 @@ def run_experiment(
     edge_ids = sorted(capacities)
     edge_speeds = read_edge_speeds(paths["net_file"])
     target_edge = select_failure_edge(edge_ids, tls_movements)
-    cmd = ["sumo", "-c", str(paths["sumocfg"]), "--seed", str(seed), "--no-step-log", "true", "--duration-log.disable", "true"]
+    stress_metadata = scenario_stress_metadata(scenario_tag)
+    cmd = ["sumo", "-c", str(sumocfg_path), "--seed", str(seed), "--no-step-log", "true", "--duration-log.disable", "true"]
     traci.start(cmd)
     observations: list[dict[str, float]] = []
     departed: dict[str, float] = {}
@@ -449,18 +660,21 @@ def run_experiment(
     failure_mode_mechanism = None
     inserted: set[str] = set()
     failure_target_max_vehicles = 0.0
+    latest_action_decomposition_by_tls: dict[str, Any] = {}
     try:
         route_ids = list(traci.route.getIDList())
         original_speed = float(edge_speeds.get(target_edge, 13.89)) if target_edge else None
         for step in range(steps):
-            if "bottleneck" in scenario_tag or "failure_mode" in scenario_tag:
+            if any(token in scenario_tag for token in ["bottleneck", "failure_mode", "downstream_blockage", "incident_capacity_drop", "spillback_stress"]):
                 mechanism = apply_failure_mode(step, warmup, target_edge, original_speed)
                 if mechanism:
                     failure_mode_mechanism = mechanism
-            if "demand_shift" in scenario_tag:
+            if any(token in scenario_tag for token in ["demand_shift", "turning_shock", "oversaturation"]):
                 mechanism = demand_shift_tick(step, warmup, route_ids, inserted)
                 if mechanism:
                     demand_shift_mechanism = mechanism
+            if "switching_loss_sensitive" in scenario_tag:
+                failure_mode_mechanism = None
             traci.simulationStep()
             if target_edge:
                 failure_target_max_vehicles = max(failure_target_max_vehicles, float(traci.edge.getLastStepVehicleNumber(target_edge)))
@@ -478,7 +692,6 @@ def run_experiment(
                 for tls_id in sorted(tls_movements):
                     current_phase = int(traci.trafficlight.getPhase(tls_id))
                     latest_current_phase = current_phase
-                    latest_time_since_switch = float(step - phase_since_by_tls.get(tls_id, step))
                     previous_phase = last_phase_by_tls.get(tls_id)
                     if previous_phase is None:
                         last_phase_by_tls[tls_id] = current_phase
@@ -488,7 +701,30 @@ def run_experiment(
                         last_phase_by_tls[tls_id] = current_phase
                         if target_phase_by_tls.get(tls_id) == current_phase:
                             switching_count += 1
-                    action = choose_controller_action(controller, tls_id, current_phase, step, action_interval, phase_states, tls_movements, queues, capacities, seed)
+                    latest_time_since_switch = float(step - phase_since_by_tls.get(tls_id, step - action_interval))
+                    if controller == "finite_storage_primal_dual":
+                        decision_state = build_completed_finite_storage_state(
+                            queues,
+                            capacities,
+                            current_phase=current_phase,
+                            time_since_switch=latest_time_since_switch,
+                            incident_edge=target_edge if failure_mode_mechanism else None,
+                            capacity_drop_factor=0.35 if failure_mode_mechanism else None,
+                        )
+                        audit = select_finite_storage_action_with_audit(
+                            tls_id,
+                            current_phase,
+                            phase_states,
+                            tls_movements,
+                            queues,
+                            capacities,
+                            decision_state,
+                            seed,
+                        )
+                        latest_action_decomposition_by_tls[tls_id] = audit
+                        action = int(audit["selected_action"])
+                    else:
+                        action = choose_controller_action(controller, tls_id, current_phase, step, action_interval, phase_states, tls_movements, queues, capacities, seed)
                     target_phase_by_tls.setdefault(tls_id, current_phase)
                     states = phase_states.get(tls_id, [])
                     n_phases = max(len(states), 1)
@@ -523,7 +759,8 @@ def run_experiment(
         "action_interval": int(action_interval),
         "scenario_status": "completed",
         "feasibility_status": "run",
-        "sumocfg": str(paths["sumocfg"]),
+        "sumocfg": str(sumocfg_path),
+        "base_sumocfg": str(paths["sumocfg"]),
         "net_file": str(paths["net_file"]),
         **route_metadata,
         **aggregate_metrics(observations, steps, warmup, departed, arrived_times, waiting_delay, controller_runtime, switching_count),
@@ -535,7 +772,14 @@ def run_experiment(
             incident_edge=target_edge if failure_mode_mechanism else None,
             capacity_drop_factor=0.35 if failure_mode_mechanism else None,
         ),
+        **stress_metadata,
     }
+    if controller == "finite_storage_primal_dual":
+        row["action_decomposition"] = {
+            "controller": "finite_storage_primal_dual",
+            "decision_scope": "last_action_decision_per_tls",
+            "last_decision_by_tls": latest_action_decomposition_by_tls,
+        }
     if demand_shift_mechanism:
         row["demand_shift_mechanism"] = demand_shift_mechanism
         row["demand_shift_inserted_vehicles"] = len(inserted)

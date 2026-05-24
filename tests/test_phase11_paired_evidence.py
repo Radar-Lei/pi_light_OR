@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import copy
 import sys
+import tempfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
@@ -20,6 +22,8 @@ from run_phase11_paired_evidence import (  # noqa: E402
     REQUIRED_GATE_C_COMPARATORS,
     SLACK_CONTEXT_SCENARIOS,
     build_phase11_spec,
+    generate_scaled_route_and_sumocfg,
+    materialize_demand_inputs,
     evaluate_gate_c,
     evaluate_gate_c_primary_metric_rule,
     paired_metric_summary,
@@ -77,7 +81,7 @@ def test_pilot_spec_is_pipeline_validation_not_gate_c_evidence() -> None:
 
 
 def test_demand_multiplier_contract_requires_actual_sumo_behavior_change() -> None:
-    spec = build_phase11_spec(profile="main", seeds=[7], demand_multipliers=[0.8, 1.0, 1.2])
+    spec = build_phase11_spec(profile="main", seeds=[7, 8], demand_multipliers=[0.8, 1.0, 1.2])
     multipliers = {row["demand_multiplier"] for row in spec}
     assert multipliers == {0.8, 1.0, 1.2}
     for row in spec:
@@ -85,7 +89,47 @@ def test_demand_multiplier_contract_requires_actual_sumo_behavior_change() -> No
         assert set(DEMAND_MULTIPLIER_PROVENANCE_KEYS) <= set(contract)
         assert contract["requires_actual_sumo_behavior_change"] is True
         assert contract["metadata_only_valid"] is False
-        assert contract["demand_scaling_method"] in {"route_demand_scaling", "insertion_intensity_scaling"}
+        assert contract["demand_scaling_method"] == "scaled_route_sumocfg_override"
+
+
+_defused_tmp_error = None
+
+
+def test_scaled_route_sumocfg_generation_changes_actual_demand_inputs() -> None:
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        spec = build_phase11_spec(
+            profile="main",
+            seeds=[7, 8],
+            controllers=[PROPOSED_CONTROLLER, *REQUIRED_GATE_C_COMPARATORS],
+            demand_multipliers=[0.8, 1.0, 1.2],
+        )
+        enriched = materialize_demand_inputs(spec, Path(raw_tmp))
+        by_multiplier = {}
+        for row in enriched:
+            by_multiplier.setdefault(row["demand_multiplier"], row["demand_multiplier_provenance"])
+        assert set(by_multiplier) == {0.8, 1.0, 1.2}
+        route_paths = {item["generated_route_file"] for item in by_multiplier.values()}
+        cfg_paths = {item["generated_sumocfg"] for item in by_multiplier.values()}
+        totals = {round(float(item["scaled_demand_total"]), 3) for item in by_multiplier.values()}
+        assert len(route_paths) == 3
+        assert len(cfg_paths) == 3
+        assert len(totals) == 3
+        for item in by_multiplier.values():
+            assert Path(item["generated_route_file"]).exists()
+            assert Path(item["generated_sumocfg"]).exists()
+            cfg_root = ET.parse(item["generated_sumocfg"]).getroot()
+            route_value = cfg_root.find("./input/route-files").get("value")
+            assert route_value == str(Path(item["generated_route_file"]).resolve())
+        assert by_multiplier[0.8]["scaled_demand_total"] < by_multiplier[1.0]["scaled_demand_total"] < by_multiplier[1.2]["scaled_demand_total"]
+
+
+def test_sumocfg_override_argument_is_exposed_in_run_experiment() -> None:
+    import inspect
+    from run_closed_loop_sumo import run_experiment
+
+    signature = inspect.signature(run_experiment)
+    assert "sumocfg_override" in signature.parameters
+    assert signature.parameters["sumocfg_override"].default is None
 
 
 def finite_storage_state() -> dict[str, Any]:
@@ -133,12 +177,15 @@ def make_row(
         "objective_components": objective_components(),
         "demand_multiplier_provenance": {
             "demand_multiplier": demand_multiplier,
-            "demand_scaling_method": "route_demand_scaling",
+            "demand_scaling_method": "scaled_route_sumocfg_override",
             "requires_actual_sumo_behavior_change": True,
             "metadata_only_valid": False,
             "base_demand_total": 100.0,
             "scaled_demand_total": 100.0 * demand_multiplier,
             "demand_source": "synthetic_scaled_route",
+            "generated_route_file": "synthetic_scaled_route.rou.xml",
+            "generated_sumocfg": "synthetic_scaled_route.sumocfg",
+            "base_sumocfg": "networks/arterial/arterial.sumocfg",
         },
         "penalized_avg_travel_time": 100.0 + offset,
         "total_delay": 200.0 + offset,
@@ -324,6 +371,8 @@ def main() -> None:
     test_main_spec_defaults_are_journal_grade_and_paired()
     test_pilot_spec_is_pipeline_validation_not_gate_c_evidence()
     test_demand_multiplier_contract_requires_actual_sumo_behavior_change()
+    test_scaled_route_sumocfg_generation_changes_actual_demand_inputs()
+    test_sumocfg_override_argument_is_exposed_in_run_experiment()
     test_primary_metric_constants_cover_all_d_11_04_metrics()
     test_paired_metric_summary_reports_direction_ci_effect_and_family_metadata()
     test_gate_c_rule_pass_fail_inconclusive_and_missing_metric_cases()

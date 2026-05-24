@@ -1,17 +1,27 @@
 #!/usr/bin/env python3
+"""Phase 11 long-horizon paired-seed SUMO evidence runner.
+
+This script owns Phase 11 experiment orchestration, demand-multiplier input
+materialization, paired primary-metric statistics, and fail-closed Gate C
+payloads. It deliberately reuses run_closed_loop_sumo.run_experiment rather than
+creating a second TraCI control loop.
+"""
 from __future__ import annotations
 
 import argparse
 import json
 import math
 import statistics
+import time
+import xml.etree.ElementTree as ET
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 from scipy import stats
 
-from run_closed_loop_sumo import CONTROLLER_REGISTRY, METRIC_FIELDS, load_route_metadata, run_experiment
+from finite_storage_schema import FINITE_STORAGE_STATE_FIELDS, OBJECTIVE_COMPONENT_FIELDS
+from run_closed_loop_sumo import CONTROLLER_REGISTRY, METRIC_FIELDS, NOT_FEASIBLE_CONTROLLERS, load_route_metadata, resolve_network, run_experiment
 
 PROPOSED_CONTROLLER = "finite_storage_primal_dual"
 BINDING_EVIDENCE_SCENARIOS = (
@@ -44,6 +54,10 @@ DEFAULT_CONTROLLERS = (
 DEFAULT_MAIN_SEEDS = tuple(range(20261101, 20261121))
 DEFAULT_PILOT_SEEDS = (20261101, 20261102)
 DEFAULT_DEMAND_MULTIPLIERS = (0.8, 1.0, 1.2)
+DEFAULT_OUT = "experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json"
+DEFAULT_SCALED_INPUT_DIR = Path("experiments/dual_sensitivity/phase11_scaled_inputs")
+DEFAULT_MAIN_EXECUTION_ROW_LIMIT = 0
+DEMAND_SCALING_METHOD = "scaled_route_sumocfg_override"
 DEMAND_MULTIPLIER_PROVENANCE_KEYS = (
     "demand_multiplier",
     "demand_scaling_method",
@@ -78,10 +92,31 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--warmup", type=int, default=None)
     parser.add_argument("--action-interval", type=int, default=10)
     parser.add_argument("--demand-multipliers", nargs="+", type=float, default=list(DEFAULT_DEMAND_MULTIPLIERS))
-    parser.add_argument("--out", default="experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json")
+    parser.add_argument("--out", default=DEFAULT_OUT)
     parser.add_argument("--route-json", default="experiments/dual_sensitivity/block3_static_kill_gate.json")
+    parser.add_argument("--scaled-input-dir", default=str(DEFAULT_SCALED_INPUT_DIR))
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--execution-row-limit",
+        type=int,
+        default=None,
+        help="Safety limit for executed rows; main defaults to fail-closed before expensive full execution.",
+    )
     return parser.parse_args()
+
+
+def validate_args(args: argparse.Namespace) -> None:
+    seeds = args.seeds if args.seeds is not None else (DEFAULT_MAIN_SEEDS if args.profile == "main" else DEFAULT_PILOT_SEEDS)
+    steps = args.steps if args.steps is not None else (3600 if args.profile == "main" else 300)
+    warmup = args.warmup if args.warmup is not None else (900 if args.profile == "main" else 60)
+    _validate_profile_inputs(args.profile, args.controllers, seeds, steps, warmup, args.action_interval, args.demand_multipliers)
+    out_path = Path(args.out)
+    if out_path.suffix != ".json":
+        raise ValueError("--out must point to a .json artifact")
+    if not Path(args.route_json).exists():
+        raise FileNotFoundError(args.route_json)
+    if args.execution_row_limit is not None and args.execution_row_limit < 0:
+        raise ValueError("--execution-row-limit must be nonnegative")
 
 
 def _validate_profile_inputs(
@@ -110,22 +145,26 @@ def _validate_profile_inputs(
         raise ValueError("steps and action_interval must be positive; warmup must be nonnegative")
     if profile == "main" and (steps < 3600 or warmup < 900):
         raise ValueError("main profile must use at least 3600 steps and 900 warmup")
+    if profile == "main" and len(set(int(seed) for seed in seeds)) < 2:
+        raise ValueError("main profile requires at least two paired seeds for confidence-interval construction")
     if not demand_multipliers:
         raise ValueError("At least one demand multiplier is required")
-    if any(float(multiplier) <= 0.0 for multiplier in demand_multipliers):
-        raise ValueError("Demand multipliers must be positive")
+    if any(float(multiplier) <= 0.0 or not math.isfinite(float(multiplier)) for multiplier in demand_multipliers):
+        raise ValueError("Demand multipliers must be positive finite values")
+    if profile == "main" and not {0.8, 1.0, 1.2} <= {round(float(multiplier), 10) for multiplier in demand_multipliers}:
+        raise ValueError("main profile requires demand multipliers 0.8, 1.0, and 1.2")
 
 
 def demand_multiplier_contract(demand_multiplier: float) -> dict[str, Any]:
     return {
         "demand_multiplier": float(demand_multiplier),
-        "demand_scaling_method": "route_demand_scaling",
+        "demand_scaling_method": DEMAND_SCALING_METHOD,
         "requires_actual_sumo_behavior_change": True,
         "metadata_only_valid": False,
         "base_demand_total_required": True,
         "scaled_demand_total_required": True,
         "demand_source_required": True,
-        "acceptable_methods": ["route_demand_scaling", "insertion_intensity_scaling"],
+        "acceptable_methods": [DEMAND_SCALING_METHOD],
     }
 
 
@@ -178,6 +217,171 @@ def build_phase11_spec(
                         }
                     )
     return spec
+
+
+def _safe_multiplier_label(demand_multiplier: float) -> str:
+    return str(float(demand_multiplier)).replace("-", "neg").replace(".", "p")
+
+
+def _sumocfg_child(root: ET.Element, section: str, child: str) -> ET.Element:
+    section_node = root.find(section)
+    if section_node is None:
+        section_node = ET.SubElement(root, section)
+    child_node = section_node.find(child)
+    if child_node is None:
+        child_node = ET.SubElement(section_node, child)
+    return child_node
+
+
+def _route_files_from_sumocfg(sumocfg_path: Path) -> list[Path]:
+    root = ET.parse(sumocfg_path).getroot()
+    route_node = root.find("./input/route-files")
+    if route_node is None or not route_node.get("value"):
+        raise ValueError(f"SUMO config {sumocfg_path} is missing input/route-files")
+    files = []
+    for item in route_node.get("value", "").split(","):
+        raw_path = Path(item.strip())
+        files.append(raw_path if raw_path.is_absolute() else sumocfg_path.parent / raw_path)
+    return files
+
+
+def _flow_total(flow: ET.Element) -> float:
+    if flow.get("number") is not None:
+        return float(flow.get("number", "0"))
+    begin = float(flow.get("begin", "0"))
+    end = float(flow.get("end", flow.get("until", "0")))
+    duration = max(end - begin, 0.0)
+    if flow.get("period") is not None:
+        period = max(float(flow.get("period", "1")), 1e-9)
+        return duration / period
+    if flow.get("vehsPerHour") is not None:
+        return duration * float(flow.get("vehsPerHour", "0")) / 3600.0
+    if flow.get("probability") is not None:
+        return duration * float(flow.get("probability", "0"))
+    return 0.0
+
+
+def route_demand_total(route_path: Path) -> float:
+    root = ET.parse(route_path).getroot()
+    total = float(len(root.findall("vehicle")) + len(root.findall("trip")))
+    total += sum(_flow_total(flow) for flow in root.findall("flow"))
+    return float(total)
+
+
+def _scale_flow(flow: ET.Element, demand_multiplier: float) -> None:
+    if flow.get("number") is not None:
+        original = float(flow.get("number", "0"))
+        flow.set("number", f"{original * demand_multiplier:.6g}")
+    elif flow.get("period") is not None:
+        original = max(float(flow.get("period", "1")), 1e-9)
+        flow.set("period", f"{original / demand_multiplier:.6g}")
+    elif flow.get("vehsPerHour") is not None:
+        original = float(flow.get("vehsPerHour", "0"))
+        flow.set("vehsPerHour", f"{original * demand_multiplier:.6g}")
+    elif flow.get("probability") is not None:
+        original = float(flow.get("probability", "0"))
+        flow.set("probability", f"{min(original * demand_multiplier, 1.0):.6g}")
+    else:
+        raise ValueError(f"Flow {flow.get('id', '<unnamed>')} has no scalable demand attribute")
+
+
+def generate_scaled_route_and_sumocfg(
+    network: str,
+    demand_multiplier: float,
+    steps: int,
+    scaled_input_dir: Path = DEFAULT_SCALED_INPUT_DIR,
+) -> dict[str, Any]:
+    paths = resolve_network(network)
+    route_files = _route_files_from_sumocfg(paths["sumocfg"])
+    if len(route_files) != 1:
+        raise ValueError(f"Phase 11 demand scaling expects exactly one route file for {network}, got {route_files}")
+    base_route = route_files[0]
+    if not base_route.exists():
+        raise FileNotFoundError(base_route)
+    base_demand_total = route_demand_total(base_route)
+    if base_demand_total <= 0.0:
+        raise ValueError(f"Base route {base_route} has no scalable positive demand")
+
+    scaled_input_dir.mkdir(parents=True, exist_ok=True)
+    label = _safe_multiplier_label(demand_multiplier)
+    route_out = scaled_input_dir / f"phase11_{network}_demand_{label}.rou.xml"
+    sumocfg_out = scaled_input_dir / f"phase11_{network}_demand_{label}.sumocfg"
+
+    route_tree = ET.parse(base_route)
+    route_root = route_tree.getroot()
+    flow_count = 0
+    for flow in route_root.findall("flow"):
+        _scale_flow(flow, float(demand_multiplier))
+        flow_count += 1
+    if flow_count == 0:
+        raise ValueError(f"Base route {base_route} has no flow entries; metadata-only demand scaling is forbidden")
+    route_tree.write(route_out, encoding="utf-8", xml_declaration=True)
+    scaled_demand_total = route_demand_total(route_out)
+
+    cfg_tree = ET.parse(paths["sumocfg"])
+    cfg_root = cfg_tree.getroot()
+    _sumocfg_child(cfg_root, "input", "net-file").set("value", str(paths["net_file"].resolve()))
+    _sumocfg_child(cfg_root, "input", "route-files").set("value", str(route_out.resolve()))
+    _sumocfg_child(cfg_root, "time", "end").set("value", str(int(steps)))
+    cfg_tree.write(sumocfg_out, encoding="utf-8", xml_declaration=True)
+
+    if not route_out.exists() or not sumocfg_out.exists():
+        raise FileNotFoundError("Generated demand override files were not written")
+    if not math.isclose(scaled_demand_total, base_demand_total * float(demand_multiplier), rel_tol=0.02, abs_tol=0.5):
+        raise ValueError("Scaled demand total does not reflect requested multiplier")
+    return {
+        "demand_multiplier": float(demand_multiplier),
+        "demand_scaling_method": DEMAND_SCALING_METHOD,
+        "requires_actual_sumo_behavior_change": True,
+        "metadata_only_valid": False,
+        "base_demand_total": float(base_demand_total),
+        "scaled_demand_total": float(scaled_demand_total),
+        "demand_source": str(route_out),
+        "generated_route_file": str(route_out),
+        "generated_sumocfg": str(sumocfg_out),
+        "base_sumocfg": str(paths["sumocfg"]),
+        "base_route_file": str(base_route),
+    }
+
+
+def materialize_demand_inputs(spec: list[dict[str, Any]], scaled_input_dir: Path = DEFAULT_SCALED_INPUT_DIR) -> list[dict[str, Any]]:
+    cache: dict[tuple[str, float, int], dict[str, Any]] = {}
+    enriched = []
+    for row in spec:
+        key = (str(row["network"]), float(row["demand_multiplier"]), int(row["steps"]))
+        if key not in cache:
+            cache[key] = generate_scaled_route_and_sumocfg(key[0], key[1], key[2], scaled_input_dir)
+        provenance = dict(cache[key])
+        enriched_row = {**row, **provenance, "demand_multiplier_provenance": provenance}
+        enriched.append(enriched_row)
+    validate_actual_demand_multiplier_behavior(enriched)
+    return enriched
+
+
+def validate_actual_demand_multiplier_behavior(spec: list[dict[str, Any]]) -> None:
+    by_network: dict[str, dict[float, dict[str, Any]]] = defaultdict(dict)
+    for row in spec:
+        provenance = row.get("demand_multiplier_provenance") or row
+        multiplier = float(row.get("demand_multiplier", provenance.get("demand_multiplier", 1.0)))
+        method = provenance.get("demand_scaling_method")
+        if method != DEMAND_SCALING_METHOD or provenance.get("metadata_only_valid") is not False:
+            raise ValueError("metadata-only demand multiplier configurations are forbidden")
+        for field in ["base_demand_total", "scaled_demand_total", "generated_route_file", "generated_sumocfg", "base_sumocfg"]:
+            if field not in provenance:
+                raise ValueError(f"demand multiplier provenance is missing {field}")
+        for path_field in ["generated_route_file", "generated_sumocfg"]:
+            if not Path(str(provenance[path_field])).exists():
+                raise FileNotFoundError(str(provenance[path_field]))
+        by_network[str(row["network"])][multiplier] = provenance
+    for network, entries in by_network.items():
+        if len(entries) > 1:
+            route_paths = {str(item["generated_route_file"]) for item in entries.values()}
+            cfg_paths = {str(item["generated_sumocfg"]) for item in entries.values()}
+            totals = {round(float(item["scaled_demand_total"]), 6) for item in entries.values()}
+            if len(route_paths) != len(entries) or len(cfg_paths) != len(entries):
+                raise ValueError(f"{network} demand multipliers did not generate distinct route/config paths")
+            if len(totals) != len(entries):
+                raise ValueError(f"{network} demand multipliers did not generate distinct demand totals")
 
 
 def metric_direction(metric: str) -> str:
@@ -289,10 +493,10 @@ def _effect_size(differences: list[float]) -> float:
     return float(statistics.fmean(differences) / sd)
 
 
-def _diagnostics(proposed_values: list[float], comparator_values: list[float], differences: list[float]) -> dict[str, Any]:
+def _diagnostics(proposed_values: list[float], comparator_values: list[float], differences: list[float], metric: str) -> dict[str, Any]:
     diagnostics: dict[str, Any] = {}
     try:
-        alternative = "less"
+        alternative = "less" if metric_direction(metric) == "lower_is_better" else "greater"
         ttest = stats.ttest_rel(proposed_values, comparator_values, alternative=alternative)
         diagnostics["paired_ttest"] = {"statistic": float(ttest.statistic), "pvalue": float(ttest.pvalue), "alternative": alternative}
     except Exception as exc:
@@ -345,7 +549,7 @@ def paired_metric_summary(
         "classification": classification,
         "strict_positive_signal": ci_low > 0.0,
         "statistical_family": GATE_C_STATISTICAL_FAMILY,
-        "diagnostics": _diagnostics(proposed_values, comparator_values, differences),
+        "diagnostics": _diagnostics(proposed_values, comparator_values, differences, metric),
     }
 
 
@@ -458,7 +662,7 @@ def _row_id(row: dict[str, Any]) -> str:
 
 
 def _validate_demand_provenance(row: dict[str, Any]) -> list[str]:
-    provenance = row.get("demand_multiplier_provenance") or row.get("demand_multiplier_contract")
+    provenance = row.get("demand_multiplier_provenance") or row
     if not isinstance(provenance, dict):
         return [f"{_row_id(row)} missing demand multiplier provenance"]
     if provenance.get("metadata_only_valid") is not False:
@@ -466,12 +670,12 @@ def _validate_demand_provenance(row: dict[str, Any]) -> list[str]:
     if provenance.get("requires_actual_sumo_behavior_change") is not True:
         return [f"{_row_id(row)} demand multiplier does not require actual SUMO behavior change"]
     method = provenance.get("demand_scaling_method")
-    if method not in {"route_demand_scaling", "insertion_intensity_scaling"}:
+    if method != DEMAND_SCALING_METHOD:
         return [f"{_row_id(row)} demand multiplier method is invalid"]
-    has_actual_totals = "base_demand_total" in provenance and "scaled_demand_total" in provenance and "demand_source" in provenance
-    has_contract_requirements = provenance.get("base_demand_total_required") and provenance.get("scaled_demand_total_required") and provenance.get("demand_source_required")
-    if not (has_actual_totals or has_contract_requirements):
-        return [f"{_row_id(row)} demand multiplier lacks actual behavior provenance"]
+    required = ["base_demand_total", "scaled_demand_total", "generated_route_file", "generated_sumocfg", "base_sumocfg"]
+    missing = [field for field in required if field not in provenance]
+    if missing:
+        return [f"{_row_id(row)} demand multiplier lacks actual behavior provenance: {missing}"]
     return []
 
 
@@ -527,15 +731,20 @@ def evaluate_gate_c(payload: dict[str, Any]) -> dict[str, Any]:
     profile = payload.get("profile")
     steps = int(payload.get("steps", max([int(row.get("steps", 0)) for row in rows], default=0)))
     warmup = int(payload.get("warmup", max([int(row.get("warmup", 0)) for row in rows], default=0)))
+    dry_run = bool(payload.get("dry_run"))
     if profile != "main" or steps < 3600 or warmup < 900:
         reasons.append("Gate C complete evidence requires main profile with at least 3600 steps and 900 warmup")
+    if dry_run:
+        reasons.append("dry-run/spec-only artifacts are not Gate C dominance evidence")
     completed = _completed_rows(rows)
     present_scenarios = {str(row.get("scenario_tag")) for row in completed}
     missing_scenarios = sorted(set(BINDING_EVIDENCE_SCENARIOS) - present_scenarios)
-    if missing_scenarios:
+    if missing_scenarios and rows:
         reasons.append(f"missing required binding scenarios: {missing_scenarios}")
     for scenario in BINDING_EVIDENCE_SCENARIOS:
         scenario_rows = [row for row in completed if row.get("scenario_tag") == scenario]
+        if not scenario_rows:
+            continue
         controllers = {str(row.get("controller")) for row in scenario_rows}
         missing_controllers = sorted({PROPOSED_CONTROLLER, *REQUIRED_GATE_C_COMPARATORS} - controllers)
         if missing_controllers:
@@ -543,12 +752,13 @@ def evaluate_gate_c(payload: dict[str, Any]) -> dict[str, Any]:
         for row in scenario_rows:
             reasons.extend(_validate_binding_row(row))
     sections = _classify_rows(rows)
-    if reasons and any("main profile" in reason for reason in reasons) and len(reasons) == 1:
+    if reasons:
+        status = "INCONCLUSIVE" if any("main profile" in reason or "dry-run" in reason for reason in reasons) else "FAILED"
+        rule = {"status": status, "metric_results": [], "family_metadata": _holm_bonferroni([]), "reasons": reasons}
+    elif not completed:
         status = "INCONCLUSIVE"
-        rule = {"status": "INCONCLUSIVE", "metric_results": [], "family_metadata": _holm_bonferroni([]), "reasons": []}
-    elif reasons:
-        status = "FAILED"
-        rule = {"status": "FAILED", "metric_results": [], "family_metadata": _holm_bonferroni([]), "reasons": reasons}
+        rule = {"status": "INCONCLUSIVE", "metric_results": [], "family_metadata": _holm_bonferroni([]), "reasons": ["no executed rows available"]}
+        reasons.append("no executed rows available")
     else:
         demand_multipliers = sorted({float(row.get("demand_multiplier", 1.0)) for row in completed if row.get("scenario_tag") in BINDING_EVIDENCE_SCENARIOS})
         rule = evaluate_gate_c_primary_metric_rule(
@@ -572,30 +782,200 @@ def evaluate_gate_c(payload: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-def build_payload(*, profile: str, route_metadata: dict[str, str], spec: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[str, Any]:
-    return {
+def paired_seed_alignment(rows: list[dict[str, Any]], spec: list[dict[str, Any]]) -> dict[str, Any]:
+    source = rows if rows else spec
+    alignment: dict[str, Any] = {}
+    for scenario in BINDING_EVIDENCE_SCENARIOS:
+        scenario_entry: dict[str, Any] = {}
+        multipliers = sorted({float(row.get("demand_multiplier", 1.0)) for row in source if row.get("scenario_tag") == scenario})
+        for multiplier in multipliers:
+            by_controller: dict[str, list[int]] = defaultdict(list)
+            for row in source:
+                if row.get("scenario_tag") == scenario and float(row.get("demand_multiplier", 1.0)) == float(multiplier):
+                    by_controller[str(row.get("controller"))].append(int(row["seed"]))
+            required = {PROPOSED_CONTROLLER, *REQUIRED_GATE_C_COMPARATORS}
+            required_sets = {controller: sorted(set(by_controller.get(controller, []))) for controller in required}
+            seed_sets = list(required_sets.values())
+            scenario_entry[str(multiplier)] = {
+                "seeds_by_controller": required_sets,
+                "aligned": bool(seed_sets) and all(seed_set == seed_sets[0] for seed_set in seed_sets),
+            }
+        alignment[scenario] = scenario_entry
+    return alignment
+
+
+def _missing_row_keys(spec: list[dict[str, Any]], rows: list[dict[str, Any]]) -> list[str]:
+    completed_keys = {
+        (row.get("scenario_tag"), row.get("controller"), int(row.get("seed", -1)), float(row.get("demand_multiplier", 1.0)))
+        for row in rows
+        if row.get("scenario_status") == "completed"
+    }
+    missing = []
+    for row in spec:
+        key = (row.get("scenario_tag"), row.get("controller"), int(row.get("seed", -1)), float(row.get("demand_multiplier", 1.0)))
+        if key not in completed_keys:
+            missing.append(f"{key[0]}/{key[3]}/{key[1]}/seed={key[2]}")
+    return missing
+
+
+def _status_for_payload(profile: str, dry_run: bool, spec: list[dict[str, Any]], rows: list[dict[str, Any]], gate_c: dict[str, Any], missing_reasons: list[str]) -> str:
+    if profile == "pilot" or dry_run:
+        return "PILOT_ONLY"
+    if missing_reasons:
+        return "INCONCLUSIVE"
+    if len(rows) < len(spec):
+        return "INCONCLUSIVE"
+    if gate_c["status"] == "PASSED":
+        return "PASSED"
+    if gate_c["status"] == "FAILED":
+        return "FAILED"
+    return "INCONCLUSIVE"
+
+
+def build_payload(
+    *,
+    profile: str,
+    route_metadata: dict[str, str],
+    spec: list[dict[str, Any]],
+    rows: list[dict[str, Any]],
+    dry_run: bool = False,
+    execution_mode: str = "executed",
+    missing_row_reasons: list[str] | None = None,
+    started_at: str | None = None,
+    completed_at: str | None = None,
+) -> dict[str, Any]:
+    missing_row_reasons = list(missing_row_reasons or [])
+    steps = max([int(row.get("steps", 0)) for row in spec], default=0)
+    warmup = max([int(row.get("warmup", 0)) for row in spec], default=0)
+    action_interval = max([int(row.get("action_interval", 0)) for row in spec], default=0)
+    seeds = sorted({int(row["seed"]) for row in spec})
+    demand_multipliers = sorted({float(row["demand_multiplier"]) for row in spec})
+    missing_row_keys = _missing_row_keys(spec, rows)
+    if missing_row_keys:
+        missing_row_reasons.append("missing required executed scenario/controller/seed/demand-multiplier rows")
+    demand_provenance = sorted(
+        {
+            json.dumps(row.get("demand_multiplier_provenance", {key: row.get(key) for key in ["demand_multiplier", "generated_route_file", "generated_sumocfg", "base_demand_total", "scaled_demand_total"]}), sort_keys=True)
+            for row in spec
+        }
+    )
+    gate_payload = {"profile": profile, "steps": steps, "warmup": warmup, "dry_run": dry_run, "scenario_results": rows}
+    gate_c = evaluate_gate_c(gate_payload)
+    status = _status_for_payload(profile, dry_run, spec, rows, gate_c, missing_row_reasons)
+    paired_statistics = gate_c.get("primary_metric_rule", {}).get("metric_results", [])
+    payload = {
         "experiment": "phase11_long_horizon_paired_seed_evidence",
-        "status": "SPEC_ONLY" if not rows else "INCONCLUSIVE",
+        "status": status,
         **route_metadata,
         "profile": profile,
-        "phase11_scope": "closed-loop paired-seed evidence in predeclared binding stress regimes only",
+        "steps": steps,
+        "warmup": warmup,
+        "action_interval": action_interval,
+        "dry_run": bool(dry_run),
+        "execution_mode": execution_mode,
+        "started_at": started_at,
+        "completed_at": completed_at,
+        "main_profile_target": {"min_steps": 3600, "min_warmup": 900, "target_seed_count": 20, "required_demand_multipliers": [0.8, 1.0, 1.2]},
+        "actual_seed_count": len(seeds),
+        "requested_seed_count": len(seeds),
+        "seed_count_limitation": None if len(seeds) >= 20 else "fewer than 20 paired seeds configured; main evidence is inconclusive unless user-approved",
+        "seeds": seeds,
+        "demand_multipliers": demand_multipliers,
+        "demand_scaling_method": DEMAND_SCALING_METHOD,
+        "demand_scaling_provenance": [json.loads(item) for item in demand_provenance],
+        "paired_seed_design": "same seeds for proposed and comparators within each scenario and demand multiplier",
+        "required_binding_scenarios": list(BINDING_EVIDENCE_SCENARIOS),
         "binding_evidence_scenarios": list(BINDING_EVIDENCE_SCENARIOS),
         "slack_context_scenarios": list(SLACK_CONTEXT_SCENARIOS),
         "proposed_controller": PROPOSED_CONTROLLER,
         "required_gate_c_comparators": list(REQUIRED_GATE_C_COMPARATORS),
         "optional_context_controllers": list(OPTIONAL_CONTEXT_CONTROLLERS),
-        "metric_schema": {field: "CLOP metric" for field in METRIC_FIELDS},
-        "spec": spec,
+        "controllers": sorted({str(row["controller"]) for row in spec}),
+        "statistical_family": GATE_C_STATISTICAL_FAMILY,
+        "metric_schema": {field: "CLOP-04 metric" for field in METRIC_FIELDS},
+        "objective_component_schema": {
+            "row_field": "objective_components",
+            "fields": sorted(OBJECTIVE_COMPONENT_FIELDS),
+            "component_builder": "build_objective_components_from_metrics",
+            "aggregation_note": "Nested objective components remain row-level audit fields and are not CI-aggregated through METRIC_FIELDS.",
+        },
+        "finite_storage_state_schema": {
+            "row_field": "finite_storage_state",
+            "fields": sorted(FINITE_STORAGE_STATE_FIELDS),
+            "validation_helpers": ["validate_finite_storage_state", "validate_state_objective_sample"],
+        },
         "scenario_results": rows,
+        "spec": spec,
+        "paired_statistics": paired_statistics,
+        "paired_seed_alignment": paired_seed_alignment(rows, spec),
+        "gate_c": gate_c,
+        "actual_row_count": len(rows),
+        "expected_row_count": len(spec),
+        "all_rows_executed": len(rows) == len(spec) and not dry_run,
+        "missing_row_keys": missing_row_keys[:500],
+        "missing_row_key_count": len(missing_row_keys),
+        "missing_row_reasons": sorted(set(missing_row_reasons)),
+        "phase11_scope": "closed-loop paired-seed evidence in predeclared binding stress regimes only",
         "caveats": [
             "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.",
+            "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
             "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
+            "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
         ],
     }
+    validate_payload_scope(payload)
+    return payload
+
+
+def execute_spec(
+    spec: list[dict[str, Any]],
+    route_metadata: dict[str, str],
+    *,
+    dry_run: bool,
+    execution_row_limit: int | None,
+) -> tuple[list[dict[str, Any]], list[str], str]:
+    if dry_run:
+        return [], ["dry-run requested; no SUMO rows executed"], "dry_run_spec_only"
+    rows = []
+    reasons = []
+    if execution_row_limit is not None and len(spec) > execution_row_limit:
+        return [], [f"runtime guard prevented {len(spec)} requested rows from starting; execution_row_limit={execution_row_limit}"], "fail_closed_runtime_guard"
+    for item in spec:
+        try:
+            row = run_experiment(
+                item["network"],
+                item["controller"],
+                item["seed"],
+                item["steps"],
+                item["warmup"],
+                item["action_interval"],
+                route_metadata,
+                item["scenario_tag"],
+                sumocfg_override=item["generated_sumocfg"],
+            )
+            row.update(
+                {
+                    "profile": item["profile"],
+                    "demand_multiplier": item["demand_multiplier"],
+                    "demand_scaling_method": item["demand_scaling_method"],
+                    "base_demand_total": item["base_demand_total"],
+                    "scaled_demand_total": item["scaled_demand_total"],
+                    "generated_route_file": item["generated_route_file"],
+                    "generated_sumocfg": item["generated_sumocfg"],
+                    "base_sumocfg": item["base_sumocfg"],
+                    "demand_multiplier_provenance": item["demand_multiplier_provenance"],
+                }
+            )
+            rows.append(row)
+        except Exception as exc:
+            reasons.append(f"{item['scenario_tag']}/{item['demand_multiplier']}/{item['controller']}/seed={item['seed']}: {type(exc).__name__}: {exc}")
+    return rows, reasons, "executed"
 
 
 def main() -> None:
     args = parse_args()
+    validate_args(args)
+    started_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     spec = build_phase11_spec(
         profile=args.profile,
         controllers=args.controllers,
@@ -605,13 +985,29 @@ def main() -> None:
         action_interval=args.action_interval,
         demand_multipliers=args.demand_multipliers,
     )
+    spec = materialize_demand_inputs(spec, Path(args.scaled_input_dir))
     route_metadata = load_route_metadata(Path(args.route_json))
-    rows = [] if args.dry_run else [run_experiment(**{key: row[key] for key in ["network", "controller", "seed", "steps", "warmup", "action_interval", "scenario_tag"]}, route_metadata=route_metadata) for row in spec]
-    payload = build_payload(profile=args.profile, route_metadata=route_metadata, spec=spec, rows=rows)
+    if args.execution_row_limit is None:
+        execution_row_limit = DEFAULT_MAIN_EXECUTION_ROW_LIMIT if args.profile == "main" else len(spec)
+    else:
+        execution_row_limit = args.execution_row_limit
+    rows, missing_reasons, execution_mode = execute_spec(spec, route_metadata, dry_run=args.dry_run, execution_row_limit=execution_row_limit)
+    completed_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    payload = build_payload(
+        profile=args.profile,
+        route_metadata=route_metadata,
+        spec=spec,
+        rows=rows,
+        dry_run=args.dry_run,
+        execution_mode=execution_mode,
+        missing_row_reasons=missing_reasons,
+        started_at=started_at,
+        completed_at=completed_at,
+    )
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    print(json.dumps({"out": str(out_path), "profile": args.profile, "spec_rows": len(spec), "result_rows": len(rows), "status": payload["status"]}, indent=2))
+    print(json.dumps({"out": str(out_path), "profile": args.profile, "spec_rows": len(spec), "result_rows": len(rows), "status": payload["status"], "execution_mode": execution_mode}, indent=2))
 
 
 if __name__ == "__main__":
