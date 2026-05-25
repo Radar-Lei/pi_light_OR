@@ -5,7 +5,7 @@
     "GATE-03",
     "EXP-05"
   ],
-  "input_artifact": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+  "input_artifact": "experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
   "input_status": "INCONCLUSIVE",
   "profile_eligibility": {
     "eligible": false,
@@ -13,15 +13,359 @@
     "steps": 3600,
     "warmup": 900,
     "dry_run": false,
-    "actual_row_count": 0,
+    "actual_row_count": 57,
     "expected_row_count": 2160,
+    "completed_row_count": 57,
     "all_rows_executed": false,
     "reasons": [
-      "input artifact has no executed raw scenario rows",
-      "input artifact reports missing required executed rows"
+      "input artifact reports missing required executed rows",
+      "input artifact actual_row_count does not match expected_row_count"
     ]
   },
-  "binding_regime_dominance": [],
+  "binding_regime_dominance": [
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261101,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261101,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261101,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_double_pressure",
+      "seed": 20261101,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "cycle_pressure",
+      "seed": 20261101,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "actuated_local_pressure",
+      "seed": 20261101,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261102,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261102,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261102,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_double_pressure",
+      "seed": 20261102,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "cycle_pressure",
+      "seed": 20261102,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "actuated_local_pressure",
+      "seed": 20261102,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261103,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261103,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261103,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_double_pressure",
+      "seed": 20261103,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "cycle_pressure",
+      "seed": 20261103,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "actuated_local_pressure",
+      "seed": 20261103,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261104,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261104,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261104,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_double_pressure",
+      "seed": 20261104,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "cycle_pressure",
+      "seed": 20261104,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "actuated_local_pressure",
+      "seed": 20261104,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261105,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261105,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261105,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_double_pressure",
+      "seed": 20261105,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "cycle_pressure",
+      "seed": 20261105,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "actuated_local_pressure",
+      "seed": 20261105,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261106,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261106,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261106,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_double_pressure",
+      "seed": 20261106,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "cycle_pressure",
+      "seed": 20261106,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "actuated_local_pressure",
+      "seed": 20261106,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261107,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261107,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261107,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_double_pressure",
+      "seed": 20261107,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "cycle_pressure",
+      "seed": 20261107,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "actuated_local_pressure",
+      "seed": 20261107,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261108,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261108,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261108,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_double_pressure",
+      "seed": 20261108,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "cycle_pressure",
+      "seed": 20261108,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "actuated_local_pressure",
+      "seed": 20261108,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261109,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261109,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261109,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_double_pressure",
+      "seed": 20261109,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "cycle_pressure",
+      "seed": 20261109,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "actuated_local_pressure",
+      "seed": 20261109,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "finite_storage_primal_dual",
+      "seed": 20261110,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "max_pressure",
+      "seed": 20261110,
+      "demand_multiplier": 0.8
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "controller": "capacity_aware_pressure",
+      "seed": 20261110,
+      "demand_multiplier": 0.8
+    }
+  ],
   "slack_regime_recovery_or_context": [],
   "inconclusive": [],
   "not_evidence": [],
@@ -57,7 +401,7 @@
   },
   "statistical_family": "gate_c_primary_metrics_v1",
   "gate_c_primary_metrics_v1": {
-    "status": "INCONCLUSIVE",
+    "status": "FAILED",
     "statistical_family": "gate_c_primary_metrics_v1",
     "metric_results": [],
     "family_metadata": {
@@ -68,7 +412,7 @@
       "adjusted_diagnostics": []
     },
     "reasons": [
-      "no executed rows available"
+      "missing required binding scenarios: ['arterial_incident_capacity_drop', 'arterial_oversaturation', 'arterial_spillback_stress', 'arterial_switching_loss_sensitive', 'arterial_turning_shock']"
     ]
   },
   "demand_multiplier_provenance_summary": {
@@ -81,19 +425,362 @@
       1.0,
       1.2
     ],
-    "provenance_entry_count": 3,
+    "provenance_entry_count": 60,
     "metadata_only_entry_count": 0,
     "missing_actual_behavior_fields": [],
     "valid_actual_behavior": true
   },
   "recomputed_gate_c": {
-    "status": "INCONCLUSIVE",
-    "binding_regime_dominance": [],
+    "status": "FAILED",
+    "binding_regime_dominance": [
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261101,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261101,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261101,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_double_pressure",
+        "seed": 20261101,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "cycle_pressure",
+        "seed": 20261101,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "actuated_local_pressure",
+        "seed": 20261101,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261102,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261102,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261102,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_double_pressure",
+        "seed": 20261102,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "cycle_pressure",
+        "seed": 20261102,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "actuated_local_pressure",
+        "seed": 20261102,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261103,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261103,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261103,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_double_pressure",
+        "seed": 20261103,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "cycle_pressure",
+        "seed": 20261103,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "actuated_local_pressure",
+        "seed": 20261103,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261104,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261104,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261104,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_double_pressure",
+        "seed": 20261104,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "cycle_pressure",
+        "seed": 20261104,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "actuated_local_pressure",
+        "seed": 20261104,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261105,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261105,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261105,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_double_pressure",
+        "seed": 20261105,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "cycle_pressure",
+        "seed": 20261105,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "actuated_local_pressure",
+        "seed": 20261105,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261106,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261106,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261106,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_double_pressure",
+        "seed": 20261106,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "cycle_pressure",
+        "seed": 20261106,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "actuated_local_pressure",
+        "seed": 20261106,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261107,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261107,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261107,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_double_pressure",
+        "seed": 20261107,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "cycle_pressure",
+        "seed": 20261107,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "actuated_local_pressure",
+        "seed": 20261107,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261108,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261108,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261108,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_double_pressure",
+        "seed": 20261108,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "cycle_pressure",
+        "seed": 20261108,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "actuated_local_pressure",
+        "seed": 20261108,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261109,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261109,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261109,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_double_pressure",
+        "seed": 20261109,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "cycle_pressure",
+        "seed": 20261109,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "actuated_local_pressure",
+        "seed": 20261109,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "finite_storage_primal_dual",
+        "seed": 20261110,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "max_pressure",
+        "seed": 20261110,
+        "demand_multiplier": 0.8
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "controller": "capacity_aware_pressure",
+        "seed": 20261110,
+        "demand_multiplier": 0.8
+      }
+    ],
     "slack_regime_recovery_or_context": [],
     "inconclusive": [],
     "not_evidence": [],
     "primary_metric_rule": {
-      "status": "INCONCLUSIVE",
+      "status": "FAILED",
       "metric_results": [],
       "family_metadata": {
         "family": "gate_c_primary_metrics_v1",
@@ -103,17 +790,18 @@
         "adjusted_diagnostics": []
       },
       "reasons": [
-        "no executed rows available"
+        "missing required binding scenarios: ['arterial_incident_capacity_drop', 'arterial_oversaturation', 'arterial_spillback_stress', 'arterial_switching_loss_sensitive', 'arterial_turning_shock']"
       ]
     },
     "reasons": [
-      "no executed rows available"
+      "missing required binding scenarios: ['arterial_incident_capacity_drop', 'arterial_oversaturation', 'arterial_spillback_stress', 'arterial_switching_loss_sensitive', 'arterial_turning_shock']"
     ]
   },
   "reasons": [
-    "input artifact has no executed raw scenario rows",
     "input artifact reports missing required executed rows",
-    "no executed rows available"
+    "input artifact actual_row_count does not match expected_row_count",
+    "input artifact status is INCONCLUSIVE, not PASSED",
+    "missing required binding scenarios: ['arterial_incident_capacity_drop', 'arterial_oversaturation', 'arterial_spillback_stress', 'arterial_switching_loss_sensitive', 'arterial_turning_shock']"
   ],
   "caveats": [
     "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
