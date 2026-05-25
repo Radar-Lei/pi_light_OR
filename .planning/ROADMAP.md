@@ -1,3 +1,12 @@
+---
+phase: 12.1
+slug: close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid
+status: draft
+nyquist_compliant: true
+wave_0_complete: false
+created: 2026-05-25
+---
+
 # Roadmap: PI-Light OR / Dual-Sensitivity Symbolic Traffic Control
 
 ## Milestones
@@ -19,7 +28,8 @@ v1.1 converts the v1.0 pressure-equivalent artifact into a bounded strong-claim 
 - [x] **Phase 9: Slack and Binding Kill Gates** - Build fail-closed gates for slack recovery and binding-state action/objective separation. (completed 2026-05-24)
 - [x] **Phase 10: Strong Baselines and Stress Scenario Suite** - Add honest operational/pressure baselines and explicit finite-storage stress scenarios, including the grid fixed-time counterexample. (completed 2026-05-24)
 - [x] **Phase 11: Long-Horizon Paired-Seed Evidence** - Run journal-grade closed-loop paired-seed experiments and statistical dominance checks only in binding stress regimes. (completed 2026-05-24)
-- [ ] **Phase 12: Reproducibility and Future Claim Inputs** - Regenerate all new evidence from raw artifacts and prepare bounded future claim inputs without drafting the paper.
+- [x] **Phase 12: Reproducibility and Future Claim Inputs** - Regenerate all new evidence from raw artifacts and prepare bounded future claim inputs without drafting the paper. (completed 2026-05-24)
+- [ ] **Phase 12.1: Close v1.1 gap: execute or downgrade Gate C long-horizon evidence** - Execute the predeclared Gate C main profile or preserve fail-closed status through downstream reproducibility/status artifacts.
 
 ## Phase Details
 
@@ -130,7 +140,19 @@ Plans:
   3. User can run Gate C and see closed-loop dominance evaluated only in predeclared binding stress regimes against the strongest feasible baselines.
   4. User can distinguish slack-regime ties/recovery from binding-regime wins in the experiment summaries.
 
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [x] 11-01-PLAN.md — Create Phase 11 evidence contracts, paired statistics, and reusable Gate C rule.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [x] 11-02-PLAN.md — Add executable paired-evidence runner, demand scaling, and main-profile fail-closed artifact.
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [x] 11-03-PLAN.md — Add strict Gate C checker and machine-readable paired-evidence gate artifact.
 
 ### Phase 12: Reproducibility and Future Claim Inputs
 
@@ -144,11 +166,53 @@ Plans:
   3. User can inspect future claim templates and limitations that state strict generalization and binding-regime superiority only, not universal dominance.
   4. User can see simulator-, network-, horizon-, and seed-relative qualifiers preserved in future manuscript-input artifacts without any paper drafting or submission-prep phase.
 
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+**Wave 1**
+
+- [x] 12-01-PLAN.md — Create Phase 12 source registry, bounded claim/provenance/reproduction builders, CLI, and tests.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [x] 12-02-PLAN.md — Generate and validate real Phase 12 reproducibility package, provenance, table, claim, audit, reproduction, and summary artifacts.
+
+### Phase 12.1: Close v1.1 gap: execute or downgrade Gate C long-horizon evidence (INSERTED)
+
+**Goal:** Researchers can see whether the predeclared Gate C long-horizon evidence passed, failed, or remains inconclusive after full main-profile execution and downstream status refresh.
+**Requirements**: GATE-03, EXP-03, EXP-05, CLAIM-03, REPRO-01, REPRO-02, REPRO-03
+**Depends on:** Phase 12
+**Success Criteria** (what must be TRUE):
+
+  1. User can start or resume the original Phase 11 main profile: 6 binding scenarios × 6 controllers × 20 seeds × 3 demand multipliers = 2160 expected rows.
+  2. User can inspect the Phase 11 source artifact and see either all 2160 rows completed or explicit fail-closed reasons for missing/failed/unpaired rows, missing comparators, missing explicit state, or missing action decomposition.
+  3. User can run strict Gate C and see the actual `PASSED`, `FAILED`, or `INCONCLUSIVE` outcome without threshold tuning or evidence-family narrowing.
+  4. User can regenerate Phase 12 reproducibility and claim-status artifacts from raw sources and see bounded, conservative status propagation.
+
+**Plans:** 5 plans
+Plans:
+**Wave 1**
+
+- [ ] 12.1-01-PLAN.md — Repair command contract and add progress/resume preflight for 2160-row execution.
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 12.1-02-PLAN.md — Execute or resume the full Phase 11 main profile and inspect row completeness.
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 12.1-03-PLAN.md — Regenerate Gate C and enforce strict fail-closed status.
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [ ] 12.1-04-PLAN.md — Refresh Phase 12 reproducibility and claim-status artifacts.
+
+**Wave 5** *(blocked on Wave 4 completion)*
+
+- [ ] 12.1-05-PLAN.md — Run final verification and update planning/status surfaces.
 
 ## Progress
 
-**Execution Order:** Phases execute in numeric order: 6 → 7 → 8 → 9 → 10 → 11 → 12.
+**Execution Order:** Phases execute in numeric order: 6 → 7 → 8 → 9 → 10 → 11 → 12 → 12.1.
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -163,7 +227,8 @@ Plans:
 | 9. Slack and Binding Kill Gates | v1.1 | 1/1 | Complete | 2026-05-24 |
 | 10. Strong Baselines and Stress Scenario Suite | v1.1 | 1/1 | Complete | 2026-05-24 |
 | 11. Long-Horizon Paired-Seed Evidence | v1.1 | 3/3 | Complete   | 2026-05-24 |
-| 12. Reproducibility and Future Claim Inputs | v1.1 | 0/TBD | Not started | - |
+| 12. Reproducibility and Future Claim Inputs | v1.1 | 2/2 | Complete    | 2026-05-24 |
+| 12.1. Close v1.1 gap: execute or downgrade Gate C long-horizon evidence | v1.1 | 0/5 | Planned | — |
 
 ## Coverage
 
@@ -171,7 +236,7 @@ Plans:
 |-------------|-------|
 | CLAIM-01 | Phase 6 |
 | CLAIM-02 | Phase 6 |
-| CLAIM-03 | Phase 12 |
+| CLAIM-03 | Phase 12, Phase 12.1 |
 | STATE-01 | Phase 6 |
 | STATE-02 | Phase 6 |
 | STATE-03 | Phase 6 |
@@ -185,15 +250,15 @@ Plans:
 | CTRL-04 | Phase 8 |
 | GATE-01 | Phase 9 |
 | GATE-02 | Phase 9 |
-| GATE-03 | Phase 11 |
+| GATE-03 | Phase 11, Phase 12.1 |
 | GATE-04 | Phase 9 |
 | EXP-01 | Phase 10 |
 | EXP-02 | Phase 10 |
-| EXP-03 | Phase 11 |
+| EXP-03 | Phase 11, Phase 12.1 |
 | EXP-04 | Phase 10 |
-| EXP-05 | Phase 11 |
-| REPRO-01 | Phase 12 |
-| REPRO-02 | Phase 12 |
-| REPRO-03 | Phase 12 |
+| EXP-05 | Phase 11, Phase 12.1 |
+| REPRO-01 | Phase 12, Phase 12.1 |
+| REPRO-02 | Phase 12, Phase 12.1 |
+| REPRO-03 | Phase 12, Phase 12.1 |
 
-**Coverage:** 26/26 v1.1 requirements mapped; no orphaned requirements; no duplicate phase assignments.
+**Coverage:** 26/26 v1.1 requirements mapped; Phase 12.1 adds urgent closure coverage for pending Gate C execution/status propagation; no orphaned requirements.
