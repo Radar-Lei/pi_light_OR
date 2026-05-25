@@ -17,8 +17,8 @@ This audit summary is generated from raw Phase 7/9/10/11 artifacts and is not ma
 - phase7_theory_separation: category=static_binding_separation_and_slack_recovery; allowed=True; status=PASSED; network=unknown; horizon=unknown; seeds=unknown; profile=unknown; gate_status=PASSED
 - phase9_slack_binding_gates: category=slack_recovery_tie_and_static_binding_separation; allowed=True; status=PASSED; network=unknown; horizon=unknown; seeds=unknown; profile=unknown; gate_status=PASSED
 - phase10_baselines_stress_suite: category=baseline_stress_capability_context; allowed=False; status=SMOKE_ONLY; network=single,arterial,grid_4x4; horizon=80; seeds=2; profile=smoke; gate_status=SMOKE_ONLY
-- phase11_long_horizon_paired_seed_evidence: category=limitations_and_reproduction_notes; allowed=False; status=INCONCLUSIVE; network=unknown; horizon=3600; seeds=20; profile=main; gate_status=INCONCLUSIVE
-- phase11_gate_c_paired_evidence: category=closed_loop_gate_c_status; allowed=False; status=INCONCLUSIVE; network=unknown; horizon=3600; seeds=unknown; profile=main; gate_status=INCONCLUSIVE
+- phase11_long_horizon_paired_seed_evidence: category=limitations_and_reproduction_notes; allowed=False; status=INCONCLUSIVE; network=arterial; horizon=3600; seeds=20; profile=main; gate_status=INCONCLUSIVE
+- phase11_gate_c_paired_evidence: category=closed_loop_gate_c_status; allowed=False; status=INCONCLUSIVE; network=unknown; horizon=3600; seeds=unknown; profile=main; gate_status=FAILED
 
 ## Caveats
 - A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.

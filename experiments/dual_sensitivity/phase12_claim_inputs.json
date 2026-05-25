@@ -85,7 +85,7 @@
       "parse_status": "PASSED",
       "evidence_role": "closed_loop_paired_seed_gate_c_source",
       "simulator": "SUMO",
-      "network": "unknown",
+      "network": "arterial",
       "horizon_steps": 3600,
       "warmup_steps": 900,
       "seed_count": 20,
@@ -114,7 +114,7 @@
       "warmup_steps": 900,
       "seed_count": "unknown",
       "profile": "main",
-      "gate_status": "INCONCLUSIVE",
+      "gate_status": "FAILED",
       "demand_multiplier": "unknown",
       "requirements_covered": [
         "CLAIM-03",
