@@ -1,74 +1,52 @@
 # Requirements: PI-Light OR / Dual-Sensitivity Symbolic Traffic Control
 
-**Defined:** 2026-05-23
-**Milestone:** v1.1 Explicit Finite-Storage Primal-Dual Separation
+**Defined:** 2026-05-25
+**Milestone:** v1.3 Complete Predeclared Gate C Evidence
 **Core Value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
 
-## v1.1 Requirements
+## v1.3 Requirements
 
-Requirements for the finite-storage separation milestone. Each maps to roadmap phases.
+Requirements for the Gate C evidence-closure milestone. Each maps to roadmap Phase 13.
 
-### Claim Discipline
+### Evidence Execution
 
-- [x] **CLAIM-01**: The project states the permitted strong claim as bounded: the method recovers or ties max-pressure when constraints are slack and only claims improvement when finite-storage, spillback, switching, service, or incident constraints bind.
-- [x] **CLAIM-02**: The repository prevents v1.0 pressure-equivalent static or closed-loop evidence from being described as dual superiority.
-- [x] **CLAIM-03**: Generated reports and future manuscript inputs distinguish simulator-, network-, horizon-, and seed-relative evidence from deployment or universal-dominance claims.
+- [ ] **EXEC-01**: Researcher can resume or execute the original Phase 11 main profile for 6 binding regimes x 6 controllers x 20 paired seeds x 3 demand multipliers = 2160 expected rows.
+- [ ] **EXEC-02**: Researcher can inspect progress/resume artifacts and see completed row keys, missing row keys, duplicate conflicts, failed rows, and spec-fingerprint compatibility.
+- [ ] **EXEC-03**: Researcher can identify whether every required regime/controller/seed/demand-multiplier combination executed or failed closed with an explicit reason.
 
-### Explicit State and Objective
+### Protocol Preservation
 
-- [x] **STATE-01**: Experiment state replaces proxy-only binding labels with explicit downstream storage, residual receiving capacity, spillback/blocking, phase-switching loss, service urgency, and incident/capacity-drop fields.
-- [x] **STATE-02**: The finite-storage constrained objective predeclares delay, unfinished-vehicle penalty, spillback/blocking time, and switching lost-time terms.
-- [x] **STATE-03**: Static fixtures and closed-loop runners emit schema-validated artifacts containing the explicit state fields and objective components needed for audit.
+- [ ] **PROTO-01**: The milestone preserves the predeclared Gate C controller set, binding regimes, paired seeds, demand multipliers, primary metrics, and thresholds without post-hoc retuning.
+- [ ] **PROTO-02**: The milestone preserves required explicit finite-storage state fields, objective components, action decomposition, baseline comparators, and pairing metadata for every claim-eligible row.
+- [ ] **PROTO-03**: Partial rows remain debugging/provenance only and are not summarized as early performance evidence.
 
-### Theory and Separation
+### Gate C Closure
 
-- [ ] **THRY-01**: The theoretical model proves a special-case theorem showing reduction to classical max-pressure/backpressure under infinite storage, no switching loss, fixed turning ratios, and slack operational constraints.
-- [ ] **THRY-02**: The theory package proves or constructs a separation theorem/counterexample where finite storage, spillback, incident capacity drop, or switching loss causes the primal-dual controller and classical pressure to choose different phases.
-- [ ] **THRY-03**: The separation result shows strict improvement in a one-step constrained objective, spillback penalty, Lyapunov drift, or equivalent auditable criterion relative to classical pressure.
-- [ ] **THRY-04**: The milestone includes one additional guarantee candidate: throughput/bounded-drift under a finite-storage model, regret to a constrained LP oracle, or symbolic-compression error bound.
+- [ ] **GATEC-01**: Researcher can rerun strict Gate C from refreshed raw Phase 11 evidence and obtain exactly one fail-closed status: `PASSED`, `FAILED`, or `INCONCLUSIVE`.
+- [ ] **GATEC-02**: Gate C fails closed on missing rows, unpaired seeds, missing comparators, runtime failures, missing explicit state, missing action decomposition, or schema-invalid metadata.
+- [ ] **GATEC-03**: Gate C output distinguishes slack recovery evidence, static binding separation evidence, and closed-loop binding-regime dominance evidence.
 
-### Controller Integration
+### Reproducibility and Claim Status
 
-- [x] **CTRL-01**: A live finite-storage primal-dual pressure controller computes movement/phase scores using queue pressure plus downstream storage, spillback, switching, service, and incident shadow-price corrections.
-- [x] **CTRL-02**: `full_dual_symbolic` or its finite-storage successor is safely wired into closed-loop SUMO without relabeling unsafe queue heuristics as the proposed method.
-- [x] **CTRL-03**: The controller reduces to the existing pressure-equivalent behavior in slack regimes according to deterministic unit or fixture tests.
-- [x] **CTRL-04**: Controller outputs include auditable score decompositions showing which shadow-price terms changed the action in binding regimes.
+- [ ] **REPRO-01**: Researcher can regenerate the Phase 12 reproducibility package, provenance, claim inputs, summaries, and claim audit from raw refreshed artifacts.
+- [ ] **REPRO-02**: Phase 12 package status propagates the refreshed Phase 11/Gate C status conservatively without manual edits.
+- [ ] **CLAIM-01**: Closed-loop superiority remains `claim_allowed=false` unless all predeclared Gate C completeness and dominance checks pass.
+- [ ] **CLAIM-02**: Manuscript drafting, related-work writing, final paper integration, submission preparation, and polished paper figures remain out of scope for v1.3.
 
-### Kill Gates
+## Future Requirements
 
-- [x] **GATE-01**: Gate A verifies slack-regime special-case recovery, requiring high action agreement with max-pressure/backpressure and reporting ties as expected behavior.
-- [x] **GATE-02**: Gate B verifies binding-regime separation, requiring primal-dual actions to differ from pressure and improve the constrained oracle or one-step objective on explicit storage/spillback/switching/incident states.
-- [x] **GATE-03**: Gate C verifies closed-loop dominance only in predeclared binding stress regimes using paired-seed confidence intervals against the strongest feasible baselines.
-- [x] **GATE-04**: Gate outputs fail closed when explicit state fields, action decompositions, paired seeds, or baseline comparators are missing.
+Deferred to future milestones after v1.3 determines the Gate C outcome.
 
-### Baselines and Experiments
+### Manuscript and Presentation
 
-- [x] **EXP-01**: The experiment suite includes optimized fixed-time, actuated or semi-actuated control, classical max-pressure, capacity-aware pressure, and feasible cycle-based or finite-storage/double-pressure variants.
-- [x] **EXP-02**: The suite explains and tests the current grid fixed-time counterexample before using any broad performance language.
-- [x] **EXP-03**: Long-horizon closed-loop experiments use 3600–7200s horizons, appropriate warmup, demand multiplier sweeps, and paired seeds where computationally feasible.
-- [x] **EXP-04**: Stress scenarios include downstream blockage, spillback, incident/lane capacity drop, oversaturation, turning shock, and switching-loss-sensitive regimes.
-- [x] **EXP-05**: Statistical reports include paired bootstrap or paired t/Wilcoxon confidence intervals, effect sizes, and multiple-comparison handling where relevant.
+- **MS-01**: Draft the TR-B / Transportation Science manuscript using only claims allowed by the completed Gate C and reproducibility package.
+- **MS-02**: Convert Phase 7 static separation and any completed Gate C evidence into polished paper figures, tables, captions, and theorem statements.
+- **MS-03**: Run external review or kill-argument on the full manuscript before submission.
 
-### Reproducibility and Future Manuscript Inputs
+### Benchmark Expansion
 
-- [x] **REPRO-01**: All new result tables, figure-data files, and claim-audit summaries are generated from raw JSON/CSV artifacts rather than manual transcription.
-- [x] **REPRO-02**: Reproduction scripts can rerun the new finite-storage separation gates and long-horizon experiment summaries on CPU/SUMO without GPU dependencies.
-- [x] **REPRO-03**: Future manuscript-input claim templates and limitations reflect the bounded claim: strict generalization and binding-regime superiority, not universal dominance.
-
-## v2 Requirements
-
-Deferred to future milestones. Tracked but not in current roadmap.
-
-### Manuscript Finalization
-
-- **MS-01**: Draft the full TR-B / Transportation Science manuscript after v1.1 determines which strong claims survive.
-- **MS-02**: Convert final finite-storage separation artifacts into polished paper figures, tables, captions, and theorem statements.
-- **MS-03**: Run external review / kill-argument on the full manuscript before submission.
-
-### Large Benchmark Expansion
-
-- **BENCH-01**: Add RESCO, CityFlow, LibSignal, or a larger real-world benchmark if the v1.1 core result survives on the local SUMO suite.
-- **BENCH-02**: Add PI-Light / PressLight / MPLight-style neural baselines as appendix evidence if they can be run honestly without shifting the paper into benchmark chasing.
+- **BENCH-01**: Add RESCO, CityFlow, LibSignal, or larger real-world benchmarks if the v1.3 Gate C outcome supports continuing the empirical performance route.
+- **BENCH-02**: Add neural or PI-Light-family baselines only as secondary evidence if they can be run honestly without shifting the paper into benchmark chasing.
 
 ## Out of Scope
 
@@ -76,12 +54,12 @@ Explicitly excluded. Documented to prevent scope creep.
 
 | Feature | Reason |
 |---------|--------|
-| Claiming universal superiority over max-pressure | v1.0 evidence is pressure-equivalent and the v1.1 claim is bounded to binding constraints. |
-| Reusing proxy-only `supply_binding_proxy`, `corridor_bottleneck_proxy`, or `demand_shift_proxy` as final evidence | The strong claim requires explicit state fields and auditable objective terms. |
-| Relabeling unsafe `full_dual_symbolic` or `local_pilight` heuristics as implemented baselines | v1.0 deliberately marked them not feasible; v1.1 must either wire them safely or keep them excluded. |
-| Making RL benchmark performance the main contribution | TS/TR-B fit depends on mathematical structure, separation, and OR/control insight. |
-| GPU-heavy MARL training as a milestone dependency | The project should remain CPU/SUMO/optimization oriented. |
-| Starting final manuscript claims before the separation gates pass | Manuscript language must follow evidence, not precede it. |
+| New controllers or new score terms | v1.3 must close the predeclared Gate C evidence, not change the tested method. |
+| New scenarios, metrics, thresholds, or seed plans | Post-hoc changes would invalidate the Phase 11/Gate C protocol. |
+| Interpreting 57/2160 partial rows as results | Partial rows are debugging/provenance only until the full predeclared row set is complete or fail-closed. |
+| Manuscript drafting or final paper integration | User explicitly requested not to start writing; v1.3 is evidence closure only. |
+| Universal superiority claims over max-pressure | The allowed empirical claim is bounded to predeclared binding regimes and only if Gate C passes. |
+| Reclassifying `full_dual_symbolic` as feasible | Phase 8 preserved that path as not feasible; v1.3 should not alter controller feasibility labels. |
 
 ## Traceability
 
@@ -89,39 +67,26 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CLAIM-01 | Phase 6 | Complete |
-| CLAIM-02 | Phase 6 | Complete |
-| CLAIM-03 | Phase 12 | Complete |
-| STATE-01 | Phase 6 | Complete |
-| STATE-02 | Phase 6 | Complete |
-| STATE-03 | Phase 6 | Complete |
-| THRY-01 | Phase 7 | Complete |
-| THRY-02 | Phase 7 | Complete |
-| THRY-03 | Phase 7 | Complete |
-| THRY-04 | Phase 7 | Complete |
-| CTRL-01 | Phase 8 | Complete |
-| CTRL-02 | Phase 8 | Complete |
-| CTRL-03 | Phase 8 | Complete |
-| CTRL-04 | Phase 8 | Complete |
-| GATE-01 | Phase 9 | Complete |
-| GATE-02 | Phase 9 | Complete |
-| GATE-03 | Phase 11 | Complete |
-| GATE-04 | Phase 9 | Complete |
-| EXP-01 | Phase 10 | Complete |
-| EXP-02 | Phase 10 | Complete |
-| EXP-03 | Phase 11 | Complete |
-| EXP-04 | Phase 10 | Complete |
-| EXP-05 | Phase 11 | Complete |
-| REPRO-01 | Phase 12 | Complete |
-| REPRO-02 | Phase 12 | Complete |
-| REPRO-03 | Phase 12 | Complete |
+| EXEC-01 | Phase 13 | Pending |
+| EXEC-02 | Phase 13 | Pending |
+| EXEC-03 | Phase 13 | Pending |
+| PROTO-01 | Phase 13 | Pending |
+| PROTO-02 | Phase 13 | Pending |
+| PROTO-03 | Phase 13 | Pending |
+| GATEC-01 | Phase 13 | Pending |
+| GATEC-02 | Phase 13 | Pending |
+| GATEC-03 | Phase 13 | Pending |
+| REPRO-01 | Phase 13 | Pending |
+| REPRO-02 | Phase 13 | Pending |
+| CLAIM-01 | Phase 13 | Pending |
+| CLAIM-02 | Phase 13 | Pending |
 
 **Coverage:**
-- v1.1 requirements: 26 total
-- Mapped to phases: 26
+- v1.3 requirements: 13 total
+- Mapped to phases: 13
 - Unmapped: 0
 - Duplicate phase assignments: 0
 
 ---
-*Requirements defined: 2026-05-23*
-*Last updated: 2026-05-24 after Phase 10 strong baseline and stress scenario suite completion*
+*Requirements defined: 2026-05-25*
+*Last updated: 2026-05-25 after v1.3 milestone initialization*
