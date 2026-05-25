@@ -188,11 +188,11 @@ Plans:
   3. User can run strict Gate C and see the actual `PASSED`, `FAILED`, or `INCONCLUSIVE` outcome without threshold tuning or evidence-family narrowing.
   4. User can regenerate Phase 12 reproducibility and claim-status artifacts from raw sources and see bounded, conservative status propagation.
 
-**Plans:** 5 plans
+**Plans:** 1/5 plans executed
 Plans:
 **Wave 1**
 
-- [ ] 12.1-01-PLAN.md — Repair command contract and add progress/resume preflight for 2160-row execution.
+- [x] 12.1-01-PLAN.md — Repair command contract and add progress/resume preflight for 2160-row execution.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -228,7 +228,7 @@ Plans:
 | 10. Strong Baselines and Stress Scenario Suite | v1.1 | 1/1 | Complete | 2026-05-24 |
 | 11. Long-Horizon Paired-Seed Evidence | v1.1 | 3/3 | Complete   | 2026-05-24 |
 | 12. Reproducibility and Future Claim Inputs | v1.1 | 2/2 | Complete    | 2026-05-24 |
-| 12.1. Close v1.1 gap: execute or downgrade Gate C long-horizon evidence | v1.1 | 0/5 | Planned | — |
+| 12.1. Close v1.1 gap: execute or downgrade Gate C long-horizon evidence | v1.1 | 1/5 | In Progress|  |
 
 ## Coverage
 

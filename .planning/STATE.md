@@ -4,13 +4,13 @@ milestone: v1.1
 milestone_name: Explicit Finite-Storage Primal-Dual Separation
 status: executing
 stopped_at: Phase 12.1 context gathered
-last_updated: "2026-05-25T03:29:08.805Z"
-last_activity: 2026-05-25 -- Phase 12.1 planning complete
+last_updated: "2026-05-25T03:45:23.870Z"
+last_activity: 2026-05-25
 progress:
   total_phases: 1
   completed_phases: 0
   total_plans: 5
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,16 +21,16 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-24)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** Phase 12.1 urgent inserted gap
+**Current focus:** Phase 12.1 — close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid
 
 ## Current Position
 
-Phase: 12.1
-Plan: Not started
+Phase: 12.1 (close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-05-25 -- Phase 12.1 planning complete
+Last activity: 2026-05-25
 
-Progress: [██████████] 100%
+Progress: [██░░░░░░░░] 20%
 
 ## Performance Metrics
 
@@ -64,6 +64,7 @@ Progress: [██████████] 100%
 | Phase 08 P01 | completed | 3 tasks | 5 files |
 | Phase 09 P01 | completed | 3 tasks | 8 files |
 | Phase 10 P01 | completed | 3 tasks | 8 files |
+| Phase 12.1 P01 | 8min 5s | 3 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -96,6 +97,9 @@ Progress: [██████████] 100%
 - [Phase 09]: Gate A/B are deterministic explicit-state gates only; Gate C paired-seed closed-loop dominance remains deferred to Phase 11.
 - [Phase 09]: Gate artifacts fail closed on missing or forged action decomposition components, finite-storage tie sets, pressure comparators, objective totals/components/margins, and out-of-scope claim language.
 - [Phase 10]: Strong baseline/stress coverage is smoke/spec capability evidence only; required baselines and stress mechanisms fail closed, while optimized fixed-time remains a documented limitation.
+- [Phase ?]: [Phase 12.1]: Phase 11 resume support wraps execute_spec and continues using run_experiment rather than creating a new TraCI loop.
+- [Phase ?]: [Phase 12.1]: Progress files fail closed on invalid JSON, spec fingerprint mismatch, outside row keys, and conflicting duplicate completed rows.
+- [Phase ?]: [Phase 12.1]: Phase 12 reproduction now advertises --execution-row-limit 2160 plus progress/resume paths instead of unsupported --allow-long-horizon.
 
 ### Pending Todos
 
@@ -121,6 +125,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-25T02:55:47.435Z
+Last session: 2026-05-25T03:44:50.237Z
 Stopped at: Phase 12.1 context gathered
-Resume file: .planning/phases/12.1-close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid/12.1-CONTEXT.md
+Resume file: None

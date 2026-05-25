@@ -12,7 +12,7 @@ Requirements for the finite-storage separation milestone. Each maps to roadmap p
 
 - [x] **CLAIM-01**: The project states the permitted strong claim as bounded: the method recovers or ties max-pressure when constraints are slack and only claims improvement when finite-storage, spillback, switching, service, or incident constraints bind.
 - [x] **CLAIM-02**: The repository prevents v1.0 pressure-equivalent static or closed-loop evidence from being described as dual superiority.
-- [ ] **CLAIM-03**: Generated reports and future manuscript inputs distinguish simulator-, network-, horizon-, and seed-relative evidence from deployment or universal-dominance claims.
+- [x] **CLAIM-03**: Generated reports and future manuscript inputs distinguish simulator-, network-, horizon-, and seed-relative evidence from deployment or universal-dominance claims.
 
 ### Explicit State and Objective
 
@@ -29,31 +29,31 @@ Requirements for the finite-storage separation milestone. Each maps to roadmap p
 
 ### Controller Integration
 
-- [ ] **CTRL-01**: A live finite-storage primal-dual pressure controller computes movement/phase scores using queue pressure plus downstream storage, spillback, switching, service, and incident shadow-price corrections.
-- [ ] **CTRL-02**: `full_dual_symbolic` or its finite-storage successor is safely wired into closed-loop SUMO without relabeling unsafe queue heuristics as the proposed method.
-- [ ] **CTRL-03**: The controller reduces to the existing pressure-equivalent behavior in slack regimes according to deterministic unit or fixture tests.
-- [ ] **CTRL-04**: Controller outputs include auditable score decompositions showing which shadow-price terms changed the action in binding regimes.
+- [x] **CTRL-01**: A live finite-storage primal-dual pressure controller computes movement/phase scores using queue pressure plus downstream storage, spillback, switching, service, and incident shadow-price corrections.
+- [x] **CTRL-02**: `full_dual_symbolic` or its finite-storage successor is safely wired into closed-loop SUMO without relabeling unsafe queue heuristics as the proposed method.
+- [x] **CTRL-03**: The controller reduces to the existing pressure-equivalent behavior in slack regimes according to deterministic unit or fixture tests.
+- [x] **CTRL-04**: Controller outputs include auditable score decompositions showing which shadow-price terms changed the action in binding regimes.
 
 ### Kill Gates
 
-- [ ] **GATE-01**: Gate A verifies slack-regime special-case recovery, requiring high action agreement with max-pressure/backpressure and reporting ties as expected behavior.
-- [ ] **GATE-02**: Gate B verifies binding-regime separation, requiring primal-dual actions to differ from pressure and improve the constrained oracle or one-step objective on explicit storage/spillback/switching/incident states.
-- [ ] **GATE-03**: Gate C verifies closed-loop dominance only in predeclared binding stress regimes using paired-seed confidence intervals against the strongest feasible baselines.
-- [ ] **GATE-04**: Gate outputs fail closed when explicit state fields, action decompositions, paired seeds, or baseline comparators are missing.
+- [x] **GATE-01**: Gate A verifies slack-regime special-case recovery, requiring high action agreement with max-pressure/backpressure and reporting ties as expected behavior.
+- [x] **GATE-02**: Gate B verifies binding-regime separation, requiring primal-dual actions to differ from pressure and improve the constrained oracle or one-step objective on explicit storage/spillback/switching/incident states.
+- [x] **GATE-03**: Gate C verifies closed-loop dominance only in predeclared binding stress regimes using paired-seed confidence intervals against the strongest feasible baselines.
+- [x] **GATE-04**: Gate outputs fail closed when explicit state fields, action decompositions, paired seeds, or baseline comparators are missing.
 
 ### Baselines and Experiments
 
-- [ ] **EXP-01**: The experiment suite includes optimized fixed-time, actuated or semi-actuated control, classical max-pressure, capacity-aware pressure, and feasible cycle-based or finite-storage/double-pressure variants.
-- [ ] **EXP-02**: The suite explains and tests the current grid fixed-time counterexample before using any broad performance language.
-- [ ] **EXP-03**: Long-horizon closed-loop experiments use 3600–7200s horizons, appropriate warmup, demand multiplier sweeps, and paired seeds where computationally feasible.
-- [ ] **EXP-04**: Stress scenarios include downstream blockage, spillback, incident/lane capacity drop, oversaturation, turning shock, and switching-loss-sensitive regimes.
+- [x] **EXP-01**: The experiment suite includes optimized fixed-time, actuated or semi-actuated control, classical max-pressure, capacity-aware pressure, and feasible cycle-based or finite-storage/double-pressure variants.
+- [x] **EXP-02**: The suite explains and tests the current grid fixed-time counterexample before using any broad performance language.
+- [x] **EXP-03**: Long-horizon closed-loop experiments use 3600–7200s horizons, appropriate warmup, demand multiplier sweeps, and paired seeds where computationally feasible.
+- [x] **EXP-04**: Stress scenarios include downstream blockage, spillback, incident/lane capacity drop, oversaturation, turning shock, and switching-loss-sensitive regimes.
 - [ ] **EXP-05**: Statistical reports include paired bootstrap or paired t/Wilcoxon confidence intervals, effect sizes, and multiple-comparison handling where relevant.
 
 ### Reproducibility and Future Manuscript Inputs
 
-- [ ] **REPRO-01**: All new result tables, figure-data files, and claim-audit summaries are generated from raw JSON/CSV artifacts rather than manual transcription.
-- [ ] **REPRO-02**: Reproduction scripts can rerun the new finite-storage separation gates and long-horizon experiment summaries on CPU/SUMO without GPU dependencies.
-- [ ] **REPRO-03**: Future manuscript-input claim templates and limitations reflect the bounded claim: strict generalization and binding-regime superiority, not universal dominance.
+- [x] **REPRO-01**: All new result tables, figure-data files, and claim-audit summaries are generated from raw JSON/CSV artifacts rather than manual transcription.
+- [x] **REPRO-02**: Reproduction scripts can rerun the new finite-storage separation gates and long-horizon experiment summaries on CPU/SUMO without GPU dependencies.
+- [x] **REPRO-03**: Future manuscript-input claim templates and limitations reflect the bounded claim: strict generalization and binding-regime superiority, not universal dominance.
 
 ## v2 Requirements
 
@@ -91,30 +91,30 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | CLAIM-01 | Phase 6 | Complete |
 | CLAIM-02 | Phase 6 | Complete |
-| CLAIM-03 | Phase 12 | Pending |
+| CLAIM-03 | Phase 12 | Complete |
 | STATE-01 | Phase 6 | Complete |
 | STATE-02 | Phase 6 | Complete |
 | STATE-03 | Phase 6 | Complete |
-| THRY-01 | Phase 7 | Pending |
-| THRY-02 | Phase 7 | Pending |
-| THRY-03 | Phase 7 | Pending |
-| THRY-04 | Phase 7 | Pending |
-| CTRL-01 | Phase 8 | Pending |
-| CTRL-02 | Phase 8 | Pending |
-| CTRL-03 | Phase 8 | Pending |
-| CTRL-04 | Phase 8 | Pending |
-| GATE-01 | Phase 9 | Pending |
-| GATE-02 | Phase 9 | Pending |
-| GATE-03 | Phase 11 | Pending |
-| GATE-04 | Phase 9 | Pending |
-| EXP-01 | Phase 10 | Pending |
-| EXP-02 | Phase 10 | Pending |
-| EXP-03 | Phase 11 | Pending |
-| EXP-04 | Phase 10 | Pending |
+| THRY-01 | Phase 7 | Complete |
+| THRY-02 | Phase 7 | Complete |
+| THRY-03 | Phase 7 | Complete |
+| THRY-04 | Phase 7 | Complete |
+| CTRL-01 | Phase 8 | Complete |
+| CTRL-02 | Phase 8 | Complete |
+| CTRL-03 | Phase 8 | Complete |
+| CTRL-04 | Phase 8 | Complete |
+| GATE-01 | Phase 9 | Complete |
+| GATE-02 | Phase 9 | Complete |
+| GATE-03 | Phase 11 | Complete |
+| GATE-04 | Phase 9 | Complete |
+| EXP-01 | Phase 10 | Complete |
+| EXP-02 | Phase 10 | Complete |
+| EXP-03 | Phase 11 | Complete |
+| EXP-04 | Phase 10 | Complete |
 | EXP-05 | Phase 11 | Pending |
-| REPRO-01 | Phase 12 | Pending |
-| REPRO-02 | Phase 12 | Pending |
-| REPRO-03 | Phase 12 | Pending |
+| REPRO-01 | Phase 12 | Complete |
+| REPRO-02 | Phase 12 | Complete |
+| REPRO-03 | Phase 12 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 26 total
@@ -124,4 +124,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-05-23*
-*Last updated: 2026-05-23 after v1.1 roadmap creation and traceability mapping*
+*Last updated: 2026-05-24 after Phase 10 strong baseline and stress scenario suite completion*
