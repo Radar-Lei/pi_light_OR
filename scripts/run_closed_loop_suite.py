@@ -10,12 +10,29 @@ from pathlib import Path
 from typing import Any
 
 from finite_storage_schema import FINITE_STORAGE_STATE_FIELDS, OBJECTIVE_COMPONENT_FIELDS
-from run_closed_loop_sumo import CLAIM_FRAMING, METRIC_FIELDS, load_route_metadata, run_experiment
+from run_closed_loop_sumo import CONTROLLER_REGISTRY, METRIC_FIELDS, NOT_FEASIBLE_CONTROLLERS, load_route_metadata, run_experiment
+
+PHASE10_CLAIM_FRAMING = "Phase 10 is baseline/stress-suite coverage capability evidence only, not Gate C, paired-seed dominance evidence, long-horizon statistics, or manuscript claims."
+
+REQUIRED_STRONG_BASELINES = [
+    "fixed_time",
+    "actuated_local_pressure",
+    "max_pressure",
+    "capacity_aware_pressure",
+    "cycle_pressure",
+    "finite_storage_double_pressure",
+    "finite_storage_primal_dual",
+]
+NOT_FEASIBLE_GUARD_CONTROLLERS = ["local_pilight", "full_dual_symbolic"]
 
 CORE_BASELINES = {
     "fixed_time",
+    "actuated_local_pressure",
     "max_pressure",
     "capacity_aware_pressure",
+    "cycle_pressure",
+    "finite_storage_double_pressure",
+    "finite_storage_primal_dual",
     "raw_neighbor_symbolic",
     "all_neighbor_symbolic",
     "random_permuted_dual",
@@ -26,6 +43,9 @@ DEFAULT_CONTROLLERS = [
     "actuated_local_pressure",
     "max_pressure",
     "capacity_aware_pressure",
+    "cycle_pressure",
+    "finite_storage_double_pressure",
+    "finite_storage_primal_dual",
     "local_pilight",
     "raw_neighbor_symbolic",
     "all_neighbor_symbolic",
@@ -38,6 +58,34 @@ SCENARIOS = [
     ("grid_scalability", "grid_4x4"),
     ("arterial_demand_shift", "arterial"),
     ("arterial_bottleneck_failure_mode", "arterial"),
+    ("arterial_downstream_blockage", "arterial"),
+    ("arterial_spillback_stress", "arterial"),
+    ("arterial_incident_capacity_drop", "arterial"),
+    ("arterial_oversaturation", "arterial"),
+    ("arterial_turning_shock", "arterial"),
+    ("arterial_switching_loss_sensitive", "arterial"),
+]
+STRESS_SCENARIO_CATEGORIES = {
+    "downstream_blockage": ["arterial_downstream_blockage"],
+    "spillback": ["arterial_spillback_stress"],
+    "incident_capacity_drop": ["arterial_incident_capacity_drop", "arterial_bottleneck_failure_mode"],
+    "oversaturation": ["arterial_oversaturation"],
+    "turning_shock": ["arterial_turning_shock", "arterial_demand_shift"],
+    "switching_loss_sensitive": ["arterial_switching_loss_sensitive"],
+}
+STRESS_SCENARIO_MECHANISMS = {
+    "arterial_downstream_blockage": "edge_speed_reduction",
+    "arterial_spillback_stress": "edge_speed_reduction",
+    "arterial_incident_capacity_drop": "edge_speed_reduction",
+    "arterial_bottleneck_failure_mode": "edge_speed_reduction",
+    "arterial_oversaturation": "traci_vehicle_insertion",
+    "arterial_turning_shock": "traci_vehicle_insertion",
+    "arterial_demand_shift": "traci_vehicle_insertion",
+    "arterial_switching_loss_sensitive": "short_action_interval_switching_audit",
+}
+PHASE10_SCOPE_CAVEATS = [
+    "Phase 10 validates baseline and stress scenario suite capability only; it is not Gate C or paired-seed dominance evidence.",
+    "Short smoke rows must not be interpreted as long-horizon performance or manuscript claims.",
 ]
 
 
@@ -66,27 +114,19 @@ def build_suite_spec(
 ) -> list[dict[str, Any]]:
     if profile == "smoke":
         seeds_by_scenario = {
-            "single_sanity": arterial_seeds[:1],
-            "arterial_main": arterial_seeds[:1],
-            "grid_scalability": grid_seeds[:1],
-            "arterial_demand_shift": arterial_seeds[:1],
-            "arterial_bottleneck_failure_mode": arterial_seeds[:1],
+            scenario_tag: (grid_seeds[:1] if network == "grid_4x4" else arterial_seeds[:1])
+            for scenario_tag, network in SCENARIOS
         }
         controllers_by_scenario = {name: controllers for name, _ in SCENARIOS}
     else:
         seeds_by_scenario = {
-            "single_sanity": arterial_seeds[:1],
-            "arterial_main": arterial_seeds[:5],
-            "grid_scalability": grid_seeds[:5],
-            "arterial_demand_shift": arterial_seeds[:1],
-            "arterial_bottleneck_failure_mode": arterial_seeds[:1],
+            scenario_tag: (grid_seeds[:5] if scenario_tag == "grid_scalability" else arterial_seeds[:5] if scenario_tag == "arterial_main" else arterial_seeds[:1])
+            for scenario_tag, _network in SCENARIOS
         }
+        stress_controllers = [c for c in controllers if c in {"fixed_time", "max_pressure", "capacity_aware_pressure", "cycle_pressure", "finite_storage_double_pressure", "finite_storage_primal_dual"}]
         controllers_by_scenario = {
-            "single_sanity": controllers,
-            "arterial_main": controllers,
-            "grid_scalability": controllers,
-            "arterial_demand_shift": [c for c in controllers if c in {"fixed_time", "max_pressure", "capacity_aware_pressure"}],
-            "arterial_bottleneck_failure_mode": [c for c in controllers if c in {"max_pressure", "capacity_aware_pressure"}],
+            scenario_tag: (controllers if scenario_tag in {"single_sanity", "arterial_main", "grid_scalability"} else stress_controllers)
+            for scenario_tag, _network in SCENARIOS
         }
     spec = []
     for scenario_tag, network in SCENARIOS:
@@ -143,10 +183,76 @@ def baseline_coverage(rows: list[dict[str, Any]], controllers: list[str]) -> dic
         run = any(row.get("feasibility_status") in {"run", "completed"} for row in ctrl_rows)
         if run:
             coverage[controller] = {"status": "run"}
-        else:
-            reason = next((str(row.get("unsupported_reason")) for row in ctrl_rows if row.get("unsupported_reason")), "no rows generated")
+        elif ctrl_rows:
+            reason = next((str(row.get("unsupported_reason")) for row in ctrl_rows if row.get("unsupported_reason")), "not feasible")
             coverage[controller] = {"status": "not_feasible", "unsupported_reason": reason}
+        else:
+            coverage[controller] = {"status": "not_requested", "unsupported_reason": "no rows generated"}
     return coverage
+
+
+def strong_baseline_coverage(rows: list[dict[str, Any]], controllers: list[str]) -> dict[str, Any]:
+    coverage = baseline_coverage(rows, controllers)
+    required = {}
+    for controller in REQUIRED_STRONG_BASELINES:
+        entry = coverage.get(controller, {"status": "not_requested", "description": CONTROLLER_REGISTRY.get(controller, "")})
+        required[controller] = {**entry, "registered": controller in CONTROLLER_REGISTRY, "required": True}
+    guarded = {}
+    for controller in NOT_FEASIBLE_GUARD_CONTROLLERS:
+        entry = coverage.get(controller, {"status": "not_requested", "unsupported_reason": NOT_FEASIBLE_CONTROLLERS.get(controller, "not requested")})
+        guarded[controller] = {**entry, "registered": controller in CONTROLLER_REGISTRY, "guarded_not_feasible": controller in NOT_FEASIBLE_CONTROLLERS}
+    return {
+        "required_feasible_baselines": required,
+        "not_feasible_guards": guarded,
+        "passed": all(item["registered"] and item["status"] == "run" for item in required.values())
+        and all(item["guarded_not_feasible"] and item["status"] == "not_feasible" for item in guarded.values()),
+    }
+
+
+def stress_scenario_coverage(rows: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+    declared_tags = {name for name, _network in SCENARIOS}
+    runnable_rows = [row for row in rows or [] if row.get("scenario_status") == "completed" and row.get("feasibility_status") in {"run", "completed"}]
+    categories = {}
+    for category, scenario_tags in STRESS_SCENARIO_CATEGORIES.items():
+        rows_by_tag = {tag: [row for row in runnable_rows if row.get("scenario_tag") == tag] for tag in scenario_tags}
+        mechanism_checks = {}
+        for tag, tag_rows in rows_by_tag.items():
+            expected = STRESS_SCENARIO_MECHANISMS[tag]
+            if expected == "edge_speed_reduction":
+                mechanism_checks[tag] = any(row.get("failure_mode_mechanism") == expected for row in tag_rows)
+            elif expected == "traci_vehicle_insertion":
+                mechanism_checks[tag] = any(row.get("demand_shift_mechanism") == expected for row in tag_rows)
+            else:
+                mechanism_checks[tag] = any(row.get("stress_mechanism") == expected for row in tag_rows)
+        categories[category] = {
+            "scenario_tags": scenario_tags,
+            "declared": all(tag in declared_tags for tag in scenario_tags),
+            "rows_present": sorted(tag for tag, tag_rows in rows_by_tag.items() if tag_rows),
+            "mechanisms_verified": mechanism_checks,
+            "passed": all(tag in declared_tags for tag in scenario_tags) and all(rows_by_tag.values()) and all(mechanism_checks.values()),
+        }
+    return {"categories": categories, "passed": all(item["passed"] for item in categories.values())}
+
+
+def grid_fixed_time_counterexample_check(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    grid_rows = [row for row in rows if row.get("scenario_tag") == "grid_scalability" and row.get("controller") == "fixed_time"]
+    return {
+        "status": "represented" if grid_rows else "declared_not_run",
+        "scenario_tag": "grid_scalability",
+        "controller": "fixed_time",
+        "rows": len(grid_rows),
+        "scope": "counterexample_check_metadata_only_not_broad_performance_language",
+    }
+
+
+def optimized_fixed_time_metadata() -> dict[str, Any]:
+    return {
+        "controller_name": "optimized_fixed_time",
+        "status": "documented_limit",
+        "implemented_in_phase10": False,
+        "current_fixed_time_baseline": "deterministic unoptimized cycle baseline",
+        "limitation": "Phase 10 records that tuned/grid-searched fixed timing is not implemented and must not be conflated with fixed_time.",
+    }
 
 
 def valid_completed_row(row: dict[str, Any]) -> bool:
@@ -237,15 +343,22 @@ def build_payload(
     completion_gates_passed: bool,
 ) -> dict[str, Any]:
     gates = completion_gates(rows)
+    baseline_scope = strong_baseline_coverage(rows, controllers)
+    stress_scope = stress_scenario_coverage(rows)
     return {
-        "experiment": "block4_closed_loop_suite",
-        "status": "PASSED" if completion_gates_passed else "SMOKE_ONLY" if profile == "smoke" else "FAILED",
+        "experiment": "phase10_baselines_stress_suite",
+        "status": "SMOKE_ONLY" if profile == "smoke" and baseline_scope["passed"] and stress_scope["passed"] else "PASSED" if completion_gates_passed else "FAILED",
         **route_metadata,
-        "claim_framing": CLAIM_FRAMING,
+        "claim_framing": PHASE10_CLAIM_FRAMING,
         "profile": profile,
         "scenario_results": rows,
         "aggregates": aggregate_results(rows),
         "baseline_coverage": baseline_coverage(rows, controllers),
+        "strong_baseline_coverage": baseline_scope,
+        "stress_scenario_coverage": stress_scope,
+        "grid_fixed_time_counterexample_check": grid_fixed_time_counterexample_check(rows),
+        "optimized_fixed_time_metadata": optimized_fixed_time_metadata(),
+        "phase10_scope_caveats": PHASE10_SCOPE_CAVEATS,
         "completion_gates": gates,
         "completion_gates_passed": completion_gates_passed,
         "metric_schema": {field: "CLOP-04 metric" for field in METRIC_FIELDS},
@@ -256,6 +369,9 @@ def build_payload(
 
 def main() -> None:
     args = parse_args()
+    unknown = sorted(set(args.controllers) - set(CONTROLLER_REGISTRY))
+    if unknown:
+        raise ValueError(f"Unknown controllers: {unknown}. Available: {sorted(CONTROLLER_REGISTRY)}")
     route_metadata = load_route_metadata(Path(args.route_json))
     spec = build_suite_spec(args.profile, args.controllers, args.arterial_seeds, args.grid_seeds, args.steps, args.warmup, args.action_interval)
     rows = [run_experiment(**item, route_metadata=route_metadata) for item in spec]

@@ -26,8 +26,12 @@ METRIC_FIELDS = [
 ]
 CORE_BASELINES = {
     "fixed_time",
+    "actuated_local_pressure",
     "max_pressure",
     "capacity_aware_pressure",
+    "cycle_pressure",
+    "finite_storage_double_pressure",
+    "finite_storage_primal_dual",
     "raw_neighbor_symbolic",
     "all_neighbor_symbolic",
     "random_permuted_dual",

@@ -1,0 +1,62 @@
+{
+  "experiment": "phase9_slack_binding_gates",
+  "scope": "static_explicit_state_action_decomposition_only_no_gate_c",
+  "requirements_covered": [
+    "GATE-01",
+    "GATE-02",
+    "GATE-04"
+  ],
+  "inputs": [
+    "experiments/dual_sensitivity/phase7_theory_separation.json"
+  ],
+  "gate_a_slack_recovery": {
+    "status": "PASSED",
+    "num_examples": 1,
+    "action_agreement_rate": 1.0,
+    "tie_rate": 1.0,
+    "diagnostics": [
+      {
+        "example": "slack_recovery",
+        "status": "PASSED",
+        "pressure_action": 0,
+        "finite_storage_action": 0,
+        "both_actions_in_finite_storage_tie_set": true
+      }
+    ],
+    "interpretation": "slack recovery or expected tie, not a performance advantage claim"
+  },
+  "gate_b_binding_separation": {
+    "status": "PASSED",
+    "num_examples": 1,
+    "separation_rate": 1.0,
+    "objective_improvement_rate": 1.0,
+    "min_objective_margin": 2.0,
+    "diagnostics": [
+      {
+        "example": "storage_binding_two_phase_separation",
+        "status": "PASSED",
+        "pressure_action": 0,
+        "finite_storage_action": 1,
+        "objective_margin": 2.0,
+        "changing_terms": [
+          "downstream_storage",
+          "spillback"
+        ],
+        "binding_term_hit": true
+      }
+    ],
+    "interpretation": "binding action separation with strict one-step constrained-objective improvement only"
+  },
+  "fail_closed_checks": {
+    "explicit_state_schema": "PASSED",
+    "objective_components": "PASSED",
+    "action_decomposition": "PASSED",
+    "decomposition_components": "PASSED",
+    "pressure_comparator": "PASSED",
+    "required_examples": "PASSED"
+  },
+  "caveats": [
+    "No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim."
+  ],
+  "status": "PASSED"
+}

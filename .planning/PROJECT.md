@@ -39,10 +39,10 @@ Show that finite-storage primal-dual pressure control strictly generalizes max-p
 ### Active
 
 - [ ] Replace proxy binding regimes with explicit finite-storage, receiving-capacity, spillback, switching-loss, service-urgency, and incident/capacity-drop state fields.
-- [ ] Implement a live finite-storage primal-dual pressure controller / `full_dual_symbolic` path that is safely deployable in closed-loop SUMO.
-- [ ] Prove special-case recovery of max-pressure under slack constraints and a separation theorem under binding finite-storage or spillback constraints.
-- [ ] Redesign the kill gate around slack-regime recovery, binding-regime separation, and closed-loop dominance under paired-seed tests.
-- [ ] Add strong operational baselines including optimized fixed-time, actuated/semi-actuated, cycle-based pressure, and finite-storage/double-pressure variants where feasible.
+- [x] Implement a live finite-storage primal-dual pressure controller / `full_dual_symbolic` path that is safely deployable in closed-loop SUMO — Phase 8.
+- [x] Prove special-case recovery of max-pressure under slack constraints and a separation theorem under binding finite-storage or spillback constraints — Phase 7.
+- [x] Redesign the kill gate around slack-regime recovery and binding-regime separation with fail-closed explicit-state/action-decomposition checks — Phase 9. Gate C paired-seed dominance remains Phase 11.
+- [x] Add strong operational baselines including optimized fixed-time, actuated/semi-actuated, cycle-based pressure, and finite-storage/double-pressure variants where feasible — Phase 10 smoke/spec coverage complete; optimized fixed-time remains documented as a current limit.
 - [ ] Run journal-grade long-horizon paired-seed experiments with demand and incident sweeps and predeclared delay/spillback/unfinished-vehicle metrics.
 - [ ] Preserve claim discipline: no statement that the method is better than max-pressure until the new binding-regime theory and experiments support that bounded claim.
 
@@ -96,9 +96,10 @@ Known scientific and process debt remains: Phase 3 imports Phase 2 recovery code
 
 **Target features:**
 - Explicit finite-storage / receiving-capacity / spillback / switching-loss / service-urgency / incident state schema.
-- Live finite-storage primal-dual pressure controller and safely wired `full_dual_symbolic` closed-loop path.
-- Three-layer kill gate: slack special-case recovery, binding-regime separation, paired-seed closed-loop dominance.
-- Strong pressure and operational baselines: optimized fixed-time, actuated/semi-actuated, capacity-aware pressure, cycle-based pressure, and finite-storage/double-pressure variants where feasible.
+- Finite-storage theory package with slack max-pressure recovery, explicit storage/spillback separation, one-step objective improvement, and constrained LP oracle-regret candidate — Phase 7 complete.
+- Live `finite_storage_primal_dual` pressure controller with audited decomposition and preserved `full_dual_symbolic` not-feasible honesty — Phase 8 complete.
+- Fail-closed Gate A/B artifact for slack special-case recovery and binding-regime separation — Phase 9 complete; paired-seed Gate C remains Phase 11.
+- Strong pressure and operational baseline smoke/spec suite: actuated/local pressure, max-pressure, capacity-aware pressure, cycle pressure, finite-storage double pressure, and finite-storage primal-dual; optimized fixed-time remains an explicit documented limitation — Phase 10 complete.
 - Journal-grade experiment suite: 3600–7200s horizons, 900–1800s warmup, 20–30 paired seeds where computationally feasible, demand multiplier sweeps, incident/capacity-drop scenarios, and paired statistical tests.
 - Theory package: special-case theorem, separation theorem/counterexample, and one stability/regret/approximation-style guarantee.
 
@@ -120,4 +121,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-23 after starting v1.1 finite-storage separation milestone*
+*Last updated: 2026-05-24 after Phase 10 strong baseline and stress scenario suite completion*

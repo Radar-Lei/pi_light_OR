@@ -1,0 +1,289 @@
+{
+  "experiment": "phase7_theory_separation",
+  "status": "PASSED",
+  "scope": "theory_static_one_step_only_no_closed_loop_claims",
+  "generated_by": "scripts/check_theory_separation.py",
+  "generated_at": "2026-05-24T03:50:08.838958+00:00",
+  "requirements_covered": [
+    "THRY-01",
+    "THRY-02",
+    "THRY-03",
+    "THRY-04"
+  ],
+  "schema_version": "phase6_explicit_state_v1",
+  "one_step_objective_definition": {
+    "predeclared_before_action_comparison": true,
+    "components": [
+      "delay",
+      "spillback_blocking_time",
+      "switching_lost_time",
+      "unfinished_vehicle_penalty"
+    ],
+    "weights": {
+      "delay": 1.0,
+      "spillback_blocking_time": 1.0,
+      "unfinished_vehicle_penalty": 1.0,
+      "switching_lost_time": 1.0
+    },
+    "formula": "delay + unfinished_vehicle_penalty + spillback_blocking_time + switching_lost_time"
+  },
+  "criteria": {
+    "THRY-01": true,
+    "THRY-02": true,
+    "THRY-03": true,
+    "THRY-04": true
+  },
+  "claim_scope": {
+    "allowed": "slack regimes recover or tie max-pressure; binding example is static one-step explicit finite-storage separation",
+    "not_claimed": [
+      "closed_loop_performance",
+      "deployment_readiness",
+      "universal_cross_regime_advantage",
+      "v1_0_pressure_equivalent_evidence_as_improvement"
+    ]
+  },
+  "guarantee_candidates": [
+    "constrained_lp_oracle_regret"
+  ],
+  "guarantee_candidate_details": {
+    "candidate": "constrained_lp_oracle_regret",
+    "scope": "finite_sample_oracle_relative",
+    "boundary": "does not establish closed-loop network performance or deployment claims"
+  },
+  "examples": [
+    {
+      "name": "slack_recovery",
+      "scope": "theory_static_one_step_only_no_closed_loop_claims",
+      "turning_ratios_fixed": true,
+      "queues": {
+        "up_a": 20.0,
+        "down_a": 5.0,
+        "up_b": 14.0,
+        "down_b": 4.0
+      },
+      "movements": {
+        "phase_a": {
+          "upstream": "up_a",
+          "downstream": "down_a"
+        },
+        "phase_b": {
+          "upstream": "up_b",
+          "downstream": "down_b"
+        }
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 40.0,
+          "down_a": 40.0,
+          "up_b": 40.0,
+          "down_b": 40.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 20.0,
+          "down_a": 35.0,
+          "up_b": 26.0,
+          "down_b": 36.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.5
+          },
+          "down_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.125
+          },
+          "up_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.35
+          },
+          "down_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.1
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.5,
+          "down_a": 0.125,
+          "up_b": 0.35,
+          "down_b": 0.1
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "objective_components": {
+        "delay": 43.0,
+        "unfinished_vehicle_penalty": 0.0,
+        "spillback_blocking_time": 0.0,
+        "switching_lost_time": 0.0
+      },
+      "pressure_scores": {
+        "phase_a": 15.0,
+        "phase_b": 10.0
+      },
+      "finite_storage_scores": {
+        "phase_a": 15.0,
+        "phase_b": 10.0
+      },
+      "pressure_action": "phase_a",
+      "finite_storage_action": "phase_a",
+      "pressure_tie_set": [
+        "phase_a"
+      ],
+      "finite_storage_tie_set": [
+        "phase_a"
+      ],
+      "action_objective_components": {
+        "phase_a": {
+          "delay": 43.0,
+          "unfinished_vehicle_penalty": 0.0,
+          "spillback_blocking_time": 0.0,
+          "switching_lost_time": 0.0
+        },
+        "phase_b": {
+          "delay": 43.0,
+          "unfinished_vehicle_penalty": 0.0,
+          "spillback_blocking_time": 0.0,
+          "switching_lost_time": 0.0
+        }
+      },
+      "objective_totals": {
+        "phase_a": 43.0,
+        "phase_b": 43.0
+      },
+      "criteria": {
+        "slack_recovery_or_tie": true
+      }
+    },
+    {
+      "name": "storage_binding_two_phase_separation",
+      "scope": "theory_static_one_step_only_no_closed_loop_claims",
+      "turning_ratios_fixed": true,
+      "queues": {
+        "up_a": 30.0,
+        "down_a": 10.0,
+        "up_b": 15.0,
+        "down_b": 2.0
+      },
+      "movements": {
+        "phase_a": {
+          "upstream": "up_a",
+          "downstream": "down_a"
+        },
+        "phase_b": {
+          "upstream": "up_b",
+          "downstream": "down_b"
+        }
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 50.0,
+          "down_a": 10.0,
+          "up_b": 50.0,
+          "down_b": 10.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 20.0,
+          "down_a": 0.0,
+          "up_b": 35.0,
+          "down_b": 8.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.6
+          },
+          "down_a": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 1.0
+          },
+          "up_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.3
+          },
+          "down_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.2
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.6,
+          "down_a": 1.0,
+          "up_b": 0.3,
+          "down_b": 0.2
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "objective_components": {
+        "delay": 57.0,
+        "unfinished_vehicle_penalty": 0.0,
+        "spillback_blocking_time": 0.0,
+        "switching_lost_time": 0.0
+      },
+      "pressure_scores": {
+        "phase_a": 20.0,
+        "phase_b": 13.0
+      },
+      "finite_storage_scores": {
+        "phase_a": 10.0,
+        "phase_b": 13.0
+      },
+      "pressure_action": "phase_a",
+      "finite_storage_action": "phase_b",
+      "pressure_tie_set": [
+        "phase_a"
+      ],
+      "finite_storage_tie_set": [
+        "phase_b"
+      ],
+      "action_objective_components": {
+        "phase_a": {
+          "delay": 57.0,
+          "unfinished_vehicle_penalty": 1.0,
+          "spillback_blocking_time": 1.0,
+          "switching_lost_time": 0.0
+        },
+        "phase_b": {
+          "delay": 57.0,
+          "unfinished_vehicle_penalty": 0.0,
+          "spillback_blocking_time": 0.0,
+          "switching_lost_time": 0.0
+        }
+      },
+      "objective_totals": {
+        "phase_a": 59.0,
+        "phase_b": 57.0
+      },
+      "objective_margin": 2.0,
+      "actions_separate": true,
+      "strict_objective_improvement": true,
+      "criteria": {
+        "binding_action_separation": true,
+        "strict_one_step_objective_improvement": true
+      }
+    }
+  ]
+}

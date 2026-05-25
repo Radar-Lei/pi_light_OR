@@ -18,23 +18,35 @@ from finite_storage_schema import (  # noqa: E402
 )
 from run_closed_loop_sumo import (  # noqa: E402
     CONTROLLER_REGISTRY,
+    FINITE_STORAGE_DECOMPOSITION_FIELDS,
+    METRIC_FIELDS,
+    NOT_FEASIBLE_CONTROLLERS,
     aggregate_metrics,
     apply_failure_mode,
     build_completed_finite_storage_state,
     choose_controller_action,
+    finite_storage_movement_decomposition,
+    finite_storage_phase_decomposition,
     load_route_metadata,
     resolve_network,
     run_experiment,
+    select_finite_storage_action_with_audit,
 )
 from render_closed_loop_report import render_report, write_csv  # noqa: E402
 from render_paper_artifacts import validate_inputs as validate_paper_inputs  # noqa: E402
 from reproduce_blocks import audit_artifacts, build_block_registry  # noqa: E402
 from run_closed_loop_suite import (  # noqa: E402
+    REQUIRED_STRONG_BASELINES,
+    STRESS_SCENARIO_CATEGORIES,
     aggregate_results,
     build_payload as build_suite_payload,
     build_suite_spec,
     completion_gates,
     gates_pass,
+    grid_fixed_time_counterexample_check,
+    optimized_fixed_time_metadata,
+    stress_scenario_coverage,
+    strong_baseline_coverage,
 )
 
 
@@ -44,13 +56,94 @@ def test_controller_registry_smoke_names() -> None:
         "actuated_local_pressure",
         "max_pressure",
         "capacity_aware_pressure",
+        "cycle_pressure",
+        "finite_storage_double_pressure",
         "local_pilight",
         "raw_neighbor_symbolic",
         "all_neighbor_symbolic",
         "random_permuted_dual",
+        "finite_storage_primal_dual",
         "full_dual_symbolic",
     }
     assert expected <= set(CONTROLLER_REGISTRY)
+    assert "finite_storage_primal_dual" not in NOT_FEASIBLE_CONTROLLERS
+    assert "cycle_pressure" not in NOT_FEASIBLE_CONTROLLERS
+    assert "finite_storage_double_pressure" not in NOT_FEASIBLE_CONTROLLERS
+    assert "local_pilight" in NOT_FEASIBLE_CONTROLLERS
+    assert "full_dual_symbolic" in NOT_FEASIBLE_CONTROLLERS
+
+
+def two_phase_fixture(binding: bool = False) -> tuple[dict[str, list[str]], dict[str, list[tuple[str, str]]], dict[str, float], dict[str, float], dict[str, object]]:
+    if binding:
+        queues = {"up_a": 30.0, "down_a": 10.0, "up_b": 15.0, "down_b": 2.0}
+        capacities = {"up_a": 50.0, "down_a": 10.0, "up_b": 50.0, "down_b": 10.0}
+    else:
+        queues = {"up_a": 20.0, "down_a": 5.0, "up_b": 14.0, "down_b": 4.0}
+        capacities = {"up_a": 40.0, "down_a": 40.0, "up_b": 40.0, "down_b": 40.0}
+    state = build_completed_finite_storage_state(queues, capacities, current_phase=0, time_since_switch=30.0)
+    if binding:
+        state["residual_receiving_capacity"]["down_a"] = 0.0
+        state["spillback_blocking"]["down_a"] = {"spillback": True, "blocking": True, "occupancy_ratio": 1.0}
+    return {"J0": ["Gr", "rG"]}, {"J0": [("up_a", "down_a"), ("up_b", "down_b")]}, queues, capacities, state
+
+
+def test_finite_storage_decomposition_keys_and_total() -> None:
+    _phase_states, movements, queues, capacities, state = two_phase_fixture(binding=False)
+    components = finite_storage_movement_decomposition(movements["J0"][0], queues, capacities, state)
+    assert set(components) == FINITE_STORAGE_DECOMPOSITION_FIELDS
+    assert components["total"] == sum(components[field] for field in FINITE_STORAGE_DECOMPOSITION_FIELDS - {"total"})
+
+
+def test_finite_storage_isolated_correction_terms_are_nonzero() -> None:
+    _phase_states, movements, queues, capacities, state = two_phase_fixture(binding=False)
+    movement = movements["J0"][0]
+
+    storage_state = json.loads(json.dumps(state))
+    storage_state["residual_receiving_capacity"]["down_a"] = 0.0
+    assert finite_storage_movement_decomposition(movement, queues, capacities, storage_state)["downstream_storage"] < 0.0
+
+    spillback_state = json.loads(json.dumps(state))
+    spillback_state["spillback_blocking"]["down_a"] = {"spillback": True, "blocking": True, "occupancy_ratio": 1.0}
+    assert finite_storage_movement_decomposition(movement, queues, capacities, spillback_state)["spillback"] < 0.0
+
+    service_state = json.loads(json.dumps(state))
+    service_state["service_urgency"]["up_a"] = 0.95
+    assert finite_storage_movement_decomposition(movement, queues, capacities, service_state)["service"] > 0.0
+
+    incident_state = json.loads(json.dumps(state))
+    incident_state["incident_capacity_drop"] = {"active": True, "edge": "down_a", "factor": 0.35}
+    assert finite_storage_movement_decomposition(movement, queues, capacities, incident_state)["incident"] < 0.0
+    upstream_incident_state = json.loads(json.dumps(state))
+    upstream_incident_state["incident_capacity_drop"] = {"active": True, "edge": "up_a", "factor": 0.35}
+    assert finite_storage_movement_decomposition(movement, queues, capacities, upstream_incident_state)["incident"] < 0.0
+
+    switching_state = json.loads(json.dumps(state))
+    switching_state["switching_loss_state"] = {"current_phase": 0, "time_since_switch": 2.0}
+    phase = finite_storage_phase_decomposition(1, ["Gr", "rG"], movements["J0"], queues, capacities, switching_state, current_phase=0)
+    assert phase["component_totals"]["switching"] < 0.0
+
+
+def test_finite_storage_slack_recovers_pressure_action() -> None:
+    phase_states, movements, queues, capacities, state = two_phase_fixture(binding=False)
+    audit = select_finite_storage_action_with_audit("J0", 0, phase_states, movements, queues, capacities, state)
+    assert audit["pressure_action"] == 0
+    assert audit["finite_storage_action"] == 0
+    for phase_audit in audit["phase_scores"].values():
+        totals = phase_audit["component_totals"]
+        assert totals["downstream_storage"] == 0.0
+        assert totals["spillback"] == 0.0
+        assert totals["switching"] == 0.0
+        assert totals["service"] == 0.0
+        assert totals["incident"] == 0.0
+
+
+def test_finite_storage_binding_changes_action_and_terms() -> None:
+    phase_states, movements, queues, capacities, state = two_phase_fixture(binding=True)
+    audit = select_finite_storage_action_with_audit("J0", 0, phase_states, movements, queues, capacities, state)
+    assert audit["pressure_action"] == 0
+    assert audit["finite_storage_action"] == 1
+    assert audit["selected_action"] == audit["finite_storage_action"]
+    assert {"downstream_storage", "spillback"} & set(audit["changing_terms"])
 
 
 def test_choose_controller_action_prefers_pressure_phase() -> None:
@@ -93,6 +186,38 @@ def test_capacity_aware_penalizes_full_downstream() -> None:
     )
 
     assert action == 1
+
+
+def test_phase10_baseline_variants_are_selectable() -> None:
+    phase_states = {"J0": ["Gr", "rG"]}
+    movements = {"J0": [("in_a", "out_a"), ("in_b", "out_b")]}
+    capacities = {"out_a": 10.0, "out_b": 20.0}
+
+    cycle_action = choose_controller_action(
+        "cycle_pressure",
+        "J0",
+        current_phase=0,
+        step=20,
+        action_interval=10,
+        phase_states=phase_states,
+        tls_movements=movements,
+        queues={"in_a": 1.0, "out_a": 0.0, "in_b": 10.0, "out_b": 0.0},
+        capacities=capacities,
+    )
+    assert cycle_action == 0
+
+    double_pressure_action = choose_controller_action(
+        "finite_storage_double_pressure",
+        "J0",
+        current_phase=0,
+        step=20,
+        action_interval=10,
+        phase_states=phase_states,
+        tls_movements=movements,
+        queues={"in_a": 10.0, "out_a": 10.0, "in_b": 8.0, "out_b": 0.0},
+        capacities=capacities,
+    )
+    assert double_pressure_action == 1
 
 
 def test_metric_aggregation_schema() -> None:
@@ -174,8 +299,46 @@ def test_not_feasible_controller_has_explicit_state_and_objective_components() -
     assert set(row["objective_components"]) == OBJECTIVE_COMPONENT_FIELDS
     assert all(value == 0.0 for value in row["objective_components"].values())
     assert "finite_storage_state_summary" not in row
+    assert "action_decomposition" not in row
     validate_finite_storage_state(row["finite_storage_state"], path=Path("row.json"), sample_idx=0)
     validate_state_objective_sample(row, path=Path("row.json"), sample_idx=0)
+
+
+def test_finite_storage_controller_run_experiment_row_audit() -> None:
+    row = run_experiment(
+        network="single",
+        controller="finite_storage_primal_dual",
+        seed=20260524,
+        steps=80,
+        warmup=20,
+        action_interval=10,
+        route_metadata={"route_decision": "pressure-equivalent", "route_confidence": "MEDIUM", "route_json": "route.json"},
+        scenario_tag="single_sanity",
+    )
+
+    assert row["feasibility_status"] != "not_feasible"
+    validate_state_objective_sample(row, path=Path("row.json"), sample_idx=0)
+    audit = row["action_decomposition"]
+    assert audit["controller"] == "finite_storage_primal_dual"
+    assert audit["decision_scope"] == "last_action_decision_per_tls"
+    assert audit["last_decision_by_tls"]
+    for tls_audit in audit["last_decision_by_tls"].values():
+        assert tls_audit["selected_action"] == tls_audit["finite_storage_action"]
+        assert "pressure_action" in tls_audit
+        assert "phase_scores" in tls_audit
+        assert "selected_component_totals" in tls_audit
+    assert "action_decomposition" not in METRIC_FIELDS
+    metrics = aggregate_metrics(
+        observations=[{"total_queue": 1.0, "max_queue": 1.0, "active_vehicles": 1.0, "spillback": 0.0, "blocking": 0.0}],
+        steps=10,
+        warmup=0,
+        departed={},
+        arrived_times=[],
+        waiting_delay=1.0,
+        runtime=0.0,
+        switching_count=0,
+    )
+    assert "action_decomposition" not in metrics
 
 
 def test_route_metadata_loader() -> None:
@@ -237,7 +400,7 @@ def test_failure_mode_restores_speed_after_window() -> None:
 def test_suite_spec_contents_and_seed_counts() -> None:
     spec = build_suite_spec(
         profile="main",
-        controllers=["fixed_time", "max_pressure"],
+        controllers=["fixed_time", "max_pressure", "cycle_pressure", "finite_storage_double_pressure", "finite_storage_primal_dual"],
         arterial_seeds=[1, 2, 3, 4, 5],
         grid_seeds=[6, 7, 8, 9, 10],
         steps=100,
@@ -246,14 +409,16 @@ def test_suite_spec_contents_and_seed_counts() -> None:
     )
     names = {item["scenario_tag"] for item in spec}
     assert {"single_sanity", "arterial_main", "grid_scalability", "arterial_demand_shift", "arterial_bottleneck_failure_mode"} <= names
+    assert {tag for tags in STRESS_SCENARIO_CATEGORIES.values() for tag in tags} <= names
     assert len([item for item in spec if item["scenario_tag"] == "arterial_main" and item["controller"] == "fixed_time"]) == 5
     assert len([item for item in spec if item["scenario_tag"] == "grid_scalability" and item["controller"] == "max_pressure"]) == 5
+    assert any(item["scenario_tag"] == "arterial_spillback_stress" and item["controller"] == "finite_storage_primal_dual" for item in spec)
 
 
 def test_aggregate_results_and_completion_gates() -> None:
     rows = []
     for scenario in ["arterial_main", "grid_scalability"]:
-        for controller in ["fixed_time", "max_pressure", "capacity_aware_pressure", "raw_neighbor_symbolic", "all_neighbor_symbolic", "random_permuted_dual"]:
+        for controller in ["fixed_time", "actuated_local_pressure", "max_pressure", "capacity_aware_pressure", "cycle_pressure", "finite_storage_double_pressure", "finite_storage_primal_dual", "raw_neighbor_symbolic", "all_neighbor_symbolic", "random_permuted_dual"]:
             for seed in range(5):
                 rows.append(
                     {
@@ -299,10 +464,113 @@ def test_suite_payload_includes_phase6_schema_metadata() -> None:
     assert payload["aggregates"] == []
 
 
+def phase10_synthetic_rows() -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for controller in REQUIRED_STRONG_BASELINES:
+        rows.append(
+            {
+                "network": "grid_4x4" if controller == "fixed_time" else "arterial",
+                "scenario_tag": "grid_scalability" if controller == "fixed_time" else "arterial_main",
+                "controller": controller,
+                "seed": 1,
+                "scenario_status": "completed",
+                "feasibility_status": "run",
+                "completed_vehicles": 1,
+                "completion_rate": 1.0,
+                "switching_count": 0 if controller == "fixed_time" else 1,
+                **{field: 1.0 for field in METRIC_FIELDS if field not in {"completed_vehicles", "completion_rate", "switching_count"}},
+            }
+        )
+    for controller in ["local_pilight", "full_dual_symbolic"]:
+        rows.append(
+            {
+                "network": "single",
+                "scenario_tag": "single_sanity",
+                "controller": controller,
+                "seed": 1,
+                "scenario_status": "not_feasible",
+                "feasibility_status": "not_feasible",
+                "unsupported_reason": "guarded",
+                "completed_vehicles": 0,
+                "completion_rate": 0.0,
+                "switching_count": 0,
+                **{field: 0.0 for field in METRIC_FIELDS if field not in {"completed_vehicles", "completion_rate", "switching_count"}},
+            }
+        )
+    for category, tags in STRESS_SCENARIO_CATEGORIES.items():
+        for tag in tags:
+            expected = "edge_speed_reduction" if any(token in tag for token in ["blockage", "spillback", "incident", "bottleneck"]) else "traci_vehicle_insertion" if any(token in tag for token in ["oversaturation", "turning_shock", "demand_shift"]) else "short_action_interval_switching_audit"
+            row = {
+                "network": "arterial",
+                "scenario_tag": tag,
+                "controller": "finite_storage_primal_dual",
+                "seed": 1,
+                "scenario_status": "completed",
+                "feasibility_status": "run",
+                "completed_vehicles": 1,
+                "completion_rate": 1.0,
+                "switching_count": 1,
+                "stress_category": category,
+                "stress_mechanism": expected,
+                **{field: 1.0 for field in METRIC_FIELDS if field not in {"completed_vehicles", "completion_rate", "switching_count"}},
+            }
+            if expected == "edge_speed_reduction":
+                row.update({"failure_mode_mechanism": expected, "failure_mode_target_edge": "edge1", "failure_mode_target_max_vehicles": 1})
+            if expected == "traci_vehicle_insertion":
+                row.update({"steps": 100, "warmup": 20, "demand_shift_mechanism": expected, "demand_shift_inserted_vehicles": 3})
+            rows.append(row)
+    return rows
+
+
+def test_phase10_payload_includes_baseline_stress_and_scope_metadata() -> None:
+    rows = phase10_synthetic_rows()
+    controllers = REQUIRED_STRONG_BASELINES + ["local_pilight", "full_dual_symbolic"]
+    payload = build_suite_payload(
+        profile="smoke",
+        route_metadata={"route_decision": "pressure-equivalent", "route_confidence": "MEDIUM", "route_json": "route.json"},
+        rows=rows,
+        controllers=controllers,
+        completion_gates_passed=False,
+    )
+
+    assert set(REQUIRED_STRONG_BASELINES) <= set(payload["strong_baseline_coverage"]["required_feasible_baselines"])
+    assert payload["strong_baseline_coverage"]["passed"]
+    assert payload["strong_baseline_coverage"]["not_feasible_guards"]["local_pilight"]["status"] == "not_feasible"
+    assert payload["stress_scenario_coverage"] == stress_scenario_coverage(rows)
+    assert payload["stress_scenario_coverage"]["passed"]
+    assert set(payload["stress_scenario_coverage"]["categories"]) == set(STRESS_SCENARIO_CATEGORIES)
+    assert payload["grid_fixed_time_counterexample_check"]["status"] == "represented"
+    assert payload["optimized_fixed_time_metadata"]["status"] == "documented_limit"
+    assert payload["optimized_fixed_time_metadata"]["implemented_in_phase10"] is False
+    assert payload["phase10_scope_caveats"]
+    payload_text = json.dumps(payload).lower()
+    assert "gate c" not in payload_text.replace("not gate c", "")
+    assert "paired-seed dominance" in payload_text
+    assert "manuscript claims" in payload_text
+
+
+def test_phase10_coverage_fails_closed_when_required_evidence_missing() -> None:
+    rows = phase10_synthetic_rows()
+    missing_controller_rows = [row for row in rows if row.get("controller") != "cycle_pressure"]
+    assert not strong_baseline_coverage(missing_controller_rows, REQUIRED_STRONG_BASELINES + ["local_pilight", "full_dual_symbolic"])["passed"]
+
+    missing_guard_rows = [row for row in rows if row.get("controller") != "local_pilight"]
+    assert not strong_baseline_coverage(missing_guard_rows, REQUIRED_STRONG_BASELINES + ["local_pilight", "full_dual_symbolic"])["passed"]
+
+    missing_stress_rows = [row for row in rows if row.get("scenario_tag") != "arterial_spillback_stress"]
+    assert not stress_scenario_coverage(missing_stress_rows)["passed"]
+
+    forged_mechanism_rows = [dict(row) for row in rows]
+    for row in forged_mechanism_rows:
+        if row.get("scenario_tag") == "arterial_downstream_blockage":
+            row.pop("failure_mode_mechanism", None)
+    assert not stress_scenario_coverage(forged_mechanism_rows)["passed"]
+
+
 def synthetic_payload() -> dict:
     rows = []
     for scenario, network in [("arterial_main", "arterial"), ("grid_scalability", "grid_4x4")]:
-        for controller in ["fixed_time", "max_pressure", "capacity_aware_pressure", "raw_neighbor_symbolic", "all_neighbor_symbolic", "random_permuted_dual"]:
+        for controller in ["fixed_time", "actuated_local_pressure", "max_pressure", "capacity_aware_pressure", "cycle_pressure", "finite_storage_double_pressure", "finite_storage_primal_dual", "raw_neighbor_symbolic", "all_neighbor_symbolic", "random_permuted_dual"]:
             for seed in range(5):
                 rows.append({"network": network, "scenario_tag": scenario, "controller": controller, "seed": seed, "scenario_status": "completed", "feasibility_status": "run", **{field: 1.0 for field in ["avg_travel_time", "penalized_avg_travel_time", "total_delay", "completed_vehicles", "completion_rate", "throughput", "mean_queue", "max_queue", "controller_runtime_sec"]}, "completed_vehicles": 1, "completion_rate": 1.0, "spillback_count": 0, "blocking_count": 0, "switching_count": 0 if controller == "fixed_time" else 1})
     rows.append({"network": "arterial", "scenario_tag": "arterial_demand_shift", "controller": "max_pressure", "seed": 1, "steps": 100, "warmup": 20, "scenario_status": "completed", "feasibility_status": "run", "demand_shift_mechanism": "traci_vehicle_insertion", "demand_shift_inserted_vehicles": 3, **{field: 1.0 for field in ["avg_travel_time", "penalized_avg_travel_time", "total_delay", "completed_vehicles", "completion_rate", "throughput", "mean_queue", "max_queue", "controller_runtime_sec"]}, "completed_vehicles": 1, "completion_rate": 1.0, "spillback_count": 0, "blocking_count": 0, "switching_count": 1})
@@ -524,11 +792,17 @@ def test_completion_gates_reject_noop_controller_evidence() -> None:
 
 def main() -> None:
     test_controller_registry_smoke_names()
+    test_finite_storage_decomposition_keys_and_total()
+    test_finite_storage_isolated_correction_terms_are_nonzero()
+    test_finite_storage_slack_recovers_pressure_action()
+    test_finite_storage_binding_changes_action_and_terms()
     test_choose_controller_action_prefers_pressure_phase()
     test_capacity_aware_penalizes_full_downstream()
+    test_phase10_baseline_variants_are_selectable()
     test_metric_aggregation_schema()
     test_completed_finite_storage_state_schema()
     test_not_feasible_controller_has_explicit_state_and_objective_components()
+    test_finite_storage_controller_run_experiment_row_audit()
     test_route_metadata_loader()
     test_route_metadata_loader_rejects_missing_route()
     test_network_resolver_supports_phase4_networks()
@@ -537,6 +811,8 @@ def main() -> None:
     test_suite_spec_contents_and_seed_counts()
     test_aggregate_results_and_completion_gates()
     test_suite_payload_includes_phase6_schema_metadata()
+    test_phase10_payload_includes_baseline_stress_and_scope_metadata()
+    test_phase10_coverage_fails_closed_when_required_evidence_missing()
     test_renderer_report_and_csv()
     test_renderer_surfaces_phase6_objective_columns()
     test_renderer_rejects_missing_completion_gate()

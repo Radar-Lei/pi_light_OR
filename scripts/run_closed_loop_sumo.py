@@ -658,6 +658,7 @@ def run_experiment(
     waiting_delay = 0.0
     demand_shift_mechanism = None
     failure_mode_mechanism = None
+    failure_mode_active = False
     inserted: set[str] = set()
     failure_target_max_vehicles = 0.0
     latest_action_decomposition_by_tls: dict[str, Any] = {}
@@ -667,6 +668,7 @@ def run_experiment(
         for step in range(steps):
             if any(token in scenario_tag for token in ["bottleneck", "failure_mode", "downstream_blockage", "incident_capacity_drop", "spillback_stress"]):
                 mechanism = apply_failure_mode(step, warmup, target_edge, original_speed)
+                failure_mode_active = warmup <= step < warmup + 120 and target_edge is not None
                 if mechanism:
                     failure_mode_mechanism = mechanism
             if any(token in scenario_tag for token in ["demand_shift", "turning_shock", "oversaturation"]):
@@ -708,8 +710,8 @@ def run_experiment(
                             capacities,
                             current_phase=current_phase,
                             time_since_switch=latest_time_since_switch,
-                            incident_edge=target_edge if failure_mode_mechanism else None,
-                            capacity_drop_factor=0.35 if failure_mode_mechanism else None,
+                            incident_edge=target_edge if failure_mode_active else None,
+                            capacity_drop_factor=0.35 if failure_mode_active else None,
                         )
                         audit = select_finite_storage_action_with_audit(
                             tls_id,
@@ -769,8 +771,8 @@ def run_experiment(
             capacities,
             current_phase=latest_current_phase,
             time_since_switch=latest_time_since_switch,
-            incident_edge=target_edge if failure_mode_mechanism else None,
-            capacity_drop_factor=0.35 if failure_mode_mechanism else None,
+            incident_edge=target_edge if failure_mode_active else None,
+            capacity_drop_factor=0.35 if failure_mode_active else None,
         ),
         **stress_metadata,
     }

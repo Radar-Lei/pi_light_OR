@@ -52,6 +52,14 @@ def _profile_eligibility(payload: dict[str, Any]) -> dict[str, Any]:
     steps = int(payload.get("steps", 0) or 0)
     warmup = int(payload.get("warmup", 0) or 0)
     dry_run = bool(payload.get("dry_run"))
+    rows = list(payload.get("scenario_results", []))
+    completed_rows = [
+        row for row in rows
+        if row.get("scenario_status") == "completed" and row.get("feasibility_status") in {"run", "completed"}
+    ]
+    actual_row_count = int(payload.get("actual_row_count", len(completed_rows)) or 0)
+    expected_row_count = int(payload.get("expected_row_count", 0) or 0)
+    all_rows_executed = payload.get("all_rows_executed")
     reasons = []
     if payload.get("experiment") != "phase11_long_horizon_paired_seed_evidence":
         reasons.append("input artifact is not phase11_long_horizon_paired_seed_evidence")
@@ -63,19 +71,26 @@ def _profile_eligibility(payload: dict[str, Any]) -> dict[str, Any]:
         reasons.append("main-profile Gate C requires at least 900 warmup steps")
     if dry_run:
         reasons.append("dry-run/spec-only artifacts cannot complete Gate C evidence")
-    if payload.get("actual_row_count", 0) == 0:
+    if actual_row_count == 0:
         reasons.append("input artifact has no executed raw scenario rows")
-    if payload.get("all_rows_executed") is False:
+    if all_rows_executed is not True:
         reasons.append("input artifact reports missing required executed rows")
+    if actual_row_count != len(completed_rows):
+        reasons.append("input artifact actual_row_count does not match completed raw scenario rows")
+    if expected_row_count <= 0:
+        reasons.append("input artifact is missing a positive expected_row_count")
+    elif actual_row_count != expected_row_count:
+        reasons.append("input artifact actual_row_count does not match expected_row_count")
     return {
         "eligible": not reasons,
         "profile": profile,
         "steps": steps,
         "warmup": warmup,
         "dry_run": dry_run,
-        "actual_row_count": int(payload.get("actual_row_count", len(payload.get("scenario_results", []))) or 0),
-        "expected_row_count": int(payload.get("expected_row_count", 0) or 0),
-        "all_rows_executed": bool(payload.get("all_rows_executed")),
+        "actual_row_count": actual_row_count,
+        "expected_row_count": expected_row_count,
+        "completed_row_count": len(completed_rows),
+        "all_rows_executed": all_rows_executed is True,
         "reasons": reasons,
     }
 
@@ -98,6 +113,11 @@ def _demand_multiplier_provenance_summary(payload: dict[str, Any]) -> dict[str, 
         missing = [field for field in ["base_demand_total", "scaled_demand_total", "generated_route_file", "generated_sumocfg", "base_sumocfg"] if field not in item]
         if missing:
             missing_actual_fields.append({"demand_multiplier": item.get("demand_multiplier"), "missing": missing})
+            continue
+        expected_total = float(item["base_demand_total"]) * float(item.get("demand_multiplier", 1.0))
+        scaled_total = float(item["scaled_demand_total"])
+        if abs(scaled_total - expected_total) > max(0.5, abs(expected_total) * 0.02):
+            missing_actual_fields.append({"demand_multiplier": item.get("demand_multiplier"), "invalid_scaled_total": scaled_total, "expected_scaled_total": expected_total})
     return {
         "method": payload.get("demand_scaling_method"),
         "methods_seen": methods,
@@ -126,8 +146,12 @@ def build_gate_payload(input_payload: dict[str, Any], input_artifact: Path) -> d
     profile_eligibility = _profile_eligibility(input_payload)
     demand_summary = _demand_multiplier_provenance_summary(input_payload)
     demand_reasons = [] if demand_summary["valid_actual_behavior"] else ["input artifact lacks valid actual demand multiplier behavior provenance"]
-    combined_reasons = list(dict.fromkeys(profile_eligibility["reasons"] + demand_reasons + gate_c.get("reasons", [])))
-    if gate_c["status"] == "PASSED" and not profile_eligibility["eligible"]:
+    input_status = str(input_payload.get("status", "")).upper()
+    source_reasons = [] if input_status == "PASSED" else [f"input artifact status is {input_status or 'missing'}, not PASSED"]
+    combined_reasons = list(dict.fromkeys(profile_eligibility["reasons"] + demand_reasons + source_reasons + gate_c.get("reasons", [])))
+    if input_status != "PASSED":
+        status = "INCONCLUSIVE"
+    elif gate_c["status"] == "PASSED" and not profile_eligibility["eligible"]:
         status = "INCONCLUSIVE"
     elif demand_reasons and profile_eligibility["eligible"]:
         status = "FAILED"
@@ -186,7 +210,7 @@ def main() -> None:
     out_path = Path(args.out)
     payload = write_gate_artifact(input_path, out_path)
     print(json.dumps({"out": str(out_path), "status": payload["status"], "requirements_covered": payload["requirements_covered"]}, indent=2))
-    if args.strict and payload["status"] == "FAILED":
+    if args.strict and payload["status"] != "PASSED":
         raise SystemExit(1)
 
 

@@ -2,7 +2,7 @@
   "experiment": "phase6_claim_audit",
   "status": "PASSED",
   "generated_by": "scripts/audit_claim_discipline.py",
-  "generated_at": "2026-05-24T02:47:36.412193+00:00",
+  "generated_at": "2026-05-24T03:34:45.791148+00:00",
   "requirements_covered": [
     "CLAIM-01",
     "CLAIM-02"
@@ -34,6 +34,7 @@
     "refine-logs/REVIEW_SUMMARY_20260520.md",
     "refine-logs/THEORY_AND_ATOMS.md",
     "refine-logs/THEORY_AND_CLAIMS.md",
+    "refine-logs/THEORY_AND_SEPARATION.md",
     "refine-logs/THEORY_REVIEW_CHECKLIST.md"
   ],
   "missing_paths": [],
@@ -141,7 +142,7 @@
       "CLAIM-02"
     ],
     "generated_by": "scripts/audit_claim_discipline.py",
-    "generated_at": "2026-05-24T02:47:36.406391+00:00",
+    "generated_at": "2026-05-24T03:34:45.785234+00:00",
     "artifact_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase6_claim_policy.json"
   },
   "policy_validation_errors": [],
@@ -163,6 +164,10 @@
       },
       {
         "path": "refine-logs/THEORY_AND_CLAIMS.md",
+        "category": "insufficient_historical_v1_0"
+      },
+      {
+        "path": "refine-logs/THEORY_AND_SEPARATION.md",
         "category": "insufficient_historical_v1_0"
       },
       {
