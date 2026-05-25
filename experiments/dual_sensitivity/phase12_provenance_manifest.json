@@ -1,0 +1,409 @@
+{
+  "experiment": "phase12_provenance_manifest",
+  "requirements_covered": [
+    "CLAIM-03",
+    "REPRO-01",
+    "REPRO-02",
+    "REPRO-03"
+  ],
+  "sources": [
+    {
+      "source_key": "phase7_theory_separation",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase7_theory_separation.json",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "static_theory_separation",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-03"
+      ],
+      "generated_at": "2026-05-24T03:50:08.838958+00:00",
+      "rerun_command": "python scripts/check_theory_separation.py --out experiments/dual_sensitivity/phase7_theory_separation.json",
+      "caveats": [
+        "static theory/separation only; no closed-loop or deployment claim"
+      ]
+    },
+    {
+      "source_key": "phase9_slack_binding_gates",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "static_gate_a_b_slack_binding",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-03"
+      ],
+      "generated_at": "unknown",
+      "rerun_command": "python scripts/run_slack_binding_gates.py --out experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+      "caveats": [
+        "Gate A/B static checks only; no Gate C paired-seed closed-loop evidence",
+        "No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim."
+      ]
+    },
+    {
+      "source_key": "phase10_baselines_stress_suite",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase10_baselines_stress_suite.json",
+      "source_status": "SMOKE_ONLY",
+      "parse_status": "PASSED",
+      "evidence_role": "baseline_stress_capability_context",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "generated_at": "unknown",
+      "rerun_command": "python scripts/run_closed_loop_suite.py --profile smoke --out experiments/dual_sensitivity/phase10_baselines_stress_suite.json",
+      "caveats": [
+        "smoke/spec capability context only; not dominance or superiority evidence"
+      ]
+    },
+    {
+      "source_key": "phase11_long_horizon_paired_seed_evidence",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+      "source_status": "INCONCLUSIVE",
+      "parse_status": "PASSED",
+      "evidence_role": "closed_loop_paired_seed_gate_c_source",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "generated_at": "unknown",
+      "rerun_command": "python scripts/run_phase11_paired_evidence.py --out experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+      "caveats": [
+        "long-horizon rows must be fully executed before supporting Gate C claims",
+        "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.",
+        "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
+        "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
+        "source status INCONCLUSIVE is not accepted for claim-ready evidence"
+      ]
+    },
+    {
+      "source_key": "phase11_gate_c_paired_evidence",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json",
+      "source_status": "INCONCLUSIVE",
+      "parse_status": "PASSED",
+      "evidence_role": "closed_loop_gate_c_binding_regime_status",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "generated_at": "unknown",
+      "rerun_command": "python scripts/run_gate_c_paired_evidence.py --input experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json --out experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json --strict",
+      "caveats": [
+        "Gate C must be PASSED before binding-regime closed-loop superiority inputs are claim-eligible",
+        "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
+        "Slack/control rows are context only and cannot satisfy dominance evidence.",
+        "Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts.",
+        "source status INCONCLUSIVE is not accepted for claim-ready evidence"
+      ]
+    }
+  ],
+  "derived_artifacts": [
+    {
+      "derived_artifact": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_reproducibility_package.json",
+      "raw_sources": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase7_theory_separation.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase10_baselines_stress_suite.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json"
+      ],
+      "source_statuses": {
+        "phase7_theory_separation": "PASSED",
+        "phase9_slack_binding_gates": "PASSED",
+        "phase10_baselines_stress_suite": "SMOKE_ONLY",
+        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
+      },
+      "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "caveats": [
+        "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
+        "Gate A/B static checks only; no Gate C paired-seed closed-loop evidence",
+        "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
+        "Gate C must be PASSED before binding-regime closed-loop superiority inputs are claim-eligible",
+        "No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim.",
+        "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts.",
+        "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.",
+        "Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.",
+        "Slack/control rows are context only and cannot satisfy dominance evidence.",
+        "long-horizon rows must be fully executed before supporting Gate C claims",
+        "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status INCONCLUSIVE is not accepted for claim-ready evidence",
+        "static theory/separation only; no closed-loop or deployment claim"
+      ]
+    },
+    {
+      "derived_artifact": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_provenance_manifest.json",
+      "raw_sources": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase7_theory_separation.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase10_baselines_stress_suite.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json"
+      ],
+      "source_statuses": {
+        "phase7_theory_separation": "PASSED",
+        "phase9_slack_binding_gates": "PASSED",
+        "phase10_baselines_stress_suite": "SMOKE_ONLY",
+        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
+      },
+      "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "caveats": [
+        "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
+        "Gate A/B static checks only; no Gate C paired-seed closed-loop evidence",
+        "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
+        "Gate C must be PASSED before binding-regime closed-loop superiority inputs are claim-eligible",
+        "No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim.",
+        "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts.",
+        "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.",
+        "Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.",
+        "Slack/control rows are context only and cannot satisfy dominance evidence.",
+        "long-horizon rows must be fully executed before supporting Gate C claims",
+        "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status INCONCLUSIVE is not accepted for claim-ready evidence",
+        "static theory/separation only; no closed-loop or deployment claim"
+      ]
+    },
+    {
+      "derived_artifact": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_table_inputs.csv",
+      "raw_sources": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase7_theory_separation.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase10_baselines_stress_suite.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json"
+      ],
+      "source_statuses": {
+        "phase7_theory_separation": "PASSED",
+        "phase9_slack_binding_gates": "PASSED",
+        "phase10_baselines_stress_suite": "SMOKE_ONLY",
+        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
+      },
+      "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "caveats": [
+        "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
+        "Gate A/B static checks only; no Gate C paired-seed closed-loop evidence",
+        "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
+        "Gate C must be PASSED before binding-regime closed-loop superiority inputs are claim-eligible",
+        "No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim.",
+        "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts.",
+        "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.",
+        "Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.",
+        "Slack/control rows are context only and cannot satisfy dominance evidence.",
+        "long-horizon rows must be fully executed before supporting Gate C claims",
+        "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status INCONCLUSIVE is not accepted for claim-ready evidence",
+        "static theory/separation only; no closed-loop or deployment claim"
+      ]
+    },
+    {
+      "derived_artifact": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_claim_inputs.json",
+      "raw_sources": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase7_theory_separation.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase10_baselines_stress_suite.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json"
+      ],
+      "source_statuses": {
+        "phase7_theory_separation": "PASSED",
+        "phase9_slack_binding_gates": "PASSED",
+        "phase10_baselines_stress_suite": "SMOKE_ONLY",
+        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
+      },
+      "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "caveats": [
+        "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
+        "Gate A/B static checks only; no Gate C paired-seed closed-loop evidence",
+        "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
+        "Gate C must be PASSED before binding-regime closed-loop superiority inputs are claim-eligible",
+        "No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim.",
+        "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts.",
+        "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.",
+        "Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.",
+        "Slack/control rows are context only and cannot satisfy dominance evidence.",
+        "long-horizon rows must be fully executed before supporting Gate C claims",
+        "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status INCONCLUSIVE is not accepted for claim-ready evidence",
+        "static theory/separation only; no closed-loop or deployment claim"
+      ]
+    },
+    {
+      "derived_artifact": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_claim_audit.json",
+      "raw_sources": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase7_theory_separation.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase10_baselines_stress_suite.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json"
+      ],
+      "source_statuses": {
+        "phase7_theory_separation": "PASSED",
+        "phase9_slack_binding_gates": "PASSED",
+        "phase10_baselines_stress_suite": "SMOKE_ONLY",
+        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
+      },
+      "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "caveats": [
+        "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
+        "Gate A/B static checks only; no Gate C paired-seed closed-loop evidence",
+        "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
+        "Gate C must be PASSED before binding-regime closed-loop superiority inputs are claim-eligible",
+        "No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim.",
+        "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts.",
+        "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.",
+        "Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.",
+        "Slack/control rows are context only and cannot satisfy dominance evidence.",
+        "long-horizon rows must be fully executed before supporting Gate C claims",
+        "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status INCONCLUSIVE is not accepted for claim-ready evidence",
+        "static theory/separation only; no closed-loop or deployment claim"
+      ]
+    },
+    {
+      "derived_artifact": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_reproduction_manifest.json",
+      "raw_sources": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase7_theory_separation.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase10_baselines_stress_suite.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json"
+      ],
+      "source_statuses": {
+        "phase7_theory_separation": "PASSED",
+        "phase9_slack_binding_gates": "PASSED",
+        "phase10_baselines_stress_suite": "SMOKE_ONLY",
+        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
+      },
+      "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "caveats": [
+        "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
+        "Gate A/B static checks only; no Gate C paired-seed closed-loop evidence",
+        "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
+        "Gate C must be PASSED before binding-regime closed-loop superiority inputs are claim-eligible",
+        "No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim.",
+        "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts.",
+        "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.",
+        "Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.",
+        "Slack/control rows are context only and cannot satisfy dominance evidence.",
+        "long-horizon rows must be fully executed before supporting Gate C claims",
+        "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status INCONCLUSIVE is not accepted for claim-ready evidence",
+        "static theory/separation only; no closed-loop or deployment claim"
+      ]
+    },
+    {
+      "derived_artifact": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_summary.md",
+      "raw_sources": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase7_theory_separation.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase10_baselines_stress_suite.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json"
+      ],
+      "source_statuses": {
+        "phase7_theory_separation": "PASSED",
+        "phase9_slack_binding_gates": "PASSED",
+        "phase10_baselines_stress_suite": "SMOKE_ONLY",
+        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
+      },
+      "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "caveats": [
+        "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
+        "Gate A/B static checks only; no Gate C paired-seed closed-loop evidence",
+        "Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.",
+        "Gate C must be PASSED before binding-regime closed-loop superiority inputs are claim-eligible",
+        "No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim.",
+        "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
+        "Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts.",
+        "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.",
+        "Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.",
+        "Slack/control rows are context only and cannot satisfy dominance evidence.",
+        "long-horizon rows must be fully executed before supporting Gate C claims",
+        "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status INCONCLUSIVE is not accepted for claim-ready evidence",
+        "static theory/separation only; no closed-loop or deployment claim"
+      ]
+    }
+  ],
+  "reproduction_command_names": [
+    "fast_phase12_direct_tests",
+    "regenerate_phase7_theory_separation",
+    "regenerate_phase9_slack_binding_gates",
+    "summarize_phase11_fail_closed_or_completed_rows",
+    "strict_gate_c_validation",
+    "generate_phase12_non_strict_package",
+    "validate_phase12_strict_package",
+    "opt_in_long_horizon_phase11_execution"
+  ]
+}

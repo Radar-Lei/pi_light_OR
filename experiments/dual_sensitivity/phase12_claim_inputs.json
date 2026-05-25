@@ -1,0 +1,130 @@
+{
+  "experiment": "phase12_claim_inputs",
+  "requirements_covered": [
+    "CLAIM-03",
+    "REPRO-01",
+    "REPRO-02",
+    "REPRO-03"
+  ],
+  "records": [
+    {
+      "claim_category": "static_binding_separation_and_slack_recovery",
+      "claim_allowed": true,
+      "source_key": "phase7_theory_separation",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "static_theory_separation",
+      "simulator": "analytic/static",
+      "network": "unknown",
+      "horizon_steps": "unknown",
+      "warmup_steps": "unknown",
+      "seed_count": "unknown",
+      "profile": "unknown",
+      "gate_status": "PASSED",
+      "demand_multiplier": "unknown",
+      "requirements_covered": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-03"
+      ],
+      "permitted_claim_boundary": "recover_or_tie_max_pressure_when_constraints_slack; improvement_claims_only_for_explicit_binding_finite_storage_spillback_switching_service_incident_regimes",
+      "caveat": "static theory/separation only; no closed-loop or deployment claim"
+    },
+    {
+      "claim_category": "slack_recovery_tie_and_static_binding_separation",
+      "claim_allowed": true,
+      "source_key": "phase9_slack_binding_gates",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "static_gate_a_b_slack_binding",
+      "simulator": "analytic/static",
+      "network": "unknown",
+      "horizon_steps": "unknown",
+      "warmup_steps": "unknown",
+      "seed_count": "unknown",
+      "profile": "unknown",
+      "gate_status": "PASSED",
+      "demand_multiplier": "unknown",
+      "requirements_covered": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-03"
+      ],
+      "permitted_claim_boundary": "recover_or_tie_max_pressure_when_constraints_slack; improvement_claims_only_for_explicit_binding_finite_storage_spillback_switching_service_incident_regimes",
+      "caveat": "Gate A/B static checks only; no Gate C paired-seed closed-loop evidence; No Gate C, paired-seed dominance, baseline suite, stress scenarios, long-horizon evidence, or closed-loop superiority claim."
+    },
+    {
+      "claim_category": "baseline_stress_capability_context",
+      "claim_allowed": false,
+      "source_key": "phase10_baselines_stress_suite",
+      "source_status": "SMOKE_ONLY",
+      "parse_status": "PASSED",
+      "evidence_role": "baseline_stress_capability_context",
+      "simulator": "SUMO",
+      "network": "single,arterial,grid_4x4",
+      "horizon_steps": 80,
+      "warmup_steps": 20,
+      "seed_count": 2,
+      "profile": "smoke",
+      "gate_status": "SMOKE_ONLY",
+      "demand_multiplier": "unknown",
+      "requirements_covered": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "permitted_claim_boundary": "recover_or_tie_max_pressure_when_constraints_slack; improvement_claims_only_for_explicit_binding_finite_storage_spillback_switching_service_incident_regimes",
+      "caveat": "smoke/spec capability context only; not dominance or superiority evidence"
+    },
+    {
+      "claim_category": "limitations_and_reproduction_notes",
+      "claim_allowed": false,
+      "source_key": "phase11_long_horizon_paired_seed_evidence",
+      "source_status": "INCONCLUSIVE",
+      "parse_status": "PASSED",
+      "evidence_role": "closed_loop_paired_seed_gate_c_source",
+      "simulator": "SUMO",
+      "network": "unknown",
+      "horizon_steps": 3600,
+      "warmup_steps": 900,
+      "seed_count": 20,
+      "profile": "main",
+      "gate_status": "INCONCLUSIVE",
+      "demand_multiplier": "0.8,1.0,1.2",
+      "requirements_covered": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "permitted_claim_boundary": "recover_or_tie_max_pressure_when_constraints_slack; improvement_claims_only_for_explicit_binding_finite_storage_spillback_switching_service_incident_regimes",
+      "caveat": "limitation/context only because source status is INCONCLUSIVE; long-horizon rows must be fully executed before supporting Gate C claims; Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.; A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.; Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.; Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.; source status INCONCLUSIVE is not accepted for claim-ready evidence"
+    },
+    {
+      "claim_category": "closed_loop_gate_c_status",
+      "claim_allowed": false,
+      "source_key": "phase11_gate_c_paired_evidence",
+      "source_status": "INCONCLUSIVE",
+      "parse_status": "PASSED",
+      "evidence_role": "closed_loop_gate_c_binding_regime_status",
+      "simulator": "SUMO",
+      "network": "unknown",
+      "horizon_steps": 3600,
+      "warmup_steps": 900,
+      "seed_count": "unknown",
+      "profile": "main",
+      "gate_status": "INCONCLUSIVE",
+      "demand_multiplier": "unknown",
+      "requirements_covered": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "permitted_claim_boundary": "recover_or_tie_max_pressure_when_constraints_slack; improvement_claims_only_for_explicit_binding_finite_storage_spillback_switching_service_incident_regimes",
+      "caveat": "limitation/context only because source status is INCONCLUSIVE; Gate C must be PASSED before binding-regime closed-loop superiority inputs are claim-eligible; Gate C is limited to Phase 11 predeclared binding stress regimes and required pressure/storage-aware comparators.; Slack/control rows are context only and cannot satisfy dominance evidence.; Pilot, dry-run, spec-only, metadata-only-demand, or missing-execution artifacts are not completed Gate C evidence.; Phase 12 must regenerate final manuscript inputs and claim templates from raw artifacts.; source status INCONCLUSIVE is not accepted for claim-ready evidence"
+    }
+  ],
+  "claim_discipline": "bounded machine-readable inputs only; no manuscript prose or universal/deployment claim"
+}

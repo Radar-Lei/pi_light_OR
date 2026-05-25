@@ -1,0 +1,18 @@
+{
+  "experiment": "phase12_claim_audit",
+  "requirements_covered": [
+    "CLAIM-03",
+    "REPRO-03"
+  ],
+  "status": "PASSED",
+  "hit_count": 0,
+  "hits": [],
+  "scanned_surfaces": [
+    "phase12_claim_inputs.json",
+    "phase12_provenance_manifest.json",
+    "phase12_reproducibility_package.json",
+    "phase12_reproduction_manifest.json",
+    "phase12_summary.md",
+    "phase12_table_inputs.csv"
+  ]
+}

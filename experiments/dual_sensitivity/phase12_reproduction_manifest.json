@@ -1,0 +1,161 @@
+{
+  "experiment": "phase12_reproduction_manifest",
+  "requirements_covered": [
+    "CLAIM-03",
+    "REPRO-01",
+    "REPRO-02",
+    "REPRO-03"
+  ],
+  "source_statuses": {
+    "phase7_theory_separation": "PASSED",
+    "phase9_slack_binding_gates": "PASSED",
+    "phase10_baselines_stress_suite": "SMOKE_ONLY",
+    "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+    "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
+  },
+  "commands": [
+    {
+      "name": "fast_phase12_direct_tests",
+      "command": "python tests/test_phase12_reproducibility_inputs.py",
+      "runtime_profile": "fast_cpu",
+      "strict": true,
+      "gpu_required": false,
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "expected_artifacts": [],
+      "claim_note": "validates source loading, provenance, claim audit, and strict mode with synthetic artifacts"
+    },
+    {
+      "name": "regenerate_phase7_theory_separation",
+      "command": "python scripts/check_theory_separation.py --out experiments/dual_sensitivity/phase7_theory_separation.json",
+      "runtime_profile": "fast_cpu_static",
+      "strict": true,
+      "gpu_required": false,
+      "requirements": [
+        "REPRO-01",
+        "REPRO-03"
+      ],
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/phase7_theory_separation.json"
+      ],
+      "claim_note": "static theory/separation artifact regeneration"
+    },
+    {
+      "name": "regenerate_phase9_slack_binding_gates",
+      "command": "python scripts/run_slack_binding_gates.py --out experiments/dual_sensitivity/phase9_slack_binding_gates.json",
+      "runtime_profile": "fast_cpu_static",
+      "strict": true,
+      "gpu_required": false,
+      "requirements": [
+        "REPRO-01",
+        "REPRO-03"
+      ],
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/phase9_slack_binding_gates.json"
+      ],
+      "claim_note": "Gate A/B static artifact regeneration"
+    },
+    {
+      "name": "summarize_phase11_fail_closed_or_completed_rows",
+      "command": "python scripts/run_phase11_paired_evidence.py --out experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+      "runtime_profile": "cpu_sumo_summary_fail_closed",
+      "strict": false,
+      "gpu_required": false,
+      "requirements": [
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json"
+      ],
+      "claim_note": "packages Phase 11 status; does not require default completion of opt-in long-horizon suite"
+    },
+    {
+      "name": "strict_gate_c_validation",
+      "command": "python scripts/run_gate_c_paired_evidence.py --input experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json --out experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json --strict",
+      "runtime_profile": "fast_cpu_gate_check",
+      "strict": true,
+      "gpu_required": false,
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-03"
+      ],
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json"
+      ],
+      "claim_note": "expected to exit nonzero while Gate C source remains non-PASSED"
+    },
+    {
+      "name": "generate_phase12_non_strict_package",
+      "command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
+      "runtime_profile": "fast_cpu_packaging",
+      "strict": false,
+      "gpu_required": false,
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "expected_artifacts": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_reproducibility_package.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_provenance_manifest.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_table_inputs.csv",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_claim_inputs.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_claim_audit.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_reproduction_manifest.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_summary.md"
+      ],
+      "claim_note": "writes auditable package even when upstream evidence is inconclusive"
+    },
+    {
+      "name": "validate_phase12_strict_package",
+      "command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity --strict",
+      "runtime_profile": "fast_cpu_packaging",
+      "strict": true,
+      "gpu_required": false,
+      "requirements": [
+        "CLAIM-03",
+        "REPRO-01",
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "expected_artifacts": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_reproducibility_package.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_provenance_manifest.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_table_inputs.csv",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_claim_inputs.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_claim_audit.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_reproduction_manifest.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase12_summary.md"
+      ],
+      "claim_note": "fails nonzero unless source statuses and generated claim audit pass"
+    },
+    {
+      "name": "opt_in_long_horizon_phase11_execution",
+      "command": "python scripts/run_phase11_paired_evidence.py --profile main --execution-row-limit 2160 --progress-out experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.progress.json --resume-progress experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.progress.json --out experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+      "runtime_profile": "opt_in_cpu_sumo_long_horizon",
+      "strict": true,
+      "gpu_required": false,
+      "requirements": [
+        "REPRO-02",
+        "REPRO-03"
+      ],
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+        "experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.progress.json"
+      ],
+      "claim_note": "expensive SUMO execution is opt-in/fail-closed, uses row-level progress/resume, and is not run by Phase 12 generation"
+    }
+  ],
+  "constraints": [
+    "CPU/SUMO-oriented",
+    "no GPU dependency",
+    "no package installation command",
+    "long-horizon execution opt-in only"
+  ]
+}
