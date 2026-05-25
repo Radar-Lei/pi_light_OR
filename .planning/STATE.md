@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Explicit Finite-Storage Primal-Dual Separation
-status: executing
-stopped_at: Phase 12.1 context gathered
-last_updated: "2026-05-25T04:02:38.299Z"
+status: complete
+stopped_at: Phase 12.1 final verification complete; Gate C remains INCONCLUSIVE fail-closed
+last_updated: "2026-05-25T04:32:00.000Z"
 last_activity: 2026-05-25
 progress:
   total_phases: 1
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 2
-  percent: 0
+  completed_plans: 5
+  percent: 100
 ---
 
 # Project State
@@ -25,12 +25,14 @@ See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-24)
 
 ## Current Position
 
-Phase: 12.1 (close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid) — EXECUTING
-Plan: 3 of 5
-Status: Ready to execute
+Phase: 12.1 (close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid) — COMPLETE
+Plan: 5 of 5
+Status: Complete; evidence outcome is fail-closed INCONCLUSIVE
 Last activity: 2026-05-25
 
-Progress: [████░░░░░░] 40%
+Progress: [██████████] 100%
+
+**Final Phase 12.1 outcome:** Phase 11 main evidence artifact is `INCONCLUSIVE` after 57/2160 rows with `missing_row_key_count=2103` and `all_rows_executed=false`; Gate C companion artifact is `INCONCLUSIVE` with `input_status=INCONCLUSIVE`; Phase 12 reproducibility package is `INCONCLUSIVE` and claim audit is `PASSED`.
 
 ## Performance Metrics
 
@@ -56,7 +58,7 @@ Progress: [████░░░░░░] 40%
 | 9. Slack and Binding Kill Gates | 1/1 | Complete |
 | 10. Strong Baselines and Stress Scenario Suite | 1/1 | Complete |
 | 11. Long-Horizon Paired-Seed Evidence | 3/3 | Complete |
-| 12. Reproducibility and Future Claim Inputs | 0/TBD | Not started |
+| 12. Reproducibility and Future Claim Inputs | 2/2 | Complete |
 | Phase 06 P01 | 9min 11s | 3 tasks | 5 files |
 | Phase 06 P02 | 14min 31s | 3 tasks | 6 files |
 | Phase 06 P03 | 10min 37s | 3 tasks | 10 files |
@@ -66,6 +68,9 @@ Progress: [████░░░░░░] 40%
 | Phase 10 P01 | completed | 3 tasks | 8 files |
 | Phase 12.1 P01 | 8min 5s | 3 tasks | 11 files |
 | Phase 12.1 P02 | 14min 56s | 2 tasks | 2 files |
+| Phase 12.1 P03 | completed | 3 tasks | 2 files |
+| Phase 12.1 P04 | completed | 2 tasks | 5 files |
+| Phase 12.1 P05 | completed | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -103,17 +108,18 @@ Progress: [████░░░░░░] 40%
 - [Phase ?]: [Phase 12.1]: Phase 12 reproduction now advertises --execution-row-limit 2160 plus progress/resume paths instead of unsupported --allow-long-horizon.
 - [Phase 12.1]: Plan 02 started the 2160-row main profile with progress/resume, then preserved fail-closed INCONCLUSIVE status after interruption at 57/2160 rows.
 - [Phase 12.1]: Partial Phase 11 rows are audit/provenance only; 2103 missing rows prevent Gate C dominance inference.
+- [Phase 12.1]: Gate C and Phase 12 package both remain `INCONCLUSIVE`; Phase 12 claim audit is `PASSED`, but Phase 11/Gate C claim inputs remain `claim_allowed=false`.
 
 ### Pending Todos
 
-Discuss and plan Phase 12 reproducibility and future claim inputs.
+None for v1.1 execution. Resume the same Phase 11 main command only if choosing to continue the expensive 2160-row SUMO execution beyond the current fail-closed closure.
 
 ### Blockers/Concerns
 
 - v1.1 must not reinterpret v1.0 pressure-equivalent evidence as superiority evidence.
 - v1.1 must not include manuscript drafting, related-work writing, final paper integration, or submission preparation.
-- Phase 11 Gate C tooling is complete and fail-closed; current main artifact remains INCONCLUSIVE until the long-horizon SUMO rows are actually executed.
-- Phase 12 must package reproducibility/future claim inputs without drafting paper text or broadening beyond bounded binding-regime claims.
+- Phase 11 Gate C tooling is complete and fail-closed; current main artifact remains INCONCLUSIVE at 57/2160 rows until the remaining long-horizon SUMO rows are actually executed.
+- Phase 12 packaging has been refreshed from raw artifacts and remains conservative: package `INCONCLUSIVE`, claim audit `PASSED`, Phase 11/Gate C claim inputs not claim-ready.
 
 ## Deferred Items
 
