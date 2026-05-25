@@ -29,7 +29,7 @@ v1.1 converts the v1.0 pressure-equivalent artifact into a bounded strong-claim 
 - [x] **Phase 10: Strong Baselines and Stress Scenario Suite** - Add honest operational/pressure baselines and explicit finite-storage stress scenarios, including the grid fixed-time counterexample. (completed 2026-05-24)
 - [x] **Phase 11: Long-Horizon Paired-Seed Evidence** - Run journal-grade closed-loop paired-seed experiments and statistical dominance checks only in binding stress regimes. (completed 2026-05-24)
 - [x] **Phase 12: Reproducibility and Future Claim Inputs** - Regenerate all new evidence from raw artifacts and prepare bounded future claim inputs without drafting the paper. (completed 2026-05-24)
-- [ ] **Phase 12.1: Close v1.1 gap: execute or downgrade Gate C long-horizon evidence** - Execute the predeclared Gate C main profile or preserve fail-closed status through downstream reproducibility/status artifacts.
+- [x] **Phase 12.1: Close v1.1 gap: execute or downgrade Gate C long-horizon evidence** - Execute the predeclared Gate C main profile or preserve fail-closed status through downstream reproducibility/status artifacts. (completed 2026-05-25)
 
 ## Phase Details
 
@@ -188,7 +188,7 @@ Plans:
   3. User can run strict Gate C and see the actual `PASSED`, `FAILED`, or `INCONCLUSIVE` outcome without threshold tuning or evidence-family narrowing.
   4. User can regenerate Phase 12 reproducibility and claim-status artifacts from raw sources and see bounded, conservative status propagation.
 
-**Plans:** 5/5 plans executed
+**Plans:** 5/5 plans complete
 **Outcome:** Phase 11 main evidence remains `INCONCLUSIVE` after 57/2160 rows (`missing_row_key_count=2103`); strict Gate C remains `INCONCLUSIVE`; Phase 12 package remains `INCONCLUSIVE` with claim audit `PASSED` and `claim_allowed=false` for Phase 11/Gate C inputs.
 Plans:
 **Wave 1**
@@ -229,7 +229,7 @@ Plans:
 | 10. Strong Baselines and Stress Scenario Suite | v1.1 | 1/1 | Complete | 2026-05-24 |
 | 11. Long-Horizon Paired-Seed Evidence | v1.1 | 3/3 | Complete   | 2026-05-24 |
 | 12. Reproducibility and Future Claim Inputs | v1.1 | 2/2 | Complete    | 2026-05-24 |
-| 12.1. Close v1.1 gap: execute or downgrade Gate C long-horizon evidence | v1.1 | 5/5 | Complete | 2026-05-25 |
+| 12.1. Close v1.1 gap: execute or downgrade Gate C long-horizon evidence | v1.1 | 5/5 | Complete   | 2026-05-25 |
 
 ## Coverage
 
