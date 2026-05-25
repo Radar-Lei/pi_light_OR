@@ -47,7 +47,7 @@ Requirements for the finite-storage separation milestone. Each maps to roadmap p
 - [x] **EXP-02**: The suite explains and tests the current grid fixed-time counterexample before using any broad performance language.
 - [x] **EXP-03**: Long-horizon closed-loop experiments use 3600–7200s horizons, appropriate warmup, demand multiplier sweeps, and paired seeds where computationally feasible.
 - [x] **EXP-04**: Stress scenarios include downstream blockage, spillback, incident/lane capacity drop, oversaturation, turning shock, and switching-loss-sensitive regimes.
-- [ ] **EXP-05**: Statistical reports include paired bootstrap or paired t/Wilcoxon confidence intervals, effect sizes, and multiple-comparison handling where relevant.
+- [x] **EXP-05**: Statistical reports include paired bootstrap or paired t/Wilcoxon confidence intervals, effect sizes, and multiple-comparison handling where relevant.
 
 ### Reproducibility and Future Manuscript Inputs
 
@@ -111,7 +111,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXP-02 | Phase 10 | Complete |
 | EXP-03 | Phase 11 | Complete |
 | EXP-04 | Phase 10 | Complete |
-| EXP-05 | Phase 11 | Pending |
+| EXP-05 | Phase 11 | Complete |
 | REPRO-01 | Phase 12 | Complete |
 | REPRO-02 | Phase 12 | Complete |
 | REPRO-03 | Phase 12 | Complete |

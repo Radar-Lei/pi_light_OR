@@ -4,13 +4,13 @@ milestone: v1.1
 milestone_name: Explicit Finite-Storage Primal-Dual Separation
 status: executing
 stopped_at: Phase 12.1 context gathered
-last_updated: "2026-05-25T03:45:23.870Z"
+last_updated: "2026-05-25T04:02:38.299Z"
 last_activity: 2026-05-25
 progress:
   total_phases: 1
   completed_phases: 0
   total_plans: 5
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -26,11 +26,11 @@ See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-24)
 ## Current Position
 
 Phase: 12.1 (close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
 Last activity: 2026-05-25
 
-Progress: [██░░░░░░░░] 20%
+Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
@@ -65,6 +65,7 @@ Progress: [██░░░░░░░░] 20%
 | Phase 09 P01 | completed | 3 tasks | 8 files |
 | Phase 10 P01 | completed | 3 tasks | 8 files |
 | Phase 12.1 P01 | 8min 5s | 3 tasks | 11 files |
+| Phase 12.1 P02 | 14min 56s | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -100,6 +101,8 @@ Progress: [██░░░░░░░░] 20%
 - [Phase ?]: [Phase 12.1]: Phase 11 resume support wraps execute_spec and continues using run_experiment rather than creating a new TraCI loop.
 - [Phase ?]: [Phase 12.1]: Progress files fail closed on invalid JSON, spec fingerprint mismatch, outside row keys, and conflicting duplicate completed rows.
 - [Phase ?]: [Phase 12.1]: Phase 12 reproduction now advertises --execution-row-limit 2160 plus progress/resume paths instead of unsupported --allow-long-horizon.
+- [Phase 12.1]: Plan 02 started the 2160-row main profile with progress/resume, then preserved fail-closed INCONCLUSIVE status after interruption at 57/2160 rows.
+- [Phase 12.1]: Partial Phase 11 rows are audit/provenance only; 2103 missing rows prevent Gate C dominance inference.
 
 ### Pending Todos
 
@@ -125,6 +128,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-25T03:44:50.237Z
+Last session: 2026-05-25T04:02:38.292Z
 Stopped at: Phase 12.1 context gathered
 Resume file: None
