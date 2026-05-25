@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Explicit Finite-Storage Primal-Dual Separation
-status: executing
-stopped_at: Phase 11 context gathered
-last_updated: "2026-05-24T10:43:07.338Z"
-last_activity: 2026-05-24 -- Phase 11 execution started
+status: Not planned
+stopped_at: Phase 12.1 context gathered
+last_updated: "2026-05-25T02:55:47.441Z"
+last_activity: 2026-05-24
 progress:
   total_phases: 7
-  completed_phases: 5
-  total_plans: 10
-  completed_plans: 7
-  percent: 70
+  completed_phases: 7
+  total_plans: 12
+  completed_plans: 12
+  percent: 100
 ---
 
 # Project State
@@ -21,22 +21,22 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-24)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** Phase 11 — Long-Horizon Paired-Seed Evidence
+**Current focus:** Phase 12.1 urgent inserted gap
 
 ## Current Position
 
-Phase: 11 (Long-Horizon Paired-Seed Evidence) — EXECUTING
-Plan: 1 of 3
-Status: Executing Phase 11
-Last activity: 2026-05-24 -- Phase 11 execution started
+Phase: 12.1
+Plan: Not started
+Status: Not planned
+Last activity: 2026-05-24
 
-Progress: [███████░░░] 71%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 18 from v1.0
+- Total plans completed: 20 from v1.0
 - v1.1 plans completed: 6
 - Average duration: N/A
 - Total execution time: N/A
@@ -55,7 +55,7 @@ Progress: [███████░░░] 71%
 | 8. Live Finite-Storage Primal-Dual Controller | 1/1 | Complete |
 | 9. Slack and Binding Kill Gates | 1/1 | Complete |
 | 10. Strong Baselines and Stress Scenario Suite | 1/1 | Complete |
-| 11. Long-Horizon Paired-Seed Evidence | 0/TBD | Not started |
+| 11. Long-Horizon Paired-Seed Evidence | 3/3 | Complete |
 | 12. Reproducibility and Future Claim Inputs | 0/TBD | Not started |
 | Phase 06 P01 | 9min 11s | 3 tasks | 5 files |
 | Phase 06 P02 | 14min 31s | 3 tasks | 6 files |
@@ -66,6 +66,10 @@ Progress: [███████░░░] 71%
 | Phase 10 P01 | completed | 3 tasks | 8 files |
 
 ## Accumulated Context
+
+### Roadmap Evolution
+
+- Phase 12.1 inserted after Phase 12: Close v1.1 gap: execute or downgrade Gate C long-horizon evidence (URGENT)
 
 ### Decisions
 
@@ -95,13 +99,14 @@ Progress: [███████░░░] 71%
 
 ### Pending Todos
 
-Plan Phase 11 long-horizon paired-seed evidence and Gate C scope.
+Discuss and plan Phase 12 reproducibility and future claim inputs.
 
 ### Blockers/Concerns
 
 - v1.1 must not reinterpret v1.0 pressure-equivalent evidence as superiority evidence.
 - v1.1 must not include manuscript drafting, related-work writing, final paper integration, or submission preparation.
-- Phase 11 is the first phase allowed to plan paired-seed long-horizon Gate C evidence, but only in predeclared binding stress regimes and against the strongest feasible baselines.
+- Phase 11 Gate C tooling is complete and fail-closed; current main artifact remains INCONCLUSIVE until the long-horizon SUMO rows are actually executed.
+- Phase 12 must package reproducibility/future claim inputs without drafting paper text or broadening beyond bounded binding-regime claims.
 
 ## Deferred Items
 
@@ -116,6 +121,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-24T09:46:19.325Z
-Stopped at: Phase 11 context gathered
-Resume file: .planning/phases/11-long-horizon-paired-seed-evidence/11-CONTEXT.md
+Last session: 2026-05-25T02:55:47.435Z
+Stopped at: Phase 12.1 context gathered
+Resume file: .planning/phases/12.1-close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid/12.1-CONTEXT.md
