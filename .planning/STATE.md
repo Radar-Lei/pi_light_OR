@@ -1,38 +1,33 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: Explicit Finite-Storage Primal-Dual Separation
-status: complete
-stopped_at: Phase 12.1 final verification complete; Gate C remains INCONCLUSIVE fail-closed
-last_updated: "2026-05-25T04:32:00.000Z"
+milestone: v1.3
+milestone_name: Complete Predeclared Gate C Evidence
+status: planning
+last_updated: "2026-05-25T12:17:10.959Z"
 last_activity: 2026-05-25
 progress:
-  total_phases: 1
-  completed_phases: 1
-  total_plans: 5
-  completed_plans: 5
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-24)
+See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** Phase 12.1 — close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid
+**Current focus:** v1.3 requirements and roadmap for completing predeclared Gate C evidence
 
 ## Current Position
 
-Phase: 12.1 (close-v1-1-gap-execute-or-downgrade-gate-c-long-horizon-evid) — COMPLETE
-Plan: 5 of 5
-Status: Complete; evidence outcome is fail-closed INCONCLUSIVE
-Last activity: 2026-05-25
-
-Progress: [██████████] 100%
-
-**Final Phase 12.1 outcome:** Phase 11 main evidence artifact is `INCONCLUSIVE` after 57/2160 rows with `missing_row_key_count=2103` and `all_rows_executed=false`; Gate C companion artifact is `INCONCLUSIVE` with `input_status=INCONCLUSIVE`; Phase 12 reproducibility package is `INCONCLUSIVE` and claim audit is `PASSED`.
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-05-25 — Milestone v1.3 started
 
 ## Performance Metrics
 
@@ -77,6 +72,7 @@ Progress: [██████████] 100%
 ### Roadmap Evolution
 
 - Phase 12.1 inserted after Phase 12: Close v1.1 gap: execute or downgrade Gate C long-horizon evidence (URGENT)
+- v1.3 started as a narrow evidence-closure milestone: complete the predeclared 2160-row Phase 11 main profile, rerun strict Gate C, and refresh Phase 12 reproducibility/claim-status artifacts without adding features or drafting the paper.
 
 ### Decisions
 
@@ -109,15 +105,18 @@ Progress: [██████████] 100%
 - [Phase 12.1]: Plan 02 started the 2160-row main profile with progress/resume, then preserved fail-closed INCONCLUSIVE status after interruption at 57/2160 rows.
 - [Phase 12.1]: Partial Phase 11 rows are audit/provenance only; 2103 missing rows prevent Gate C dominance inference.
 - [Phase 12.1]: Gate C and Phase 12 package both remain `INCONCLUSIVE`; Phase 12 claim audit is `PASSED`, but Phase 11/Gate C claim inputs remain `claim_allowed=false`.
+- [v1.3 Roadmap]: Do not introduce new controllers, scenarios, thresholds, metrics, or manuscript-writing scope before the predeclared Gate C evidence closure is complete.
 
 ### Pending Todos
 
-None for v1.1 execution. Resume the same Phase 11 main command only if choosing to continue the expensive 2160-row SUMO execution beyond the current fail-closed closure.
+- Resume and complete the original Phase 11 main-profile command until all 2160 expected rows are complete, or preserve an explicit fail-closed reason for any remaining incompleteness.
+- Rerun strict Gate C after the Phase 11 evidence artifact is refreshed.
+- Rerun Phase 12 strict reproducibility and claim-status package after Gate C refresh.
 
 ### Blockers/Concerns
 
-- v1.1 must not reinterpret v1.0 pressure-equivalent evidence as superiority evidence.
-- v1.1 must not include manuscript drafting, related-work writing, final paper integration, or submission preparation.
+- v1.3 must not reinterpret v1.0 pressure-equivalent evidence or partial Phase 11 rows as superiority evidence.
+- v1.3 must not include manuscript drafting, related-work writing, final paper integration, or submission preparation.
 - Phase 11 Gate C tooling is complete and fail-closed; current main artifact remains INCONCLUSIVE at 57/2160 rows until the remaining long-horizon SUMO rows are actually executed.
 - Phase 12 packaging has been refreshed from raw artifacts and remains conservative: package `INCONCLUSIVE`, claim audit `PASSED`, Phase 11/Gate C claim inputs not claim-ready.
 
