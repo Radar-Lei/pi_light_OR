@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Complete Predeclared Gate C Evidence
 status: planning
-last_updated: "2026-05-25T12:17:10.959Z"
+last_updated: "2026-05-25T12:30:00.000Z"
 last_activity: 2026-05-25
 progress:
-  total_phases: 0
+  total_phases: 1
   completed_phases: 0
-  total_plans: 0
+  total_plans: 4
   completed_plans: 0
   percent: 0
 ---
@@ -20,14 +20,14 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** v1.3 requirements and roadmap for completing predeclared Gate C evidence
+**Current focus:** Phase 13 — complete-predeclared-gate-c-evidence
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 13 (complete-predeclared-gate-c-evidence) — PLANNING
 Plan: —
-Status: Defining requirements
-Last activity: 2026-05-25 — Milestone v1.3 started
+Status: Ready for phase discussion/planning
+Last activity: 2026-05-25 — Milestone v1.3 roadmap created
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Last activity: 2026-05-25 — Milestone v1.3 started
 | 10. Strong Baselines and Stress Scenario Suite | 1/1 | Complete |
 | 11. Long-Horizon Paired-Seed Evidence | 3/3 | Complete |
 | 12. Reproducibility and Future Claim Inputs | 2/2 | Complete |
+| 13. Complete Predeclared Gate C Evidence | 0/4 | Planning |
 | Phase 06 P01 | 9min 11s | 3 tasks | 5 files |
 | Phase 06 P02 | 14min 31s | 3 tasks | 6 files |
 | Phase 06 P03 | 10min 37s | 3 tasks | 10 files |
