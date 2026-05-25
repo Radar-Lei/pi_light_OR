@@ -13,9 +13,11 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
+import run_phase11_paired_evidence as phase11  # noqa: E402
 from run_phase11_paired_evidence import (  # noqa: E402
     BINDING_EVIDENCE_SCENARIOS,
     DEMAND_MULTIPLIER_PROVENANCE_KEYS,
+    MIN_GATE_C_PAIRED_SEEDS,
     GATE_C_CONDITIONAL_PRIMARY_METRICS,
     GATE_C_PRIMARY_METRICS,
     GATE_C_STATISTICAL_FAMILY,
@@ -30,6 +32,10 @@ from run_phase11_paired_evidence import (  # noqa: E402
     evaluate_gate_c_primary_metric_rule,
     paired_metric_summary,
     validate_payload_scope,
+    execute_spec,
+    load_progress,
+    progress_spec_fingerprint,
+    row_key,
 )
 from run_gate_c_paired_evidence import (  # noqa: E402
     build_gate_payload,
@@ -86,6 +92,9 @@ def test_phase11_constants_lock_binding_scope_and_comparators() -> None:
 
 def test_main_spec_defaults_are_journal_grade_and_paired() -> None:
     spec = build_phase11_spec(profile="main")
+    assert len(spec) == 2160
+    assert len({row["scenario_tag"] for row in spec}) == 6
+    assert len({row["controller"] for row in spec}) == 6
     assert len({row["seed"] for row in spec}) == 20
     assert {row["demand_multiplier"] for row in spec} == {0.8, 1.0, 1.2}
     assert spec
@@ -98,11 +107,15 @@ def test_main_spec_defaults_are_journal_grade_and_paired() -> None:
     required_controllers = {PROPOSED_CONTROLLER, *REQUIRED_GATE_C_COMPARATORS}
     for scenario in BINDING_EVIDENCE_SCENARIOS:
         for multiplier in {row["demand_multiplier"] for row in spec if row["scenario_tag"] == scenario}:
-            by_controller = {
-                row["controller"]: {row["seed"] for row in spec if row["scenario_tag"] == scenario and row["demand_multiplier"] == multiplier and row["controller"] == row["controller"]}
-                for row in spec
-                if row["scenario_tag"] == scenario and row["demand_multiplier"] == multiplier
-            }
+            by_controller = {}
+            for controller in {item["controller"] for item in spec if item["scenario_tag"] == scenario and item["demand_multiplier"] == multiplier}:
+                by_controller[controller] = {
+                    item["seed"]
+                    for item in spec
+                    if item["scenario_tag"] == scenario
+                    and item["demand_multiplier"] == multiplier
+                    and item["controller"] == controller
+                }
             assert required_controllers <= set(by_controller)
             seed_sets = [by_controller[controller] for controller in required_controllers]
             assert all(seed_set == seed_sets[0] for seed_set in seed_sets)
@@ -129,7 +142,222 @@ def test_demand_multiplier_contract_requires_actual_sumo_behavior_change() -> No
         assert contract["demand_scaling_method"] == "scaled_route_sumocfg_override"
 
 
-_defused_tmp_error = None
+
+def fake_completed_row(item: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "network": item["network"],
+        "scenario_tag": item["scenario_tag"],
+        "controller": item["controller"],
+        "seed": int(item["seed"]),
+        "steps": int(item["steps"]),
+        "warmup": int(item["warmup"]),
+        "action_interval": int(item["action_interval"]),
+        "scenario_status": "completed",
+        "feasibility_status": "run",
+        "stress_category": "spillback",
+        "stress_mechanism": "synthetic_progress_test",
+        "finite_storage_state": finite_storage_state(),
+        "objective_components": objective_components(),
+        "penalized_avg_travel_time": 10.0,
+        "total_delay": 20.0,
+        "spillback_count": 1.0,
+        "blocking_count": 0.0,
+        "unfinished_vehicle_count": 0.0,
+        "switching_count": 0.0,
+    }
+
+
+def progress_test_spec() -> list[dict[str, Any]]:
+    spec = build_phase11_spec(
+        profile="pilot",
+        seeds=[7, 8],
+        controllers=[PROPOSED_CONTROLLER, *REQUIRED_GATE_C_COMPARATORS],
+        demand_multipliers=[1.0],
+        steps=120,
+        warmup=30,
+    )
+    return spec[:3]
+
+
+def test_progress_resume_skips_completed_key_and_preserves_payload() -> None:
+    spec = progress_test_spec()
+    completed_item = spec[0]
+    completed_row = {
+        **fake_completed_row(completed_item),
+        "profile": completed_item["profile"],
+        "demand_multiplier": completed_item["demand_multiplier"],
+        "demand_scaling_method": DEMAND_SCALING_METHOD,
+        "base_demand_total": 100.0,
+        "scaled_demand_total": 100.0,
+        "generated_route_file": "synthetic.rou.xml",
+        "generated_sumocfg": "synthetic.sumocfg",
+        "base_sumocfg": "base.sumocfg",
+        "demand_multiplier_provenance": make_row("arterial_spillback_stress", PROPOSED_CONTROLLER, 1)["demand_multiplier_provenance"],
+    }
+    route_metadata = {"route_decision": "pressure-equivalent", "route_confidence": "MEDIUM", "route_json": "synthetic.json"}
+    calls = []
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        progress_path = Path(raw_tmp) / "progress.json"
+        progress_path.write_text(
+            json.dumps(
+                {
+                    "experiment": "phase11_row_progress",
+                    "spec_fingerprint": progress_spec_fingerprint(spec),
+                    "profile": "pilot",
+                    "steps": 120,
+                    "warmup": 30,
+                    "seeds": [7, 8],
+                    "demand_multipliers": [1.0],
+                    "expected_row_count": len(spec),
+                    "completed_rows": [completed_row],
+                    "attempted_row_keys": [row_key(completed_item)],
+                    "failure_reasons": [],
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        def fake_run_experiment(network, controller, seed, steps, warmup, action_interval, metadata, scenario_tag, *, sumocfg_override=None):
+            calls.append(row_key({"scenario_tag": scenario_tag, "demand_multiplier": 1.0, "controller": controller, "seed": seed}))
+            item = next(row for row in spec if row["scenario_tag"] == scenario_tag and row["controller"] == controller and row["seed"] == seed)
+            return fake_completed_row(item)
+
+        original = phase11.run_experiment
+        phase11.run_experiment = fake_run_experiment
+        try:
+            rows, reasons, mode = execute_spec(
+                spec,
+                route_metadata,
+                dry_run=False,
+                execution_row_limit=len(spec),
+                progress_out=progress_path,
+                resume_progress=progress_path,
+            )
+        finally:
+            phase11.run_experiment = original
+        loaded = load_progress(progress_path, spec)
+
+    assert mode == "executed_with_progress"
+    assert row_key(completed_item) not in calls
+    assert row_key(completed_item) in {row_key(row) for row in rows}
+    assert row_key(completed_item) in loaded["completed_row_keys"]
+    assert reasons == []
+
+
+def test_missing_resume_progress_cold_starts_and_creates_progress_file() -> None:
+    spec = progress_test_spec()[:1]
+    route_metadata = {"route_decision": "pressure-equivalent", "route_confidence": "MEDIUM", "route_json": "synthetic.json"}
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        progress_path = Path(raw_tmp) / "new_progress.json"
+
+        def fake_run_experiment(network, controller, seed, steps, warmup, action_interval, metadata, scenario_tag, *, sumocfg_override=None):
+            return fake_completed_row(spec[0])
+
+        original = phase11.run_experiment
+        phase11.run_experiment = fake_run_experiment
+        try:
+            rows, reasons, mode = execute_spec(
+                spec,
+                route_metadata,
+                dry_run=False,
+                execution_row_limit=len(spec),
+                progress_out=progress_path,
+                resume_progress=progress_path,
+            )
+        finally:
+            phase11.run_experiment = original
+        loaded = load_progress(progress_path, spec)
+
+    assert progress_path.exists()
+    assert len(rows) == 1
+    assert reasons == []
+    assert mode == "executed_with_progress"
+    assert loaded["attempted_row_keys"] == [row_key(spec[0])]
+    assert loaded["completed_row_keys"] == [row_key(spec[0])]
+
+
+def test_progress_loader_rejects_malformed_mismatch_and_conflicting_duplicate_rows() -> None:
+    spec = progress_test_spec()
+    completed_item = spec[0]
+    completed_row = {**fake_completed_row(completed_item), "demand_multiplier": completed_item["demand_multiplier"]}
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        tmp = Path(raw_tmp)
+        malformed = tmp / "malformed.json"
+        malformed.write_text("{not json", encoding="utf-8")
+        try:
+            load_progress(malformed, spec)
+        except ValueError as exc:
+            assert "invalid progress JSON" in str(exc)
+        else:
+            raise AssertionError("malformed progress should fail closed")
+
+        mismatch = tmp / "mismatch.json"
+        mismatch.write_text(json.dumps({"spec_fingerprint": "wrong", "completed_rows": []}), encoding="utf-8")
+        try:
+            load_progress(mismatch, spec)
+        except ValueError as exc:
+            assert "spec fingerprint mismatch" in str(exc)
+        else:
+            raise AssertionError("spec mismatch should fail closed")
+
+        duplicate = tmp / "duplicate.json"
+        duplicate.write_text(
+            json.dumps(
+                {
+                    "spec_fingerprint": progress_spec_fingerprint(spec),
+                    "completed_rows": [completed_row, {**completed_row, "total_delay": 999.0}],
+                    "attempted_row_keys": [row_key(completed_item)],
+                    "failure_reasons": [],
+                }
+            ),
+            encoding="utf-8",
+        )
+        try:
+            load_progress(duplicate, spec)
+        except ValueError as exc:
+            assert "conflicting duplicate" in str(exc)
+        else:
+            raise AssertionError("conflicting duplicate progress should fail closed")
+
+
+def test_progress_execution_preserves_runtime_failure_reasons_and_missing_keys() -> None:
+    spec = progress_test_spec()[:1]
+    route_metadata = {"route_decision": "pressure-equivalent", "route_confidence": "MEDIUM", "route_json": "synthetic.json"}
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        progress_path = Path(raw_tmp) / "failure_progress.json"
+
+        def failing_run_experiment(*args, **kwargs):
+            raise RuntimeError("synthetic row failure")
+
+        original = phase11.run_experiment
+        phase11.run_experiment = failing_run_experiment
+        try:
+            rows, reasons, mode = execute_spec(
+                spec,
+                route_metadata,
+                dry_run=False,
+                execution_row_limit=len(spec),
+                progress_out=progress_path,
+                resume_progress=progress_path,
+            )
+        finally:
+            phase11.run_experiment = original
+        payload = build_payload(
+            profile="pilot",
+            route_metadata=route_metadata,
+            spec=spec,
+            rows=rows,
+            dry_run=False,
+            execution_mode=mode,
+            missing_row_reasons=reasons,
+        )
+        progress = json.loads(progress_path.read_text(encoding="utf-8"))
+
+    assert rows == []
+    assert any("synthetic row failure" in reason for reason in reasons)
+    assert payload["missing_row_key_count"] == 1
+    assert progress["failure_reasons"] == reasons
+    assert progress["attempted_row_keys"] == [row_key(spec[0])]
 
 
 def test_scaled_route_sumocfg_generation_changes_actual_demand_inputs() -> None:
@@ -158,6 +386,17 @@ def test_scaled_route_sumocfg_generation_changes_actual_demand_inputs() -> None:
             route_value = cfg_root.find("./input/route-files").get("value")
             assert route_value == str(Path(item["generated_route_file"]).resolve())
         assert by_multiplier[0.8]["scaled_demand_total"] < by_multiplier[1.0]["scaled_demand_total"] < by_multiplier[1.2]["scaled_demand_total"]
+
+
+def test_scaled_route_generation_extends_flows_to_requested_horizon() -> None:
+    with tempfile.TemporaryDirectory() as raw_tmp:
+        provenance = generate_scaled_route_and_sumocfg("arterial", 1.0, 7200, Path(raw_tmp))
+        cfg_root = ET.parse(provenance["generated_sumocfg"]).getroot()
+        assert cfg_root.find("./time/end").get("value") == "7200"
+        route_root = ET.parse(provenance["generated_route_file"]).getroot()
+        flow_ends = [float(flow.get("end", flow.get("until", "0"))) for flow in route_root.findall("flow")]
+        assert flow_ends
+        assert min(flow_ends) >= 7200.0
 
 
 def test_sumocfg_override_argument_is_exposed_in_run_experiment() -> None:
@@ -345,6 +584,7 @@ def test_primary_metric_constants_cover_all_d_11_04_metrics() -> None:
 def test_paired_metric_summary_reports_direction_ci_effect_and_family_metadata() -> None:
     summary = paired_metric_summary(synthetic_rows(delta=5.0), "arterial_spillback_stress", 1.0, "max_pressure", "total_delay")
     assert summary["mean_paired_difference"] == 5.0
+    assert MIN_GATE_C_PAIRED_SEEDS == 2
     assert summary["ci_low"] >= 0.0
     assert summary["ci_high"] >= summary["ci_low"]
     assert summary["n_seeds"] == 4
@@ -354,6 +594,13 @@ def test_paired_metric_summary_reports_direction_ci_effect_and_family_metadata()
     assert summary["effect_size"] > 0.0
     assert summary["statistical_family"] == GATE_C_STATISTICAL_FAMILY
     assert summary["paired_seed_ids"] == [1, 2, 3, 4]
+
+
+def test_gate_c_rule_rejects_single_seed_evidence() -> None:
+    one_seed_rows = [row for row in synthetic_rows(delta=5.0) if row["seed"] == 1]
+    result = evaluate_gate_c_primary_metric_rule(one_seed_rows, scenarios=["arterial_spillback_stress"], comparators=["max_pressure"])
+    assert result["status"] == "FAILED"
+    assert any("fewer than" in reason for reason in result["reasons"])
 
 
 def test_gate_c_rule_pass_fail_inconclusive_and_missing_metric_cases() -> None:
@@ -398,6 +645,14 @@ def test_gate_c_core_evaluator_passes_and_classifies_slack_context() -> None:
     assert result["binding_regime_dominance"]
     assert result["slack_regime_recovery_or_context"]
     assert not result["not_evidence"]
+
+
+def test_gate_c_core_evaluator_fails_closed_on_row_level_short_horizon() -> None:
+    short_horizon = copy.deepcopy(full_gate_rows(delta=5.0))
+    short_horizon[0]["steps"] = 300
+    result = evaluate_gate_c({"profile": "main", "steps": 3600, "warmup": 900, "scenario_results": short_horizon})
+    assert result["status"] == "FAILED"
+    assert any("row-level steps" in reason for reason in result["reasons"])
 
 
 def test_gate_c_core_evaluator_fails_closed_on_missing_inputs() -> None:
@@ -514,6 +769,47 @@ def test_standalone_gate_checker_writes_inconclusive_output_for_missing_main_row
     assert any("no executed raw scenario rows" in reason for reason in loaded["reasons"])
 
 
+def test_gate_checker_refuses_to_upgrade_inconclusive_source_artifact() -> None:
+    rows = full_gate_rows(delta=5.0)
+    payload = {
+        "experiment": "phase11_long_horizon_paired_seed_evidence",
+        "status": "INCONCLUSIVE",
+        "profile": "main",
+        "steps": 3600,
+        "warmup": 900,
+        "dry_run": False,
+        "actual_row_count": len(rows),
+        "expected_row_count": len(rows),
+        "all_rows_executed": True,
+        "demand_scaling_method": "scaled_route_sumocfg_override",
+        "demand_scaling_provenance": [make_row("arterial_spillback_stress", PROPOSED_CONTROLLER, 1)["demand_multiplier_provenance"]],
+        "scenario_results": rows,
+    }
+    result = build_gate_payload(payload, Path("synthetic_phase11.json"))
+    assert result["status"] == "INCONCLUSIVE"
+    assert any("input artifact status" in reason for reason in result["reasons"])
+
+
+def test_gate_checker_requires_complete_execution_metadata() -> None:
+    rows = full_gate_rows(delta=5.0)
+    payload = {
+        "experiment": "phase11_long_horizon_paired_seed_evidence",
+        "status": "PASSED",
+        "profile": "main",
+        "steps": 3600,
+        "warmup": 900,
+        "dry_run": False,
+        "actual_row_count": len(rows),
+        "expected_row_count": len(rows),
+        "demand_scaling_method": "scaled_route_sumocfg_override",
+        "demand_scaling_provenance": [make_row("arterial_spillback_stress", PROPOSED_CONTROLLER, 1)["demand_multiplier_provenance"]],
+        "scenario_results": rows,
+    }
+    result = build_gate_payload(payload, Path("missing_all_rows_executed.json"))
+    assert result["status"] == "INCONCLUSIVE"
+    assert any("missing required executed rows" in reason for reason in result["reasons"])
+
+
 def test_gate_checker_pass_payload_preserves_binding_scope_and_shared_rule() -> None:
     payload = {
         "experiment": "phase11_long_horizon_paired_seed_evidence",
@@ -610,19 +906,28 @@ def main() -> None:
     test_main_spec_defaults_are_journal_grade_and_paired()
     test_pilot_spec_is_pipeline_validation_not_gate_c_evidence()
     test_demand_multiplier_contract_requires_actual_sumo_behavior_change()
+    test_progress_resume_skips_completed_key_and_preserves_payload()
+    test_missing_resume_progress_cold_starts_and_creates_progress_file()
+    test_progress_loader_rejects_malformed_mismatch_and_conflicting_duplicate_rows()
+    test_progress_execution_preserves_runtime_failure_reasons_and_missing_keys()
     test_scaled_route_sumocfg_generation_changes_actual_demand_inputs()
+    test_scaled_route_generation_extends_flows_to_requested_horizon()
     test_sumocfg_override_argument_is_exposed_in_run_experiment()
     test_dry_run_payload_records_phase11_schema_and_rejects_evidence_completion()
     test_main_fail_closed_payload_records_missing_executions()
     test_primary_metric_constants_cover_all_d_11_04_metrics()
     test_paired_metric_summary_reports_direction_ci_effect_and_family_metadata()
+    test_gate_c_rule_rejects_single_seed_evidence()
     test_gate_c_rule_pass_fail_inconclusive_and_missing_metric_cases()
     test_unpaired_and_switching_metric_fail_closed()
     test_gate_c_core_evaluator_passes_and_classifies_slack_context()
+    test_gate_c_core_evaluator_fails_closed_on_row_level_short_horizon()
     test_gate_c_core_evaluator_fails_closed_on_missing_inputs()
     test_gate_c_rejects_pilot_and_metadata_only_demand_artifacts()
     test_validate_payload_scope_rejects_forbidden_claim_language()
     test_standalone_gate_checker_writes_inconclusive_output_for_missing_main_rows()
+    test_gate_checker_refuses_to_upgrade_inconclusive_source_artifact()
+    test_gate_checker_requires_complete_execution_metadata()
     test_gate_checker_pass_payload_preserves_binding_scope_and_shared_rule()
     test_gate_checker_fails_when_actual_demand_provenance_is_metadata_only()
     test_gate_checker_rejects_pilot_artifacts_and_forbidden_language()
