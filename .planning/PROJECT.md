@@ -2,20 +2,20 @@
 
 ## Current State
 
-**Shipped version:** v1.0 Paper Artifact — shipped 2026-05-23
-**Current milestone:** v1.3 Complete Predeclared Gate C Evidence — started 2026-05-25
+**Shipped version:** v1.3 Complete Predeclared Gate C Evidence — shipped 2026-05-25
+**Current milestone:** Awaiting next milestone
 
 v1.0 produced a pressure-equivalent generalized-pressure symbolic recovery artifact for capacitated traffic-signal control. The completed scope covers Phases 1–5: theory and claim lock, sparse symbolic recovery, static pressure-failure kill-gate routing, closed-loop SUMO evaluation, and reproducible repository/paper artifact generation.
 
-v1.1 changed the project from a pressure-equivalent recovery artifact into a finite-storage generalized-pressure research program: claim discipline, explicit finite-storage state/objective fields, slack/binding theory, a live auditable controller, deterministic Gate A/B checks, strong baseline/stress infrastructure, and fail-closed reproducibility inputs are in place. Gate C remains incomplete: Phase 12.1 closed conservatively with 57/2160 long-horizon paired-seed rows complete, 2103 rows missing, Gate C `INCONCLUSIVE`, and closed-loop superiority claims still disallowed.
+v1.1 changed the project from a pressure-equivalent recovery artifact into a finite-storage generalized-pressure research program: claim discipline, explicit finite-storage state/objective fields, slack/binding theory, a live auditable controller, deterministic Gate A/B checks, strong baseline/stress infrastructure, and fail-closed reproducibility inputs are in place.
 
-v1.3 is a narrow evidence-closure milestone. It does not add controllers, change thresholds, revise the predeclared metric family, or start manuscript writing. Its job is to complete the original 2160-row Phase 11 main profile, rerun strict Gate C, and regenerate the Phase 12 reproducibility/claim package from raw artifacts.
+v1.3 closed the predeclared Gate C evidence gap. The original 2160-row Phase 11 main profile completed with generated status `FAILED`; strict Gate C regenerated as `INCONCLUSIVE`; Phase 12 reproducibility and claim-status artifacts regenerated conservatively with claim audit `PASSED`. Closed-loop superiority claims remain disallowed.
 
 ## What This Is
 
 This project develops an OR-methodology paper on capacitated network traffic signal control, not a PI-Light enhancement paper. The working direction is **dual-sensitivity-guided symbolic control**: derive movement-level shadow-price / dual-sensitivity signals from a continuous store-and-forward or CTM-lite traffic-network relaxation, then recover compact interpretable signal-control policies under explicit complexity and neighbor-use constraints.
 
-The v1.0 empirical route is **pressure-equivalent generalized-pressure symbolic recovery**: static and closed-loop artifacts support theory-backed equivalence/compression and reproducibility, not a claim that dual sensitivity universally outperforms max-pressure. The v1.1 route is **finite-storage generalized-pressure separation**: prove and test that the controller reduces to max-pressure when constraints are slack but changes decisions and improves constrained objectives when downstream storage, spillback, switching, service, or incident constraints bind. v1.3 carries only the predeclared closed-loop evidence closure needed to determine whether that binding-regime improvement claim survives in SUMO.
+The v1.0 empirical route is **pressure-equivalent generalized-pressure symbolic recovery**: static and closed-loop artifacts support theory-backed equivalence/compression and reproducibility, not a claim that dual sensitivity universally outperforms max-pressure. The v1.1 route is **finite-storage generalized-pressure separation**: prove and test that the controller reduces to max-pressure when constraints are slack but changes decisions and improves constrained objectives when downstream storage, spillback, switching, service, or incident constraints bind. v1.3 determined that the predeclared SUMO Gate C route does not currently support closed-loop superiority: the full 2160-row main artifact is complete but `FAILED`, and strict Gate C is `INCONCLUSIVE`.
 
 The target audience is Transportation Research Part B / Transportation Science reviewers who expect mathematical modeling, structural insight, rigorous optimization formulation, and closed-loop computational evidence against strong max-pressure-style baselines.
 
@@ -37,16 +37,19 @@ Show that finite-storage primal-dual pressure control strictly generalizes max-p
 - ✓ Static kill-gate evidence across slack/binding/failure regimes with route decision locked to pressure-equivalent generalized-pressure symbolic recovery — v1.0
 - ✓ Closed-loop SUMO evaluation covering single, arterial, grid, demand-shift, and bottleneck/failure-mode scenarios with strong pressure-style baselines and CI-ready artifacts — v1.0
 - ✓ Reproducible repository surface with README, CPU/SUMO environment, block reproduction harness, artifact manifest, and script-generated paper table/figure data — v1.0
+- ✓ Full predeclared Phase 11 main-profile execution over 2160 paired-seed rows with refreshed progress/source artifacts — v1.3
+- ✓ Strict Gate C and Phase 12 reproducibility/claim-status regeneration from refreshed raw artifacts — v1.3
+- ✓ Closed-loop superiority claim remains disallowed after complete Gate C evidence closure — v1.3
 
 ### Active
 
-- [ ] Replace proxy binding regimes with explicit finite-storage, receiving-capacity, spillback, switching-loss, service-urgency, and incident/capacity-drop state fields.
+- [x] Replace proxy binding regimes with explicit finite-storage, receiving-capacity, spillback, switching-loss, service-urgency, and incident/capacity-drop state fields — Phases 6, 8, 9, 11.
 - [x] Implement a live finite-storage primal-dual pressure controller / `full_dual_symbolic` path that is safely deployable in closed-loop SUMO — Phase 8.
 - [x] Prove special-case recovery of max-pressure under slack constraints and a separation theorem under binding finite-storage or spillback constraints — Phase 7.
 - [x] Redesign the kill gate around slack-regime recovery and binding-regime separation with fail-closed explicit-state/action-decomposition checks — Phase 9. Gate C paired-seed dominance remains Phase 11.
 - [x] Add strong operational baselines including optimized fixed-time, actuated/semi-actuated, cycle-based pressure, and finite-storage/double-pressure variants where feasible — Phase 10 smoke/spec coverage complete; optimized fixed-time remains documented as a current limit.
-- [ ] Run journal-grade long-horizon paired-seed experiments with demand and incident sweeps and predeclared delay/spillback/unfinished-vehicle metrics.
-- [ ] Preserve claim discipline: no statement that the method is better than max-pressure until the new binding-regime theory and experiments support that bounded claim.
+- [x] Run journal-grade long-horizon paired-seed experiments with demand and incident sweeps and predeclared delay/spillback/unfinished-vehicle metrics — v1.3 completed the predeclared run, generated status `FAILED`.
+- [x] Preserve claim discipline: no statement that the method is better than max-pressure until the new binding-regime theory and experiments support that bounded claim — v1.3 keeps closed-loop superiority disallowed.
 
 ### Out of Scope
 
@@ -65,7 +68,7 @@ The project began as an attempt to adapt π-Light (AAAI 2024) into an OR-oriente
 
 v1.0 changed the project from idea/prototype to a verified research artifact. The decisive Phase 3 kill gate did not support a broad dual-superiority claim; it locked the route to pressure-equivalent generalized-pressure symbolic recovery. Phase 4 then validated that route in SUMO closed-loop experiments, and Phase 5 hardened the repository so key artifacts, reports, and paper table/figure data are generated from raw JSON/CSV outputs.
 
-v1.1/Phase 6-12.1 established a strong theory, audit, controller, baseline, and experiment protocol foundation, but did not complete closed-loop Gate C evidence. The current empirical status is fail-closed `INCONCLUSIVE`, not a negative result and not dominance evidence.
+v1.1/Phase 6-12.1 established a strong theory, audit, controller, baseline, and experiment protocol foundation, but did not complete closed-loop Gate C evidence. v1.3 completed that empirical closure: the full predeclared Phase 11 main artifact has 2160/2160 rows and generated status `FAILED`; strict Gate C is `INCONCLUSIVE`; Phase 12 package is `INCONCLUSIVE`; claim audit is `PASSED`. This is a negative/fail-closed empirical result for the predeclared closed-loop superiority route, not dominance evidence.
 
 Known scientific and process debt remains: Phase 3 imports Phase 2 recovery code directly rather than consuming generated recovery artifacts; `local_pilight` and `full_dual_symbolic` are honestly marked not feasible in the current SUMO runner; and some closed-loop horizons are short. Final manuscript writing and polished paper integration remain deferred until the finite-storage separation gates establish which claims survive.
 
@@ -92,19 +95,12 @@ Known scientific and process debt remains: Phase 3 imports Phase 2 recovery code
 | Keep ADMM/robust/column-generation/bilevel ideas out of the mainline | Extra machinery would dilute the continuous relaxation → dual → symbolic recovery story | ✓ Good |
 | Mark infeasible baselines honestly instead of relabeling heuristics | `local_pilight` and `full_dual_symbolic` were not safely adaptable in the current SUMO runner | ✓ Good |
 | Generate paper-facing tables and figure data from raw artifacts | Manual transcription would weaken reproducibility and auditability | ✓ Good |
-| Move strong-claim work into a new finite-storage separation milestone before manuscript claims | v1.0 evidence is pressure-equivalent; superiority requires new explicit binding constraints and evidence | — Pending |
+| Move strong-claim work into a new finite-storage separation milestone before manuscript claims | v1.0 evidence is pressure-equivalent; superiority requires new explicit binding constraints and evidence | ✓ Good |
+| Treat complete non-PASSED Gate C as a claim boundary, not a tuning invitation | v1.3 completed 2160/2160 rows and still generated `FAILED`/`INCONCLUSIVE` statuses | ✓ Good |
 
-## Current Milestone: v1.3 Complete Predeclared Gate C Evidence
+## Current Milestone
 
-**Goal:** Complete the predeclared Phase 11/Gate C closed-loop evidence closure by executing the full 2160-row main profile, rerunning strict Gate C, and refreshing Phase 12 reproducibility/claim-status artifacts without changing thresholds, adding features, or starting manuscript writing.
-
-**Target features:**
-- Resume/execute the Phase 11 main profile to cover 6 binding regimes × 6 controllers × 20 paired seeds × 3 demand multipliers = 2160 expected rows.
-- Preserve the predeclared Gate C protocol exactly: controller set, scenario regimes, paired seeds, demand multipliers, primary metrics, thresholds, and fail-closed rules are not retuned.
-- Regenerate strict Gate C from raw Phase 11 evidence and report `PASSED`, `FAILED`, or `INCONCLUSIVE` without narrowing the evidence family.
-- Regenerate the Phase 12 reproducibility package, claim inputs, provenance, and summaries from raw artifacts after Gate C refresh.
-- Keep partial rows as debugging/provenance only; do not interpret 57/2160 rows as performance evidence.
-- Defer manuscript drafting, related work, paper integration, submission preparation, and polished paper figures until after Gate C status is known.
+No active milestone. v1.3 is archived; next planning should decide whether to pivot to manuscript-with-negative-result framing, revisit method design in a new predeclared milestone, or defer empirical closed-loop superiority claims.
 
 ## Evolution
 
@@ -124,4 +120,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-25 after starting v1.3 Gate C evidence closure milestone*
+*Last updated: 2026-05-25 after completing v1.3 Gate C evidence closure milestone*

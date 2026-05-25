@@ -10,7 +10,7 @@
     "phase7_theory_separation": "PASSED",
     "phase9_slack_binding_gates": "PASSED",
     "phase10_baselines_stress_suite": "SMOKE_ONLY",
-    "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+    "phase11_long_horizon_paired_seed_evidence": "FAILED",
     "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
   },
   "commands": [

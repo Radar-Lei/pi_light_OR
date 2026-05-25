@@ -8,12 +8,12 @@
     "REPRO-03"
   ],
   "generated_by": "scripts/run_phase12_reproducibility_inputs.py",
-  "generated_at": "2026-05-25T04:24:17.806756+00:00",
+  "generated_at": "2026-05-25T21:28:39.616980+00:00",
   "source_status_summary": {
     "phase7_theory_separation": "PASSED",
     "phase9_slack_binding_gates": "PASSED",
     "phase10_baselines_stress_suite": "SMOKE_ONLY",
-    "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+    "phase11_long_horizon_paired_seed_evidence": "FAILED",
     "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
   },
   "derived_outputs": [
@@ -34,7 +34,7 @@
   },
   "claim_audit_status": "PASSED",
   "strict_mode_reasons": [
-    "phase11_long_horizon_paired_seed_evidence source status is INCONCLUSIVE, expected one of ['PASSED']",
+    "phase11_long_horizon_paired_seed_evidence source status is FAILED, expected one of ['PASSED']",
     "phase11_gate_c_paired_evidence source status is INCONCLUSIVE, expected one of ['PASSED']"
   ],
   "caveats": [
@@ -51,6 +51,7 @@
     "Slack/control rows are context only and cannot satisfy dominance evidence.",
     "long-horizon rows must be fully executed before supporting Gate C claims",
     "smoke/spec capability context only; not dominance or superiority evidence",
+    "source status FAILED is not accepted for claim-ready evidence",
     "source status INCONCLUSIVE is not accepted for claim-ready evidence",
     "static theory/separation only; no closed-loop or deployment claim"
   ]

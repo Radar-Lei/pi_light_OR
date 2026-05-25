@@ -2,15 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Complete Predeclared Gate C Evidence
-status: planning
-last_updated: "2026-05-25T12:30:00.000Z"
-last_activity: 2026-05-25
+status: Awaiting next milestone
+stopped_at: Phase 12.1 context gathered
+last_updated: "2026-05-25T21:31:48.732Z"
+last_activity: 2026-05-25 — Milestone v1.3 completed and archived
 progress:
   total_phases: 1
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 4
-  completed_plans: 0
-  percent: 0
+  completed_plans: 4
+  percent: 100
 ---
 
 # Project State
@@ -20,14 +21,14 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** Phase 13 — complete-predeclared-gate-c-evidence
+**Current focus:** v1.3 complete — Complete Predeclared Gate C Evidence
 
 ## Current Position
 
-Phase: 13 (complete-predeclared-gate-c-evidence) — PLANNING
+Phase: Milestone v1.3 complete
 Plan: —
-Status: Ready for phase discussion/planning
-Last activity: 2026-05-25 — Milestone v1.3 roadmap created
+Status: Awaiting next milestone
+Last activity: 2026-05-25 — Milestone v1.3 completed and archived
 
 ## Performance Metrics
 
@@ -54,7 +55,7 @@ Last activity: 2026-05-25 — Milestone v1.3 roadmap created
 | 10. Strong Baselines and Stress Scenario Suite | 1/1 | Complete |
 | 11. Long-Horizon Paired-Seed Evidence | 3/3 | Complete |
 | 12. Reproducibility and Future Claim Inputs | 2/2 | Complete |
-| 13. Complete Predeclared Gate C Evidence | 0/4 | Planning |
+| 13. Complete Predeclared Gate C Evidence | 4/4 | Complete |
 | Phase 06 P01 | 9min 11s | 3 tasks | 5 files |
 | Phase 06 P02 | 14min 31s | 3 tasks | 6 files |
 | Phase 06 P03 | 10min 37s | 3 tasks | 10 files |
@@ -110,15 +111,14 @@ Last activity: 2026-05-25 — Milestone v1.3 roadmap created
 
 ### Pending Todos
 
-- Resume and complete the original Phase 11 main-profile command until all 2160 expected rows are complete, or preserve an explicit fail-closed reason for any remaining incompleteness.
-- Rerun strict Gate C after the Phase 11 evidence artifact is refreshed.
-- Rerun Phase 12 strict reproducibility and claim-status package after Gate C refresh.
+- None for v1.3. Phase 13 completed the original Phase 11 main profile, reran strict Gate C, and refreshed Phase 12 reproducibility/claim-status artifacts.
 
 ### Blockers/Concerns
 
 - v1.3 must not reinterpret v1.0 pressure-equivalent evidence or partial Phase 11 rows as superiority evidence.
 - v1.3 must not include manuscript drafting, related-work writing, final paper integration, or submission preparation.
-- Phase 11 Gate C tooling is complete and fail-closed; current main artifact remains INCONCLUSIVE at 57/2160 rows until the remaining long-horizon SUMO rows are actually executed.
+- Phase 11 main artifact is now complete at 2160/2160 rows and generated status `FAILED`; completeness is resolved, dominance is not.
+- Strict Gate C regenerated status is `INCONCLUSIVE` because the input artifact status is `FAILED`, not `PASSED`.
 - Phase 12 packaging has been refreshed from raw artifacts and remains conservative: package `INCONCLUSIVE`, claim audit `PASSED`, Phase 11/Gate C claim inputs not claim-ready.
 
 ## Deferred Items
@@ -137,3 +137,7 @@ Items acknowledged and carried forward from previous milestone close:
 Last session: 2026-05-25T04:02:38.292Z
 Stopped at: Phase 12.1 context gathered
 Resume file: None
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd-new-milestone

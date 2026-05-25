@@ -1,5 +1,26 @@
 # Milestones
 
+## v1.3 Complete Predeclared Gate C Evidence (Shipped: 2026-05-25)
+
+**Phases completed:** 1 phases, 4 plans, 0 tasks
+**Audit:** Passed; 13/13 v1.3 requirements satisfied; no critical blockers.
+
+**Key accomplishments:**
+
+- Completed the locked Phase 11 main profile at 2160/2160 predeclared rows with generated status `FAILED`.
+- Preserved protocol discipline: no controller, scenario, seed, demand multiplier, metric, threshold, or evidence-family changes.
+- Reran strict Gate C from refreshed raw evidence and preserved generated status `INCONCLUSIVE`.
+- Regenerated Phase 12 reproducibility, provenance, table input, claim input, claim audit, reproduction manifest, and summary artifacts.
+- Propagated non-PASSED Phase 11/Gate C statuses conservatively: closed-loop superiority remains `claim_allowed=false`.
+
+**Archived:**
+
+- [`milestones/v1.3-ROADMAP.md`](milestones/v1.3-ROADMAP.md)
+- [`milestones/v1.3-REQUIREMENTS.md`](milestones/v1.3-REQUIREMENTS.md)
+- [`milestones/v1.3-MILESTONE-AUDIT.md`](milestones/v1.3-MILESTONE-AUDIT.md)
+
+---
+
 ## v1.0 Paper Artifact (Shipped: 2026-05-23)
 
 **Phases completed:** 5 phases, 15 plans, 20 tasks

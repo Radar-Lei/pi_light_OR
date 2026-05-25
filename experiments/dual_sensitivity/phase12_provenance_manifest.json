@@ -63,7 +63,7 @@
     {
       "source_key": "phase11_long_horizon_paired_seed_evidence",
       "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
-      "source_status": "INCONCLUSIVE",
+      "source_status": "FAILED",
       "parse_status": "PASSED",
       "evidence_role": "closed_loop_paired_seed_gate_c_source",
       "requirements": [
@@ -80,7 +80,7 @@
         "A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.",
         "Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.",
         "Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.",
-        "source status INCONCLUSIVE is not accepted for claim-ready evidence"
+        "source status FAILED is not accepted for claim-ready evidence"
       ]
     },
     {
@@ -121,7 +121,7 @@
         "phase7_theory_separation": "PASSED",
         "phase9_slack_binding_gates": "PASSED",
         "phase10_baselines_stress_suite": "SMOKE_ONLY",
-        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_long_horizon_paired_seed_evidence": "FAILED",
         "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
       },
       "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
@@ -145,6 +145,7 @@
         "Slack/control rows are context only and cannot satisfy dominance evidence.",
         "long-horizon rows must be fully executed before supporting Gate C claims",
         "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status FAILED is not accepted for claim-ready evidence",
         "source status INCONCLUSIVE is not accepted for claim-ready evidence",
         "static theory/separation only; no closed-loop or deployment claim"
       ]
@@ -162,7 +163,7 @@
         "phase7_theory_separation": "PASSED",
         "phase9_slack_binding_gates": "PASSED",
         "phase10_baselines_stress_suite": "SMOKE_ONLY",
-        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_long_horizon_paired_seed_evidence": "FAILED",
         "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
       },
       "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
@@ -186,6 +187,7 @@
         "Slack/control rows are context only and cannot satisfy dominance evidence.",
         "long-horizon rows must be fully executed before supporting Gate C claims",
         "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status FAILED is not accepted for claim-ready evidence",
         "source status INCONCLUSIVE is not accepted for claim-ready evidence",
         "static theory/separation only; no closed-loop or deployment claim"
       ]
@@ -203,7 +205,7 @@
         "phase7_theory_separation": "PASSED",
         "phase9_slack_binding_gates": "PASSED",
         "phase10_baselines_stress_suite": "SMOKE_ONLY",
-        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_long_horizon_paired_seed_evidence": "FAILED",
         "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
       },
       "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
@@ -227,6 +229,7 @@
         "Slack/control rows are context only and cannot satisfy dominance evidence.",
         "long-horizon rows must be fully executed before supporting Gate C claims",
         "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status FAILED is not accepted for claim-ready evidence",
         "source status INCONCLUSIVE is not accepted for claim-ready evidence",
         "static theory/separation only; no closed-loop or deployment claim"
       ]
@@ -244,7 +247,7 @@
         "phase7_theory_separation": "PASSED",
         "phase9_slack_binding_gates": "PASSED",
         "phase10_baselines_stress_suite": "SMOKE_ONLY",
-        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_long_horizon_paired_seed_evidence": "FAILED",
         "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
       },
       "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
@@ -268,6 +271,7 @@
         "Slack/control rows are context only and cannot satisfy dominance evidence.",
         "long-horizon rows must be fully executed before supporting Gate C claims",
         "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status FAILED is not accepted for claim-ready evidence",
         "source status INCONCLUSIVE is not accepted for claim-ready evidence",
         "static theory/separation only; no closed-loop or deployment claim"
       ]
@@ -285,7 +289,7 @@
         "phase7_theory_separation": "PASSED",
         "phase9_slack_binding_gates": "PASSED",
         "phase10_baselines_stress_suite": "SMOKE_ONLY",
-        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_long_horizon_paired_seed_evidence": "FAILED",
         "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
       },
       "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
@@ -309,6 +313,7 @@
         "Slack/control rows are context only and cannot satisfy dominance evidence.",
         "long-horizon rows must be fully executed before supporting Gate C claims",
         "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status FAILED is not accepted for claim-ready evidence",
         "source status INCONCLUSIVE is not accepted for claim-ready evidence",
         "static theory/separation only; no closed-loop or deployment claim"
       ]
@@ -326,7 +331,7 @@
         "phase7_theory_separation": "PASSED",
         "phase9_slack_binding_gates": "PASSED",
         "phase10_baselines_stress_suite": "SMOKE_ONLY",
-        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_long_horizon_paired_seed_evidence": "FAILED",
         "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
       },
       "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
@@ -350,6 +355,7 @@
         "Slack/control rows are context only and cannot satisfy dominance evidence.",
         "long-horizon rows must be fully executed before supporting Gate C claims",
         "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status FAILED is not accepted for claim-ready evidence",
         "source status INCONCLUSIVE is not accepted for claim-ready evidence",
         "static theory/separation only; no closed-loop or deployment claim"
       ]
@@ -367,7 +373,7 @@
         "phase7_theory_separation": "PASSED",
         "phase9_slack_binding_gates": "PASSED",
         "phase10_baselines_stress_suite": "SMOKE_ONLY",
-        "phase11_long_horizon_paired_seed_evidence": "INCONCLUSIVE",
+        "phase11_long_horizon_paired_seed_evidence": "FAILED",
         "phase11_gate_c_paired_evidence": "INCONCLUSIVE"
       },
       "generation_command": "python scripts/run_phase12_reproducibility_inputs.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
@@ -391,6 +397,7 @@
         "Slack/control rows are context only and cannot satisfy dominance evidence.",
         "long-horizon rows must be fully executed before supporting Gate C claims",
         "smoke/spec capability context only; not dominance or superiority evidence",
+        "source status FAILED is not accepted for claim-ready evidence",
         "source status INCONCLUSIVE is not accepted for claim-ready evidence",
         "static theory/separation only; no closed-loop or deployment claim"
       ]

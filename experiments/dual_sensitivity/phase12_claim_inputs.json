@@ -81,7 +81,7 @@
       "claim_category": "limitations_and_reproduction_notes",
       "claim_allowed": false,
       "source_key": "phase11_long_horizon_paired_seed_evidence",
-      "source_status": "INCONCLUSIVE",
+      "source_status": "FAILED",
       "parse_status": "PASSED",
       "evidence_role": "closed_loop_paired_seed_gate_c_source",
       "simulator": "SUMO",
@@ -90,7 +90,7 @@
       "warmup_steps": 900,
       "seed_count": 20,
       "profile": "main",
-      "gate_status": "INCONCLUSIVE",
+      "gate_status": "FAILED",
       "demand_multiplier": "0.8,1.0,1.2",
       "requirements_covered": [
         "CLAIM-03",
@@ -99,7 +99,7 @@
         "REPRO-03"
       ],
       "permitted_claim_boundary": "recover_or_tie_max_pressure_when_constraints_slack; improvement_claims_only_for_explicit_binding_finite_storage_spillback_switching_service_incident_regimes",
-      "caveat": "limitation/context only because source status is INCONCLUSIVE; long-horizon rows must be fully executed before supporting Gate C claims; Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.; A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.; Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.; Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.; source status INCONCLUSIVE is not accepted for claim-ready evidence"
+      "caveat": "limitation/context only because source status is FAILED; long-horizon rows must be fully executed before supporting Gate C claims; Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.; A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.; Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.; Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence.; source status FAILED is not accepted for claim-ready evidence"
     },
     {
       "claim_category": "closed_loop_gate_c_status",

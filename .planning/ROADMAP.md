@@ -1,10 +1,7 @@
 ---
-phase: 13
-slug: complete-predeclared-gate-c-evidence
-status: planning
-nyquist_compliant: true
-wave_0_complete: false
-created: 2026-05-25
+status: awaiting_next_milestone
+last_completed_milestone: v1.3
+updated: 2026-05-25
 ---
 
 # Roadmap: PI-Light OR / Dual-Sensitivity Symbolic Traffic Control
@@ -13,99 +10,24 @@ created: 2026-05-25
 
 - Complete **v1.0 Paper Artifact** — Phases 1-5 shipped 2026-05-23; pressure-equivalent generalized-pressure symbolic recovery artifact archived in [`milestones/v1.0-ROADMAP.md`](milestones/v1.0-ROADMAP.md).
 - Complete **v1.1 Explicit Finite-Storage Primal-Dual Separation** — Phases 6-12.1 established claim discipline, finite-storage state/objective fields, slack/binding theory, a live auditable controller, deterministic Gate A/B, strong baseline/stress infrastructure, predeclared Gate C tooling, and fail-closed reproducibility surfaces.
-- Active **v1.3 Complete Predeclared Gate C Evidence** — Phase 13 completes the original 2160-row Phase 11 main profile, reruns strict Gate C, and refreshes Phase 12 reproducibility/claim status without adding features or starting manuscript writing.
+- Complete **v1.3 Complete Predeclared Gate C Evidence** — Phase 13 shipped 2026-05-25; full 2160-row Phase 11 main artifact generated `FAILED`, strict Gate C generated `INCONCLUSIVE`, and Phase 12 regenerated conservative claim surfaces. Archived in [`milestones/v1.3-ROADMAP.md`](milestones/v1.3-ROADMAP.md).
 
-## Overview
+## Current Status
 
-v1.3 is an evidence-closure milestone. The current project state is stronger than v1.0 pressure-equivalent recovery because Phases 6-10 established a finite-storage generalized-pressure theory/controller/audit framework and Phases 11-12.1 established the long-horizon paired-seed protocol and fail-closed reporting. The missing piece is empirical closure: Phase 12.1 stopped at 57/2160 Phase 11 main rows, leaving Gate C and Phase 12 package `INCONCLUSIVE`.
+No active milestone. Start the next milestone with `$gsd-new-milestone` after deciding the next research route.
 
-This roadmap deliberately excludes manuscript drafting, related-work writing, final paper integration, new controllers, new metrics, threshold changes, or post-hoc evidence narrowing. The only allowed outcome is an honest Gate C status: `PASSED`, `FAILED`, or `INCONCLUSIVE`.
-
-## Phases
-
-**Phase Numbering:** continuing from v1.1 Phase 12.1.
-
-- [ ] **Phase 13: Complete Predeclared Gate C Evidence** - Execute the full predeclared Phase 11 main profile, rerun strict Gate C, and refresh Phase 12 reproducibility/claim-status artifacts.
-
-## Phase Details
-
-### Phase 13: Complete Predeclared Gate C Evidence
-
-**Goal:** Researchers can determine whether finite-storage generalized pressure has predeclared closed-loop binding-regime evidence over strong max-pressure-style baselines, based on full paired-seed Gate C execution rather than partial rows.
-**Depends on:** Phase 12.1
-**Requirements:** EXEC-01, EXEC-02, EXEC-03, PROTO-01, PROTO-02, PROTO-03, GATEC-01, GATEC-02, GATEC-03, REPRO-01, REPRO-02, CLAIM-01, CLAIM-02
-**Success Criteria** (what must be TRUE):
-
-1. User can run or resume the original Phase 11 main profile and inspect evidence coverage for all 2160 expected regime/controller/seed/demand-multiplier rows.
-2. User can see all missing, failed, duplicate, unpaired, schema-invalid, missing-comparator, or missing-action-decomposition rows reported explicitly and fail-closed.
-3. User can rerun strict Gate C and receive a status of `PASSED`, `FAILED`, or `INCONCLUSIVE` without threshold tuning, controller changes, metric changes, or evidence-family narrowing.
-4. User can regenerate Phase 12 reproducibility, provenance, claim inputs, summaries, and claim audit from raw refreshed artifacts.
-5. User can verify that closed-loop superiority remains disallowed unless the full predeclared Gate C completeness and dominance checks pass.
-
-**Plans:** 4 planned
-
-Plans:
-
-**Wave 1**
-
-- [ ] 13-01-PLAN.md — Preflight the Phase 11 main-profile resume state, spec fingerprint, environment, expected row keys, and remaining execution scope.
-
-**Wave 2** *(blocked on Wave 1 completion)*
-
-- [ ] 13-02-PLAN.md — Execute or resume the full 2160-row Phase 11 main profile and audit row completeness/failures.
-
-**Wave 3** *(blocked on Wave 2 completion)*
-
-- [ ] 13-03-PLAN.md — Rerun strict Gate C and preserve `PASSED`, `FAILED`, or `INCONCLUSIVE` status without retuning.
-
-**Wave 4** *(blocked on Wave 3 completion)*
-
-- [ ] 13-04-PLAN.md — Refresh Phase 12 reproducibility/claim-status artifacts and final v1.3 planning/status surfaces.
-
-## Progress
-
-**Execution Order:** Phase 13 follows Phases 1-12.1.
+## Completed Phase Index
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 1. Theoretical Core and Claim Lock | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 2. Full Sparse Symbolic Recovery | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 3. Static Pressure-Failure Kill Gate | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 4. Closed-Loop SUMO Evaluation | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 5. Reproducibility and Repository Hardening | v1.0 | 3/3 | Complete | 2026-05-23 |
-| 6. Claim Discipline and Explicit State Foundation | v1.1 | 3/3 | Complete | 2026-05-23 |
-| 7. Theory and Separation Package | v1.1 | 1/1 | Complete | 2026-05-24 |
-| 8. Live Finite-Storage Primal-Dual Controller | v1.1 | 1/1 | Complete | 2026-05-24 |
-| 9. Slack and Binding Kill Gates | v1.1 | 1/1 | Complete | 2026-05-24 |
-| 10. Strong Baselines and Stress Scenario Suite | v1.1 | 1/1 | Complete | 2026-05-24 |
-| 11. Long-Horizon Paired-Seed Evidence | v1.1 | 3/3 | Complete | 2026-05-24 |
-| 12. Reproducibility and Future Claim Inputs | v1.1 | 2/2 | Complete | 2026-05-24 |
-| 12.1. Close v1.1 gap: execute or downgrade Gate C long-horizon evidence | v1.1 | 5/5 | Complete | 2026-05-25 |
-| 13. Complete Predeclared Gate C Evidence | v1.3 | 0/4 | Planning | — |
+| 1-5 | v1.0 | 15/15 | Complete | 2026-05-23 |
+| 6-12.1 | v1.1 | 26/26 | Complete | 2026-05-25 |
+| 13. Complete Predeclared Gate C Evidence | v1.3 | 4/4 | Complete | 2026-05-25 |
 
-## Coverage
+## Next Decision
 
-| Requirement | Phase |
-|-------------|-------|
-| EXEC-01 | Phase 13 |
-| EXEC-02 | Phase 13 |
-| EXEC-03 | Phase 13 |
-| PROTO-01 | Phase 13 |
-| PROTO-02 | Phase 13 |
-| PROTO-03 | Phase 13 |
-| GATEC-01 | Phase 13 |
-| GATEC-02 | Phase 13 |
-| GATEC-03 | Phase 13 |
-| REPRO-01 | Phase 13 |
-| REPRO-02 | Phase 13 |
-| CLAIM-01 | Phase 13 |
-| CLAIM-02 | Phase 13 |
+The predeclared v1.3 Gate C route did not yield closed-loop superiority evidence. Future planning should choose one of:
 
-**Coverage:**
-- v1.3 requirements: 13 total
-- Mapped to phases: 13
-- Unmapped: 0
-- Duplicate phase assignments: 0
-
----
-*Roadmap created: 2026-05-25 for v1.3 Complete Predeclared Gate C Evidence*
+- Write a bounded manuscript around theory/static separation, auditability, and the negative Gate C result.
+- Design a new predeclared method/scenario milestone without reusing v1.3 outcomes for post-hoc threshold or evidence-family tuning.
+- Defer closed-loop superiority and focus on reproducibility, theory, or benchmark expansion only if scientifically justified.
