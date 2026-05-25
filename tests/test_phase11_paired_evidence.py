@@ -17,6 +17,7 @@ import run_phase11_paired_evidence as phase11  # noqa: E402
 from run_phase11_paired_evidence import (  # noqa: E402
     BINDING_EVIDENCE_SCENARIOS,
     DEMAND_MULTIPLIER_PROVENANCE_KEYS,
+    DEMAND_SCALING_METHOD,
     MIN_GATE_C_PAIRED_SEEDS,
     GATE_C_CONDITIONAL_PRIMARY_METRICS,
     GATE_C_PRIMARY_METRICS,
@@ -266,9 +267,9 @@ def test_missing_resume_progress_cold_starts_and_creates_progress_file() -> None
             )
         finally:
             phase11.run_experiment = original
+        assert progress_path.exists()
         loaded = load_progress(progress_path, spec)
 
-    assert progress_path.exists()
     assert len(rows) == 1
     assert reasons == []
     assert mode == "executed_with_progress"

@@ -9,6 +9,7 @@ creating a second TraCI control loop.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import statistics
@@ -79,6 +80,7 @@ GATE_C_CONDITIONAL_PRIMARY_METRICS = {
     "arterial_switching_loss_sensitive": ("switching_count",),
 }
 GATE_C_STATISTICAL_FAMILY = "gate_c_primary_metrics_v1"
+MIN_GATE_C_PAIRED_SEEDS = 2
 LOWER_IS_BETTER_METRICS = set(GATE_C_PRIMARY_METRICS) | {"switching_count", "avg_travel_time", "mean_queue", "max_queue"}
 HIGHER_IS_BETTER_METRICS = {"throughput", "completion_rate", "completed_vehicles"}
 
@@ -102,6 +104,8 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Safety limit for executed rows; main defaults to fail-closed before expensive full execution.",
     )
+    parser.add_argument("--progress-out", default=None, help="Optional row-level JSON progress artifact to update after each attempted row.")
+    parser.add_argument("--resume-progress", default=None, help="Optional row-level JSON progress artifact to resume from; missing path cold-starts when progress-out is set.")
     return parser.parse_args()
 
 
@@ -117,6 +121,11 @@ def validate_args(args: argparse.Namespace) -> None:
         raise FileNotFoundError(args.route_json)
     if args.execution_row_limit is not None and args.execution_row_limit < 0:
         raise ValueError("--execution-row-limit must be nonnegative")
+    if args.resume_progress and not args.progress_out:
+        raise ValueError("--resume-progress requires --progress-out so progress can be rewritten after resume")
+    for path_arg in [args.progress_out, args.resume_progress]:
+        if path_arg is not None and Path(path_arg).suffix != ".json":
+            raise ValueError("progress paths must point to .json artifacts")
 
 
 def _validate_profile_inputs(
@@ -261,11 +270,26 @@ def _flow_total(flow: ET.Element) -> float:
     return 0.0
 
 
-def route_demand_total(route_path: Path) -> float:
-    root = ET.parse(route_path).getroot()
+def _route_root_demand_total(root: ET.Element) -> float:
     total = float(len(root.findall("vehicle")) + len(root.findall("trip")))
     total += sum(_flow_total(flow) for flow in root.findall("flow"))
     return float(total)
+
+
+def route_demand_total(route_path: Path) -> float:
+    return _route_root_demand_total(ET.parse(route_path).getroot())
+
+
+def _extend_flow_horizon(flow: ET.Element, steps: int) -> None:
+    begin = float(flow.get("begin", "0"))
+    if begin >= float(steps):
+        return
+    if flow.get("end") is not None:
+        if float(flow.get("end", "0")) < float(steps):
+            flow.set("end", str(int(steps)))
+    elif flow.get("until") is not None:
+        if float(flow.get("until", "0")) < float(steps):
+            flow.set("until", str(int(steps)))
 
 
 def _scale_flow(flow: ET.Element, demand_multiplier: float) -> None:
@@ -298,7 +322,11 @@ def generate_scaled_route_and_sumocfg(
     base_route = route_files[0]
     if not base_route.exists():
         raise FileNotFoundError(base_route)
-    base_demand_total = route_demand_total(base_route)
+    base_route_tree = ET.parse(base_route)
+    base_route_root = base_route_tree.getroot()
+    for flow in base_route_root.findall("flow"):
+        _extend_flow_horizon(flow, int(steps))
+    base_demand_total = _route_root_demand_total(base_route_root)
     if base_demand_total <= 0.0:
         raise ValueError(f"Base route {base_route} has no scalable positive demand")
 
@@ -307,7 +335,7 @@ def generate_scaled_route_and_sumocfg(
     route_out = scaled_input_dir / f"phase11_{network}_demand_{label}.rou.xml"
     sumocfg_out = scaled_input_dir / f"phase11_{network}_demand_{label}.sumocfg"
 
-    route_tree = ET.parse(base_route)
+    route_tree = ET.ElementTree(ET.fromstring(ET.tostring(base_route_root)))
     route_root = route_tree.getroot()
     flow_count = 0
     for flow in route_root.findall("flow"):
@@ -369,6 +397,9 @@ def validate_actual_demand_multiplier_behavior(spec: list[dict[str, Any]]) -> No
         for field in ["base_demand_total", "scaled_demand_total", "generated_route_file", "generated_sumocfg", "base_sumocfg"]:
             if field not in provenance:
                 raise ValueError(f"demand multiplier provenance is missing {field}")
+        expected_total = float(provenance["base_demand_total"]) * multiplier
+        if not math.isclose(float(provenance["scaled_demand_total"]), expected_total, rel_tol=0.02, abs_tol=0.5):
+            raise ValueError("scaled demand total does not match base demand total times multiplier")
         for path_field in ["generated_route_file", "generated_sumocfg"]:
             if not Path(str(provenance[path_field])).exists():
                 raise FileNotFoundError(str(provenance[path_field]))
@@ -451,6 +482,8 @@ def _paired_values(
         )
     if not proposed_seeds:
         raise ValueError(f"no paired seeds for {scenario_tag}/{demand_multiplier}/{comparator}")
+    if len(proposed_seeds) < MIN_GATE_C_PAIRED_SEEDS:
+        raise ValueError(f"{scenario_tag}/{demand_multiplier}/{comparator} has fewer than {MIN_GATE_C_PAIRED_SEEDS} paired seeds")
     seed_ids = sorted(proposed_seeds)
     proposed_values = []
     comparator_values = []
@@ -467,8 +500,10 @@ def _paired_values(
 
 
 def _bootstrap_ci(differences: list[float]) -> tuple[float, float, float]:
-    if len(differences) <= 1 or len(set(differences)) == 1:
-        value = float(differences[0]) if differences else 0.0
+    if len(differences) < MIN_GATE_C_PAIRED_SEEDS:
+        raise ValueError(f"at least {MIN_GATE_C_PAIRED_SEEDS} paired seeds are required for Gate C confidence intervals")
+    if len(set(differences)) == 1:
+        value = float(differences[0])
         return value, value, 0.0
     result = stats.bootstrap(
         (differences,),
@@ -562,8 +597,11 @@ def _holm_bonferroni(metric_results: list[dict[str, Any]]) -> dict[str, Any]:
         entries.append((idx, float(pvalue)))
     m = len(entries)
     adjusted_by_idx = {}
+    cumulative = 0.0
     for rank, (idx, pvalue) in enumerate(sorted(entries, key=lambda item: item[1]), start=1):
-        adjusted_by_idx[idx] = min((m - rank + 1) * pvalue, 1.0)
+        adjusted_pvalue = min((m - rank + 1) * pvalue, 1.0)
+        cumulative = max(cumulative, adjusted_pvalue)
+        adjusted_by_idx[idx] = cumulative
     adjusted = []
     for idx, result in enumerate(metric_results):
         item = {
@@ -661,6 +699,100 @@ def _row_id(row: dict[str, Any]) -> str:
     return f"{row.get('scenario_tag')}/{row.get('demand_multiplier', 1.0)}/{row.get('controller')}/seed={row.get('seed')}"
 
 
+def _normalized_multiplier(value: Any) -> str:
+    return f"{float(value):.10g}"
+
+
+def row_key(row: dict[str, Any]) -> str:
+    return f"{row.get('scenario_tag')}/{_normalized_multiplier(row.get('demand_multiplier', 1.0))}/{row.get('controller')}/seed={int(row.get('seed'))}"
+
+
+def progress_spec_fingerprint(spec: list[dict[str, Any]]) -> str:
+    keys = [row_key(row) for row in spec]
+    payload = {
+        "row_keys": keys,
+        "profile": sorted({str(row.get("profile")) for row in spec}),
+        "steps": sorted({int(row.get("steps", 0)) for row in spec}),
+        "warmup": sorted({int(row.get("warmup", 0)) for row in spec}),
+        "action_interval": sorted({int(row.get("action_interval", 0)) for row in spec}),
+    }
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def _progress_metadata(spec: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "experiment": "phase11_row_progress",
+        "spec_fingerprint": progress_spec_fingerprint(spec),
+        "profile": sorted({str(row.get("profile")) for row in spec})[0] if spec else "unknown",
+        "steps": max([int(row.get("steps", 0)) for row in spec], default=0),
+        "warmup": max([int(row.get("warmup", 0)) for row in spec], default=0),
+        "seeds": sorted({int(row["seed"]) for row in spec}),
+        "demand_multipliers": sorted({float(row["demand_multiplier"]) for row in spec}),
+        "expected_row_count": len(spec),
+        "expected_row_keys": [row_key(row) for row in spec],
+    }
+
+
+def load_progress(progress_path: Path, spec: list[dict[str, Any]]) -> dict[str, Any]:
+    try:
+        payload = json.loads(progress_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"invalid progress JSON: {progress_path}: {exc}") from exc
+    if not isinstance(payload, dict):
+        raise ValueError("progress JSON must contain an object")
+    expected_fingerprint = progress_spec_fingerprint(spec)
+    if payload.get("spec_fingerprint") != expected_fingerprint:
+        raise ValueError("progress spec fingerprint mismatch")
+    allowed_keys = {row_key(row) for row in spec}
+    rows_by_key: dict[str, dict[str, Any]] = {}
+    completed_row_keys = []
+    for row in payload.get("completed_rows", []):
+        if not isinstance(row, dict):
+            raise ValueError("progress completed_rows must contain row objects")
+        key = row_key(row)
+        if key not in allowed_keys:
+            raise ValueError(f"progress row outside current spec: {key}")
+        existing = rows_by_key.get(key)
+        if existing is not None and existing != row:
+            raise ValueError(f"progress contains conflicting duplicate row for {key}")
+        if existing is None:
+            rows_by_key[key] = row
+            completed_row_keys.append(key)
+    attempted_row_keys = [str(key) for key in payload.get("attempted_row_keys", [])]
+    outside_attempts = sorted(set(attempted_row_keys) - allowed_keys)
+    if outside_attempts:
+        raise ValueError(f"progress attempted row keys outside current spec: {outside_attempts}")
+    failure_reasons = [str(reason) for reason in payload.get("failure_reasons", [])]
+    return {
+        "payload": payload,
+        "completed_rows": [rows_by_key[key] for key in completed_row_keys],
+        "completed_row_keys": completed_row_keys,
+        "attempted_row_keys": attempted_row_keys,
+        "failure_reasons": failure_reasons,
+    }
+
+
+def write_progress(
+    progress_path: Path,
+    spec: list[dict[str, Any]],
+    completed_rows: list[dict[str, Any]],
+    attempted_row_keys: list[str],
+    failure_reasons: list[str],
+) -> None:
+    progress_path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        **_progress_metadata(spec),
+        "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "completed_row_count": len(completed_rows),
+        "attempted_row_count": len(attempted_row_keys),
+        "completed_row_keys": [row_key(row) for row in completed_rows],
+        "attempted_row_keys": list(attempted_row_keys),
+        "failure_reasons": list(failure_reasons),
+        "completed_rows": completed_rows,
+    }
+    progress_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
 def _validate_demand_provenance(row: dict[str, Any]) -> list[str]:
     provenance = row.get("demand_multiplier_provenance") or row
     if not isinstance(provenance, dict):
@@ -686,6 +818,10 @@ def _validate_binding_row(row: dict[str, Any]) -> list[str]:
         reasons.append(f"{row_name} missing stress metadata")
     if not isinstance(row.get("finite_storage_state"), dict):
         reasons.append(f"{row_name} missing finite_storage_state")
+    if int(row.get("steps", 0) or 0) < 3600:
+        reasons.append(f"{row_name} has row-level steps below Gate C minimum 3600")
+    if int(row.get("warmup", 0) or 0) < 900:
+        reasons.append(f"{row_name} has row-level warmup below Gate C minimum 900")
     if not isinstance(row.get("objective_components"), dict):
         reasons.append(f"{row_name} missing objective_components")
     for metric in applicable_primary_metrics(str(row.get("scenario_tag")), [row]):
@@ -848,9 +984,10 @@ def build_payload(
     steps = max([int(row.get("steps", 0)) for row in spec], default=0)
     warmup = max([int(row.get("warmup", 0)) for row in spec], default=0)
     action_interval = max([int(row.get("action_interval", 0)) for row in spec], default=0)
-    seeds = sorted({int(row["seed"]) for row in spec})
+    requested_seeds = sorted({int(row["seed"]) for row in spec})
     demand_multipliers = sorted({float(row["demand_multiplier"]) for row in spec})
     executed_rows = _completed_rows(rows)
+    actual_seeds = sorted({int(row["seed"]) for row in executed_rows})
     missing_row_keys = _missing_row_keys(spec, executed_rows)
     if missing_row_keys:
         missing_row_reasons.append("missing required executed scenario/controller/seed/demand-multiplier rows")
@@ -877,10 +1014,10 @@ def build_payload(
         "started_at": started_at,
         "completed_at": completed_at,
         "main_profile_target": {"min_steps": 3600, "min_warmup": 900, "target_seed_count": 20, "required_demand_multipliers": [0.8, 1.0, 1.2]},
-        "actual_seed_count": len(seeds),
-        "requested_seed_count": len(seeds),
-        "seed_count_limitation": None if len(seeds) >= 20 else "fewer than 20 paired seeds configured; main evidence is inconclusive unless user-approved",
-        "seeds": seeds,
+        "actual_seed_count": len(actual_seeds),
+        "requested_seed_count": len(requested_seeds),
+        "seed_count_limitation": None if len(requested_seeds) >= 20 else "fewer than 20 paired seeds configured; main evidence is inconclusive unless user-approved",
+        "seeds": requested_seeds,
         "demand_multipliers": demand_multipliers,
         "demand_scaling_method": DEMAND_SCALING_METHOD,
         "demand_scaling_provenance": [json.loads(item) for item in demand_provenance],
@@ -966,14 +1103,31 @@ def execute_spec(
     *,
     dry_run: bool,
     execution_row_limit: int | None,
+    progress_out: Path | None = None,
+    resume_progress: Path | None = None,
 ) -> tuple[list[dict[str, Any]], list[str], str]:
     if dry_run:
         return dry_run_placeholder_rows(spec, route_metadata), ["dry-run requested; no SUMO rows executed"], "dry_run_spec_only"
-    rows = []
-    reasons = []
+    rows: list[dict[str, Any]] = []
+    reasons: list[str] = []
+    attempted_row_keys: list[str] = []
+    progress_enabled = progress_out is not None
     if execution_row_limit is not None and len(spec) > execution_row_limit:
         return [], [f"runtime guard prevented {len(spec)} requested rows from starting; execution_row_limit={execution_row_limit}"], "fail_closed_runtime_guard"
+    if resume_progress is not None and resume_progress.exists():
+        progress = load_progress(resume_progress, spec)
+        rows = list(progress["completed_rows"])
+        attempted_row_keys = list(progress["attempted_row_keys"])
+        reasons = list(progress["failure_reasons"])
+    elif resume_progress is not None and progress_out is None:
+        raise FileNotFoundError(resume_progress)
+    completed_keys = {row_key(row) for row in rows}
     for item in spec:
+        key = row_key(item)
+        if key in completed_keys:
+            continue
+        if key not in attempted_row_keys:
+            attempted_row_keys.append(key)
         try:
             row = run_experiment(
                 item["network"],
@@ -984,25 +1138,30 @@ def execute_spec(
                 item["action_interval"],
                 route_metadata,
                 item["scenario_tag"],
-                sumocfg_override=item["generated_sumocfg"],
+                sumocfg_override=item.get("generated_sumocfg"),
             )
             row.update(
                 {
                     "profile": item["profile"],
                     "demand_multiplier": item["demand_multiplier"],
-                    "demand_scaling_method": item["demand_scaling_method"],
-                    "base_demand_total": item["base_demand_total"],
-                    "scaled_demand_total": item["scaled_demand_total"],
-                    "generated_route_file": item["generated_route_file"],
-                    "generated_sumocfg": item["generated_sumocfg"],
-                    "base_sumocfg": item["base_sumocfg"],
-                    "demand_multiplier_provenance": item["demand_multiplier_provenance"],
+                    "demand_scaling_method": item.get("demand_scaling_method", DEMAND_SCALING_METHOD),
+                    "base_demand_total": item.get("base_demand_total"),
+                    "scaled_demand_total": item.get("scaled_demand_total"),
+                    "generated_route_file": item.get("generated_route_file"),
+                    "generated_sumocfg": item.get("generated_sumocfg"),
+                    "base_sumocfg": item.get("base_sumocfg"),
+                    "demand_multiplier_provenance": item.get("demand_multiplier_provenance"),
                 }
             )
             rows.append(row)
+            completed_keys.add(key)
         except Exception as exc:
             reasons.append(f"{item['scenario_tag']}/{item['demand_multiplier']}/{item['controller']}/seed={item['seed']}: {type(exc).__name__}: {exc}")
-    return rows, reasons, "executed"
+        if progress_enabled:
+            write_progress(progress_out, spec, rows, attempted_row_keys, reasons)
+    if progress_enabled and not progress_out.exists():
+        write_progress(progress_out, spec, rows, attempted_row_keys, reasons)
+    return rows, reasons, "executed_with_progress" if progress_enabled or resume_progress is not None else "executed"
 
 
 def main() -> None:
@@ -1024,7 +1183,14 @@ def main() -> None:
         execution_row_limit = DEFAULT_MAIN_EXECUTION_ROW_LIMIT if args.profile == "main" else len(spec)
     else:
         execution_row_limit = args.execution_row_limit
-    rows, missing_reasons, execution_mode = execute_spec(spec, route_metadata, dry_run=args.dry_run, execution_row_limit=execution_row_limit)
+    rows, missing_reasons, execution_mode = execute_spec(
+        spec,
+        route_metadata,
+        dry_run=args.dry_run,
+        execution_row_limit=execution_row_limit,
+        progress_out=Path(args.progress_out) if args.progress_out else None,
+        resume_progress=Path(args.resume_progress) if args.resume_progress else None,
+    )
     completed_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     payload = build_payload(
         profile=args.profile,
