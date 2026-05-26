@@ -6,9 +6,9 @@ status: planning
 last_updated: "2026-05-26T08:18:17.986Z"
 last_activity: 2026-05-26
 progress:
-  total_phases: 0
+  total_phases: 5
   completed_phases: 0
-  total_plans: 0
+  total_plans: 17
   completed_plans: 0
   percent: 0
 ---
@@ -24,10 +24,10 @@ See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-26)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 14. v1.4 Failure Diagnostics and Workstream Protocol
 Plan: —
-Status: Defining requirements
-Last activity: 2026-05-26 — Milestone v1.4 started
+Status: Roadmap created; ready for Phase 14 discussion/planning
+Last activity: 2026-05-26 — Milestone v1.4 roadmap created
 
 ## Performance Metrics
 
@@ -55,6 +55,11 @@ Last activity: 2026-05-26 — Milestone v1.4 started
 | 11. Long-Horizon Paired-Seed Evidence | 3/3 | Complete |
 | 12. Reproducibility and Future Claim Inputs | 2/2 | Complete |
 | 13. Complete Predeclared Gate C Evidence | 4/4 | Complete |
+| 14. v1.4 Failure Diagnostics and Workstream Protocol | 0/3 | Planned |
+| 15. Parallel Exploratory Method Workstreams | 0/4 | Planned |
+| 16. Candidate Convergence and Protocol Lock | 0/3 | Planned |
+| 17. Locked v1.4 Gate C Execution | 0/4 | Planned |
+| 18. v1.4 Claim Refresh and Milestone Audit | 0/3 | Planned |
 | Phase 06 P01 | 9min 11s | 3 tasks | 5 files |
 | Phase 06 P02 | 14min 31s | 3 tasks | 6 files |
 | Phase 06 P03 | 10min 37s | 3 tasks | 10 files |
@@ -123,6 +128,7 @@ Last activity: 2026-05-26 — Milestone v1.4 started
 - Phase 12 packaging has been refreshed from raw artifacts and remains conservative: package `INCONCLUSIVE`, claim audit `PASSED`, Phase 11/Gate C claim inputs not claim-ready.
 - v1.4 must not convert exploratory workstream wins into final superiority claims without a locked post-selection Gate C.
 - v1.4 must preserve strong max-pressure-style baselines as first-class comparators, including capacity-aware pressure and finite-storage double-pressure.
+- Phase 14 should start by building the v1.3 failure diagnostic artifact before any controller changes.
 
 ## Deferred Items
 
