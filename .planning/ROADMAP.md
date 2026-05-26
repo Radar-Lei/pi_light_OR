@@ -32,15 +32,17 @@ The milestone deliberately separates exploration from confirmation:
 
 **Phase Numbering:** continuing from v1.3 Phase 13.
 
-- [ ] **Phase 14: v1.4 Failure Diagnostics and Workstream Protocol** - Diagnose v1.3 Gate C failure and define workstream evidence boundaries.
-- [ ] **Phase 15: Parallel Exploratory Method Workstreams** - Execute candidate pilots in the four v1.4 workstreams and mark all pilot evidence as exploratory.
-- [ ] **Phase 16: Candidate Convergence and Protocol Lock** - Select at most one candidate and freeze the v1.4 Gate C protocol before confirmation.
-- [ ] **Phase 17: Locked v1.4 Gate C Execution** - Execute or resume the locked main Gate C against required strong baselines.
+- [x] **Phase 14: v1.4 Failure Diagnostics and Workstream Protocol** - Diagnose v1.3 Gate C failure and define workstream evidence boundaries. (completed 2026-05-26)
+- [x] **Phase 15: Parallel Exploratory Method Workstreams** - Execute candidate pilots in the four v1.4 workstreams and mark all pilot evidence as exploratory. (completed 2026-05-26)
+- [x] **Phase 16: Candidate Convergence and Protocol Lock** - Select at most one candidate and freeze the v1.4 Gate C protocol before confirmation. (completed 2026-05-26)
+- [x] **Phase 17: Locked v1.4 Gate C Execution** - Execute or resume the locked main Gate C against required strong baselines. (completed 2026-05-26)
 - [ ] **Phase 18: v1.4 Claim Refresh and Milestone Audit** - Regenerate claim/reproducibility surfaces and preserve or allow the strong claim strictly from Gate C status.
 
 ## Phase Details
 
 ### Phase 14: v1.4 Failure Diagnostics and Workstream Protocol
+
+- [x] Phase 14: Complete (completed 2026-05-26)
 
 **Goal:** Researchers can explain why v1.3 failed and can start method workstreams with clear exploratory/claim boundaries.
 **Depends on:** Phase 13
@@ -52,20 +54,22 @@ The milestone deliberately separates exploration from confirmation:
 3. User can distinguish claim-informative rows from context-only and non-evidence rows.
 4. User can inspect all four v1.4 workstreams and their scope, status, artifact paths, and claim-readiness boundary.
 
-**Plans:** 3 planned
+**Plans:** 3/3 plans complete
 
 Plans:
 
 **Wave 1**
 
-- [ ] 14-01-PLAN.md — Build v1.3 Gate C failure diagnostic artifact and report.
-- [ ] 14-02-PLAN.md — Audit workstream scopes, artifact naming, and `claim_ready=false` pilot contract.
+- [x] 14-01-PLAN.md — Build v1.3 Gate C failure diagnostic artifact and report.
+- [x] 14-02-PLAN.md — Audit workstream scopes, artifact naming, and `claim_ready=false` pilot contract.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 14-03-PLAN.md — Define pilot selection criteria and validation commands for each workstream.
+- [x] 14-03-PLAN.md — Define pilot selection criteria and validation commands for each workstream.
 
 ### Phase 15: Parallel Exploratory Method Workstreams
+
+- [x] Phase 15: Complete (completed 2026-05-26)
 
 **Goal:** Researchers can evaluate multiple candidate method families without confusing pilot evidence for final claim evidence.
 **Depends on:** Phase 14
@@ -77,18 +81,20 @@ Plans:
 3. Each workstream ends with status `rejected`, `candidate`, or `archived`, with explicit reasons.
 4. No pilot artifact is imported as final Gate C evidence.
 
-**Plans:** 4 planned
+**Plans:** 4/4 plans complete
 
 Plans:
 
 **Wave 1**
 
-- [ ] 15-01-PLAN.md — Run `v1-4-score-controller` pilot and record candidate status.
-- [ ] 15-02-PLAN.md — Run `v1-4-objective-weights` pilot and record candidate status.
-- [ ] 15-03-PLAN.md — Run `v1-4-scenario-diagnostics` pilot and record candidate status.
-- [ ] 15-04-PLAN.md — Run `v1-4-symbolic-policy` pilot and record candidate status.
+- [x] 15-01-PLAN.md — Run `v1-4-score-controller` pilot and record candidate status.
+- [x] 15-02-PLAN.md — Run `v1-4-objective-weights` pilot and record candidate status.
+- [x] 15-03-PLAN.md — Run `v1-4-scenario-diagnostics` pilot and record candidate status.
+- [x] 15-04-PLAN.md — Run `v1-4-symbolic-policy` pilot and record candidate status.
 
 ### Phase 16: Candidate Convergence and Protocol Lock
+
+- [x] Phase 16: Complete (completed 2026-05-26)
 
 **Goal:** Researchers can choose at most one candidate and freeze a confirmation protocol before the main v1.4 Gate C.
 **Depends on:** Phase 15
@@ -101,20 +107,22 @@ Plans:
 4. The selected candidate has controller ID, mechanism description, changed score/objective terms, action-decomposition schema, and reproducible implementation pointer.
 5. The v1.4 Gate C protocol is locked before main confirmation rows are generated.
 
-**Plans:** 3 planned
+**Plans:** 3/3 plans complete
 
 Plans:
 
 **Wave 1**
 
-- [ ] 16-01-PLAN.md — Build workstream convergence and candidate ranking artifact.
-- [ ] 16-02-PLAN.md — Select or reject candidate routes with explicit decision record.
+- [x] 16-01-PLAN.md — Build workstream convergence and candidate ranking artifact.
+- [x] 16-02-PLAN.md — Select or reject candidate routes with explicit decision record.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 16-03-PLAN.md — Generate locked v1.4 Gate C protocol and spec fingerprint.
+- [x] 16-03-PLAN.md — Generate locked v1.4 Gate C protocol and spec fingerprint.
 
 ### Phase 17: Locked v1.4 Gate C Execution
+
+- [x] Phase 17: Complete (completed 2026-05-26)
 
 **Goal:** Researchers can run the selected candidate against strong baselines under the locked confirmation protocol and obtain an honest Gate C status.
 **Depends on:** Phase 16
@@ -126,22 +134,22 @@ Plans:
 3. Strict v1.4 Gate C emits exactly `PASSED`, `FAILED`, or `INCONCLUSIVE`.
 4. Gate C fails closed on non-PASSED source, missing primary metric, bounded harm, missing comparator, or missing action-decomposition evidence.
 
-**Plans:** 4 planned
+**Plans:** 4/4 plans complete
 
 Plans:
 
 **Wave 1**
 
-- [ ] 17-01-PLAN.md — Preflight locked v1.4 Gate C spec, environment, row keys, and resume paths.
+- [x] 17-01-PLAN.md — Preflight locked v1.4 Gate C spec, environment, row keys, and resume paths.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 17-02-PLAN.md — Execute or resume locked v1.4 main Gate C rows.
+- [x] 17-02-PLAN.md — Execute or resume locked v1.4 main Gate C rows.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 17-03-PLAN.md — Audit row completeness, pairing, demand provenance, and action decomposition.
-- [ ] 17-04-PLAN.md — Run strict v1.4 Gate C and preserve generated status.
+- [x] 17-03-PLAN.md — Audit row completeness, pairing, demand provenance, and action decomposition.
+- [x] 17-04-PLAN.md — Run strict v1.4 Gate C and preserve generated status.
 
 ### Phase 18: v1.4 Claim Refresh and Milestone Audit
 
@@ -178,10 +186,10 @@ Plans:
 | 1-5 | v1.0 | 15/15 | Complete | 2026-05-23 |
 | 6-12.1 | v1.1 | 26/26 | Complete | 2026-05-25 |
 | 13. Complete Predeclared Gate C Evidence | v1.3 | 4/4 | Complete | 2026-05-25 |
-| 14. v1.4 Failure Diagnostics and Workstream Protocol | v1.4 | 0/3 | Planned | — |
-| 15. Parallel Exploratory Method Workstreams | v1.4 | 0/4 | Planned | — |
-| 16. Candidate Convergence and Protocol Lock | v1.4 | 0/3 | Planned | — |
-| 17. Locked v1.4 Gate C Execution | v1.4 | 0/4 | Planned | — |
+| 14. v1.4 Failure Diagnostics and Workstream Protocol | v1.4 | 3/3 | Complete    | 2026-05-26 |
+| 15. Parallel Exploratory Method Workstreams | v1.4 | 4/4 | Complete    | 2026-05-26 |
+| 16. Candidate Convergence and Protocol Lock | v1.4 | 3/3 | Complete    | 2026-05-26 |
+| 17. Locked v1.4 Gate C Execution | v1.4 | 4/4 | Complete    | 2026-05-26 |
 | 18. v1.4 Claim Refresh and Milestone Audit | v1.4 | 0/3 | Planned | — |
 
 ## Coverage

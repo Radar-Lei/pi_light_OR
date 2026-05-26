@@ -1,0 +1,288 @@
+{
+  "experiment": "v1_4_gate_c_paired_evidence",
+  "status": "INCONCLUSIVE",
+  "requirements_covered": [
+    "LOCK-02",
+    "LOCK-04"
+  ],
+  "claim_ready": false,
+  "input_artifact": "experiments/dual_sensitivity/v1_4_locked_gate_c_execution.json",
+  "input_status": "INCONCLUSIVE",
+  "locked_protocol_fingerprint": "2c6460070f313f97e95032a3c8d666f6015f3a0e4cf612cb27960a03af1e3f5b",
+  "selected_controller_id": "finite_storage_primal_dual_v1_4_score",
+  "profile_eligibility": {
+    "eligible": false,
+    "profile": "main",
+    "steps": 3600,
+    "warmup": 900,
+    "dry_run": false,
+    "actual_row_count": 0,
+    "expected_row_count": 1440,
+    "completed_row_count": 0,
+    "all_rows_executed": false,
+    "reasons": [
+      "input artifact has no executed raw scenario rows",
+      "input artifact reports missing required executed rows",
+      "input artifact actual_row_count does not match expected_row_count"
+    ]
+  },
+  "binding_regime_dominance": [],
+  "slack_regime_recovery_or_context": [],
+  "inconclusive": [],
+  "not_evidence": [],
+  "required_binding_scenarios": [
+    "arterial_downstream_blockage",
+    "arterial_spillback_stress",
+    "arterial_incident_capacity_drop",
+    "arterial_oversaturation",
+    "arterial_turning_shock",
+    "arterial_switching_loss_sensitive"
+  ],
+  "required_gate_c_comparators": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "finite_storage_double_pressure"
+  ],
+  "gate_c_primary_metrics": [
+    "penalized_avg_travel_time",
+    "total_delay",
+    "spillback_count",
+    "blocking_count",
+    "unfinished_vehicle_count"
+  ],
+  "gate_c_primary_metrics_v1": {
+    "status": "INCONCLUSIVE",
+    "statistical_family": "gate_c_primary_metrics_v1",
+    "metric_results": [],
+    "family_metadata": {
+      "family": "gate_c_primary_metrics_v1",
+      "method": "holm_bonferroni",
+      "alpha": 0.05,
+      "num_comparisons": 0,
+      "adjusted_diagnostics": []
+    },
+    "reasons": [
+      "no executed rows available"
+    ]
+  },
+  "demand_multiplier_provenance_summary": {
+    "method": "scaled_route_sumocfg_override",
+    "methods_seen": [
+      "scaled_route_sumocfg_override"
+    ],
+    "demand_multipliers": [
+      0.8,
+      1.0,
+      1.2
+    ],
+    "provenance_entry_count": 3,
+    "metadata_only_entry_count": 0,
+    "missing_actual_behavior_fields": [],
+    "valid_actual_behavior": true
+  },
+  "row_audit": {
+    "expected_row_count": 1440,
+    "raw_row_count": 0,
+    "completed_row_count": 0,
+    "missing_row_count": 1440,
+    "failed_row_count": 0,
+    "duplicate_row_count": 0,
+    "unpaired_group_count": 0,
+    "bad_provenance_row_count": 0,
+    "schema_invalid_row_count": 0,
+    "completed_rows": [],
+    "missing_rows": [
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261101"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261102"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261103"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261104"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261105"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261106"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261107"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261108"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261109"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261110"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261111"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261112"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261113"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261114"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261115"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261116"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261117"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261118"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261119"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/capacity_aware_pressure/seed=20261120"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261101"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261102"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261103"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261104"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261105"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261106"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261107"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261108"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261109"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261110"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261111"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261112"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261113"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261114"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261115"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261116"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261117"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261118"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261119"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_double_pressure/seed=20261120"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261101"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261102"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261103"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261104"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261105"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261106"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261107"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261108"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261109"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.8/finite_storage_primal_dual_v1_4_score/seed=20261110"
+      }
+    ],
+    "failed_rows": [],
+    "duplicate_rows": [],
+    "unpaired_groups": [],
+    "bad_provenance_rows": [],
+    "schema_invalid_rows": []
+  },
+  "recomputed_gate_c": {
+    "status": "INCONCLUSIVE",
+    "binding_regime_dominance": [],
+    "slack_regime_recovery_or_context": [],
+    "inconclusive": [],
+    "not_evidence": [],
+    "primary_metric_rule": {
+      "status": "INCONCLUSIVE",
+      "metric_results": [],
+      "family_metadata": {
+        "family": "gate_c_primary_metrics_v1",
+        "method": "holm_bonferroni",
+        "alpha": 0.05,
+        "num_comparisons": 0,
+        "adjusted_diagnostics": []
+      },
+      "reasons": [
+        "no executed rows available"
+      ]
+    },
+    "reasons": [
+      "no executed rows available"
+    ]
+  },
+  "reasons": [
+    "input artifact has no executed raw scenario rows",
+    "input artifact reports missing required executed rows",
+    "input artifact actual_row_count does not match expected_row_count",
+    "input artifact status is INCONCLUSIVE, not PASSED",
+    "no executed rows available"
+  ],
+  "caveats": [
+    "v1.4 Gate C is limited to the locked Phase 16 protocol.",
+    "Closed-loop superiority remains disallowed unless this artifact is PASSED.",
+    "Exploratory workstream pilot rows are not final Gate C evidence."
+  ]
+}

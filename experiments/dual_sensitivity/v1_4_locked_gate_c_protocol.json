@@ -1,0 +1,74 @@
+{
+  "experiment": "v1_4_locked_gate_c_protocol",
+  "generated_at": "2026-05-26T08:45:26.335881+00:00",
+  "status": "LOCKED",
+  "claim_ready": false,
+  "selected_candidate_id": "finite_storage_primal_dual_v1_4_score",
+  "selected_controller_id": "finite_storage_primal_dual_v1_4_score",
+  "fallback_controller_id": "finite_storage_primal_dual",
+  "required_comparators": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "finite_storage_double_pressure"
+  ],
+  "binding_scenarios": [
+    "arterial_downstream_blockage",
+    "arterial_spillback_stress",
+    "arterial_incident_capacity_drop",
+    "arterial_oversaturation",
+    "arterial_turning_shock",
+    "arterial_switching_loss_sensitive"
+  ],
+  "primary_metrics": [
+    "penalized_avg_travel_time",
+    "total_delay",
+    "spillback_count",
+    "blocking_count",
+    "unfinished_vehicle_count"
+  ],
+  "demand_multipliers": [
+    0.8,
+    1.0,
+    1.2
+  ],
+  "seeds": [
+    20261101,
+    20261102,
+    20261103,
+    20261104,
+    20261105,
+    20261106,
+    20261107,
+    20261108,
+    20261109,
+    20261110,
+    20261111,
+    20261112,
+    20261113,
+    20261114,
+    20261115,
+    20261116,
+    20261117,
+    20261118,
+    20261119,
+    20261120
+  ],
+  "profile": "main",
+  "steps": 3600,
+  "warmup": 900,
+  "pre_confirmation_lock": true,
+  "source_diagnostics": {
+    "phase11_gate_c": "experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json",
+    "phase11_long_horizon": "experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+    "gate_c_status": "INCONCLUSIVE",
+    "phase11_status": "FAILED"
+  },
+  "fail_closed_rules": [
+    "missing required comparator",
+    "non-PASSED source artifact",
+    "bounded harm in any primary metric family",
+    "missing or malformed action decomposition",
+    "pilot artifact imported as final evidence"
+  ],
+  "spec_fingerprint": "2c6460070f313f97e95032a3c8d666f6015f3a0e4cf612cb27960a03af1e3f5b"
+}

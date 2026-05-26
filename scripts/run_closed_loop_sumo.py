@@ -47,7 +47,12 @@ CONTROLLER_REGISTRY = {
     "all_neighbor_symbolic": "Symbolic pressure with downstream slack/fullness terms.",
     "random_permuted_dual": "Deterministic seed-based placebo movement score.",
     "finite_storage_primal_dual": "Finite-storage pressure rule with auditable storage, spillback, switching, service, and incident terms.",
+    "finite_storage_primal_dual_v1_4_score": "v1.4 locked finite-storage score variant with stronger binding-regime terms.",
     "full_dual_symbolic": "Per-TLS dual policy where feasible; otherwise explicit not_feasible.",
+}
+FINITE_STORAGE_CONTROLLER_IDS = {
+    "finite_storage_primal_dual",
+    "finite_storage_primal_dual_v1_4_score",
 }
 NETWORKS = {
     "single": {
@@ -286,6 +291,20 @@ def finite_storage_phase_decomposition(
     }
 
 
+def _score_weighted_decomposition(decomposition: dict[str, Any], weights: dict[str, float]) -> dict[str, Any]:
+    weighted = dict(decomposition)
+    component_totals = {
+        field: float(value) * float(weights.get(field, 1.0))
+        for field, value in dict(decomposition.get("component_totals", {})).items()
+    }
+    component_totals["total"] = sum(value for field, value in component_totals.items() if field != "total")
+    weighted["component_totals"] = component_totals
+    weighted["score"] = float(component_totals["total"])
+    weighted["score_variant"] = "finite_storage_primal_dual_v1_4_score"
+    weighted["score_weights"] = {field: float(weights.get(field, 1.0)) for field in sorted(FINITE_STORAGE_DECOMPOSITION_FIELDS)}
+    return weighted
+
+
 def select_finite_storage_action_with_audit(
     tls_id: str,
     current_phase: int,
@@ -295,12 +314,25 @@ def select_finite_storage_action_with_audit(
     capacities: dict[str, float],
     finite_storage_state: dict[str, Any],
     seed: int = 0,
+    controller: str = "finite_storage_primal_dual",
 ) -> dict[str, Any]:
     states = phase_states.get(tls_id, [])
     greens = green_phases(states)
     movements = tls_movements.get(tls_id, [])
-    finite_phase_scores = {
-        int(phase_idx): finite_storage_phase_decomposition(
+    score_weights = None
+    if controller == "finite_storage_primal_dual_v1_4_score":
+        score_weights = {
+            "pressure": 1.0,
+            "downstream_storage": 1.4,
+            "spillback": 1.6,
+            "switching": 1.25,
+            "service": 1.35,
+            "incident": 1.0,
+            "total": 1.0,
+        }
+    finite_phase_scores = {}
+    for phase_idx in greens:
+        decomposition = finite_storage_phase_decomposition(
             phase_idx,
             states,
             movements,
@@ -309,8 +341,9 @@ def select_finite_storage_action_with_audit(
             finite_storage_state,
             current_phase=current_phase,
         )
-        for phase_idx in greens
-    }
+        if score_weights is not None:
+            decomposition = _score_weighted_decomposition(decomposition, score_weights)
+        finite_phase_scores[int(phase_idx)] = decomposition
     pressure_phase_scores = {
         int(phase_idx): float(phase_score("max_pressure", phase_idx, states, movements, queues, capacities, seed))
         for phase_idx in greens
@@ -332,6 +365,7 @@ def select_finite_storage_action_with_audit(
         )
     return {
         "tls_id": tls_id,
+        "controller": controller,
         "pressure_action": int(pressure_action),
         "finite_storage_action": int(finite_storage_action),
         "selected_action": int(finite_storage_action),
@@ -383,7 +417,7 @@ def choose_controller_action(
         return greens[(step // action_interval) % len(greens)]
     if controller == "cycle_pressure" and step - (step // (2 * action_interval)) * (2 * action_interval) < action_interval:
         return current_phase if current_phase in greens else greens[(step // action_interval) % len(greens)]
-    if controller == "finite_storage_primal_dual":
+    if controller in FINITE_STORAGE_CONTROLLER_IDS:
         finite_storage_state = build_completed_finite_storage_state(
             queues,
             capacities,
@@ -399,6 +433,7 @@ def choose_controller_action(
             capacities,
             finite_storage_state,
             seed,
+            controller=controller,
         )
         return int(audit["selected_action"])
     scored = [
@@ -497,13 +532,13 @@ def build_completed_finite_storage_state(
 def validate_closed_loop_row(row: dict[str, Any]) -> None:
     validate_finite_storage_state(row["finite_storage_state"])
     validate_state_objective_sample(row)
-    if row.get("controller") == "finite_storage_primal_dual" and row.get("scenario_status") == "completed":
+    if row.get("controller") in FINITE_STORAGE_CONTROLLER_IDS and row.get("scenario_status") == "completed":
         action_decomposition = row.get("action_decomposition")
         if not isinstance(action_decomposition, dict):
-            raise ValueError("finite_storage_primal_dual completed row requires action_decomposition")
+            raise ValueError(f"{row.get('controller')} completed row requires action_decomposition")
         decisions = action_decomposition.get("last_decision_by_tls")
         if not isinstance(decisions, dict) or not decisions:
-            raise ValueError("finite_storage_primal_dual action_decomposition requires nonempty last_decision_by_tls")
+            raise ValueError(f"{row.get('controller')} action_decomposition requires nonempty last_decision_by_tls")
 
 
 def infeasible_row(
@@ -704,7 +739,7 @@ def run_experiment(
                         if target_phase_by_tls.get(tls_id) == current_phase:
                             switching_count += 1
                     latest_time_since_switch = float(step - phase_since_by_tls.get(tls_id, step - action_interval))
-                    if controller == "finite_storage_primal_dual":
+                    if controller in FINITE_STORAGE_CONTROLLER_IDS:
                         decision_state = build_completed_finite_storage_state(
                             queues,
                             capacities,
@@ -722,6 +757,7 @@ def run_experiment(
                             capacities,
                             decision_state,
                             seed,
+                            controller=controller,
                         )
                         latest_action_decomposition_by_tls[tls_id] = audit
                         action = int(audit["selected_action"])
@@ -776,9 +812,9 @@ def run_experiment(
         ),
         **stress_metadata,
     }
-    if controller == "finite_storage_primal_dual":
+    if controller in FINITE_STORAGE_CONTROLLER_IDS:
         row["action_decomposition"] = {
-            "controller": "finite_storage_primal_dual",
+            "controller": controller,
             "decision_scope": "last_action_decision_per_tls",
             "last_decision_by_tls": latest_action_decomposition_by_tls,
         }

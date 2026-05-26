@@ -2,15 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Strong Baseline-Dominance Method Search
-status: planning
-last_updated: "2026-05-26T08:18:17.986Z"
+status: ready_to_plan
+last_updated: 2026-05-26T09:20:00.000Z
 last_activity: 2026-05-26
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 4
   total_plans: 17
-  completed_plans: 0
-  percent: 0
+  completed_plans: 14
+  percent: 82
+stopped_at: Phase 17 complete (4/4) — ready to discuss Phase 18
 ---
 
 # Project State
@@ -20,20 +21,20 @@ progress:
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-26)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** v1.4 planning — Strong Baseline-Dominance Method Search
+**Current focus:** Phase 18 — v1.4 claim refresh and milestone audit
 
 ## Current Position
 
-Phase: 14. v1.4 Failure Diagnostics and Workstream Protocol
-Plan: —
-Status: Roadmap created; ready for Phase 14 discussion/planning
-Last activity: 2026-05-26 — Milestone v1.4 roadmap created
+Phase: 18
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-05-26
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 20 from v1.0
+- Total plans completed: 30 from v1.0
 - v1.1 plans completed: 6
 - Average duration: N/A
 - Total execution time: N/A
@@ -55,10 +56,10 @@ Last activity: 2026-05-26 — Milestone v1.4 roadmap created
 | 11. Long-Horizon Paired-Seed Evidence | 3/3 | Complete |
 | 12. Reproducibility and Future Claim Inputs | 2/2 | Complete |
 | 13. Complete Predeclared Gate C Evidence | 4/4 | Complete |
-| 14. v1.4 Failure Diagnostics and Workstream Protocol | 0/3 | Planned |
-| 15. Parallel Exploratory Method Workstreams | 0/4 | Planned |
-| 16. Candidate Convergence and Protocol Lock | 0/3 | Planned |
-| 17. Locked v1.4 Gate C Execution | 0/4 | Planned |
+| 14. v1.4 Failure Diagnostics and Workstream Protocol | 3/3 | Complete |
+| 15. Parallel Exploratory Method Workstreams | 4/4 | Complete |
+| 16. Candidate Convergence and Protocol Lock | 3/3 | Complete |
+| 17. Locked v1.4 Gate C Execution | 4/4 | Complete |
 | 18. v1.4 Claim Refresh and Milestone Audit | 0/3 | Planned |
 | Phase 06 P01 | 9min 11s | 3 tasks | 5 files |
 | Phase 06 P02 | 14min 31s | 3 tasks | 6 files |
@@ -114,6 +115,10 @@ Last activity: 2026-05-26 — Milestone v1.4 roadmap created
 - [v1.3 Roadmap]: Do not introduce new controllers, scenarios, thresholds, metrics, or manuscript-writing scope before the predeclared Gate C evidence closure is complete.
 - [v1.4 Roadmap]: Treat baseline dominance as a hard predeclared Gate C target, not an assumed conclusion.
 - [v1.4 Roadmap]: Use parallel method workstreams for exploratory screening, but keep claim-ready evidence separate from exploratory pilot selection.
+- [Phase 14]: v1.3 strict Gate C remains `INCONCLUSIVE`; diagnostics are explanatory and not claim-ready evidence.
+- [Phase 15]: All v1.4 workstream pilot artifacts are exploratory with `claim_ready=false` and `final_gate_c_import_allowed=false`.
+- [Phase 16]: `finite_storage_primal_dual_v1_4_score` is the single locked candidate route for Phase 17; strong baselines remain required comparators.
+- [Phase 17]: v1.4 locked execution and strict Gate C both fail closed as `INCONCLUSIVE` until the 1440 locked SUMO rows are executed/resumed.
 
 ### Pending Todos
 
@@ -128,7 +133,8 @@ Last activity: 2026-05-26 — Milestone v1.4 roadmap created
 - Phase 12 packaging has been refreshed from raw artifacts and remains conservative: package `INCONCLUSIVE`, claim audit `PASSED`, Phase 11/Gate C claim inputs not claim-ready.
 - v1.4 must not convert exploratory workstream wins into final superiority claims without a locked post-selection Gate C.
 - v1.4 must preserve strong max-pressure-style baselines as first-class comparators, including capacity-aware pressure and finite-storage double-pressure.
-- Phase 14 should start by building the v1.3 failure diagnostic artifact before any controller changes.
+- Phase 17 must consume `experiments/dual_sensitivity/v1_4_locked_gate_c_protocol.json` and must not change candidate selection after confirmation begins.
+- Phase 18 must keep closed-loop superiority `claim_allowed=false` unless `experiments/dual_sensitivity/v1_4_gate_c_paired_evidence.json` is `PASSED`.
 
 ## Deferred Items
 

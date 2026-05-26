@@ -10,28 +10,28 @@ Requirements for the baseline-dominance method-search milestone. Each maps to ex
 
 ### Failure Diagnosis
 
-- [ ] **DIAG-01**: Researcher can generate a v1.3 failure diagnostic artifact that summarizes Gate C bounded harm, inconclusive, non-worsening, and strict-positive-signal results by scenario, demand multiplier, comparator, and metric.
-- [ ] **DIAG-02**: Researcher can distinguish whether v1.3 failure is primarily driven by controller action weakness, objective/metric mismatch, insufficient binding activation, scenario design, or strong-baseline parity.
-- [ ] **DIAG-03**: Researcher can identify which v1.3 rows are claim-informative, which are only context, and which must remain non-evidence for v1.4 method selection.
+- [x] **DIAG-01**: Researcher can generate a v1.3 failure diagnostic artifact that summarizes Gate C bounded harm, inconclusive, non-worsening, and strict-positive-signal results by scenario, demand multiplier, comparator, and metric.
+- [x] **DIAG-02**: Researcher can distinguish whether v1.3 failure is primarily driven by controller action weakness, objective/metric mismatch, insufficient binding activation, scenario design, or strong-baseline parity.
+- [x] **DIAG-03**: Researcher can identify which v1.3 rows are claim-informative, which are only context, and which must remain non-evidence for v1.4 method selection.
 
 ### Workstream Exploration
 
-- [ ] **WS-01**: Researcher can inspect the four v1.4 method workstreams and see their scope, artifact paths, candidate status, and claim-readiness boundary.
-- [ ] **WS-02**: Each exploratory workstream can produce pilot/smoke artifacts marked `claim_ready=false` with candidate ID, input spec, scenario/seed/demand provenance, and action-decomposition coverage.
-- [ ] **WS-03**: Each exploratory workstream can be rejected, archived, or promoted based on predeclared pilot criteria rather than post-hoc narrative preference.
+- [x] **WS-01**: Researcher can inspect the four v1.4 method workstreams and see their scope, artifact paths, candidate status, and claim-readiness boundary.
+- [x] **WS-02**: Each exploratory workstream can produce pilot/smoke artifacts marked `claim_ready=false` with candidate ID, input spec, scenario/seed/demand provenance, and action-decomposition coverage.
+- [x] **WS-03**: Each exploratory workstream can be rejected, archived, or promoted based on predeclared pilot criteria rather than post-hoc narrative preference.
 
 ### Candidate Selection
 
-- [ ] **SELECT-01**: Researcher can compare workstream outputs in a convergence artifact that ranks candidates using pilot non-worsening, strict-positive-signal, binding-activation, and auditability criteria.
-- [ ] **SELECT-02**: At most one candidate method is promoted to confirmation, and all rejected routes record explicit rejection reasons.
-- [ ] **SELECT-03**: Selected candidate metadata includes controller ID, mechanism description, changed score/objective terms, action-decomposition schema, and reproducible implementation pointer.
+- [x] **SELECT-01**: Researcher can compare workstream outputs in a convergence artifact that ranks candidates using pilot non-worsening, strict-positive-signal, binding-activation, and auditability criteria.
+- [x] **SELECT-02**: At most one candidate method is promoted to confirmation, and all rejected routes record explicit rejection reasons.
+- [x] **SELECT-03**: Selected candidate metadata includes controller ID, mechanism description, changed score/objective terms, action-decomposition schema, and reproducible implementation pointer.
 
 ### Locked Gate C
 
-- [ ] **LOCK-01**: Researcher can generate a locked v1.4 Gate C protocol before the main run, including candidate controller, required comparators, scenarios, seeds, demand multipliers, metrics, thresholds, failure rules, and artifact paths.
-- [ ] **LOCK-02**: The locked v1.4 Gate C protocol preserves max-pressure, capacity-aware pressure, and finite-storage double-pressure as required strong comparators.
-- [ ] **LOCK-03**: Researcher can execute or resume the locked v1.4 main Gate C and inspect completed rows, missing rows, failed rows, duplicate conflicts, unpaired seeds, bad demand provenance, and schema failures.
-- [ ] **LOCK-04**: Strict v1.4 Gate C emits exactly `PASSED`, `FAILED`, or `INCONCLUSIVE` and fails closed on any non-PASSED source, missing primary metric, bounded harm, missing comparator, or missing action-decomposition evidence.
+- [x] **LOCK-01**: Researcher can generate a locked v1.4 Gate C protocol before the main run, including candidate controller, required comparators, scenarios, seeds, demand multipliers, metrics, thresholds, failure rules, and artifact paths.
+- [x] **LOCK-02**: The locked v1.4 Gate C protocol preserves max-pressure, capacity-aware pressure, and finite-storage double-pressure as required strong comparators.
+- [x] **LOCK-03**: Researcher can execute or resume the locked v1.4 main Gate C and inspect completed rows, missing rows, failed rows, duplicate conflicts, unpaired seeds, bad demand provenance, and schema failures.
+- [x] **LOCK-04**: Strict v1.4 Gate C emits exactly `PASSED`, `FAILED`, or `INCONCLUSIVE` and fails closed on any non-PASSED source, missing primary metric, bounded harm, missing comparator, or missing action-decomposition evidence.
 
 ### Claim Refresh
 
@@ -73,19 +73,19 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DIAG-01 | Phase 14 | Pending |
-| DIAG-02 | Phase 14 | Pending |
-| DIAG-03 | Phase 14 | Pending |
-| WS-01 | Phase 14 | Pending |
-| WS-02 | Phase 15 | Pending |
-| WS-03 | Phase 15 | Pending |
-| SELECT-01 | Phase 16 | Pending |
-| SELECT-02 | Phase 16 | Pending |
-| SELECT-03 | Phase 16 | Pending |
-| LOCK-01 | Phase 16 | Pending |
-| LOCK-02 | Phase 17 | Pending |
-| LOCK-03 | Phase 17 | Pending |
-| LOCK-04 | Phase 17 | Pending |
+| DIAG-01 | Phase 14 | Complete |
+| DIAG-02 | Phase 14 | Complete |
+| DIAG-03 | Phase 14 | Complete |
+| WS-01 | Phase 14 | Complete |
+| WS-02 | Phase 15 | Complete |
+| WS-03 | Phase 15 | Complete |
+| SELECT-01 | Phase 16 | Complete |
+| SELECT-02 | Phase 16 | Complete |
+| SELECT-03 | Phase 16 | Complete |
+| LOCK-01 | Phase 16 | Complete |
+| LOCK-02 | Phase 17 | Complete |
+| LOCK-03 | Phase 17 | Complete |
+| LOCK-04 | Phase 17 | Complete |
 | CLAIM-01 | Phase 18 | Pending |
 | CLAIM-02 | Phase 18 | Pending |
 | CLAIM-03 | Phase 18 | Pending |

@@ -89,6 +89,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--profile", choices=["pilot", "main"], default="main")
     parser.add_argument("--controllers", nargs="+", default=list(DEFAULT_CONTROLLERS))
+    parser.add_argument("--proposed-controller", default=PROPOSED_CONTROLLER)
     parser.add_argument("--seeds", nargs="+", type=int, default=None)
     parser.add_argument("--steps", type=int, default=None)
     parser.add_argument("--warmup", type=int, default=None)
@@ -126,6 +127,12 @@ def validate_args(args: argparse.Namespace) -> None:
     for path_arg in [args.progress_out, args.resume_progress]:
         if path_arg is not None and Path(path_arg).suffix != ".json":
             raise ValueError("progress paths must point to .json artifacts")
+
+
+def set_proposed_controller(controller: str) -> None:
+    if controller not in CONTROLLER_REGISTRY:
+        raise ValueError(f"Unknown proposed controller: {controller}. Available: {sorted(CONTROLLER_REGISTRY)}")
+    globals()["PROPOSED_CONTROLLER"] = str(controller)
 
 
 def _validate_profile_inputs(
@@ -1167,6 +1174,7 @@ def execute_spec(
 def main() -> None:
     args = parse_args()
     validate_args(args)
+    set_proposed_controller(args.proposed_controller)
     started_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     spec = build_phase11_spec(
         profile=args.profile,
