@@ -1,5 +1,26 @@
 # Milestones
 
+## v1.4 Strong Baseline-Dominance Method Search (Shipped: 2026-05-26)
+
+**Phases completed:** 5 phases, 17 plans, 0 tasks
+**Audit:** Passed; 16/16 v1.4 requirements satisfied; no critical blockers.
+
+**Key accomplishments:**
+
+- Diagnosed the v1.3 Gate C failure without converting explanatory diagnostics into claim-ready evidence.
+- Ran four exploratory method workstreams with `claim_ready=false` and explicit candidate/rejected/archived outcomes.
+- Selected `finite_storage_primal_dual_v1_4_score` as the single locked candidate and preserved strong max-pressure-style comparators.
+- Generated locked v1.4 Gate C execution and strict Gate C artifacts that fail closed as `INCONCLUSIVE` until the 1440 main rows are executed.
+- Regenerated v1.4 claim/reproducibility surfaces with `closed_loop_superiority_claim_allowed=false` and no overclaim hits.
+
+**Archived:**
+
+- [`milestones/v1.4-ROADMAP.md`](milestones/v1.4-ROADMAP.md)
+- [`milestones/v1.4-REQUIREMENTS.md`](milestones/v1.4-REQUIREMENTS.md)
+- [`milestones/v1.4-MILESTONE-AUDIT.md`](milestones/v1.4-MILESTONE-AUDIT.md)
+
+---
+
 ## v1.3 Complete Predeclared Gate C Evidence (Shipped: 2026-05-25)
 
 **Phases completed:** 1 phases, 4 plans, 0 tasks
