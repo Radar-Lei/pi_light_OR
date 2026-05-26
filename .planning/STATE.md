@@ -1,34 +1,33 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.3
-milestone_name: Complete Predeclared Gate C Evidence
-status: Awaiting next milestone
-stopped_at: Phase 12.1 context gathered
-last_updated: "2026-05-25T21:31:48.732Z"
-last_activity: 2026-05-25 — Milestone v1.3 completed and archived
+milestone: v1.4
+milestone_name: Strong Baseline-Dominance Method Search
+status: planning
+last_updated: "2026-05-26T08:18:17.986Z"
+last_activity: 2026-05-26
 progress:
-  total_phases: 1
-  completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-25)
+See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-26)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** v1.3 complete — Complete Predeclared Gate C Evidence
+**Current focus:** v1.4 planning — Strong Baseline-Dominance Method Search
 
 ## Current Position
 
-Phase: Milestone v1.3 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-05-25 — Milestone v1.3 completed and archived
+Status: Defining requirements
+Last activity: 2026-05-26 — Milestone v1.4 started
 
 ## Performance Metrics
 
@@ -108,6 +107,8 @@ Last activity: 2026-05-25 — Milestone v1.3 completed and archived
 - [Phase 12.1]: Partial Phase 11 rows are audit/provenance only; 2103 missing rows prevent Gate C dominance inference.
 - [Phase 12.1]: Gate C and Phase 12 package both remain `INCONCLUSIVE`; Phase 12 claim audit is `PASSED`, but Phase 11/Gate C claim inputs remain `claim_allowed=false`.
 - [v1.3 Roadmap]: Do not introduce new controllers, scenarios, thresholds, metrics, or manuscript-writing scope before the predeclared Gate C evidence closure is complete.
+- [v1.4 Roadmap]: Treat baseline dominance as a hard predeclared Gate C target, not an assumed conclusion.
+- [v1.4 Roadmap]: Use parallel method workstreams for exploratory screening, but keep claim-ready evidence separate from exploratory pilot selection.
 
 ### Pending Todos
 
@@ -120,6 +121,8 @@ Last activity: 2026-05-25 — Milestone v1.3 completed and archived
 - Phase 11 main artifact is now complete at 2160/2160 rows and generated status `FAILED`; completeness is resolved, dominance is not.
 - Strict Gate C regenerated status is `INCONCLUSIVE` because the input artifact status is `FAILED`, not `PASSED`.
 - Phase 12 packaging has been refreshed from raw artifacts and remains conservative: package `INCONCLUSIVE`, claim audit `PASSED`, Phase 11/Gate C claim inputs not claim-ready.
+- v1.4 must not convert exploratory workstream wins into final superiority claims without a locked post-selection Gate C.
+- v1.4 must preserve strong max-pressure-style baselines as first-class comparators, including capacity-aware pressure and finite-storage double-pressure.
 
 ## Deferred Items
 

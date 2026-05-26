@@ -3,7 +3,7 @@
 ## Current State
 
 **Shipped version:** v1.3 Complete Predeclared Gate C Evidence — shipped 2026-05-25
-**Current milestone:** Awaiting next milestone
+**Current milestone:** v1.4 Strong Baseline-Dominance Method Search — planning
 
 v1.0 produced a pressure-equivalent generalized-pressure symbolic recovery artifact for capacitated traffic-signal control. The completed scope covers Phases 1–5: theory and claim lock, sparse symbolic recovery, static pressure-failure kill-gate routing, closed-loop SUMO evaluation, and reproducible repository/paper artifact generation.
 
@@ -11,11 +11,13 @@ v1.1 changed the project from a pressure-equivalent recovery artifact into a fin
 
 v1.3 closed the predeclared Gate C evidence gap. The original 2160-row Phase 11 main profile completed with generated status `FAILED`; strict Gate C regenerated as `INCONCLUSIVE`; Phase 12 reproducibility and claim-status artifacts regenerated conservatively with claim audit `PASSED`. Closed-loop superiority claims remain disallowed.
 
+v1.4 reopens method design under stricter discipline: use parallel workstreams to diagnose the v1.3 failure and test genuinely different method improvements, then pre-register a winning route for a new closed-loop Gate C. The strong target is baseline dominance, but it is a hard evidence gate rather than an assumed conclusion: closed-loop superiority over max-pressure-style baselines is allowed only if the new predeclared Gate C passes.
+
 ## What This Is
 
 This project develops an OR-methodology paper on capacitated network traffic signal control, not a PI-Light enhancement paper. The working direction is **dual-sensitivity-guided symbolic control**: derive movement-level shadow-price / dual-sensitivity signals from a continuous store-and-forward or CTM-lite traffic-network relaxation, then recover compact interpretable signal-control policies under explicit complexity and neighbor-use constraints.
 
-The v1.0 empirical route is **pressure-equivalent generalized-pressure symbolic recovery**: static and closed-loop artifacts support theory-backed equivalence/compression and reproducibility, not a claim that dual sensitivity universally outperforms max-pressure. The v1.1 route is **finite-storage generalized-pressure separation**: prove and test that the controller reduces to max-pressure when constraints are slack but changes decisions and improves constrained objectives when downstream storage, spillback, switching, service, or incident constraints bind. v1.3 determined that the predeclared SUMO Gate C route does not currently support closed-loop superiority: the full 2160-row main artifact is complete but `FAILED`, and strict Gate C is `INCONCLUSIVE`.
+The v1.0 empirical route is **pressure-equivalent generalized-pressure symbolic recovery**: static and closed-loop artifacts support theory-backed equivalence/compression and reproducibility, not a claim that dual sensitivity universally outperforms max-pressure. The v1.1 route is **finite-storage generalized-pressure separation**: prove and test that the controller reduces to max-pressure when constraints are slack but changes decisions and improves constrained objectives when downstream storage, spillback, switching, service, or incident constraints bind. v1.3 determined that the predeclared SUMO Gate C route does not currently support closed-loop superiority: the full 2160-row main artifact is complete but `FAILED`, and strict Gate C is `INCONCLUSIVE`. v1.4 is a method-search milestone whose output must either produce a new predeclared `PASSED` Gate C or keep closed-loop superiority disallowed.
 
 The target audience is Transportation Research Part B / Transportation Science reviewers who expect mathematical modeling, structural insight, rigorous optimization formulation, and closed-loop computational evidence against strong max-pressure-style baselines.
 
@@ -50,6 +52,10 @@ Show that finite-storage primal-dual pressure control strictly generalizes max-p
 - [x] Add strong operational baselines including optimized fixed-time, actuated/semi-actuated, cycle-based pressure, and finite-storage/double-pressure variants where feasible — Phase 10 smoke/spec coverage complete; optimized fixed-time remains documented as a current limit.
 - [x] Run journal-grade long-horizon paired-seed experiments with demand and incident sweeps and predeclared delay/spillback/unfinished-vehicle metrics — v1.3 completed the predeclared run, generated status `FAILED`.
 - [x] Preserve claim discipline: no statement that the method is better than max-pressure until the new binding-regime theory and experiments support that bounded claim — v1.3 keeps closed-loop superiority disallowed.
+- [ ] Diagnose why the v1.3 complete Gate C route failed, separating controller weakness, objective mismatch, state/action audit issues, scenario sensitivity, and baseline strength.
+- [ ] Run parallel method-improvement workstreams and compare them with auditable smoke/pilot gates before selecting a single candidate for strict evidence.
+- [ ] Pre-register the winning v1.4 method, controller set, scenarios, seeds, demand multipliers, metrics, thresholds, and failure rules before the new main Gate C run.
+- [ ] Preserve the strong baseline-dominance target as a hard gate: no closed-loop superiority language unless the predeclared v1.4 Gate C artifact is `PASSED`.
 
 ### Out of Scope
 
@@ -70,6 +76,8 @@ v1.0 changed the project from idea/prototype to a verified research artifact. Th
 
 v1.1/Phase 6-12.1 established a strong theory, audit, controller, baseline, and experiment protocol foundation, but did not complete closed-loop Gate C evidence. v1.3 completed that empirical closure: the full predeclared Phase 11 main artifact has 2160/2160 rows and generated status `FAILED`; strict Gate C is `INCONCLUSIVE`; Phase 12 package is `INCONCLUSIVE`; claim audit is `PASSED`. This is a negative/fail-closed empirical result for the predeclared closed-loop superiority route, not dominance evidence.
 
+v1.4 starts from the user's requirement that the eventual method must be stronger than max-pressure and related strong baselines. That requirement is scientifically usable only as a predeclared success criterion. The milestone therefore prioritizes method search, failure diagnosis, and protocol separation: exploratory workstreams may compare candidate fixes, but the final claim-ready evidence must come from a locked post-selection protocol that does not tune thresholds, metrics, scenarios, or evidence families after seeing the main result.
+
 Known scientific and process debt remains: Phase 3 imports Phase 2 recovery code directly rather than consuming generated recovery artifacts; `local_pilight` and `full_dual_symbolic` are honestly marked not feasible in the current SUMO runner; and some closed-loop horizons are short. Final manuscript writing and polished paper integration remain deferred until the finite-storage separation gates establish which claims survive.
 
 ## Constraints
@@ -79,6 +87,8 @@ Known scientific and process debt remains: Phase 3 imports Phase 2 recovery code
 - **Separation requirement**: v1.1 must show slack-regime max-pressure recovery and binding-regime action/objective separation before any strong performance claim is allowed.
 - **Empirical requirement**: Closed-loop SUMO multi-seed experiments against strong pressure-style baselines are mandatory and should remain first-class evidence.
 - **Claim discipline**: The allowed claim is bounded: tie when finite-storage and operational constraints are slack; improve only when those constraints bind and paired-seed evidence supports it.
+- **v1.4 strong-claim gate**: Baseline dominance is a hard target, not an assumption. If the new predeclared Gate C is not `PASSED`, closed-loop superiority remains disallowed.
+- **Exploration vs confirmation**: Workstream smoke/pilot results may select a candidate method but cannot be used as final claim evidence unless the protocol explicitly marks them as exploratory.
 - **Compute**: Experiments should remain CPU-oriented using SUMO/TraCI, SciPy/HiGHS, AMPL/HiGHS where useful, and sparse MIP recovery; no required GPU pipeline.
 - **Reproducibility**: Scripts must emit auditable JSON/CSV artifacts and tables/figures must trace back to raw experiment outputs.
 - **Baseline honesty**: Max-pressure/backpressure and capacity/spillback-aware variants are first-class baselines, not strawmen.
@@ -97,10 +107,18 @@ Known scientific and process debt remains: Phase 3 imports Phase 2 recovery code
 | Generate paper-facing tables and figure data from raw artifacts | Manual transcription would weaken reproducibility and auditability | ✓ Good |
 | Move strong-claim work into a new finite-storage separation milestone before manuscript claims | v1.0 evidence is pressure-equivalent; superiority requires new explicit binding constraints and evidence | ✓ Good |
 | Treat complete non-PASSED Gate C as a claim boundary, not a tuning invitation | v1.3 completed 2160/2160 rows and still generated `FAILED`/`INCONCLUSIVE` statuses | ✓ Good |
+| Start v1.4 as parallel method search with a hard Gate C target | The user requires a strong baseline-dominance claim, but v1.3 makes it unsafe to assume that result before evidence | — Pending |
 
-## Current Milestone
+## Current Milestone: v1.4 Strong Baseline-Dominance Method Search
 
-No active milestone. v1.3 is archived; next planning should decide whether to pivot to manuscript-with-negative-result framing, revisit method design in a new predeclared milestone, or defer empirical closed-loop superiority claims.
+**Goal:** Redesign and screen candidate methods so that one pre-registered route can attempt a new closed-loop Gate C whose hard success criterion is statistically and operationally stronger performance than max-pressure, capacity-aware pressure, finite-storage double-pressure, cycle pressure, and actuated/local pressure baselines in binding regimes.
+
+**Target features:**
+- Diagnose the completed v1.3 Gate C failure before changing the method.
+- Create parallel method-improvement workstreams for different mechanism families.
+- Use exploratory smoke/pilot gates only for candidate selection, not final superiority claims.
+- Pre-register the winning method and evidence protocol before the new main Gate C.
+- Keep closed-loop superiority `claim_allowed=false` unless the v1.4 Gate C artifact is `PASSED`.
 
 ## Evolution
 
@@ -120,4 +138,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-25 after completing v1.3 Gate C evidence closure milestone*
+*Last updated: 2026-05-26 after starting v1.4 Strong Baseline-Dominance Method Search*
