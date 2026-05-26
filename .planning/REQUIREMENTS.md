@@ -1,0 +1,101 @@
+# Requirements: PI-Light OR / Dual-Sensitivity Symbolic Traffic Control
+
+**Defined:** 2026-05-26
+**Milestone:** v1.4 Strong Baseline-Dominance Method Search
+**Core Value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
+
+## v1.4 Requirements
+
+Requirements for the baseline-dominance method-search milestone. Each maps to exactly one roadmap phase.
+
+### Failure Diagnosis
+
+- [ ] **DIAG-01**: Researcher can generate a v1.3 failure diagnostic artifact that summarizes Gate C bounded harm, inconclusive, non-worsening, and strict-positive-signal results by scenario, demand multiplier, comparator, and metric.
+- [ ] **DIAG-02**: Researcher can distinguish whether v1.3 failure is primarily driven by controller action weakness, objective/metric mismatch, insufficient binding activation, scenario design, or strong-baseline parity.
+- [ ] **DIAG-03**: Researcher can identify which v1.3 rows are claim-informative, which are only context, and which must remain non-evidence for v1.4 method selection.
+
+### Workstream Exploration
+
+- [ ] **WS-01**: Researcher can inspect the four v1.4 method workstreams and see their scope, artifact paths, candidate status, and claim-readiness boundary.
+- [ ] **WS-02**: Each exploratory workstream can produce pilot/smoke artifacts marked `claim_ready=false` with candidate ID, input spec, scenario/seed/demand provenance, and action-decomposition coverage.
+- [ ] **WS-03**: Each exploratory workstream can be rejected, archived, or promoted based on predeclared pilot criteria rather than post-hoc narrative preference.
+
+### Candidate Selection
+
+- [ ] **SELECT-01**: Researcher can compare workstream outputs in a convergence artifact that ranks candidates using pilot non-worsening, strict-positive-signal, binding-activation, and auditability criteria.
+- [ ] **SELECT-02**: At most one candidate method is promoted to confirmation, and all rejected routes record explicit rejection reasons.
+- [ ] **SELECT-03**: Selected candidate metadata includes controller ID, mechanism description, changed score/objective terms, action-decomposition schema, and reproducible implementation pointer.
+
+### Locked Gate C
+
+- [ ] **LOCK-01**: Researcher can generate a locked v1.4 Gate C protocol before the main run, including candidate controller, required comparators, scenarios, seeds, demand multipliers, metrics, thresholds, failure rules, and artifact paths.
+- [ ] **LOCK-02**: The locked v1.4 Gate C protocol preserves max-pressure, capacity-aware pressure, and finite-storage double-pressure as required strong comparators.
+- [ ] **LOCK-03**: Researcher can execute or resume the locked v1.4 main Gate C and inspect completed rows, missing rows, failed rows, duplicate conflicts, unpaired seeds, bad demand provenance, and schema failures.
+- [ ] **LOCK-04**: Strict v1.4 Gate C emits exactly `PASSED`, `FAILED`, or `INCONCLUSIVE` and fails closed on any non-PASSED source, missing primary metric, bounded harm, missing comparator, or missing action-decomposition evidence.
+
+### Claim Refresh
+
+- [ ] **CLAIM-01**: Researcher can regenerate Phase 12-style reproducibility, provenance, table input, claim input, claim audit, reproduction manifest, and summary artifacts from the locked v1.4 Gate C outputs.
+- [ ] **CLAIM-02**: Closed-loop superiority over max-pressure-style baselines becomes `claim_allowed=true` only if the locked v1.4 Gate C artifact is `PASSED`; otherwise it remains `claim_allowed=false`.
+- [ ] **CLAIM-03**: v1.4 planning, generated reports, and claim inputs preserve the distinction between exploratory pilot evidence, static theory evidence, and claim-ready locked Gate C evidence.
+
+## Future Requirements
+
+Deferred to future milestones after v1.4 determines whether the strong baseline-dominance route survives.
+
+### Manuscript and Presentation
+
+- **MS-01**: Draft the TR-B / Transportation Science manuscript using only claims allowed by the completed v1.4 Gate C and refreshed claim package.
+- **MS-02**: Convert surviving theory, diagnostics, workstream selection, and Gate C evidence into polished paper figures, tables, captions, and theorem statements.
+- **MS-03**: Run external review or kill-argument on the full manuscript before submission.
+
+### Benchmark Expansion
+
+- **BENCH-01**: Add RESCO, CityFlow, LibSignal, or larger real-world benchmarks only after the v1.4 method has passed the local locked Gate C or the claim is explicitly downgraded.
+- **BENCH-02**: Add neural or PI-Light-family baselines only as secondary evidence if they can be run honestly without shifting the paper into benchmark chasing.
+
+## Out of Scope
+
+Explicitly excluded. Documented to prevent scope creep.
+
+| Feature | Reason |
+|---------|--------|
+| Declaring baseline superiority before v1.4 Gate C passes | The strong claim is a hard evidence gate, not an assumption. |
+| Weakening or removing max-pressure-style required baselines | v1.4 exists to beat strong baselines, not to avoid them. |
+| Using workstream pilot rows as final claim evidence | Pilot rows are candidate-selection evidence only unless locked before generation. |
+| Post-hoc threshold, metric, scenario, seed, or evidence-family tuning after the main Gate C result | This would invalidate the confirmation claim and repeat the failure mode v1.3 avoided. |
+| Manuscript drafting or final paper integration | v1.4 must first determine whether a claim-ready strong result exists. |
+| Reinterpreting v1.3 `FAILED` / `INCONCLUSIVE` artifacts as positive evidence | v1.3 remains a negative/fail-closed boundary condition. |
+
+## Traceability
+
+Which phases cover which requirements. Updated during roadmap creation.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| DIAG-01 | Phase 14 | Pending |
+| DIAG-02 | Phase 14 | Pending |
+| DIAG-03 | Phase 14 | Pending |
+| WS-01 | Phase 14 | Pending |
+| WS-02 | Phase 15 | Pending |
+| WS-03 | Phase 15 | Pending |
+| SELECT-01 | Phase 16 | Pending |
+| SELECT-02 | Phase 16 | Pending |
+| SELECT-03 | Phase 16 | Pending |
+| LOCK-01 | Phase 16 | Pending |
+| LOCK-02 | Phase 17 | Pending |
+| LOCK-03 | Phase 17 | Pending |
+| LOCK-04 | Phase 17 | Pending |
+| CLAIM-01 | Phase 18 | Pending |
+| CLAIM-02 | Phase 18 | Pending |
+| CLAIM-03 | Phase 18 | Pending |
+
+**Coverage:**
+- v1.4 requirements: 16 total
+- Mapped to phases: 16
+- Unmapped: 0
+- Duplicate phase assignments: 0
+
+---
+*Requirements defined: 2026-05-26*
+*Last updated: 2026-05-26 after v1.4 requirements definition*
