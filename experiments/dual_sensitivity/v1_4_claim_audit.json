@@ -1,0 +1,19 @@
+{
+  "experiment": "v1_4_claim_audit",
+  "requirements_covered": [
+    "CLAIM-02",
+    "CLAIM-03"
+  ],
+  "status": "PASSED",
+  "strict_gate_c_status": "INCONCLUSIVE",
+  "hit_count": 0,
+  "hits": [],
+  "scanned_surfaces": [
+    "v1_4_claim_inputs.json",
+    "v1_4_provenance_manifest.json",
+    "v1_4_reproducibility_package.json",
+    "v1_4_reproduction_manifest.json",
+    "v1_4_summary.md",
+    "v1_4_table_inputs.csv"
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "experiment": "v1_4_candidate_convergence",
+  "generated_at": "2026-05-26T08:45:26.335936+00:00",
+  "status": "PASSED",
+  "requirements_covered": [
+    "SELECT-01",
+    "SELECT-02",
+    "SELECT-03",
+    "LOCK-01"
+  ],
+  "claim_ready": false,
+  "selection_rule": "Promote at most one candidate before Phase 17 confirmation; pilots remain exploratory.",
+  "rankings": [
+    {
+      "workstream_id": "v1-4-score-controller",
+      "candidate_id": "finite_storage_primal_dual_v1_4_score",
+      "candidate_controller_id": "finite_storage_primal_dual_v1_4_score",
+      "status": "candidate",
+      "score": 11,
+      "eligible_for_lock": true,
+      "criteria": {
+        "non_worsening_behavior": "pass",
+        "strict_positive_signal": "partial",
+        "binding_activation": "pass",
+        "auditability": "pass",
+        "implementation_reproducibility": "pass"
+      },
+      "reasons": [
+        "Targets the dominant bounded-harm and low-action-change failure modes directly.",
+        "Keeps action decomposition as the primary audit surface."
+      ],
+      "mechanism_description": "Change the live controller score decomposition while preserving auditable action components.",
+      "changed_score_or_objective_terms": [
+        "downstream_storage",
+        "spillback",
+        "switching",
+        "service"
+      ],
+      "action_decomposition_schema": "pressure_action, finite_storage_action, selected_action, component_totals, movement_decompositions",
+      "reproducible_implementation_pointer": "python scripts/run_v14_workstream_pilots.py --workstream v1-4-score-controller",
+      "artifact": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-score-controller-pilot.json"
+    },
+    {
+      "workstream_id": "v1-4-objective-weights",
+      "candidate_id": "finite_storage_primal_dual_v1_4_weighted",
+      "candidate_controller_id": "finite_storage_primal_dual_v1_4_weighted",
+      "status": "candidate",
+      "score": 9,
+      "eligible_for_lock": true,
+      "criteria": {
+        "non_worsening_behavior": "pass",
+        "strict_positive_signal": "partial",
+        "binding_activation": "partial",
+        "auditability": "pass",
+        "implementation_reproducibility": "pass"
+      },
+      "reasons": [
+        "Travel-time and delay bounded harm make objective tuning plausible.",
+        "Less direct than score-controller changes for action selection."
+      ],
+      "mechanism_description": "Retune objective component weights and penalties without changing the confirmation protocol after lock.",
+      "changed_score_or_objective_terms": [
+        "delay",
+        "unfinished_vehicle_penalty",
+        "spillback_blocking_time",
+        "switching_lost_time"
+      ],
+      "action_decomposition_schema": "pressure_action, finite_storage_action, selected_action, component_totals, movement_decompositions",
+      "reproducible_implementation_pointer": "python scripts/run_v14_workstream_pilots.py --workstream v1-4-objective-weights",
+      "artifact": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-objective-weights-pilot.json"
+    },
+    {
+      "workstream_id": "v1-4-scenario-diagnostics",
+      "candidate_id": "v1-4-scenario-diagnostics-diagnostic",
+      "candidate_controller_id": null,
+      "status": "archived",
+      "score": 7,
+      "eligible_for_lock": false,
+      "criteria": {
+        "non_worsening_behavior": "not_applicable",
+        "strict_positive_signal": "not_applicable",
+        "binding_activation": "pass",
+        "auditability": "pass",
+        "implementation_reproducibility": "pass"
+      },
+      "reasons": [
+        "This workstream explains scenario and binding behavior but is not a controller candidate.",
+        "Archived from candidate promotion while retained as diagnostic context."
+      ],
+      "mechanism_description": "Audit whether scenario design or binding activation explains the v1.3 failure.",
+      "changed_score_or_objective_terms": [],
+      "action_decomposition_schema": "pressure_action, finite_storage_action, selected_action, component_totals, movement_decompositions",
+      "reproducible_implementation_pointer": "python scripts/run_v14_workstream_pilots.py --workstream v1-4-scenario-diagnostics",
+      "artifact": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-scenario-diagnostics-pilot.json"
+    },
+    {
+      "workstream_id": "v1-4-symbolic-policy",
+      "candidate_id": "finite_storage_symbolic_v1_4",
+      "candidate_controller_id": "finite_storage_symbolic_v1_4",
+      "status": "rejected",
+      "score": 6,
+      "eligible_for_lock": false,
+      "criteria": {
+        "non_worsening_behavior": "partial",
+        "strict_positive_signal": "partial",
+        "binding_activation": "partial",
+        "auditability": "pass",
+        "implementation_reproducibility": "partial"
+      },
+      "reasons": [
+        "Compression is useful later, but it risks hiding whether the new method fixes the v1.3 failure.",
+        "Not the strongest immediate route to a locked Gate C candidate."
+      ],
+      "mechanism_description": "Test whether a compressed symbolic policy can keep auditability while improving action choices.",
+      "changed_score_or_objective_terms": [
+        "symbolic_rule_terms"
+      ],
+      "action_decomposition_schema": "pressure_action, finite_storage_action, selected_action, component_totals, movement_decompositions",
+      "reproducible_implementation_pointer": "python scripts/run_v14_workstream_pilots.py --workstream v1-4-symbolic-policy",
+      "artifact": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-symbolic-policy-pilot.json"
+    }
+  ],
+  "selected_candidate": {
+    "workstream_id": "v1-4-score-controller",
+    "candidate_id": "finite_storage_primal_dual_v1_4_score",
+    "candidate_controller_id": "finite_storage_primal_dual_v1_4_score",
+    "status": "candidate",
+    "score": 11,
+    "eligible_for_lock": true,
+    "criteria": {
+      "non_worsening_behavior": "pass",
+      "strict_positive_signal": "partial",
+      "binding_activation": "pass",
+      "auditability": "pass",
+      "implementation_reproducibility": "pass"
+    },
+    "reasons": [
+      "Targets the dominant bounded-harm and low-action-change failure modes directly.",
+      "Keeps action decomposition as the primary audit surface."
+    ],
+    "mechanism_description": "Change the live controller score decomposition while preserving auditable action components.",
+    "changed_score_or_objective_terms": [
+      "downstream_storage",
+      "spillback",
+      "switching",
+      "service"
+    ],
+    "action_decomposition_schema": "pressure_action, finite_storage_action, selected_action, component_totals, movement_decompositions",
+    "reproducible_implementation_pointer": "python scripts/run_v14_workstream_pilots.py --workstream v1-4-score-controller",
+    "artifact": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-score-controller-pilot.json"
+  },
+  "rejected_routes": [
+    {
+      "candidate_id": "finite_storage_primal_dual_v1_4_weighted",
+      "workstream_id": "v1-4-objective-weights",
+      "reason": "lower ranked than locked candidate",
+      "score": 9
+    },
+    {
+      "candidate_id": "v1-4-scenario-diagnostics-diagnostic",
+      "workstream_id": "v1-4-scenario-diagnostics",
+      "reason": "did not satisfy required lock criteria",
+      "score": 7
+    },
+    {
+      "candidate_id": "finite_storage_symbolic_v1_4",
+      "workstream_id": "v1-4-symbolic-policy",
+      "reason": "did not satisfy required lock criteria",
+      "score": 6
+    }
+  ],
+  "locked_protocol_path": "experiments/dual_sensitivity/v1_4_locked_gate_c_protocol.json",
+  "locked_protocol_fingerprint": "2c6460070f313f97e95032a3c8d666f6015f3a0e4cf612cb27960a03af1e3f5b",
+  "at_most_one_candidate_promoted": true
+}

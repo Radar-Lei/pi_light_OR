@@ -1,0 +1,68 @@
+{
+  "experiment": "v1_4_workstream_pilot",
+  "generated_at": "2026-05-26T08:45:21.579639+00:00",
+  "workstream_id": "v1-4-score-controller",
+  "candidate_id": "finite_storage_primal_dual_v1_4_score",
+  "candidate_controller_id": "finite_storage_primal_dual_v1_4_score",
+  "status": "candidate",
+  "claim_ready": false,
+  "evidence_role": "exploratory_pilot_only_not_gate_c_evidence",
+  "source_diagnostics": "experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+  "spec": {
+    "scope": "Change the live controller score decomposition while preserving auditable action components.",
+    "changed_score_or_objective_terms": [
+      "downstream_storage",
+      "spillback",
+      "switching",
+      "service"
+    ],
+    "required_comparators_preserved": [
+      "max_pressure",
+      "capacity_aware_pressure",
+      "finite_storage_double_pressure"
+    ],
+    "primary_metrics_preserved": [
+      "penalized_avg_travel_time",
+      "total_delay",
+      "spillback_count",
+      "blocking_count",
+      "unfinished_vehicle_count"
+    ]
+  },
+  "provenance": {
+    "command": "python scripts/run_v14_workstream_pilots.py --workstream v1-4-score-controller",
+    "input_artifact": "experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+    "output_artifact": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-score-controller-pilot.json"
+  },
+  "action_decomposition": {
+    "schema": "pressure_action, finite_storage_action, selected_action, component_totals, movement_decompositions",
+    "required_components": [
+      "pressure",
+      "downstream_storage",
+      "spillback",
+      "switching",
+      "service",
+      "incident",
+      "total"
+    ],
+    "pilot_requires_nonzero_binding_terms": true
+  },
+  "selection_criteria_results": {
+    "non_worsening_behavior": "pass",
+    "strict_positive_signal": "partial",
+    "binding_activation": "pass",
+    "auditability": "pass",
+    "implementation_reproducibility": "pass"
+  },
+  "pilot_metrics": {
+    "bounded_harm_reduction_target": 24,
+    "non_worsening_signal_target": 12,
+    "binding_activation_target_rate": 0.1,
+    "strict_positive_signal_observed": 4
+  },
+  "reasons": [
+    "Targets the dominant bounded-harm and low-action-change failure modes directly.",
+    "Keeps action decomposition as the primary audit surface."
+  ],
+  "final_gate_c_import_allowed": false
+}

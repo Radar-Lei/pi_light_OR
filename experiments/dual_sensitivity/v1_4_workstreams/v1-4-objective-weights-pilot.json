@@ -1,0 +1,68 @@
+{
+  "experiment": "v1_4_workstream_pilot",
+  "generated_at": "2026-05-26T08:45:21.579839+00:00",
+  "workstream_id": "v1-4-objective-weights",
+  "candidate_id": "finite_storage_primal_dual_v1_4_weighted",
+  "candidate_controller_id": "finite_storage_primal_dual_v1_4_weighted",
+  "status": "candidate",
+  "claim_ready": false,
+  "evidence_role": "exploratory_pilot_only_not_gate_c_evidence",
+  "source_diagnostics": "experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+  "spec": {
+    "scope": "Retune objective component weights and penalties without changing the confirmation protocol after lock.",
+    "changed_score_or_objective_terms": [
+      "delay",
+      "unfinished_vehicle_penalty",
+      "spillback_blocking_time",
+      "switching_lost_time"
+    ],
+    "required_comparators_preserved": [
+      "max_pressure",
+      "capacity_aware_pressure",
+      "finite_storage_double_pressure"
+    ],
+    "primary_metrics_preserved": [
+      "penalized_avg_travel_time",
+      "total_delay",
+      "spillback_count",
+      "blocking_count",
+      "unfinished_vehicle_count"
+    ]
+  },
+  "provenance": {
+    "command": "python scripts/run_v14_workstream_pilots.py --workstream v1-4-objective-weights",
+    "input_artifact": "experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+    "output_artifact": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-objective-weights-pilot.json"
+  },
+  "action_decomposition": {
+    "schema": "pressure_action, finite_storage_action, selected_action, component_totals, movement_decompositions",
+    "required_components": [
+      "pressure",
+      "downstream_storage",
+      "spillback",
+      "switching",
+      "service",
+      "incident",
+      "total"
+    ],
+    "pilot_requires_nonzero_binding_terms": true
+  },
+  "selection_criteria_results": {
+    "non_worsening_behavior": "pass",
+    "strict_positive_signal": "partial",
+    "binding_activation": "partial",
+    "auditability": "pass",
+    "implementation_reproducibility": "pass"
+  },
+  "pilot_metrics": {
+    "bounded_harm_reduction_target": 16,
+    "non_worsening_signal_target": 10,
+    "binding_activation_target_rate": 0.07,
+    "strict_positive_signal_observed": 4
+  },
+  "reasons": [
+    "Travel-time and delay bounded harm make objective tuning plausible.",
+    "Less direct than score-controller changes for action selection."
+  ],
+  "final_gate_c_import_allowed": false
+}

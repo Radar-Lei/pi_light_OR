@@ -1,0 +1,60 @@
+{
+  "experiment": "v1_4_reproduction_manifest",
+  "requirements_covered": [
+    "CLAIM-01",
+    "CLAIM-02",
+    "CLAIM-03"
+  ],
+  "commands": [
+    {
+      "name": "regenerate_locked_execution_fail_closed",
+      "command": "python scripts/run_v14_locked_gate_c.py",
+      "strict": false,
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/v1_4_locked_gate_c_execution.json"
+      ],
+      "claim_note": "Writes locked execution status without launching the opt-in main SUMO run."
+    },
+    {
+      "name": "strict_v1_4_gate_c",
+      "command": "python scripts/run_v14_gate_c_paired_evidence.py --strict",
+      "strict": true,
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/v1_4_gate_c_paired_evidence.json"
+      ],
+      "claim_note": "Exits nonzero while strict v1.4 Gate C is non-PASSED."
+    },
+    {
+      "name": "generate_v1_4_claim_refresh",
+      "command": "python scripts/run_v14_claim_refresh.py --out-dir /home/samuel/projects/pi_light_OR/experiments/dual_sensitivity",
+      "strict": false,
+      "expected_artifacts": [
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_reproducibility_package.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_provenance_manifest.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_table_inputs.csv",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_claim_inputs.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_claim_audit.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_reproduction_manifest.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_summary.md",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_milestone_audit.json",
+        "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_milestone_audit.md"
+      ],
+      "claim_note": "Writes claim refresh artifacts even when Gate C is inconclusive."
+    },
+    {
+      "name": "opt_in_locked_main_rows",
+      "command": "python scripts/run_v14_locked_gate_c.py --execution-row-limit 1440 --progress-out experiments/dual_sensitivity/v1_4_locked_gate_c_execution.progress.json --resume-progress experiments/dual_sensitivity/v1_4_locked_gate_c_execution.progress.json",
+      "strict": true,
+      "expected_artifacts": [
+        "experiments/dual_sensitivity/v1_4_locked_gate_c_execution.json",
+        "experiments/dual_sensitivity/v1_4_locked_gate_c_execution.progress.json"
+      ],
+      "claim_note": "Expensive SUMO confirmation run is explicit and resumable."
+    }
+  ],
+  "constraints": [
+    "CPU/SUMO-oriented",
+    "no GPU dependency",
+    "exploratory artifacts cannot satisfy final Gate C"
+  ]
+}

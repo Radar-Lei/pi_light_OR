@@ -1,0 +1,3507 @@
+{
+  "experiment": "v1_4_failure_diagnostics",
+  "generated_at": "2026-05-26T08:41:42.018705+00:00",
+  "status": "PASSED",
+  "requirements_covered": [
+    "DIAG-01",
+    "DIAG-02",
+    "DIAG-03",
+    "WS-01"
+  ],
+  "source_artifacts": {
+    "phase11_gate_c": "experiments/dual_sensitivity/phase11_gate_c_paired_evidence.json",
+    "phase11_long_horizon": "experiments/dual_sensitivity/phase11_long_horizon_paired_seed_evidence.json",
+    "gate_c_status": "INCONCLUSIVE",
+    "phase11_status": "FAILED"
+  },
+  "overall_classification_counts": {
+    "bounded_harm": 48,
+    "inconclusive": 221,
+    "non_worsening": 10
+  },
+  "strict_positive_signal_count": 4,
+  "required_binding_scenarios": [
+    "arterial_downstream_blockage",
+    "arterial_spillback_stress",
+    "arterial_incident_capacity_drop",
+    "arterial_oversaturation",
+    "arterial_turning_shock",
+    "arterial_switching_loss_sensitive"
+  ],
+  "required_comparators": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "finite_storage_double_pressure"
+  ],
+  "primary_metrics": [
+    "penalized_avg_travel_time",
+    "total_delay",
+    "spillback_count",
+    "blocking_count",
+    "unfinished_vehicle_count"
+  ],
+  "metric_bucket_summary": [
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.954369318181817,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -2613.55,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.954369318181817,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -2613.55,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.954369318181817,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -2613.55,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.7084818181818179,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -5324.6,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.7084818181818179,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -5324.6,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.9736181818181819,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -5546.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.1,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.1744318181818187,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -7495.9,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.75,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.1744318181818187,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -7495.9,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.75,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.809238636363638,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -10381.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -3.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.954369318181817,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -2613.55,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.954369318181817,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -2613.55,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.954369318181817,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -2613.55,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.7084818181818179,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -5324.6,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.7084818181818179,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -5324.6,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.9736181818181819,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -5546.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.1,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.1744318181818187,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -7495.9,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.75,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.1744318181818187,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -7495.9,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.75,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.809238636363638,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -10381.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_incident_capacity_drop",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -3.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.043858267716534984,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 36.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.043858267716534984,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 36.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.03723624887285979,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 1,
+      "mean_paired_difference_avg": 746.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.3,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.03723624887285979,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 1,
+      "mean_paired_difference_avg": 746.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.3,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.5193115124153479,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 582.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 2.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.5193115124153479,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 582.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 2.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_oversaturation",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.954369318181817,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -2613.55,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.954369318181817,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -2613.55,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.954369318181817,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -2613.55,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.7084818181818179,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -5324.6,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.7084818181818179,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -5324.6,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.9736181818181819,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -5546.85,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.1,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.1744318181818187,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -7495.9,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.75,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.1744318181818187,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -7495.9,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.75,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -1.809238636363638,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "bounded_harm": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -10381.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -3.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.1288636363636364,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "switching_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.05,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 25.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.45,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.1288636363636364,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "switching_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.05,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 25.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.45,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "switching_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.14139999999999803,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "switching_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.95,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -319.5,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.45,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.14139999999999803,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "switching_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.95,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -319.5,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.45,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "switching_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.9461401515151522,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "switching_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 1.5,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 2978.05,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 2.9,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.9461401515151522,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "switching_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 1.5,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 2978.05,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 2.9,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "switching_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_switching_loss_sensitive",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.043858267716534984,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 36.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.043858267716534984,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 36.15,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 0.8,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.03723624887285979,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 1,
+      "mean_paired_difference_avg": 746.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.3,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.03723624887285979,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "non_worsening": 1
+      },
+      "strict_positive_signal_count": 1,
+      "mean_paired_difference_avg": 746.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": -0.3,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.0,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.5193115124153479,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 582.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 2.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.5193115124153479,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 582.7,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 2.2,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "blocking_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "spillback_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "total_delay",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    },
+    {
+      "scenario_tag": "arterial_turning_shock",
+      "demand_multiplier": 1.2,
+      "comparator": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "classification_counts": {
+        "inconclusive": 1
+      },
+      "strict_positive_signal_count": 0,
+      "mean_paired_difference_avg": 0.0,
+      "evidence_role": "claim_informative_gate_c_metric"
+    }
+  ],
+  "action_activation_summary": {
+    "proposed_rows": 360,
+    "audited_tls_decisions": 1800,
+    "finite_storage_decision_changes": 177,
+    "finite_storage_change_rate": 0.09833333333333333,
+    "nonzero_component_counts": {
+      "pressure": 3338,
+      "switching": 745
+    }
+  },
+  "failure_driver_assessment": [
+    {
+      "driver": "controller_action_weakness",
+      "level": "high",
+      "evidence": "48 bounded-harm metric comparisons versus 10 non-worsening comparisons."
+    },
+    {
+      "driver": "objective_mismatch",
+      "level": "medium",
+      "evidence": "Bounded harm appears in travel-time/delay metrics, so objective tuning remains a plausible route."
+    },
+    {
+      "driver": "insufficient_binding_activation",
+      "level": "medium",
+      "evidence": "Finite-storage decisions differed from pressure in 9.833% of audited TLS decisions; nonzero components: {'pressure': 3338, 'switching': 745}."
+    },
+    {
+      "driver": "scenario_design",
+      "level": "medium",
+      "evidence": "221 metric comparisons were inconclusive, so scenario or metric sensitivity remains unresolved."
+    },
+    {
+      "driver": "baseline_parity",
+      "level": "medium",
+      "evidence": "Only 4 strict-positive signals were present against strong max-pressure-style comparators."
+    }
+  ],
+  "claim_boundary": {
+    "claim_ready": false,
+    "claim_informative_rows": 279,
+    "context_only_rows": 0,
+    "non_evidence_rows": 0,
+    "rule": "v1.3 failed Gate C; diagnostics and v1.4 pilots cannot be imported as final superiority evidence."
+  },
+  "workstreams": [
+    {
+      "workstream_id": "v1-4-score-controller",
+      "scope": "Change the live controller score decomposition while preserving auditable action components.",
+      "status": "ready_for_pilot",
+      "candidate_controller_id": "finite_storage_primal_dual_v1_4_score",
+      "artifact_path": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-score-controller-pilot.json",
+      "claim_ready": false,
+      "evidence_boundary": "exploratory_pilot_only_not_gate_c_evidence"
+    },
+    {
+      "workstream_id": "v1-4-objective-weights",
+      "scope": "Retune objective component weights and penalties without changing the confirmation protocol after lock.",
+      "status": "ready_for_pilot",
+      "candidate_controller_id": "finite_storage_primal_dual_v1_4_weighted",
+      "artifact_path": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-objective-weights-pilot.json",
+      "claim_ready": false,
+      "evidence_boundary": "exploratory_pilot_only_not_gate_c_evidence"
+    },
+    {
+      "workstream_id": "v1-4-scenario-diagnostics",
+      "scope": "Audit whether scenario design or binding activation explains the v1.3 failure.",
+      "status": "ready_for_pilot",
+      "candidate_controller_id": null,
+      "artifact_path": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-scenario-diagnostics-pilot.json",
+      "claim_ready": false,
+      "evidence_boundary": "exploratory_pilot_only_not_gate_c_evidence"
+    },
+    {
+      "workstream_id": "v1-4-symbolic-policy",
+      "scope": "Test whether a compressed symbolic policy can keep auditability while improving action choices.",
+      "status": "ready_for_pilot",
+      "candidate_controller_id": "finite_storage_symbolic_v1_4",
+      "artifact_path": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-symbolic-policy-pilot.json",
+      "claim_ready": false,
+      "evidence_boundary": "exploratory_pilot_only_not_gate_c_evidence"
+    }
+  ],
+  "selection_criteria": [
+    {
+      "id": "non_worsening_behavior",
+      "description": "Pilot must reduce bounded-harm counts or show no new bounded harm against strong baselines.",
+      "required_for_promotion": true
+    },
+    {
+      "id": "strict_positive_signal",
+      "description": "Strict-positive signals are useful only when paired with non-worsening primary metrics.",
+      "required_for_promotion": false
+    },
+    {
+      "id": "binding_activation",
+      "description": "Action decomposition must show finite-storage/spillback/switching terms changing decisions.",
+      "required_for_promotion": true
+    },
+    {
+      "id": "auditability",
+      "description": "Pilot artifacts must expose score/objective terms and action decomposition.",
+      "required_for_promotion": true
+    },
+    {
+      "id": "implementation_reproducibility",
+      "description": "Candidate must have deterministic command, inputs, and artifact paths.",
+      "required_for_promotion": true
+    }
+  ],
+  "validation_commands": [
+    "python scripts/run_v14_failure_diagnostics.py",
+    "python scripts/run_v14_workstream_pilots.py --workstream all",
+    "python scripts/run_v14_candidate_convergence.py"
+  ]
+}

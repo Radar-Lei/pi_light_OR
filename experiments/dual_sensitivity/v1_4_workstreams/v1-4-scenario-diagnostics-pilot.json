@@ -1,0 +1,63 @@
+{
+  "experiment": "v1_4_workstream_pilot",
+  "generated_at": "2026-05-26T08:45:21.579913+00:00",
+  "workstream_id": "v1-4-scenario-diagnostics",
+  "candidate_id": "v1-4-scenario-diagnostics-diagnostic",
+  "candidate_controller_id": null,
+  "status": "archived",
+  "claim_ready": false,
+  "evidence_role": "exploratory_pilot_only_not_gate_c_evidence",
+  "source_diagnostics": "experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+  "spec": {
+    "scope": "Audit whether scenario design or binding activation explains the v1.3 failure.",
+    "changed_score_or_objective_terms": [],
+    "required_comparators_preserved": [
+      "max_pressure",
+      "capacity_aware_pressure",
+      "finite_storage_double_pressure"
+    ],
+    "primary_metrics_preserved": [
+      "penalized_avg_travel_time",
+      "total_delay",
+      "spillback_count",
+      "blocking_count",
+      "unfinished_vehicle_count"
+    ]
+  },
+  "provenance": {
+    "command": "python scripts/run_v14_workstream_pilots.py --workstream v1-4-scenario-diagnostics",
+    "input_artifact": "experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+    "output_artifact": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-scenario-diagnostics-pilot.json"
+  },
+  "action_decomposition": {
+    "schema": "pressure_action, finite_storage_action, selected_action, component_totals, movement_decompositions",
+    "required_components": [
+      "pressure",
+      "downstream_storage",
+      "spillback",
+      "switching",
+      "service",
+      "incident",
+      "total"
+    ],
+    "pilot_requires_nonzero_binding_terms": false
+  },
+  "selection_criteria_results": {
+    "non_worsening_behavior": "not_applicable",
+    "strict_positive_signal": "not_applicable",
+    "binding_activation": "pass",
+    "auditability": "pass",
+    "implementation_reproducibility": "pass"
+  },
+  "pilot_metrics": {
+    "bounded_harm_reduction_target": 0,
+    "non_worsening_signal_target": 0,
+    "binding_activation_target_rate": 0.09833333333333333,
+    "strict_positive_signal_observed": 4
+  },
+  "reasons": [
+    "This workstream explains scenario and binding behavior but is not a controller candidate.",
+    "Archived from candidate promotion while retained as diagnostic context."
+  ],
+  "final_gate_c_import_allowed": false
+}

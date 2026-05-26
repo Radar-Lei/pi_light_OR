@@ -1,0 +1,69 @@
+{
+  "experiment": "v1_4_provenance_manifest",
+  "requirements_covered": [
+    "CLAIM-01",
+    "CLAIM-02",
+    "CLAIM-03"
+  ],
+  "sources": [
+    {
+      "source_key": "v1_4_failure_diagnostics",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "failure_diagnostic_explanatory",
+      "rerun_command": "python scripts/run_v14_failure_diagnostics.py"
+    },
+    {
+      "source_key": "v1_4_workstream_pilot_index",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_workstreams/index.json",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "exploratory_pilot_index_not_claim_evidence",
+      "rerun_command": "python scripts/run_v14_workstream_pilots.py"
+    },
+    {
+      "source_key": "v1_4_candidate_convergence",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_candidate_convergence.json",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "candidate_selection_not_final_evidence",
+      "rerun_command": "python scripts/run_v14_candidate_convergence.py"
+    },
+    {
+      "source_key": "v1_4_locked_gate_c_protocol",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_locked_gate_c_protocol.json",
+      "source_status": "LOCKED",
+      "parse_status": "PASSED",
+      "evidence_role": "pre_confirmation_protocol_lock",
+      "rerun_command": "python scripts/run_v14_candidate_convergence.py"
+    },
+    {
+      "source_key": "v1_4_locked_gate_c_execution",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_locked_gate_c_execution.json",
+      "source_status": "INCONCLUSIVE",
+      "parse_status": "PASSED",
+      "evidence_role": "locked_confirmation_execution_source",
+      "rerun_command": "python scripts/run_v14_locked_gate_c.py"
+    },
+    {
+      "source_key": "v1_4_gate_c_paired_evidence",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_gate_c_paired_evidence.json",
+      "source_status": "INCONCLUSIVE",
+      "parse_status": "PASSED",
+      "evidence_role": "strict_locked_gate_c_status",
+      "rerun_command": "python scripts/run_v14_gate_c_paired_evidence.py --strict"
+    }
+  ],
+  "derived_artifacts": [
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_reproducibility_package.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_provenance_manifest.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_table_inputs.csv",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_claim_inputs.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_claim_audit.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_reproduction_manifest.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_summary.md",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_milestone_audit.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_milestone_audit.md"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "experiment": "v1_4_claim_inputs",
+  "requirements_covered": [
+    "CLAIM-01",
+    "CLAIM-02",
+    "CLAIM-03"
+  ],
+  "strict_gate_c_status": "INCONCLUSIVE",
+  "closed_loop_superiority_claim_allowed": false,
+  "records": [
+    {
+      "source_key": "v1_4_failure_diagnostics",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "failure_diagnostic_explanatory",
+      "claim_category": "diagnostic_context",
+      "claim_allowed": false,
+      "gate_status": "INCONCLUSIVE",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+      "caveat": "No caveat"
+    },
+    {
+      "source_key": "v1_4_workstream_pilot_index",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "exploratory_pilot_index_not_claim_evidence",
+      "claim_category": "exploratory_method_search",
+      "claim_allowed": false,
+      "gate_status": "INCONCLUSIVE",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_workstreams/index.json",
+      "caveat": "No caveat"
+    },
+    {
+      "source_key": "v1_4_candidate_convergence",
+      "source_status": "PASSED",
+      "parse_status": "PASSED",
+      "evidence_role": "candidate_selection_not_final_evidence",
+      "claim_category": "candidate_selection",
+      "claim_allowed": false,
+      "gate_status": "INCONCLUSIVE",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_candidate_convergence.json",
+      "caveat": "No caveat"
+    },
+    {
+      "source_key": "v1_4_locked_gate_c_protocol",
+      "source_status": "LOCKED",
+      "parse_status": "PASSED",
+      "evidence_role": "pre_confirmation_protocol_lock",
+      "claim_category": "locked_protocol",
+      "claim_allowed": false,
+      "gate_status": "INCONCLUSIVE",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_locked_gate_c_protocol.json",
+      "caveat": "No caveat"
+    },
+    {
+      "source_key": "v1_4_locked_gate_c_execution",
+      "source_status": "INCONCLUSIVE",
+      "parse_status": "PASSED",
+      "evidence_role": "locked_confirmation_execution_source",
+      "claim_category": "locked_gate_c_execution",
+      "claim_allowed": false,
+      "gate_status": "INCONCLUSIVE",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_locked_gate_c_execution.json",
+      "caveat": "Pilot or spec-only artifacts validate plumbing only and are not Gate C dominance evidence.; A main artifact with missing executions is fail-closed as INCONCLUSIVE or FAILED, not a dominance claim.; Phase 12 must regenerate final manuscript inputs and claim templates from raw Phase 11 artifacts.; Phase 10 smoke rows are capability context only and are not imported as paired-seed dominance evidence."
+    },
+    {
+      "source_key": "v1_4_gate_c_paired_evidence",
+      "source_status": "INCONCLUSIVE",
+      "parse_status": "PASSED",
+      "evidence_role": "strict_locked_gate_c_status",
+      "claim_category": "closed_loop_gate_c_status",
+      "claim_allowed": false,
+      "gate_status": "INCONCLUSIVE",
+      "source_path": "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_gate_c_paired_evidence.json",
+      "caveat": "v1.4 Gate C is limited to the locked Phase 16 protocol.; Closed-loop superiority remains disallowed unless this artifact is PASSED.; Exploratory workstream pilot rows are not final Gate C evidence."
+    }
+  ],
+  "claim_boundary": "Exploratory pilots and selection artifacts are not final closed-loop superiority evidence."
+}

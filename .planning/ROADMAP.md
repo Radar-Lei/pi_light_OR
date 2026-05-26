@@ -36,7 +36,7 @@ The milestone deliberately separates exploration from confirmation:
 - [x] **Phase 15: Parallel Exploratory Method Workstreams** - Execute candidate pilots in the four v1.4 workstreams and mark all pilot evidence as exploratory. (completed 2026-05-26)
 - [x] **Phase 16: Candidate Convergence and Protocol Lock** - Select at most one candidate and freeze the v1.4 Gate C protocol before confirmation. (completed 2026-05-26)
 - [x] **Phase 17: Locked v1.4 Gate C Execution** - Execute or resume the locked main Gate C against required strong baselines. (completed 2026-05-26)
-- [ ] **Phase 18: v1.4 Claim Refresh and Milestone Audit** - Regenerate claim/reproducibility surfaces and preserve or allow the strong claim strictly from Gate C status.
+- [x] **Phase 18: v1.4 Claim Refresh and Milestone Audit** - Regenerate claim/reproducibility surfaces and preserve or allow the strong claim strictly from Gate C status. (completed 2026-05-26)
 
 ## Phase Details
 
@@ -153,6 +153,8 @@ Plans:
 
 ### Phase 18: v1.4 Claim Refresh and Milestone Audit
 
+- [x] Phase 18: Complete (completed 2026-05-26)
+
 **Goal:** Researchers can regenerate claim/reproducibility surfaces and determine whether the strong closed-loop claim is allowed.
 **Depends on:** Phase 17
 **Requirements:** CLAIM-01, CLAIM-02, CLAIM-03
@@ -164,18 +166,18 @@ Plans:
 4. Generated reports distinguish exploratory pilot evidence, static theory evidence, and locked claim-ready evidence.
 5. Milestone audit verifies requirements coverage and flags any overclaim or protocol drift.
 
-**Plans:** 3 planned
+**Plans:** 3/3 plans complete
 
 Plans:
 
 **Wave 1**
 
-- [ ] 18-01-PLAN.md — Refresh v1.4 reproducibility and claim-status artifacts.
-- [ ] 18-02-PLAN.md — Run claim audit and update planning surfaces from generated statuses.
+- [x] 18-01-PLAN.md — Refresh v1.4 reproducibility and claim-status artifacts.
+- [x] 18-02-PLAN.md — Run claim audit and update planning surfaces from generated statuses.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 18-03-PLAN.md — Complete v1.4 milestone audit and next-route recommendation.
+- [x] 18-03-PLAN.md — Complete v1.4 milestone audit and next-route recommendation.
 
 ## Progress
 
@@ -190,7 +192,7 @@ Plans:
 | 15. Parallel Exploratory Method Workstreams | v1.4 | 4/4 | Complete    | 2026-05-26 |
 | 16. Candidate Convergence and Protocol Lock | v1.4 | 3/3 | Complete    | 2026-05-26 |
 | 17. Locked v1.4 Gate C Execution | v1.4 | 4/4 | Complete    | 2026-05-26 |
-| 18. v1.4 Claim Refresh and Milestone Audit | v1.4 | 0/3 | Planned | — |
+| 18. v1.4 Claim Refresh and Milestone Audit | v1.4 | 3/3 | Complete    | 2026-05-26 |
 
 ## Coverage
 

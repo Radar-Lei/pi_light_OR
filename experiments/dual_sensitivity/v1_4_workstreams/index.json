@@ -1,0 +1,33 @@
+{
+  "experiment": "v1_4_workstream_pilot_index",
+  "generated_at": "2026-05-26T08:45:21.580019+00:00",
+  "status": "PASSED",
+  "claim_ready": false,
+  "source_diagnostics": "experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+  "artifacts": [
+    {
+      "workstream_id": "v1-4-score-controller",
+      "path": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-score-controller-pilot.json",
+      "status": "candidate",
+      "claim_ready": false
+    },
+    {
+      "workstream_id": "v1-4-objective-weights",
+      "path": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-objective-weights-pilot.json",
+      "status": "candidate",
+      "claim_ready": false
+    },
+    {
+      "workstream_id": "v1-4-scenario-diagnostics",
+      "path": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-scenario-diagnostics-pilot.json",
+      "status": "archived",
+      "claim_ready": false
+    },
+    {
+      "workstream_id": "v1-4-symbolic-policy",
+      "path": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-symbolic-policy-pilot.json",
+      "status": "rejected",
+      "claim_ready": false
+    }
+  ]
+}

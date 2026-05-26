@@ -1,0 +1,65 @@
+{
+  "experiment": "v1_4_workstream_pilot",
+  "generated_at": "2026-05-26T08:45:21.579970+00:00",
+  "workstream_id": "v1-4-symbolic-policy",
+  "candidate_id": "finite_storage_symbolic_v1_4",
+  "candidate_controller_id": "finite_storage_symbolic_v1_4",
+  "status": "rejected",
+  "claim_ready": false,
+  "evidence_role": "exploratory_pilot_only_not_gate_c_evidence",
+  "source_diagnostics": "experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+  "spec": {
+    "scope": "Test whether a compressed symbolic policy can keep auditability while improving action choices.",
+    "changed_score_or_objective_terms": [
+      "symbolic_rule_terms"
+    ],
+    "required_comparators_preserved": [
+      "max_pressure",
+      "capacity_aware_pressure",
+      "finite_storage_double_pressure"
+    ],
+    "primary_metrics_preserved": [
+      "penalized_avg_travel_time",
+      "total_delay",
+      "spillback_count",
+      "blocking_count",
+      "unfinished_vehicle_count"
+    ]
+  },
+  "provenance": {
+    "command": "python scripts/run_v14_workstream_pilots.py --workstream v1-4-symbolic-policy",
+    "input_artifact": "experiments/dual_sensitivity/v1_4_failure_diagnostics.json",
+    "output_artifact": "experiments/dual_sensitivity/v1_4_workstreams/v1-4-symbolic-policy-pilot.json"
+  },
+  "action_decomposition": {
+    "schema": "pressure_action, finite_storage_action, selected_action, component_totals, movement_decompositions",
+    "required_components": [
+      "pressure",
+      "downstream_storage",
+      "spillback",
+      "switching",
+      "service",
+      "incident",
+      "total"
+    ],
+    "pilot_requires_nonzero_binding_terms": true
+  },
+  "selection_criteria_results": {
+    "non_worsening_behavior": "partial",
+    "strict_positive_signal": "partial",
+    "binding_activation": "partial",
+    "auditability": "pass",
+    "implementation_reproducibility": "partial"
+  },
+  "pilot_metrics": {
+    "bounded_harm_reduction_target": 9,
+    "non_worsening_signal_target": 10,
+    "binding_activation_target_rate": 0.05,
+    "strict_positive_signal_observed": 4
+  },
+  "reasons": [
+    "Compression is useful later, but it risks hiding whether the new method fixes the v1.3 failure.",
+    "Not the strongest immediate route to a locked Gate C candidate."
+  ],
+  "final_gate_c_import_allowed": false
+}

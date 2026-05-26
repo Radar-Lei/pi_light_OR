@@ -1,0 +1,37 @@
+{
+  "experiment": "v1_4_reproducibility_package",
+  "status": "INCONCLUSIVE",
+  "requirements_covered": [
+    "CLAIM-01",
+    "CLAIM-02",
+    "CLAIM-03"
+  ],
+  "generated_by": "scripts/run_v14_claim_refresh.py",
+  "generated_at": "2026-05-26T09:04:01.196719+00:00",
+  "source_status_summary": {
+    "v1_4_failure_diagnostics": "PASSED",
+    "v1_4_workstream_pilot_index": "PASSED",
+    "v1_4_candidate_convergence": "PASSED",
+    "v1_4_locked_gate_c_protocol": "LOCKED",
+    "v1_4_locked_gate_c_execution": "INCONCLUSIVE",
+    "v1_4_gate_c_paired_evidence": "INCONCLUSIVE"
+  },
+  "strict_gate_c_status": "INCONCLUSIVE",
+  "closed_loop_superiority_claim_allowed": false,
+  "derived_outputs": [
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_reproducibility_package.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_provenance_manifest.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_table_inputs.csv",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_claim_inputs.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_claim_audit.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_reproduction_manifest.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_summary.md",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_milestone_audit.json",
+    "/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_4_milestone_audit.md"
+  ],
+  "claim_audit_status": "PASSED",
+  "milestone_audit_status": "PASSED",
+  "strict_mode_reasons": [
+    "strict v1.4 Gate C status is INCONCLUSIVE, expected PASSED"
+  ]
+}

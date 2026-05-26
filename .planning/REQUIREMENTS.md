@@ -35,9 +35,9 @@ Requirements for the baseline-dominance method-search milestone. Each maps to ex
 
 ### Claim Refresh
 
-- [ ] **CLAIM-01**: Researcher can regenerate Phase 12-style reproducibility, provenance, table input, claim input, claim audit, reproduction manifest, and summary artifacts from the locked v1.4 Gate C outputs.
-- [ ] **CLAIM-02**: Closed-loop superiority over max-pressure-style baselines becomes `claim_allowed=true` only if the locked v1.4 Gate C artifact is `PASSED`; otherwise it remains `claim_allowed=false`.
-- [ ] **CLAIM-03**: v1.4 planning, generated reports, and claim inputs preserve the distinction between exploratory pilot evidence, static theory evidence, and claim-ready locked Gate C evidence.
+- [x] **CLAIM-01**: Researcher can regenerate Phase 12-style reproducibility, provenance, table input, claim input, claim audit, reproduction manifest, and summary artifacts from the locked v1.4 Gate C outputs.
+- [x] **CLAIM-02**: Closed-loop superiority over max-pressure-style baselines becomes `claim_allowed=true` only if the locked v1.4 Gate C artifact is `PASSED`; otherwise it remains `claim_allowed=false`.
+- [x] **CLAIM-03**: v1.4 planning, generated reports, and claim inputs preserve the distinction between exploratory pilot evidence, static theory evidence, and claim-ready locked Gate C evidence.
 
 ## Future Requirements
 
@@ -86,9 +86,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LOCK-02 | Phase 17 | Complete |
 | LOCK-03 | Phase 17 | Complete |
 | LOCK-04 | Phase 17 | Complete |
-| CLAIM-01 | Phase 18 | Pending |
-| CLAIM-02 | Phase 18 | Pending |
-| CLAIM-03 | Phase 18 | Pending |
+| CLAIM-01 | Phase 18 | Complete |
+| CLAIM-02 | Phase 18 | Complete |
+| CLAIM-03 | Phase 18 | Complete |
 
 **Coverage:**
 - v1.4 requirements: 16 total

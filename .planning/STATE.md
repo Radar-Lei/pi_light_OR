@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.4
 milestone_name: Strong Baseline-Dominance Method Search
-status: ready_to_plan
-last_updated: 2026-05-26T09:20:00.000Z
+status: milestone_ready_for_lifecycle
+last_updated: 2026-05-26T09:35:00.000Z
 last_activity: 2026-05-26
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 17
-  completed_plans: 14
-  percent: 82
-stopped_at: Phase 17 complete (4/4) — ready to discuss Phase 18
+  completed_plans: 17
+  percent: 100
+stopped_at: Phase 18 complete (3/3) — ready for milestone lifecycle
 ---
 
 # Project State
@@ -21,13 +21,13 @@ stopped_at: Phase 17 complete (4/4) — ready to discuss Phase 18
 See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-26)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** Phase 18 — v1.4 claim refresh and milestone audit
+**Current focus:** v1.4 milestone lifecycle — audit, complete, cleanup
 
 ## Current Position
 
-Phase: 18
-Plan: Not started
-Status: Ready to plan
+Phase: Complete
+Plan: —
+Status: Ready for milestone lifecycle
 Last activity: 2026-05-26
 
 ## Performance Metrics
@@ -60,7 +60,7 @@ Last activity: 2026-05-26
 | 15. Parallel Exploratory Method Workstreams | 4/4 | Complete |
 | 16. Candidate Convergence and Protocol Lock | 3/3 | Complete |
 | 17. Locked v1.4 Gate C Execution | 4/4 | Complete |
-| 18. v1.4 Claim Refresh and Milestone Audit | 0/3 | Planned |
+| 18. v1.4 Claim Refresh and Milestone Audit | 3/3 | Complete |
 | Phase 06 P01 | 9min 11s | 3 tasks | 5 files |
 | Phase 06 P02 | 14min 31s | 3 tasks | 6 files |
 | Phase 06 P03 | 10min 37s | 3 tasks | 10 files |
@@ -119,6 +119,7 @@ Last activity: 2026-05-26
 - [Phase 15]: All v1.4 workstream pilot artifacts are exploratory with `claim_ready=false` and `final_gate_c_import_allowed=false`.
 - [Phase 16]: `finite_storage_primal_dual_v1_4_score` is the single locked candidate route for Phase 17; strong baselines remain required comparators.
 - [Phase 17]: v1.4 locked execution and strict Gate C both fail closed as `INCONCLUSIVE` until the 1440 locked SUMO rows are executed/resumed.
+- [Phase 18]: v1.4 claim refresh preserves `closed_loop_superiority_claim_allowed=false`; milestone audit found no overclaim or protocol drift.
 
 ### Pending Todos
 
