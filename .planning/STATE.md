@@ -74,6 +74,12 @@ Last activity: 2026-05-26 — Milestone 1.4 completed and archived
 | Phase 12.1 P04 | completed | 2 tasks | 5 files |
 | Phase 12.1 P05 | completed | 3 tasks | 3 files |
 
+## Quick Tasks Completed
+
+| Date | Quick Task | Status | Summary |
+|------|------------|--------|---------|
+| 2026-05-26 | `260526-olz` — Tighten `gpt_pro_suggestion_round1.md` baseline-superiority claims | Complete | Rewrote current/future claim boundaries and verified with `scripts/audit_claim_discipline.py` |
+
 ## Accumulated Context
 
 ### Roadmap Evolution
