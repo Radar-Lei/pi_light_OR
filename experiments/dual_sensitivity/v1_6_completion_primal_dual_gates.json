@@ -1,0 +1,2008 @@
+{
+  "experiment": "v1_6_completion_primal_dual_gates",
+  "status": "PASSED",
+  "generated_by": "scripts/check_v16_completion_primal_dual_gates.py",
+  "generated_at": "2026-05-28T04:53:39.076224+00:00",
+  "scope": "deterministic_one_step_v16_completion_primal_dual_gates_no_closed_loop_claims",
+  "requirements_covered": [
+    "V16-STATE-01",
+    "V16-CTRL-01",
+    "V16-GATE-01",
+    "V16-GATE-02",
+    "V16-GATE-03",
+    "V16-GATE-04",
+    "V16-GATE-05",
+    "V16-CLAIM-01"
+  ],
+  "schema_version": "phase6_explicit_state_v1",
+  "controller_id": "finite_storage_completion_safe_primal_dual_v1_6",
+  "criteria": {
+    "pressure_recovery": true,
+    "storage_separation": true,
+    "cascade_separation": true,
+    "release_value": true,
+    "terminal_completion": true
+  },
+  "claim_scope": {
+    "allowed": "deterministic v1.6 method-gate evidence for pressure recovery, storage separation, cascade separation, release value, and terminal completion safety mechanisms",
+    "not_claimed": [
+      "closed_loop_superiority",
+      "deployment_readiness",
+      "universal_cross_regime_advantage",
+      "locked_holdout_performance"
+    ]
+  },
+  "cases": [
+    {
+      "name": "pressure_recovery",
+      "criteria": {
+        "v16_matches_pressure": true,
+        "dual_prices_zero": true
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 40.0,
+          "down_a": 40.0,
+          "up_b": 40.0,
+          "down_b": 40.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 32.0,
+          "down_a": 35.0,
+          "up_b": 33.0,
+          "down_b": 36.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.2
+          },
+          "down_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.125
+          },
+          "up_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.175
+          },
+          "down_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.1
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.5,
+          "down_a": 0.125,
+          "up_b": 0.35,
+          "down_b": 0.1
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "dual_state": {
+        "down_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "down_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        }
+      },
+      "audit": {
+        "tls_id": "J0",
+        "controller": "finite_storage_completion_safe_primal_dual_v1_6",
+        "pressure_action": 0,
+        "finite_storage_action": 0,
+        "capacity_aware_action": 0,
+        "finite_storage_double_action": 0,
+        "selected_action": 0,
+        "pressure_phase_scores": {
+          "0": 15.0,
+          "1": 10.0
+        },
+        "capacity_aware_phase_scores": {
+          "0": 14.25,
+          "1": 10.4
+        },
+        "finite_storage_double_phase_scores": {
+          "0": 14.25,
+          "1": 10.4
+        },
+        "completion_service_phase_scores": {
+          "0": 20.0,
+          "1": 14.0
+        },
+        "route_completion_prediction_phase_scores": {
+          "0": 17.5,
+          "1": 12.6
+        },
+        "route_horizon_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "route_horizon_completion_phase_details": {
+          "0": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_a->down_a",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.875,
+                "effective_residual_ratio": 0.875,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 15.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          },
+          "1": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_b->down_b",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.9,
+                "effective_residual_ratio": 0.9,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 10.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          }
+        },
+        "route_horizon_blended_phase_details": {},
+        "route_horizon_capped_phases": [],
+        "route_demand_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "phase_scores": {
+          "0": {
+            "phase_index": 0,
+            "score": 15.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "completion_price": 0.0,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": 0.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 15.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 15.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_a",
+                  "down_a"
+                ],
+                "components": {
+                  "pressure": 15.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.0,
+                  "total": 15.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          },
+          "1": {
+            "phase_index": 1,
+            "score": 10.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "completion_price": 0.0,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": 0.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 10.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 10.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_b",
+                  "down_b"
+                ],
+                "components": {
+                  "pressure": 10.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.0,
+                  "total": 10.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          }
+        },
+        "selected_component_totals": {
+          "cascade_price": 0.0,
+          "completion_price": 0.0,
+          "double_pressure_scaffold": 0.0,
+          "downstream_storage": 0.0,
+          "guardrail": 0.0,
+          "incident": 0.0,
+          "pressure": 15.0,
+          "release": 0.0,
+          "service": 0.0,
+          "service_age": 0.0,
+          "spillback": 0.0,
+          "storage_price": 0.0,
+          "switching": 0.0,
+          "total": 15.0
+        },
+        "action_changed_relative_to_pressure": false,
+        "changing_terms": [],
+        "double_safety_fallback_used": false,
+        "terminal_completion_fallback_used": false,
+        "double_score_safety_filter_used": false,
+        "multi_baseline_safety_filter_used": false,
+        "hold_only_safety_filter_used": false,
+        "max_hold_safety_filter_used": false,
+        "completion_risk_filter_used": false,
+        "route_completion_prediction_filter_used": false,
+        "route_demand_completion_filter_used": false,
+        "route_demand_double_score_veto_used": false,
+        "route_horizon_completion_filter_used": false,
+        "route_horizon_dominance_filter_used": false,
+        "terminal_exit_protection_guard_used": false,
+        "route_horizon_max_pressure_envelope_used": false,
+        "route_horizon_core_baseline_envelope_used": false,
+        "route_horizon_double_pressure_envelope_used": false,
+        "route_horizon_core_minimax_guard_used": false,
+        "route_horizon_capacity_rescue_guard_used": false,
+        "route_horizon_capacity_score_envelope_used": false,
+        "route_horizon_native_capacity_score_rescue_guard_used": false,
+        "route_horizon_severe_double_guard_used": false,
+        "route_horizon_pressure_double_conflict_guard_used": false,
+        "route_horizon_completion_conflict_guard_used": false,
+        "route_horizon_capacity_completion_conflict_guard_used": false,
+        "route_horizon_early_capacity_completion_conflict_guard_used": false,
+        "route_horizon_negative_total_completion_conflict_guard_used": false,
+        "route_horizon_low_total_consensus_completion_guard_used": false,
+        "route_horizon_score_gap_consensus_guard_used": false,
+        "route_horizon_negative_total_raw_consensus_guard_used": false,
+        "route_horizon_core_consensus_guard_used": false,
+        "route_horizon_raw_consensus_guard_used": false,
+        "post_completion_veto_double_conflict_guard_used": false,
+        "route_horizon_pressure_safe_guard_used": false,
+        "route_horizon_tail_completion_rescue_used": false,
+        "completion_safety_veto_used": false,
+        "dynamic_dual_snapshot": {
+          "down_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "down_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          }
+        },
+        "dynamic_params": {
+          "alpha_release": 0.7,
+          "beta_storage": 1.2,
+          "completion_deficit_threshold": 0.6,
+          "completion_horizon_fraction": 0.7,
+          "completion_safe_margin": 0.1,
+          "delta_service": 0.35,
+          "dual_decay": 0.12,
+          "dual_step_size": 0.85,
+          "eta_completion": 0.5,
+          "gamma_cascade": 0.85,
+          "kappa_completion": 1.0,
+          "nu_decay": 0.15,
+          "nu_step_size": 0.8,
+          "release_step_size": 0.55,
+          "release_threshold": 0.7,
+          "storage_threshold": 0.72
+        }
+      }
+    },
+    {
+      "name": "storage_separation",
+      "occupancy_capacity_action": 1,
+      "criteria": {
+        "residual_receiving_zero_down_a": true,
+        "v16_changes_from_pressure": true,
+        "v16_matches_occupancy_ablation": true,
+        "storage_price_active": true
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 50.0,
+          "down_a": 10.0,
+          "up_b": 50.0,
+          "down_b": 10.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 47.0,
+          "down_a": 0.0,
+          "up_b": 48.0,
+          "down_b": 9.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.06
+          },
+          "down_a": {
+            "spillback": true,
+            "blocking": false,
+            "occupancy_ratio": 1.0
+          },
+          "up_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.04
+          },
+          "down_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.1
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.6,
+          "down_a": 0.0,
+          "up_b": 0.36,
+          "down_b": 0.0
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "dual_state": {
+        "down_a": {
+          "storage_price": 0.23800000000000002,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "down_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.1666,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        }
+      },
+      "audit": {
+        "tls_id": "J0",
+        "controller": "finite_storage_completion_safe_primal_dual_v1_6",
+        "pressure_action": 0,
+        "finite_storage_action": 1,
+        "capacity_aware_action": 0,
+        "finite_storage_double_action": 0,
+        "selected_action": 1,
+        "pressure_phase_scores": {
+          "0": 30.0,
+          "1": 18.0
+        },
+        "capacity_aware_phase_scores": {
+          "0": 30.5,
+          "1": 18.5
+        },
+        "finite_storage_double_phase_scores": {
+          "0": 10.5,
+          "1": 10.5
+        },
+        "completion_service_phase_scores": {
+          "0": 30.0,
+          "1": 18.0
+        },
+        "route_completion_prediction_phase_scores": {
+          "0": 0.0,
+          "1": 16.2
+        },
+        "route_horizon_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "route_horizon_completion_phase_details": {
+          "0": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_a->down_a",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.0,
+                "effective_residual_ratio": 0.0,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 30.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          },
+          "1": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_b->down_b",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.9,
+                "effective_residual_ratio": 0.9,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 18.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          }
+        },
+        "route_horizon_blended_phase_details": {},
+        "route_horizon_capped_phases": [],
+        "route_demand_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "phase_scores": {
+          "0": {
+            "phase_index": 0,
+            "score": 6.431999999999999,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "completion_price": 0.0,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": -10.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 30.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": -5.0,
+              "storage_price": -8.568000000000001,
+              "switching": 0.0,
+              "total": 6.431999999999999
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_a",
+                  "down_a"
+                ],
+                "components": {
+                  "pressure": 30.0,
+                  "downstream_storage": -10.0,
+                  "spillback": -5.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -8.568000000000001,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.0,
+                  "total": 6.431999999999999
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          },
+          "1": {
+            "phase_index": 1,
+            "score": 17.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "completion_price": 0.0,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": -1.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 18.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 17.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_b",
+                  "down_b"
+                ],
+                "components": {
+                  "pressure": 18.0,
+                  "downstream_storage": -1.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.0,
+                  "total": 17.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          }
+        },
+        "selected_component_totals": {
+          "cascade_price": 0.0,
+          "completion_price": 0.0,
+          "double_pressure_scaffold": 0.0,
+          "downstream_storage": -1.0,
+          "guardrail": 0.0,
+          "incident": 0.0,
+          "pressure": 18.0,
+          "release": 0.0,
+          "service": 0.0,
+          "service_age": 0.0,
+          "spillback": 0.0,
+          "storage_price": 0.0,
+          "switching": 0.0,
+          "total": 17.0
+        },
+        "action_changed_relative_to_pressure": true,
+        "changing_terms": [
+          "downstream_storage",
+          "spillback",
+          "storage_price"
+        ],
+        "double_safety_fallback_used": false,
+        "terminal_completion_fallback_used": false,
+        "double_score_safety_filter_used": false,
+        "multi_baseline_safety_filter_used": false,
+        "hold_only_safety_filter_used": false,
+        "max_hold_safety_filter_used": false,
+        "completion_risk_filter_used": false,
+        "route_completion_prediction_filter_used": false,
+        "route_demand_completion_filter_used": false,
+        "route_demand_double_score_veto_used": false,
+        "route_horizon_completion_filter_used": false,
+        "route_horizon_dominance_filter_used": false,
+        "terminal_exit_protection_guard_used": false,
+        "route_horizon_max_pressure_envelope_used": false,
+        "route_horizon_core_baseline_envelope_used": false,
+        "route_horizon_double_pressure_envelope_used": false,
+        "route_horizon_core_minimax_guard_used": false,
+        "route_horizon_capacity_rescue_guard_used": false,
+        "route_horizon_capacity_score_envelope_used": false,
+        "route_horizon_native_capacity_score_rescue_guard_used": false,
+        "route_horizon_severe_double_guard_used": false,
+        "route_horizon_pressure_double_conflict_guard_used": false,
+        "route_horizon_completion_conflict_guard_used": false,
+        "route_horizon_capacity_completion_conflict_guard_used": false,
+        "route_horizon_early_capacity_completion_conflict_guard_used": false,
+        "route_horizon_negative_total_completion_conflict_guard_used": false,
+        "route_horizon_low_total_consensus_completion_guard_used": false,
+        "route_horizon_score_gap_consensus_guard_used": false,
+        "route_horizon_negative_total_raw_consensus_guard_used": false,
+        "route_horizon_core_consensus_guard_used": false,
+        "route_horizon_raw_consensus_guard_used": false,
+        "post_completion_veto_double_conflict_guard_used": false,
+        "route_horizon_pressure_safe_guard_used": false,
+        "route_horizon_tail_completion_rescue_used": false,
+        "completion_safety_veto_used": false,
+        "dynamic_dual_snapshot": {
+          "down_a": {
+            "storage_price": 0.23800000000000002,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "down_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.1666,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          }
+        },
+        "dynamic_params": {
+          "alpha_release": 0.7,
+          "beta_storage": 1.2,
+          "completion_deficit_threshold": 0.6,
+          "completion_horizon_fraction": 0.7,
+          "completion_safe_margin": 0.1,
+          "delta_service": 0.35,
+          "dual_decay": 0.12,
+          "dual_step_size": 0.85,
+          "eta_completion": 0.5,
+          "gamma_cascade": 0.85,
+          "kappa_completion": 1.0,
+          "nu_decay": 0.15,
+          "nu_step_size": 0.8,
+          "release_step_size": 0.55,
+          "release_threshold": 0.7,
+          "storage_threshold": 0.72
+        }
+      }
+    },
+    {
+      "name": "cascade_separation",
+      "criteria": {
+        "descendant_storage_price_active": true,
+        "intermediate_cascade_price_active": true,
+        "v16_avoids_cascade_path": true
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 40.0,
+          "mid_a": 20.0,
+          "up_b": 40.0,
+          "mid_b": 20.0,
+          "down_full": 10.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 37.0,
+          "mid_a": 19.0,
+          "up_b": 37.0,
+          "mid_b": 19.0,
+          "down_full": 0.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.075
+          },
+          "mid_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.05
+          },
+          "up_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.075
+          },
+          "mid_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.05
+          },
+          "down_full": {
+            "spillback": true,
+            "blocking": false,
+            "occupancy_ratio": 1.0
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.5,
+          "mid_a": 0.0,
+          "up_b": 0.475,
+          "mid_b": 0.0,
+          "down_full": 0.0
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "dual_state": {
+        "down_full": {
+          "storage_price": 0.23800000000000002,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "mid_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.1666,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "mid_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0714,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        }
+      },
+      "audit": {
+        "tls_id": "J0",
+        "controller": "finite_storage_completion_safe_primal_dual_v1_6",
+        "pressure_action": 0,
+        "finite_storage_action": 1,
+        "capacity_aware_action": 0,
+        "finite_storage_double_action": 0,
+        "selected_action": 1,
+        "pressure_phase_scores": {
+          "0": 20.0,
+          "1": 19.0
+        },
+        "capacity_aware_phase_scores": {
+          "0": 21.0,
+          "1": 20.0
+        },
+        "finite_storage_double_phase_scores": {
+          "0": 21.0,
+          "1": 20.0
+        },
+        "completion_service_phase_scores": {
+          "0": 20.0,
+          "1": 19.0
+        },
+        "route_completion_prediction_phase_scores": {
+          "0": 19.0,
+          "1": 18.05
+        },
+        "route_horizon_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "route_horizon_completion_phase_details": {
+          "0": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_a->mid_a",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.95,
+                "effective_residual_ratio": 0.95,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 20.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          },
+          "1": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_b->mid_b",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.95,
+                "effective_residual_ratio": 0.95,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 19.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          }
+        },
+        "route_horizon_blended_phase_details": {},
+        "route_horizon_capped_phases": [],
+        "route_demand_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "phase_scores": {
+          "0": {
+            "phase_index": 0,
+            "score": 16.1678,
+            "component_totals": {
+              "cascade_price": -2.8322,
+              "completion_price": 0.0,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": -1.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 20.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 16.1678
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_a",
+                  "mid_a"
+                ],
+                "components": {
+                  "pressure": 20.0,
+                  "downstream_storage": -1.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -2.8322,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.0,
+                  "total": 16.1678
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          },
+          "1": {
+            "phase_index": 1,
+            "score": 19.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "completion_price": 0.0,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": 0.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 19.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 19.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_b",
+                  "mid_b"
+                ],
+                "components": {
+                  "pressure": 19.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.0,
+                  "total": 19.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          }
+        },
+        "selected_component_totals": {
+          "cascade_price": 0.0,
+          "completion_price": 0.0,
+          "double_pressure_scaffold": 0.0,
+          "downstream_storage": 0.0,
+          "guardrail": 0.0,
+          "incident": 0.0,
+          "pressure": 19.0,
+          "release": 0.0,
+          "service": 0.0,
+          "service_age": 0.0,
+          "spillback": 0.0,
+          "storage_price": 0.0,
+          "switching": 0.0,
+          "total": 19.0
+        },
+        "action_changed_relative_to_pressure": true,
+        "changing_terms": [
+          "cascade_price",
+          "downstream_storage"
+        ],
+        "double_safety_fallback_used": false,
+        "terminal_completion_fallback_used": false,
+        "double_score_safety_filter_used": false,
+        "multi_baseline_safety_filter_used": false,
+        "hold_only_safety_filter_used": false,
+        "max_hold_safety_filter_used": false,
+        "completion_risk_filter_used": false,
+        "route_completion_prediction_filter_used": false,
+        "route_demand_completion_filter_used": false,
+        "route_demand_double_score_veto_used": false,
+        "route_horizon_completion_filter_used": false,
+        "route_horizon_dominance_filter_used": false,
+        "terminal_exit_protection_guard_used": false,
+        "route_horizon_max_pressure_envelope_used": false,
+        "route_horizon_core_baseline_envelope_used": false,
+        "route_horizon_double_pressure_envelope_used": false,
+        "route_horizon_core_minimax_guard_used": false,
+        "route_horizon_capacity_rescue_guard_used": false,
+        "route_horizon_capacity_score_envelope_used": false,
+        "route_horizon_native_capacity_score_rescue_guard_used": false,
+        "route_horizon_severe_double_guard_used": false,
+        "route_horizon_pressure_double_conflict_guard_used": false,
+        "route_horizon_completion_conflict_guard_used": false,
+        "route_horizon_capacity_completion_conflict_guard_used": false,
+        "route_horizon_early_capacity_completion_conflict_guard_used": false,
+        "route_horizon_negative_total_completion_conflict_guard_used": false,
+        "route_horizon_low_total_consensus_completion_guard_used": false,
+        "route_horizon_score_gap_consensus_guard_used": false,
+        "route_horizon_negative_total_raw_consensus_guard_used": false,
+        "route_horizon_core_consensus_guard_used": false,
+        "route_horizon_raw_consensus_guard_used": false,
+        "post_completion_veto_double_conflict_guard_used": false,
+        "route_horizon_pressure_safe_guard_used": false,
+        "route_horizon_tail_completion_rescue_used": false,
+        "completion_safety_veto_used": false,
+        "dynamic_dual_snapshot": {
+          "down_full": {
+            "storage_price": 0.23800000000000002,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "mid_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.1666,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "mid_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0714,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          }
+        },
+        "dynamic_params": {
+          "alpha_release": 0.7,
+          "beta_storage": 1.2,
+          "completion_deficit_threshold": 0.6,
+          "completion_horizon_fraction": 0.7,
+          "completion_safe_margin": 0.1,
+          "delta_service": 0.35,
+          "dual_decay": 0.12,
+          "dual_step_size": 0.85,
+          "eta_completion": 0.5,
+          "gamma_cascade": 0.85,
+          "kappa_completion": 1.0,
+          "nu_decay": 0.15,
+          "nu_step_size": 0.8,
+          "release_step_size": 0.55,
+          "release_threshold": 0.7,
+          "storage_threshold": 0.72
+        }
+      }
+    },
+    {
+      "name": "release_value",
+      "criteria": {
+        "release_price_active": true,
+        "v16_serves_release_movement": true
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 20.0,
+          "down_a": 20.0,
+          "up_b": 20.0,
+          "down_b": 20.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 18.0,
+          "down_a": 19.0,
+          "up_b": 0.0,
+          "down_b": 19.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.1
+          },
+          "down_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.05
+          },
+          "up_b": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 1.0
+          },
+          "down_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.05
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.5,
+          "down_a": 0.0,
+          "up_b": 0.45,
+          "down_b": 0.0
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "dual_state": {
+        "down_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "down_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_b": {
+          "storage_price": 0.23800000000000002,
+          "release_price": 0.16500000000000004,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        }
+      },
+      "audit": {
+        "tls_id": "J0",
+        "controller": "finite_storage_completion_safe_primal_dual_v1_6",
+        "pressure_action": 0,
+        "finite_storage_action": 1,
+        "capacity_aware_action": 0,
+        "finite_storage_double_action": 0,
+        "selected_action": 1,
+        "pressure_phase_scores": {
+          "0": 10.0,
+          "1": 9.0
+        },
+        "capacity_aware_phase_scores": {
+          "0": 11.0,
+          "1": 10.0
+        },
+        "finite_storage_double_phase_scores": {
+          "0": 11.0,
+          "1": 10.0
+        },
+        "completion_service_phase_scores": {
+          "0": 10.0,
+          "1": 9.0
+        },
+        "route_completion_prediction_phase_scores": {
+          "0": 9.5,
+          "1": 8.549999999999999
+        },
+        "route_horizon_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "route_horizon_completion_phase_details": {
+          "0": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_a->down_a",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.95,
+                "effective_residual_ratio": 0.95,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 10.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          },
+          "1": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_b->down_b",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.95,
+                "effective_residual_ratio": 0.95,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 9.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          }
+        },
+        "route_horizon_blended_phase_details": {},
+        "route_horizon_capped_phases": [],
+        "route_demand_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "phase_scores": {
+          "0": {
+            "phase_index": 0,
+            "score": 10.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "completion_price": 0.0,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": 0.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 10.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 10.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_a",
+                  "down_a"
+                ],
+                "components": {
+                  "pressure": 10.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.0,
+                  "total": 10.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          },
+          "1": {
+            "phase_index": 1,
+            "score": 10.0395,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "completion_price": 0.0,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": 0.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 9.0,
+              "release": 1.0395,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 10.0395
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_b",
+                  "down_b"
+                ],
+                "components": {
+                  "pressure": 9.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 1.0395,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.0,
+                  "total": 10.0395
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          }
+        },
+        "selected_component_totals": {
+          "cascade_price": 0.0,
+          "completion_price": 0.0,
+          "double_pressure_scaffold": 0.0,
+          "downstream_storage": 0.0,
+          "guardrail": 0.0,
+          "incident": 0.0,
+          "pressure": 9.0,
+          "release": 1.0395,
+          "service": 0.0,
+          "service_age": 0.0,
+          "spillback": 0.0,
+          "storage_price": 0.0,
+          "switching": 0.0,
+          "total": 10.0395
+        },
+        "action_changed_relative_to_pressure": true,
+        "changing_terms": [
+          "release"
+        ],
+        "double_safety_fallback_used": false,
+        "terminal_completion_fallback_used": false,
+        "double_score_safety_filter_used": false,
+        "multi_baseline_safety_filter_used": false,
+        "hold_only_safety_filter_used": false,
+        "max_hold_safety_filter_used": false,
+        "completion_risk_filter_used": false,
+        "route_completion_prediction_filter_used": false,
+        "route_demand_completion_filter_used": false,
+        "route_demand_double_score_veto_used": false,
+        "route_horizon_completion_filter_used": false,
+        "route_horizon_dominance_filter_used": false,
+        "terminal_exit_protection_guard_used": false,
+        "route_horizon_max_pressure_envelope_used": false,
+        "route_horizon_core_baseline_envelope_used": false,
+        "route_horizon_double_pressure_envelope_used": false,
+        "route_horizon_core_minimax_guard_used": false,
+        "route_horizon_capacity_rescue_guard_used": false,
+        "route_horizon_capacity_score_envelope_used": false,
+        "route_horizon_native_capacity_score_rescue_guard_used": false,
+        "route_horizon_severe_double_guard_used": false,
+        "route_horizon_pressure_double_conflict_guard_used": false,
+        "route_horizon_completion_conflict_guard_used": false,
+        "route_horizon_capacity_completion_conflict_guard_used": false,
+        "route_horizon_early_capacity_completion_conflict_guard_used": false,
+        "route_horizon_negative_total_completion_conflict_guard_used": false,
+        "route_horizon_low_total_consensus_completion_guard_used": false,
+        "route_horizon_score_gap_consensus_guard_used": false,
+        "route_horizon_negative_total_raw_consensus_guard_used": false,
+        "route_horizon_core_consensus_guard_used": false,
+        "route_horizon_raw_consensus_guard_used": false,
+        "post_completion_veto_double_conflict_guard_used": false,
+        "route_horizon_pressure_safe_guard_used": false,
+        "route_horizon_tail_completion_rescue_used": false,
+        "completion_safety_veto_used": false,
+        "dynamic_dual_snapshot": {
+          "down_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "down_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_b": {
+            "storage_price": 0.23800000000000002,
+            "release_price": 0.16500000000000004,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          }
+        },
+        "dynamic_params": {
+          "alpha_release": 0.7,
+          "beta_storage": 1.2,
+          "completion_deficit_threshold": 0.6,
+          "completion_horizon_fraction": 0.7,
+          "completion_safe_margin": 0.1,
+          "delta_service": 0.35,
+          "dual_decay": 0.12,
+          "dual_step_size": 0.85,
+          "eta_completion": 0.5,
+          "gamma_cascade": 0.85,
+          "kappa_completion": 1.0,
+          "nu_decay": 0.15,
+          "nu_step_size": 0.8,
+          "release_step_size": 0.55,
+          "release_threshold": 0.7,
+          "storage_threshold": 0.72
+        }
+      }
+    },
+    {
+      "name": "terminal_completion",
+      "criteria": {
+        "completion_price_asymmetric": true,
+        "down_a_completion_price_positive": true,
+        "v16_selects_completion_safe_action": true
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 30.0,
+          "down_a": 30.0,
+          "up_b": 30.0,
+          "down_b": 30.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 22.0,
+          "down_a": 2.0,
+          "up_b": 22.0,
+          "down_b": 26.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.26666666666666666
+          },
+          "down_a": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 0.9333333333333333
+          },
+          "up_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.26666666666666666
+          },
+          "down_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.13333333333333333
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.5,
+          "down_a": 0.16666666666666666,
+          "up_b": 0.5,
+          "down_b": 0.16666666666666666
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "dual_state": {
+        "down_a": {
+          "storage_price": 0.18133333333333337,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.05333333333333332
+        },
+        "down_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.12693333333333334,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        },
+        "up_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0,
+          "completion_price": 0.0
+        }
+      },
+      "audit": {
+        "tls_id": "J0",
+        "controller": "finite_storage_completion_safe_primal_dual_v1_6",
+        "pressure_action": 0,
+        "finite_storage_action": 1,
+        "capacity_aware_action": 0,
+        "finite_storage_double_action": 0,
+        "selected_action": 1,
+        "pressure_phase_scores": {
+          "0": 10.0,
+          "1": 10.0
+        },
+        "capacity_aware_phase_scores": {
+          "0": 8.75,
+          "1": 8.75
+        },
+        "finite_storage_double_phase_scores": {
+          "0": 8.75,
+          "1": 8.75
+        },
+        "completion_service_phase_scores": {
+          "0": 15.0,
+          "1": 15.0
+        },
+        "route_completion_prediction_phase_scores": {
+          "0": 1.0,
+          "1": 13.0
+        },
+        "route_horizon_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "route_horizon_completion_phase_details": {
+          "0": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_a->down_a",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.06666666666666667,
+                "effective_residual_ratio": 0.06666666666666667,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 10.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          },
+          "1": {
+            "score": 0.0,
+            "components": {
+              "finishable_term": 0.0,
+              "downstream_penalty": 0.0,
+              "local_pressure_penalty": 0.0
+            },
+            "movement_details": [
+              {
+                "movement": "up_b->down_b",
+                "finishable_demand": 0.0,
+                "effective_finishable_power": 1.0,
+                "effective_finishable_demand": 0.0,
+                "effective_total_demand": 1.0,
+                "effective_finishable_count_scale": 1.0,
+                "effective_big_finishable_count_scale": 1.0,
+                "effective_big_finishable_sum_scale": 1.0,
+                "total_demand": 1.0,
+                "avg_remaining_time": 0.0,
+                "residual_ratio": 0.8666666666666667,
+                "effective_residual_ratio": 0.8666666666666667,
+                "effective_slack_floor": 0.0,
+                "downstream_route_pressure": 0.0,
+                "local_pressure": 10.0,
+                "time_weight": 1.0,
+                "effective_time_weight_power": 1.0,
+                "effective_time_weight": 1.0,
+                "finishable_term": 0.0,
+                "downstream_penalty_term": 0.0,
+                "local_pressure_penalty_term": 0.0
+              }
+            ]
+          }
+        },
+        "route_horizon_blended_phase_details": {},
+        "route_horizon_capped_phases": [],
+        "route_demand_completion_phase_scores": {
+          "0": 0.0,
+          "1": 0.0
+        },
+        "phase_scores": {
+          "0": {
+            "phase_index": 0,
+            "score": -52.064,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "completion_price": -0.7999999999999998,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": -28.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 10.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": -30.0,
+              "storage_price": -3.2640000000000007,
+              "switching": 0.0,
+              "total": -52.064
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_a",
+                  "down_a"
+                ],
+                "components": {
+                  "pressure": 10.0,
+                  "downstream_storage": -28.0,
+                  "spillback": -30.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -3.2640000000000007,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.7999999999999998,
+                  "total": -52.064
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          },
+          "1": {
+            "phase_index": 1,
+            "score": 10.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "completion_price": 0.0,
+              "double_pressure_scaffold": 0.0,
+              "downstream_storage": 0.0,
+              "guardrail": 0.0,
+              "incident": 0.0,
+              "pressure": 10.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 10.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_b",
+                  "down_b"
+                ],
+                "components": {
+                  "pressure": 10.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "double_pressure_scaffold": 0.0,
+                  "completion_price": -0.0,
+                  "total": 10.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_completion_safe_primal_dual_v1_6"
+          }
+        },
+        "selected_component_totals": {
+          "cascade_price": 0.0,
+          "completion_price": 0.0,
+          "double_pressure_scaffold": 0.0,
+          "downstream_storage": 0.0,
+          "guardrail": 0.0,
+          "incident": 0.0,
+          "pressure": 10.0,
+          "release": 0.0,
+          "service": 0.0,
+          "service_age": 0.0,
+          "spillback": 0.0,
+          "storage_price": 0.0,
+          "switching": 0.0,
+          "total": 10.0
+        },
+        "action_changed_relative_to_pressure": true,
+        "changing_terms": [
+          "completion_price",
+          "downstream_storage",
+          "spillback",
+          "storage_price"
+        ],
+        "double_safety_fallback_used": false,
+        "terminal_completion_fallback_used": false,
+        "double_score_safety_filter_used": false,
+        "multi_baseline_safety_filter_used": false,
+        "hold_only_safety_filter_used": false,
+        "max_hold_safety_filter_used": false,
+        "completion_risk_filter_used": false,
+        "route_completion_prediction_filter_used": false,
+        "route_demand_completion_filter_used": false,
+        "route_demand_double_score_veto_used": false,
+        "route_horizon_completion_filter_used": false,
+        "route_horizon_dominance_filter_used": false,
+        "terminal_exit_protection_guard_used": false,
+        "route_horizon_max_pressure_envelope_used": false,
+        "route_horizon_core_baseline_envelope_used": false,
+        "route_horizon_double_pressure_envelope_used": false,
+        "route_horizon_core_minimax_guard_used": false,
+        "route_horizon_capacity_rescue_guard_used": false,
+        "route_horizon_capacity_score_envelope_used": false,
+        "route_horizon_native_capacity_score_rescue_guard_used": false,
+        "route_horizon_severe_double_guard_used": false,
+        "route_horizon_pressure_double_conflict_guard_used": false,
+        "route_horizon_completion_conflict_guard_used": false,
+        "route_horizon_capacity_completion_conflict_guard_used": false,
+        "route_horizon_early_capacity_completion_conflict_guard_used": false,
+        "route_horizon_negative_total_completion_conflict_guard_used": false,
+        "route_horizon_low_total_consensus_completion_guard_used": false,
+        "route_horizon_score_gap_consensus_guard_used": false,
+        "route_horizon_negative_total_raw_consensus_guard_used": false,
+        "route_horizon_core_consensus_guard_used": false,
+        "route_horizon_raw_consensus_guard_used": false,
+        "post_completion_veto_double_conflict_guard_used": false,
+        "route_horizon_pressure_safe_guard_used": false,
+        "route_horizon_tail_completion_rescue_used": false,
+        "completion_safety_veto_used": false,
+        "dynamic_dual_snapshot": {
+          "down_a": {
+            "storage_price": 0.18133333333333337,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.05333333333333332
+          },
+          "down_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.12693333333333334,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          },
+          "up_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0
+          }
+        },
+        "dynamic_params": {
+          "alpha_release": 0.7,
+          "beta_storage": 1.2,
+          "completion_deficit_threshold": 0.6,
+          "completion_horizon_fraction": 0.7,
+          "completion_safe_margin": 0.1,
+          "delta_service": 0.35,
+          "dual_decay": 0.12,
+          "dual_step_size": 0.85,
+          "eta_completion": 0.5,
+          "gamma_cascade": 0.85,
+          "kappa_completion": 1.0,
+          "nu_decay": 0.15,
+          "nu_step_size": 0.8,
+          "release_step_size": 0.55,
+          "release_threshold": 0.7,
+          "storage_threshold": 0.72
+        }
+      }
+    }
+  ]
+}

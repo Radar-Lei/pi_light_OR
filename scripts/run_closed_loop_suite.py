@@ -49,6 +49,7 @@ DEFAULT_CONTROLLERS = [
     "finite_storage_primal_dual",
     "finite_storage_primal_dual_v1_4_score",
     "finite_storage_dynamic_primal_dual_v1_5",
+    "finite_storage_completion_safe_primal_dual_v1_6",
     "local_pilight",
     "raw_neighbor_symbolic",
     "all_neighbor_symbolic",
@@ -140,6 +141,7 @@ def build_suite_spec(
                 "finite_storage_primal_dual",
                 "finite_storage_primal_dual_v1_4_score",
                 "finite_storage_dynamic_primal_dual_v1_5",
+                "finite_storage_completion_safe_primal_dual_v1_6",
             }
         ]
         controllers_by_scenario = {

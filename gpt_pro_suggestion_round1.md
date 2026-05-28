@@ -1,331 +1,501 @@
-我看了更新后的仓库。我的判断很明确：**你说得对，现在还没达到你想要的目标；而且现在已经不是“实验没跑完”的问题，而是“完整跑完以后，当前方法没有形成 closed-loop superiority”的问题。**
+我认真看了。我的结论很明确：**仓库已经从“v1.5 方向建议”推进到“v1.5 已经实现、激活、训练筛选、失败诊断都做了”的阶段；但现在还不能写 strong closed-loop superiority。** 现在最大的 blocker 不是方法论不够新，也不是 storage/cascade/release 没激活，而是 **completion / unfinished-vehicle safety** 没解决。下一步不能继续堆 r115、r116 这种局部 guard；要把 completion safety 提升为方法论核心，开一个结构性新版本。
 
-和之前评估里“先把 1440-row Gate C 跑完整”的建议相比，现在 blocker 已经变了：仓库最新提交是 **2026-05-27 的 `chore: record locked gate c execution results`**，说明你已经把 locked Gate C 结果写进来了；debug 记录也显示 1440/1440 行已经执行完成，row audit 干净，没有 missing、failed、duplicate、unpaired、bad provenance、schema invalid。([GitHub][1])  但同一个 debug 记录接着说，strict paired evidence 仍然是 `INCONCLUSIVE`，根因是 input artifact 的 Gate C status 是 `FAILED`；`gate_c_primary_metrics_v1.status` 在 Holm-Bonferroni correction 下也是 `FAILED`，所以 closed-loop superiority 仍然不允许。 这和之前“还没产生强 claim 证据”的判断一脉相承，但现在证据更硬：**不是没证据，而是当前方法没有赢。** 
+## 1. 我对当前仓库的总体判断
 
-仓库自己的 summary 也没有给你留灰区：`Package status: INCONCLUSIVE`，`Strict Gate C status: INCONCLUSIVE`，`Closed-loop superiority claim allowed: false`。 最新 v1.4 locked protocol 的比较对象也不是弱 baseline，而是 `max_pressure`、`capacity_aware_pressure`、`finite_storage_double_pressure`，并且场景覆盖 downstream blockage、spillback stress、incident capacity drop、oversaturation、turning shock、switching-loss-sensitive，主指标包括 penalized travel time、delay、spillback、blocking、unfinished vehicles。  所以现在不能继续把论文写成“现有 v1.4 已经强于 baselines”。这会被你自己的 repo 推翻。
+仓库现在的研究骨架是强的。README 仍然把研究问题定义为：能否把 capacitated traffic-network relaxation 的 movement-level dual sensitivities 变成 interpretable generalized-pressure principle，并压缩成 auditable symbolic policies。这个问题本身够强，也不是普通 SUMO heuristic。
 
-但我同意你的方向：**这篇不能只做一个 claim discipline 很好的 negative / equivalence paper。要坚持理论创新，而且效果上要能打过强 baselines。** 为了做到这一点，我不建议继续微调 v1.4 的权重；我建议开一个 **v1.5 方法论重构**，把贡献从现在的 “finite-storage weighted pressure” 升级成：
+但当前已经被 repo 自己锁死的一点是：**现有 proven evidence route 仍是 pressure-equivalent generalized-pressure symbolic recovery，不允许说 dual / v1.4 / 当前 v1.5 已经 closed-loop superior。** README 明确写了 v1.3/v1.4 Gate C 不支持 superiority over max-pressure-style baselines，而 active v1.5 方向是 vehicle-count occupancy、stateful storage/release/cascade/service shadow prices，并且必须对比 max-pressure、capacity-aware pressure、finite-storage double pressure、static v1.4 和 occupancy-aware ablations；这些 baselines 是 first-class，不是 strawmen。
 
-> **Dynamic finite-storage primal-dual pressure control：从有限存储交通网络的动态约束松弛中导出可更新的 storage / spillback / release shadow prices；在 slack regime 严格退化为 max-pressure，在 binding regime 通过真实存储占用、多跳 spillback cascade 和 upstream release value 与 pressure-style baselines 分离。**
+最关键的新更新是：v1.5 不是还停留在想法。README 已经记录 v1.5 加了 occupancy-based finite-storage state、occupancy-aware capacity baseline、`finite_storage_dynamic_primal_dual_v1_5`、deterministic method gates、closed-loop diagnostics 和 locked holdout tooling；但 revised binding protocol 虽然激活了 storage/cascade/release mechanisms，early locked rows 触发了 safety-guard failures，因此 closed-loop superiority 仍然 disallowed。
 
-这条路线可以同时保住你要的两件事：**理论上强**，并且有更现实的机会在效果上超过 baselines。
+所以一句话：
 
----
-
-## 1. 当前 v1.4 为什么没达到目标
-
-v1.4 选中的候选是 `finite_storage_primal_dual_v1_4_score`，候选选择理由是它直接针对 bounded-harm 和低 action-change 两个失败模式，改动项包括 `downstream_storage`、`spillback`、`switching`、`service`，并保留 action decomposition audit surface。 表面看这是对的，但结果显示它没有真正把动作从 pressure family 中分离出来。
-
-失败诊断很关键：bounded harm 有 48 个，non-worsening 只有 10 个，strict-positive signals 只有 4 个。更严重的是，诊断把最高等级 failure driver 标为 `controller_action_weakness`，并指出 finite-storage decisions 只在 **9.833%** 的 audited TLS decisions 中不同于 pressure；非零组件主要是 `pressure` 和 `switching`，而不是你理论上想要的 downstream storage / spillback / service。
-
-这说明 v1.4 的问题不是“统计检验太严”那么简单，而是：
-
-**当前 controller 实际上大部分时间还是 pressure controller。**
-如果动作只有约 10% 不同，而且不同项主要不是 storage/spillback，那么它很难在 closed-loop 指标上稳定超过 `capacity_aware_pressure` 和 `finite_storage_double_pressure`。
+> **v1.5 的方法论方向是对的，也已经比 v1.4 更像一个真正 contribution；但当前性能证据还没过。下一步要做的是“completion-aware finite-storage primal-dual control”，而不是继续给当前 v1.5 打补丁。**
 
 ---
 
-## 2. 我认为最致命的技术问题：finite storage state 用错了“存储变量”
+## 2. 当前最强的好消息：方法论机制已经站起来了
 
-这是我看代码后最想强调的一点。
+v1.4 最大问题是像 weighted pressure heuristic；v1.5 已经明显往真正方法论贡献前进。
 
-`finite_storage_schema.build_finite_storage_state()` 里，residual receiving capacity、occupancy ratio、spillback/blocking 都是用 `normalized_queues` 计算的；也就是用 halting queue 近似链路存储占用。 live SUMO 控制里，finite-storage controller 也是把 `queues` 和 `capacities` 传进 `build_completed_finite_storage_state()`，而不是把 edge vehicle count / occupancy 作为存储状态传进去。
+`v1_5_dynamic_primal_dual_gates.json` 显示 deterministic method gates 是 `PASSED`，controller 是 `finite_storage_dynamic_primal_dual_v1_5`，并且四个核心机制都过了：slack pressure recovery、occupancy storage separation、cascade spillback separation、upstream release value。 这个很重要，因为它说明你不是只调权重，而是真的做出了：
 
-这在理论上和实验上都很危险。**有限存储约束绑定的是 link occupancy / number of vehicles / receiving capacity，不是 halting queue。** 下游 link 可能已经被 moving vehicles 填满，receiving capacity 已经很小，但 halting queue 还不高；此时用 queue/capacity 作为 storage occupancy 会低估 binding，导致 downstream_storage 和 spillback 项不激活。诊断里“storage/spillback 组件没有成为主要非零项”正好符合这个现象。
+1. slack regime 下退化为 pressure；
+2. occupancy-based storage scarcity；
+3. multi-hop cascade spillback；
+4. upstream release value。
 
-这也解释了为什么 v1.4 打不过 baselines：`capacity_aware_pressure` 和 `finite_storage_double_pressure` 已经在 pressure 上加了 downstream fullness / receiving-capacity correction；如果你的 finite-storage 项又没有用真实 storage occupancy 激活，那它就没有足够新增信息。仓库里的 controller registry 也显示，现有 baselines 已经包含 capacity-aware pressure 和 finite-storage double-pressure，而 v1.4 只是“stronger binding-regime terms”的 finite-storage score variant。 v1.4 score 的实际改动也只是固定权重：pressure 1.0、downstream_storage 1.4、spillback 1.6、switching 1.25、service 1.35、incident 1.0。
+而且 occupancy-storage separation 的具体 gate 也比较有说服力：它明确检查 storage uses vehicle count、dynamic changes from pressure、queue ablation misses storage fullness、storage price active。 在该 case 里，pressure action 是 0，但 v1.5 finite-storage action 和 selected action 都变成 1，说明它不是纸面公式，而是真的能改变 action ranking。 对 phase 0 的 decomposition 也显示，虽然 pressure 分数高，但 downstream_storage、spillback、storage_price 把它压下去了；最终 action_changed_relative_to_pressure 为 true，changing terms 正是 downstream_storage、spillback、storage_price。 
 
-**结论：v1.4 不是一个足够新的方法。它更像 weighted pressure heuristic。要强 claim，必须升级为真正的动态原始-对偶有限存储控制。**
+closed-loop diagnostic 也证明机制激活不是只在 toy one-step gate 里发生。`v1_5_closed_loop_diagnostics.json` 是 `PASSED`；100 个 decisions 中有 55 个相对 pressure 改变，action-change rate = 0.55；binding decisions 中 action-change rate = 0.7556。 storage/spillback/storage_price/cascade_price/release 等动态项都有非零计数，criteria 也显示 binding state observed、action-change target met、storage/spillback terms active、dynamic terms active。
+
+这部分可以成为你的 **method contribution** 核心。现在不是“没有创新”，而是“创新机制已经激活，但 closed-loop 完成率/unfinished safety 还没被理论和控制器共同处理好”。
 
 ---
 
-## 3. 我建议的 v1.5 方法：Dynamic Finite-Storage Primal-Dual Pressure
+## 3. 当前最硬的坏消息：性能证据还不能支持 strong claim
 
-不要再只写：
+v1.4 已经完整执行，但 strict evidence 非 PASSED。README 明确说 v1.4 locked Gate C 执行了 1440/1440 rows，但 remained non-PASSED，closed-loop superiority 仍然 disallowed。 `.planning/STATE.md` 也记录 Phase 17 v1.4 locked execution completed 1440/1440 with clean row audit，但 strict Gate C remained non-PASSED，closed-loop superiority remains disallowed。
+
+v1.5 原始 locked protocol 也被 superseded，因为 early rows 没有 storage-binding decisions；后来的 binding protocol 虽然通过 activation audit，但 paired evidence 仍是 `INCONCLUSIVE`，early holdout risk 是 `FAILED`，原因是 activation 后 strong baselines 上出现 repeated safety-guard harm。
+
+这说明现在不能说：
+
+> “我们的 v1.5 已经超过所有 baselines。”
+
+也不能弱化成：
+
+> “只要 composite 好一点就算赢。”
+
+因为仓库自己的 safety-contract audit 明确不支持这么做。
+
+---
+
+## 4. 真正 blocker：不是 storage activation，而是 completion / unfinished safety
+
+这是我看完 repo 后最重要的判断。
+
+`v1_5_revision_candidate_summary.json` 显示：`NO_CANDIDATE_SELECTED`，`claim_ready=false`，candidate_count = 113，selected_candidate_count = 0，rejected_candidate_count = 112，completion_safety_blocker_count = 107。 这不是偶然一两个 seed 问题，而是系统性 blocker。
+
+`v1_5_completion_safety_contract_audit.json` 更直接：45 个候选里，0 个 selected；27 个有 positive core composite signal，23 个同时有 positive composite 和 action separation，但 **0 个** 同时通过 unfinished safety guard；unfinished_safety_blocker_count = 43。 也就是说，你的方法经常能降低 composite cost，也经常能产生足够 action separation，但它会在 unfinished vehicles 上伤到 strong baselines。
+
+这就是目前最核心的 tradeoff：
+
+> **v1.5 storage/cascade/release 机制能改善有限存储运行成本，但它还没有学会在有限 horizon 下保护 vehicle completion。**
+
+tradeoff analysis 也支持这个判断：107 个 analyzed training cases 中，75 个 unsafe，52 个 composite-win，24 个 safe-and-composite-win，33 个 core-baseline oracle conflicts。 典型例子是 r3：candidate composite beat all core baselines，但 unfinished safety 不安全，而且 unfinished oracle 和 composite oracle 发生冲突。 r10 也很典型：第一个 case safe 且 composite win，第二个 case composite 仍赢但 unfinished safety 又失败。
+
+这就是为什么我不建议继续调 storage/cascade/release 的权重。问题不是这些项没用，而是 **你的 objective 和 controller 没有把 terminal completion feasibility 当成一等约束**。
+
+---
+
+## 5. r2–r114 的信号：继续堆 guard 会削弱 contribution
+
+我还看了 controller registry 和训练候选路径。现在 `run_closed_loop_sumo.py` 里已经有从原始 `finite_storage_dynamic_primal_dual_v1_5` 到很多 r-variants 的长链，包含 guarded、double release、terminal flush、route completion、horizon model、baseline envelope、reactivated dual、release-risk horizon blend、negative-total/low-signal caps、unique finishable semantics 等一系列补丁。 
+
+这说明你已经做了大量认真探索，但也有危险：如果论文最后主方法变成“第 114 个 guard 的组合”，审稿人会觉得它是 post-hoc engineering，而不是一个强 methodology contribution。
+
+r114 也还不是解决方案。`v1_5_r114_training_selection.json` 里状态仍是 `REJECTED`，`claim_ready=false`，而且 input artifact 还是 `IN_PROGRESS`；row audit 只完成 24/324 rows，missing 300 rows。 r114 的 mechanism summary 显示 binding decision rate 很高，但 action_change_rate 只有 0.0557，同时 route-horizon completion filter 和多种 conflict guard 大量触发。 它在部分 early rows 上有 positive composite differences，但同一个 artifact 仍有 safety harms，并且 claim_scope 明确 closed_loop_superiority_claim_allowed = false。 
+
+所以我的建议很坚决：
+
+> **不要继续把 r115 做成“再加一个 cap / guard / threshold”。要停止这一条 patch chain，重新抽象成一个干净的新方法。**
+
+---
+
+# 你下一步应该怎么做
+
+## Step 1：先把当前 v1.5 定性为“method-risk finding”，不要硬救当前 claim
+
+你应该马上做一个小的 repo cleanup / milestone close，不是为了放弃，而是为了避免后面 claim 污染。
+
+当前应该在 README / `.planning` / summary 里明确三件事：
+
+1. v1.5 deterministic gates passed：方法机制成立。
+2. v1.5 closed-loop diagnostic passed：storage/cascade/release 在 short SUMO 中确实激活。
+3. v1.5 training / early holdout failed：completion / unfinished safety 没过，所以 superiority claim 不允许。
+
+README 当前 next experiments 已经写得很对：把 current v1.5 binding rows 当作 method-risk finding，不是 superiority result；在 fresh training seeds 上重建 completion modeling 或 stronger completion-safety guard；未来 confirmatory paired-evidence 前必须重新 lock training protocol。
+
+我建议你把这一步命名为：
+
+> **v1.5 closeout: mechanism success, completion-safety failure, no superiority claim.**
+
+这会保护你后面真正的强贡献。负结果不是包袱，它是新方法的动机。
+
+---
+
+## Step 2：新开 v1.6，不要叫 r115
+
+我建议新方法名直接改成：
+
+```text
+finite_storage_completion_safe_primal_dual_v1_6
+```
+
+或者：
+
+```text
+completion-aware dynamic finite-storage primal-dual pressure
+```
+
+这个名字要传达一个清楚变化：**completion safety 不是 guard，不是 patch，而是 primal-dual relaxation 的一部分。**
+
+现在的 v1.5 贡献是：
+
+> storage / cascade / release shadow prices.
+
+下一版贡献必须升级为：
+
+> storage / cascade / release / terminal-completion shadow prices.
+
+也就是说，理论里不要只写 finite-storage constraint，还要写 terminal completion / exit feasibility constraint。否则仿真里 unfinished vehicles 永远会成为 baselines 攻击你的点。
+
+---
+
+## Step 3：把 completion safety 写进理论，而不是写成 fallback
+
+当前 r-chain 的问题是很多东西像 fallback：
+
+* finite-storage-double fallback；
+* capacity-aware lock；
+* max-pressure terminal lock；
+* completion envelope；
+* pressure-safe horizon guard；
+* negative-total cap；
+* low-signal margin cap。
+
+这些东西可以救局部 case，但不构成一个强 contribution。
+
+我建议你重新写一个统一 score：
 
 [
-score = pressure + storage\ penalty + spillback\ penalty + switching\ penalty
+S_p(t)
+======
+
+S^{storage\text{-}dual}_p(t)
++
+\lambda_c , C_p(t)
+------------------
+
+## \lambda_r , R_p(t)
+
+\eta L(p,p_t)
 ]
 
-这个太像 heuristic，也太容易被 `capacity_aware_pressure` 吃掉。
-
-建议改成一个有明确优化来源的动态 controller：
+其中：
 
 [
-S_p(t)=
+S^{storage\text{-}dual}_p(t)
+============================
+
 \sum_{m=(i,j)\in p}
 s_m(t)
-\Big[
+[
 q_i(t)-q_j(t)
 +\alpha r_i(t)
 -\beta \mu_j(t)
 -\gamma \xi_j(t)
 +\delta a_i(t)
-\Big]
--\eta L(p,p_t)
+]
 ]
 
-其中：
-
-* (q_i-q_j)：pressure special case；
-* (\mu_j(t))：下游 link (j) 的 storage scarcity dual price，由真实 occupancy 更新；
-* (\xi_j(t))：多跳 downstream spillback cascade price，不只看 immediate downstream；
-* (r_i(t))：upstream release value，表示如果不服务上游，可能触发 upstream spillback；
-* (a_i(t))：age / starvation / service urgency；
-* (L(p,p_t))：switching lost time 或 phase transition cost；
-* (s_m(t))：movement service / saturation proxy。
-
-动态 dual update 可以写成：
+新增的核心不是再调 (\alpha,\beta,\gamma)，而是：
 
 [
-\mu_j(t+1)=
+C_p(t)
+======
+
+\text{completion value of vehicles that can still reach sink before horizon}
+]
+
+[
+R_p(t)
+======
+
+\text{unfinished-risk / terminal-deficit risk under action }p
+]
+
+再引入 terminal completion dual：
+
+[
+\nu_\ell(t+1)
+=============
+
 \left[
-(1-\rho)\mu_j(t)
+(1-\rho_\nu)\nu_\ell(t)
 +
-\kappa\left(\frac{n_j(t)}{C_j}-\theta\right)*+
-\right]*+
+\kappa_\nu
+\left(
+\widehat{d}^{exit}_\ell(t)
+--------------------------
+
+\widehat{s}^{exit}*\ell(t)
+\right)*+
+\right]_+
 ]
 
-[
-r_i(t+1)=
-\left[
-(1-\rho)r_i(t)
-+
-\kappa_r\left(\frac{n_i(t)}{C_i}-\theta_r\right)*+
-\cdot \mathbf{1}{\text{downstream path has receiving slack}}
-\right]*+
-]
+直观解释：
 
-[
-\xi_j(t)=\sum_{k\in \mathcal{D}(j)} P_{jk}\mu_k(t)
-]
+* (\mu_j)：下游 link storage scarcity；
+* (\xi_j)：多跳 cascade spillback price；
+* (r_i)：upstream release value；
+* (\nu_\ell)：terminal completion / exit deficit price；
+* (C_p(t))：当前 phase 对“能完成车辆”的贡献；
+* (R_p(t))：当前 phase 可能造成 unfinished regression 的风险。
 
-这里 (n_j(t)) 必须是 link occupancy / vehicle count，而不是 halting queue。这样理论贡献就变成：
+这样论文贡献就变成：
 
-1. **Pressure recovery theorem**：当所有 storage constraints slack、(\mu=\xi=r=0)，controller 退化为 max-pressure。
-2. **Finite-storage separation theorem**：当两个 movements 有相同 local pressure 但 downstream storage scarcity 不同，dynamic primal-dual score 会选择 receiving-capacity 更安全的 movement，而 max-pressure / local pressure 不能区分。
-3. **Cascade spillback proposition**：当 immediate downstream 还没满、但 downstream descendant 已经高 shadow price 时，多跳 (\xi_j) 会提前抑制会造成 spillback cascade 的 movement；这是 `capacity_aware_pressure` 的 local fullness correction 不具备的。
-4. **Auditable symbolic approximation**：最终 controller 仍可以压缩为 symbolic rule，但 symbolic rule 是从 dynamic dual state 中恢复，而不是从 static queue-pressure 中恢复。
+> **A completion-aware finite-storage primal-dual controller that recovers max-pressure in slack regimes, introduces storage/cascade/release shadow prices under binding finite-storage constraints, and adds terminal-completion dual prices to avoid finite-horizon unfinished-vehicle regressions.**
 
-这比现在的“weighted finite-storage pressure”强很多，因为它不是加几个 penalty，而是从动态约束松弛导出一套可更新的 shadow-price controller。
+这比“v1.5 r114 guard stack”强很多。
 
 ---
 
-## 4. 代码层面最应该改的地方
+## Step 4：重新设计 action selection：用“安全可行集 + primal-dual 最优”而不是事后 veto
 
-### A. 把 finite-storage state 从 queue-based 改成 occupancy-based
+我建议把控制器写成两层，但理论上是一体的。
 
-现在 `build_finite_storage_state()` 用 queue 来算 residual 和 occupancy。 我建议拆成两套状态：
+第一层：构造 completion-safe feasible action set：
 
-```python
-queues = {edge: traci.edge.getLastStepHaltingNumber(edge)}
-vehicles = {edge: traci.edge.getLastStepVehicleNumber(edge)}
-occupancy = {edge: vehicles[edge] / capacity[edge]}
+[
+\mathcal{A}_{safe}(t)
+=====================
 
-residual_receiving_capacity = capacity[edge] - vehicles[edge]
-service_urgency = queue[edge] / capacity[edge]  # 或 waiting-time based
-storage_urgency = vehicles[edge] / capacity[edge]
+{p:
+\widehat{U}*p(t)
+\le
+\min*{b \in \mathcal{B}}
+\widehat{U}_b(t)
++
+\epsilon_U(t)
+}
+]
+
+这里 (\widehat{U}_p(t)) 是选择 action (p) 后的 predicted unfinished risk；(\mathcal{B}) 是 core strong baselines 的候选动作集合，例如 max-pressure、capacity-aware、finite-storage double-pressure。注意：这不是“抄 baseline”，而是把 baselines 作为 safety certificate。
+
+第二层：在 safe set 里选 dynamic finite-storage primal-dual score 最高的 action：
+
+[
+p^\star(t)
+==========
+
+\arg\max_{p \in \mathcal{A}_{safe}(t)}
+S_p(t)
+]
+
+如果 (\mathcal{A}_{safe}) 为空，就 fail-closed 到一个预注册 baseline envelope，比如：
+
+[
+\arg\min_{b \in \mathcal{B}} \widehat{U}_b(t)
+]
+
+这比现在的各种 late lock / cap / veto 更干净。它也能形成理论贡献：
+
+> **Safety-constrained generalized pressure:** pressure-style baselines define a completion-safety envelope, while finite-storage primal-dual prices optimize within that envelope.
+
+这样你既保住强 baselines，又能解释为什么你的方法不是 baseline imitation：baseline 只定义安全域，真正的优化排序由 storage/cascade/release/completion dual 完成。
+
+---
+
+## Step 5：重新定义 v1.6 的 method gates
+
+v1.6 不要一开始就跑 324-row training。先做 deterministic gates。建议新增这些 artifacts：
+
+```text
+experiments/dual_sensitivity/v1_6_completion_primal_dual_gates.json
+experiments/dual_sensitivity/v1_6_completion_safety_state_audit.json
+experiments/dual_sensitivity/v1_6_completion_separation_cases.json
 ```
 
-也就是说：
+必须至少有 5 个 gates：
 
-* pressure 仍然可以用 queue；
-* storage constraint 必须用 vehicles / occupancy；
-* spillback/blocking 应该用 occupancy + queue 共同判断；
-* service urgency 可以用 queue、waiting time、age；
-* release value 可以用 upstream occupancy。
+1. **Pressure recovery gate**
+   storage slack、completion slack 时，v1.6 与 max-pressure action 一致。
 
-这一个改动就会显著提高 binding activation，而且理论上更正确。
+2. **Storage separation gate**
+   下游 storage nearly full 时，v1.6 避免 pressure 会选的 unsafe receiving movement。
 
-### B. 增加 stateful dual variables，而不是每一步重新算 heuristic
+3. **Cascade separation gate**
+   immediate downstream 看起来可用，但 downstream descendant 高 shadow price 时，v1.6 提前避开 cascade path。
 
-现在 finite-storage controller 基本是 memoryless score decomposition。v1.4 只是固定权重调整。 我建议在 `run_experiment()` 里维护：
+4. **Release value gate**
+   upstream occupancy 高且 downstream path 有 slack 时，v1.6 能释放 upstream queue，避免 upstream spillback。
+
+5. **Terminal completion gate**
+   两个 action 的 storage benefit 相近，但一个 action 会造成 terminal unfinished risk 时，v1.6 选择 completion-safe action。
+
+第 5 个 gate 是现在仓库缺的核心。没有它，后面还是会陷入 composite win 但 unfinished harm。
+
+---
+
+## Step 6：重做 state schema，别让 completion proxy 再变成 patch
+
+我建议新增或扩展这些 state fields：
 
 ```python
-dual_state_by_edge = {
+completion_state = {
     edge: {
-        "storage_price": 0.0,
-        "release_price": 0.0,
-        "cascade_price": 0.0,
-        "service_age": 0.0,
+        "vehicle_count": ...,
+        "halting_queue": ...,
+        "occupancy_ratio": ...,
+        "residual_receiving_capacity": ...,
+        "distance_to_exit": ...,
+        "estimated_time_to_exit": ...,
+        "remaining_horizon": ...,
+        "finishable_vehicle_count": ...,
+        "finishable_ratio": ...,
+        "positive_pressure_support": ...,
+        "path_min_residual_capacity": ...,
+        "terminal_deficit_price": ...,
     }
 }
 ```
 
-每个 action interval 后更新一次。这样你才真正有 “primal-dual” 的动态含义，而不是静态 pressure correction。
+并且要明确分工：
 
-### C. 增加一个新 controller，不要覆盖 v1.4
+* pressure 用 halting queue；
+* storage scarcity 用 vehicle count / occupancy；
+* spillback 用 occupancy + blocking；
+* release 用 upstream occupancy + downstream path slack；
+* completion 用 finishable vehicle count、time-to-exit、remaining horizon、path capacity；
+* terminal safety 用 predicted unfinished risk。
 
-在 `CONTROLLER_REGISTRY` 里新增：
-
-```python
-"finite_storage_dynamic_primal_dual_v1_5":
-    "Dynamic finite-storage primal-dual pressure with occupancy-based storage duals, cascade spillback prices, and upstream release values."
-```
-
-保留 v1.4 作为 ablation。这样论文里可以很清楚：
-
-* max_pressure：local pressure baseline；
-* capacity_aware_pressure：local downstream fullness baseline；
-* finite_storage_double_pressure：finite receiving correction baseline；
-* finite_storage_primal_dual_v1_4_score：static weighted finite-storage ablation；
-* finite_storage_dynamic_primal_dual_v1_5：你的主方法。
-
-### D. 不要把 v1.5 的 tuning 直接塞进 v1.4 Gate C
-
-仓库的 strict checker 明确把 final evidence 和 exploratory pilots 分开，Gate C 也要求 input artifact status 是 PASSED，否则 strict v1.4 evidence 只能是 inconclusive。 你应该新开 v1.5：
-
-* v1.5-A：state truth / storage activation gate；
-* v1.5-B：theory separation synthetic states；
-* v1.5-C：training/pilot scenarios for hyperparameter search；
-* v1.5-D：locked holdout confirmation；
-* v1.5-E：real/grid/Chengdu robustness。
-
-这样不会污染 v1.4 的 claim discipline，也不会被审稿人说 post-hoc tuning。
+你已经从 r96–r114 里发现了 route-horizon / finishable counting 的细节问题，例如 duplicate movement、finishable volume inflated、low-signal completion bonus 等。不要把这些散落在 guard 名字里；要把它们整理成一个 **completion_state semantics**。这会显著增强论文可信度。
 
 ---
 
-## 5. 实验协议也要改：现在的 Gate C 过于“全指标全格子不许输”
+## Step 7：训练协议要保留强 baselines，但换成“先选候选，再锁 holdout”
 
-当前 Gate C 的判定逻辑是：每个 scenario × demand multiplier × comparator × metric 都做 paired metric summary，若任何 result 是 bounded harm，则 status = FAILED；只有所有结果都是 non-worsening，并且每个 scenario/demand/comparator group 至少有一个 strict-positive signal，才 PASSED。 这非常保守。保守不是坏事，但如果你要做“比 baselines 好”的论文主 claim，不能让主结论被 279 个细碎 comparisons 绑架。
+当前仓库的 baseline 体系很好，不能弱化。`run_closed_loop_suite.py` 里 required strong baselines 包括 fixed_time、actuated_local_pressure、max_pressure、capacity_aware_pressure、cycle_pressure、finite_storage_double_pressure、finite_storage_primal_dual。 默认 controller list 已经包含 occupancy_capacity_aware_pressure、finite_storage_primal_dual_v1_4_score、finite_storage_dynamic_primal_dual_v1_5。 stress scenarios 也覆盖 downstream blockage、spillback stress、incident capacity drop、oversaturation、turning shock、switching-loss-sensitive 等。
 
-我建议 v1.5 的主 endpoint 改成理论一致的 composite finite-storage operating cost：
+v1.6 training selection 建议这样做：
 
-[
-J =
-\text{delay}
-+
-\lambda_u \cdot \text{unfinished}
-+
-\lambda_s \cdot \text{spillback/blocking}
-+
-\lambda_l \cdot \text{switching lost time}
-]
+### Training Stage A：12-row fast screen
 
-这个 objective 已经和 repo 的 objective components 方向一致：代码里 objective component fields 包含 delay、unfinished vehicle penalty、spillback/blocking time、switching lost time。 后面从 metrics 生成 objective components 时，也正是 delay、unfinished、spillback+blocking、switching count 这些项。
+目标不是 claim，只是排除明显坏候选。
 
-v1.5 Gate 应该这样定义：
+必须满足：
 
-**Primary claim：** 主方法在 locked finite-storage binding holdout 上，相比每个强 baseline，paired-seed composite (J) 显著降低。
+* action separation ≥ 5%，最好 10–25%；
+* binding action changes 集中在 high occupancy / low receiving capacity / high terminal risk states；
+* no catastrophic unfinished harm；
+* composite signal 不得对全部 core baselines 为负。
 
-**Safety guard：** penalized travel time、total delay、unfinished vehicles 不能出现超过预注册阈值的 practical harm。
+### Training Stage B：full 324-row training
 
-**Secondary metrics：** spillback、blocking、switching、throughput 分别报告，但不要求每个 cell 都 Holm-Bonferroni 后显著。
+候选必须同时满足：
 
-这样更像 Transportation Science / TRB 的论文：主目标和理论 objective 一致，其他指标做 mechanism and robustness，而不是用 279 个 comparisons 把自己锁死。
+* composite (J) 对 core strong baselines 的 mean improvement 为正；
+* unfinished vehicles 不超过预注册 safety tolerance；
+* delay / penalized travel time 无 practical harm；
+* action separation 不能 collapse 到 pressure-equivalent；
+* mechanism activation 不只靠 terminal fallback，而要有 storage/cascade/release/completion dual 的实际贡献。
 
----
+当前 safety audit 已经明确：现有证据不支持 weakening unfinished guard；它建议不要 lock confirmatory holdout，下一步应 rebuild completion modeling，而不是再加 marginal horizon filter。 所以 v1.6 初始仍应保持强 safety contract；只有当你有 calibration evidence 证明 1-vehicle tolerance 是 simulation noise 或 censoring artifact，才能预注册 practical margin。
 
-## 6. 具体研究路线：我建议你这样重启 v1.5
+### Training Stage C：candidate selection
 
-### Step 1：先修 storage state truth
+只有一个候选能进入 holdout。不要让 r2–r114 这种长链继续污染 final protocol。
 
-目标不是马上赢 baseline，而是先证明 finite-storage signal 真的被激活。新的 diagnostic gate：
-
-* storage occupancy 使用 vehicle count；
-* residual receiving capacity 使用 capacity - vehicle count；
-* spillback/blocking 使用 occupancy threshold + queue；
-* downstream_storage、spillback、release、cascade 组件在 binding scenarios 中非零；
-* finite-storage action 与 pressure action 的差异率至少达到一个预注册阈值，例如 20%；
-* 差异动作必须集中出现在 high occupancy / low receiving capacity 的时段。
-
-如果这一步不过，后面 closed-loop 不可能稳定赢。
-
-### Step 2：做理论 separation，不要只靠仿真
-
-构造两个 movements：
-
-* movement A：高 upstream queue，高 downstream queue，local pressure 看起来不错，但 downstream storage nearly full；
-* movement B：upstream queue 稍低，但 downstream receiving capacity 充足；
-* max-pressure / capacity-aware pressure 在某些参数下会选 A 或无法稳定区分；
-* dynamic primal-dual storage price 会选 B，避免 blocking / spillback propagation。
-
-这可以写成 proposition，而不是实验现象。
-
-### Step 3：训练/选择参数只用 pilot split
-
-不要在 locked holdout 上调 (\alpha,\beta,\gamma,\delta,\eta)。用 training scenarios 和 training seeds 选择参数，然后冻结：
+selection artifact 应该长这样：
 
 ```json
 {
-  "controller_id": "finite_storage_dynamic_primal_dual_v1_5",
-  "alpha_release": ...,
-  "beta_storage": ...,
-  "gamma_cascade": ...,
-  "delta_service": ...,
-  "eta_switching": ...,
-  "dual_step_size": ...,
-  "dual_decay": ...
+  "experiment": "v1_6_training_selection",
+  "status": "SELECTED",
+  "controller_id": "finite_storage_completion_safe_primal_dual_v1_6",
+  "claim_ready": false,
+  "training_only": true,
+  "passes_core_composite": true,
+  "passes_unfinished_safety": true,
+  "passes_action_separation": true,
+  "passes_mechanism_activation": true,
+  "holdout_lock_allowed": true
 }
 ```
 
-之后生成 `v1_5_locked_protocol.json`。
-
-### Step 4：locked holdout 必须保留强 baseline
-
-不要弱化 baseline。继续保留：
-
-* `max_pressure`
-* `capacity_aware_pressure`
-* `finite_storage_double_pressure`
-
-但我建议再加两个 ablation baseline：
-
-* `finite_storage_static_v1_4_score`
-* `occupancy_capacity_aware_pressure`
-
-这样如果 v1.5 仍然赢，你的 claim 会更硬：不是因为 baseline 没看到 occupancy，而是因为 dynamic dual / cascade / release 机制真的有用。
-
-### Step 5：主结果表不要写“到处赢”，写“目标域赢”
-
-你可以强，但要精确：
-
-> 在 finite-storage binding regimes 中，dynamic primal-dual generalized pressure 在 locked paired-seed holdout 上降低 composite finite-storage operating cost，并在 spillback/blocking/unfinished vehicle 指标上相对 max-pressure-style baselines 显示机制性改善；在 slack regimes 中，该方法退化为 pressure-equivalent behavior。
-
-这比“dual sensitivity beats pressure”更强，因为它有边界、有理论、有机制、有结果。
+注意：training selection 也不能 claim superiority，只能允许 lock holdout。
 
 ---
 
-## 7. 可以直接替换论文贡献表述
+## Step 8：confirmatory holdout 必须换 fresh seeds，不能复用当前 failed holdout
 
-我建议把 contribution 改成下面这种：
+`.planning/STATE.md` 已经写明：不能在 current binding holdout seeds 上调参，再复用同一个 protocol 当 confirmatory evidence。 这一点必须坚持。
+
+v1.6 holdout 应该：
+
+* fresh seeds；
+* fresh protocol fingerprint；
+* protocol 在 training selection 后冻结；
+* candidate 固定；
+* baselines 固定；
+* objective weights 固定；
+* safety thresholds 固定；
+* no mid-run candidate editing。
+
+否则就算结果好，也容易被审稿人认为是 post-hoc tuning。
+
+---
+
+## Step 9：主 claim 要强，但必须定义成“大部分目标场景超过所有 strong baselines”
+
+你想要“至少大部分场景超过所有 baselines”，这是合理目标，但要写得精确。不要写 universal dominance。建议主 claim 写成：
+
+> In finite-storage binding regimes, the proposed completion-aware dynamic finite-storage primal-dual controller reduces pre-registered composite operating cost relative to max-pressure, capacity-aware pressure, occupancy-capacity-aware pressure, finite-storage double pressure, and static finite-storage ablations on most locked paired-seed holdout scenarios, while satisfying pre-registered unfinished-vehicle and delay safety guards.
+
+这句话比“beats baselines”强，因为它包含：
+
+* finite-storage binding regimes；
+* completion-aware dynamic finite-storage primal-dual；
+* pre-registered composite objective；
+* strong baselines；
+* most locked scenarios；
+* unfinished/delay safety guards。
+
+我建议 holdout pass 条件这样设：
+
+1. **Primary pass**：在每个 scenario group 内，v1.6 对每个 core baseline 的 paired composite (J) mean improvement 为正；至少 70–80% scenario × demand groups 为正。
+2. **Strong pass**：对 max-pressure、capacity-aware、finite-storage double-pressure 三个 core baselines，至少大部分 binding scenarios 达到 practical improvement。
+3. **Safety pass**：unfinished vehicles、penalized travel time、total delay 不出现 practical harm。
+4. **Mechanism pass**：action differences 主要发生在 storage-binding / cascade-risk / completion-risk states，而不是随机抖动。
+5. **Ablation pass**：full v1.6 优于 no-completion、no-cascade、no-release、static v1.4，证明不是某一个 baseline envelope 在起作用。
+
+---
+
+## Step 10：论文 contribution 重新写成 4 个强贡献
+
+你现在最适合的贡献表述不是“dual beats pressure”，而是下面这个版本：
 
 **Contribution 1 — Theory.**
-We derive a dynamic finite-storage primal-dual signal-control principle from a capacitated traffic-network relaxation. The controller recovers max-pressure in slack regimes and introduces storage-scarcity, cascade-spillback, and upstream-release shadow prices when finite-storage constraints bind.
+A completion-aware finite-storage primal-dual generalized-pressure principle for traffic signal control. It recovers max-pressure in slack regimes and introduces storage-scarcity, cascade-spillback, upstream-release, and terminal-completion shadow prices when constraints bind.
 
 **Contribution 2 — Algorithm.**
-We instantiate the theory as an auditable symbolic controller with stateful dual updates and action decomposition at the movement and phase levels.
+An auditable symbolic controller that maintains stateful shadow prices and selects actions by optimizing finite-storage primal-dual pressure inside a completion-safety envelope.
 
 **Contribution 3 — Separation.**
-We prove and empirically verify finite-storage separation cases where local pressure and capacity-aware pressure select unsafe receiving movements, while the dynamic primal-dual controller avoids spillback propagation.
+Formal separation cases showing that local pressure, capacity-aware pressure, and finite-storage double pressure can select actions that are storage-safe but completion-unsafe, or completion-safe but spillback-unsafe, while the proposed controller resolves the tradeoff through dual prices.
 
 **Contribution 4 — Evidence.**
-Under a pre-registered paired-seed locked protocol, the proposed controller improves finite-storage operating cost relative to max-pressure, capacity-aware pressure, and finite-storage double-pressure baselines in binding arterial regimes, with secondary evidence on delay, spillback, blocking, and unfinished vehicles.
+A pre-registered paired-seed locked protocol against max-pressure, capacity-aware pressure, occupancy-capacity-aware pressure, finite-storage double pressure, static v1.4, and ablations, demonstrating improvements in most finite-storage binding scenarios while satisfying unfinished-vehicle safety guards.
 
-这个版本保住了你想坚持的“理论创新比较强”，也为“效果超过 baselines”留出合理落点。
+这才是你要的“一个强一个强的 contribution”。
 
 ---
 
-## 8. 我对当前仓库的最终判断
+# 我建议你马上执行的具体清单
 
-现在 v1.4 不应该再硬救。它完整执行了，但 closed-loop superiority 没过；仓库自己也明确说 claim 不允许。 继续在 v1.4 上调固定权重，大概率只是在 pressure family 附近小幅震荡。
+## 立即停止
 
-真正应该做的是：
+1. 不要把当前 r114 或 r115 当主方法。
+2. 不要 lock confirmatory holdout。
+3. 不要 weaken unfinished safety guard 来救当前 candidates。
+4. 不要删除或弱化 strong baselines。
+5. 不要写“v1.5 已经 closed-loop superior”。
 
-**开 v1.5，做方法论升级。**
+## 立刻做
 
-核心不是“把 penalty 调大”，而是：
+1. 新建 `v1.6_completion_safe_primal_dual` milestone。
+2. 写 `v1_5_closeout_method_risk.md`：机制成功、completion safety 失败、claim 不允许。
+3. 新增 completion-state schema 和 deterministic completion gate。
+4. 把 route-horizon / finishable semantics 从 r96–r114 的 patch chain 整理成一个干净模型。
+5. 实现 `finite_storage_completion_safe_primal_dual_v1_6`，不要叫 r115。
+6. 先跑 deterministic gates，再跑 12-row screen，再跑 324-row training。
+7. 只有 training selection `PASSED` 后，才 lock fresh holdout。
 
-1. 用真实 link occupancy 建 finite-storage state；
-2. 引入 stateful dynamic dual variables；
-3. 加入 multi-hop spillback cascade price；
-4. 加入 upstream release value；
-5. 用 theory-aligned composite objective 做 primary endpoint；
-6. 用 training/holdout split 防止 post-hoc；
-7. 保留强 baseline 和 ablation，让结果真的硬。
+## 建议的新 artifact 路线
 
-如果这一版跑通，你的论文就不再是“pressure-equivalent symbolic recovery”，而可以变成：
+```text
+experiments/dual_sensitivity/v1_5_closeout_method_risk.md
+experiments/dual_sensitivity/v1_6_completion_primal_dual_theory_cases.json
+experiments/dual_sensitivity/v1_6_completion_state_audit.json
+experiments/dual_sensitivity/v1_6_completion_primal_dual_gates.json
+experiments/dual_sensitivity/v1_6_training_protocol.json
+experiments/dual_sensitivity/v1_6_training_execution.json
+experiments/dual_sensitivity/v1_6_training_selection.json
+experiments/dual_sensitivity/v1_6_locked_holdout_protocol.json
+experiments/dual_sensitivity/v1_6_locked_holdout_execution.json
+experiments/dual_sensitivity/v1_6_paired_evidence.json
+```
 
-> **Finite-storage dynamic primal-dual generalized pressure: pressure recovery in slack networks, provable separation under binding storage constraints, and locked closed-loop superiority over max-pressure-style baselines in finite-storage arterial regimes.**
-
-[1]: https://github.com/Radar-Lei/pi_light_OR/commits/main/ "Commits · Radar-Lei/pi_light_OR · GitHub"
+最终判断：**这篇还值得冲强 contribution，但必须把“completion-aware finite-storage primal-dual”作为新核心。** v1.5 已经证明 storage/cascade/release 机制能激活；现在要证明它不会为了 storage objective 牺牲 completion。只要这一步做通，你的方法才有机会在大部分 finite-storage binding 场景下真正超过所有 strong baselines，而不是只在 composite 上局部赢、在 unfinished safety 上被 repo 自己否掉。

@@ -164,6 +164,7 @@ CONTROLLER_REGISTRY = {
     "finite_storage_dynamic_primal_dual_v1_5_r113_reactivated_dual_no_positive_pressure_multi_big_finishable_power_horizon": "Post-r112 route-horizon semantics fix that further increases finishable-demand concavity only for multi-vehicle completion movements when a no-positive-local-pressure phase contains multiple such movements, directly damping the remaining raw wins driven by high aggregate 3-4 vehicle finishable volume.",
     "finite_storage_dynamic_primal_dual_v1_5_r114_reactivated_dual_supported_big_finishable_sum_horizon": "Post-r92 route-horizon semantics fix that only normalizes multi-vehicle completion credit when a no-positive-local-pressure phase carries a very large aggregate multi-vehicle finishable volume, targeting the high-sum raw wins in the remaining storage-activation bad seed without broadly flattening smaller separations.",
     "full_dual_symbolic": "Per-TLS dual policy where feasible; otherwise explicit not_feasible.",
+    "finite_storage_completion_safe_primal_dual_v1_6": "V1.6 completion-safe controller with dual completion-price mechanism and feasible-set filtering.",
 }
 FINITE_STORAGE_CONTROLLER_IDS = {
     "finite_storage_primal_dual",
@@ -282,6 +283,7 @@ FINITE_STORAGE_CONTROLLER_IDS = {
     "finite_storage_dynamic_primal_dual_v1_5_r112_reactivated_dual_no_positive_pressure_big_finishable_count_horizon",
     "finite_storage_dynamic_primal_dual_v1_5_r113_reactivated_dual_no_positive_pressure_multi_big_finishable_power_horizon",
     "finite_storage_dynamic_primal_dual_v1_5_r114_reactivated_dual_supported_big_finishable_sum_horizon",
+    "finite_storage_completion_safe_primal_dual_v1_6",
 }
 NETWORKS = {
     "single": {
@@ -464,6 +466,26 @@ DYNAMIC_V1_5_PARAMS = {
     "beta_storage": 1.20,
     "gamma_cascade": 0.85,
     "delta_service": 0.35,
+}
+DYNAMIC_V1_6_PARAMS = {
+    # Inherit v1.5 base parameters
+    "storage_threshold": 0.72,
+    "release_threshold": 0.70,
+    "dual_step_size": 0.85,
+    "release_step_size": 0.55,
+    "dual_decay": 0.12,
+    "alpha_release": 0.70,
+    "beta_storage": 1.20,
+    "gamma_cascade": 0.85,
+    "delta_service": 0.35,
+    # v1.6 completion parameters
+    "nu_decay": 0.15,
+    "nu_step_size": 0.80,
+    "completion_deficit_threshold": 0.60,
+    "completion_horizon_fraction": 0.70,
+    "completion_safe_margin": 0.10,
+    "kappa_completion": 1.00,
+    "eta_completion": 0.50,
 }
 DYNAMIC_V1_5_R2_GUARDED_PARAMS = {
     "storage_threshold": 0.76,
@@ -1320,6 +1342,9 @@ DYNAMIC_V1_5_CONTROLLER_IDS = {
     "finite_storage_dynamic_primal_dual_v1_5_r113_reactivated_dual_no_positive_pressure_multi_big_finishable_power_horizon",
     "finite_storage_dynamic_primal_dual_v1_5_r114_reactivated_dual_supported_big_finishable_sum_horizon",
 }
+V1_6_CONTROLLER_IDS: set[str] = {
+    "finite_storage_completion_safe_primal_dual_v1_6",
+}
 ACTION_SUMMARY_COMPONENTS = [
     "downstream_storage",
     "spillback",
@@ -2017,6 +2042,56 @@ def update_dynamic_dual_state(
     return dual_state
 
 
+def update_completion_dual_state(
+    dual_state: dict[str, dict[str, float]],
+    finite_storage_state: dict[str, Any],
+    *,
+    step: int | None = None,
+    warmup: int | None = None,
+    steps: int | None = None,
+    params: dict[str, float] | None = None,
+) -> dict[str, dict[str, float]]:
+    params = params or DYNAMIC_V1_6_PARAMS
+    decay = float(params["nu_decay"])
+    step_size = float(params["nu_step_size"])
+    deficit_threshold = float(params["completion_deficit_threshold"])
+    horizon_frac = float(params["completion_horizon_fraction"])
+    total = (warmup or 0) + (steps or 300)
+    remaining = max(total - (step or 0), 0)
+    in_completion_zone = remaining / max(total, 1) <= (1.0 - horizon_frac)
+    for edge in finite_storage_state.get("downstream_storage", {}):
+        edge_str = str(edge)
+        dual_state.setdefault(edge_str, {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0,
+            "completion_price": 0.0,
+        })
+    if not in_completion_zone:
+        for edge, values in dual_state.items():
+            values["completion_price"] = max(
+                (1.0 - decay) * float(values.get("completion_price", 0.0)),
+                0.0,
+            )
+        return dual_state
+    for edge, values in dual_state.items():
+        occupancy = float(finite_storage_state.get("downstream_storage", {}).get(edge, 0.0))
+        capacity = max(float(finite_storage_state.get("downstream_storage", {}).get(edge, 1.0)), 1.0)
+        occupancy_ratio = min(occupancy / capacity, 1.0) if capacity > 0 else 0.0
+        residual_cap = float(finite_storage_state.get("residual_receiving_capacity", {}).get(edge, 0.0))
+        exit_demand = occupancy * (1.0 - occupancy_ratio * 0.5)
+        exit_capacity = residual_cap + capacity * 0.1
+        deficit_ratio = max(exit_demand - exit_capacity, 0.0) / max(exit_demand, 1.0) if exit_demand > 0 else 0.0
+        deficit_violation = max(deficit_ratio - deficit_threshold, 0.0)
+        values["completion_price"] = max(
+            (1.0 - decay) * float(values.get("completion_price", 0.0))
+            + step_size * deficit_violation,
+            0.0,
+        )
+    return dual_state
+
+
 def dynamic_v1_5_movement_decomposition(
     movement: tuple[str, str],
     queues: dict[str, float],
@@ -2054,6 +2129,7 @@ def dynamic_v1_5_movement_decomposition(
     cascade_price = -float(params["gamma_cascade"]) * float(downstream_dual.get("cascade_price", 0.0)) * upstream_queue
     release_value = float(params["alpha_release"]) * float(upstream_dual.get("release_price", 0.0)) * upstream_queue
     service_age = float(params["delta_service"]) * float(upstream_dual.get("service_age", 0.0)) * downstream_capacity
+    completion_price = -float(params.get("kappa_completion", 0.0)) * float(downstream_dual.get("completion_price", 0.0)) * upstream_queue
     components = {
         "pressure": float(base["pressure"]),
         "downstream_storage": float(base["downstream_storage"]),
@@ -2066,6 +2142,7 @@ def dynamic_v1_5_movement_decomposition(
         "release": float(release_value),
         "service_age": float(service_age),
         "double_pressure_scaffold": float(base.get("double_pressure_scaffold", 0.0)),
+        "completion_price": float(completion_price),
     }
     components["total"] = float(sum(value for field, value in components.items() if field != "total"))
     return components
@@ -2810,6 +2887,39 @@ def completion_safety_veto_active(
     return occupancy_threshold is None and residual_threshold is None
 
 
+def completion_safe_feasible_set(
+    phase_scores: dict[int, float],
+    baseline_scores: dict[str, dict[int, float]],
+    finite_storage_state: dict[str, Any],
+    queues: dict[str, float],
+    movements_by_phase: dict[int, list[tuple[str, str]]],
+    *,
+    step: int | None = None,
+    warmup: int | None = None,
+    steps: int | None = None,
+    params: dict[str, float] | None = None,
+) -> set[int]:
+    params = params or DYNAMIC_V1_6_PARAMS
+    margin = float(params["completion_safe_margin"])
+    total = (warmup or 0) + (steps or 300)
+    remaining = max(total - (step or 0), 0)
+    horizon_frac = float(params["completion_horizon_fraction"])
+    in_completion_zone = remaining / max(total, 1) <= (1.0 - horizon_frac)
+    if not in_completion_zone:
+        return set(phase_scores.keys())
+    best_baseline_min = float("inf")
+    for _bname, bscores in baseline_scores.items():
+        bmax = max(bscores.values()) if bscores else 0.0
+        best_baseline_min = min(best_baseline_min, bmax)
+    safe_phases: set[int] = set()
+    for pi, score in phase_scores.items():
+        if score >= best_baseline_min - margin * abs(best_baseline_min) - 1e-9:
+            safe_phases.add(pi)
+    if not safe_phases:
+        safe_phases = set(phase_scores.keys())
+    return safe_phases
+
+
 def select_finite_storage_action_with_audit(
     tls_id: str,
     current_phase: int,
@@ -2842,7 +2952,7 @@ def select_finite_storage_action_with_audit(
         }
     finite_phase_scores = {}
     for phase_idx in greens:
-        if controller in DYNAMIC_V1_5_CONTROLLER_IDS:
+        if controller in DYNAMIC_V1_5_CONTROLLER_IDS or controller in V1_6_CONTROLLER_IDS:
             decomposition = dynamic_v1_5_phase_decomposition(
                 phase_idx,
                 states,
@@ -2852,7 +2962,7 @@ def select_finite_storage_action_with_audit(
                 finite_storage_state,
                 dynamic_dual_state or {},
                 current_phase=current_phase,
-                params=dynamic_v1_5_params_for_controller(controller),
+                params=dynamic_v1_5_params_for_controller(controller) if controller in DYNAMIC_V1_5_CONTROLLER_IDS else DYNAMIC_V1_6_PARAMS,
                 score_variant=controller,
             )
         else:
@@ -2914,7 +3024,7 @@ def select_finite_storage_action_with_audit(
         if double_pressure_phase_scores
         else current_phase
     )
-    dynamic_params = dynamic_v1_5_params_for_controller(controller) if controller in DYNAMIC_V1_5_CONTROLLER_IDS else {}
+    dynamic_params = dynamic_v1_5_params_for_controller(controller) if controller in DYNAMIC_V1_5_CONTROLLER_IDS else (DYNAMIC_V1_6_PARAMS if controller in V1_6_CONTROLLER_IDS else {})
     safety_fallback_used = False
     terminal_fallback_used = False
     double_score_filter_used = False
@@ -4506,10 +4616,30 @@ def select_finite_storage_action_with_audit(
             ):
                 finite_storage_action = int(double_pressure_action)
                 post_completion_veto_double_conflict_guard_used = True
+    if controller in V1_6_CONTROLLER_IDS:
+        safe_phases = completion_safe_feasible_set(
+            {p: decomposition["score"] for p, decomposition in finite_phase_scores.items()},
+            {
+                "pressure": pressure_phase_scores,
+                "capacity_aware": capacity_phase_scores,
+                "double_pressure": double_pressure_phase_scores,
+            },
+            finite_storage_state, queues,
+            {phase_idx: movements for phase_idx in greens},
+            step=step, warmup=warmup, steps=steps, params=DYNAMIC_V1_6_PARAMS,
+        )
+        if safe_phases:
+            best_safe_score = max(finite_phase_scores[p]["score"] for p in safe_phases if p in finite_phase_scores)
+            finite_storage_action = max(
+                (p for p in safe_phases if p in finite_phase_scores and finite_phase_scores[p]["score"] == best_safe_score),
+                key=lambda p: finite_phase_scores[p]["score"],
+            )
     selected_totals = finite_phase_scores.get(finite_storage_action, {}).get("component_totals", {})
     auditable_terms = ["downstream_storage", "spillback", "switching", "service", "incident"]
     if controller in DYNAMIC_V1_5_CONTROLLER_IDS:
         auditable_terms += ["storage_price", "cascade_price", "release", "service_age", "guardrail"]
+    if controller in V1_6_CONTROLLER_IDS:
+        auditable_terms += ["storage_price", "cascade_price", "release", "service_age", "guardrail", "completion_price"]
     changing_terms = sorted(
         field for field in auditable_terms if abs(float(selected_totals.get(field, 0.0))) > 1e-9
     )
@@ -4592,6 +4722,15 @@ def select_finite_storage_action_with_audit(
         audit["dynamic_params"] = {
             field: float(value) if isinstance(value, (int, float)) else str(value)
             for field, value in sorted(dynamic_v1_5_params_for_controller(controller).items())
+        }
+    if controller in V1_6_CONTROLLER_IDS:
+        audit["dynamic_dual_snapshot"] = {
+            edge: {field: float(value) for field, value in values.items()}
+            for edge, values in sorted((dynamic_dual_state or {}).items())
+        }
+        audit["dynamic_params"] = {
+            field: float(value) if isinstance(value, (int, float)) else str(value)
+            for field, value in sorted(DYNAMIC_V1_6_PARAMS.items())
         }
     return audit
 
@@ -4998,8 +5137,17 @@ def run_experiment(
                         dynamic_dual_state,
                         interval_state,
                         downstream_adjacency,
-                        params=dynamic_v1_5_params_for_controller(controller),
+                        params=dynamic_v1_5_params_for_controller(controller) if controller in DYNAMIC_V1_5_CONTROLLER_IDS else DYNAMIC_V1_6_PARAMS,
                     )
+                    if controller in V1_6_CONTROLLER_IDS:
+                        update_completion_dual_state(
+                            dynamic_dual_state,
+                            interval_state,
+                            step=step,
+                            warmup=warmup,
+                            steps=steps,
+                            params=DYNAMIC_V1_6_PARAMS,
+                        )
                 route_completion_state = (
                     build_active_route_completion_state(
                         edge_ids,

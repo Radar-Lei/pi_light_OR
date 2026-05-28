@@ -1,11 +1,11 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.5
-milestone_name: Dynamic Finite-Storage Primal-Dual Method Redesign
-status: in_progress
-stopped_at: v1.5 r46 early batch rejected despite positive core composite means
-last_updated: "2026-05-27T00:00:00+08:00"
-last_activity: 2026-05-27 — v1.5 r46 occupancy-gated completion-safety veto was implemented, initial 12-row training batch stayed rejected on unfinished safety, and aggregate tradeoff/audit artifacts were refreshed.
+milestone_name: v1.5 Closeout — Mechanism Success, Completion-Safety Failure
+status: closeout
+stopped_at: v1.5 closed out — mechanism success, completion-safety failure, no superiority claim
+last_updated: "2026-05-28T00:00:00+08:00"
+last_activity: 2026-05-28 — v1.5 closed out: deterministic gates PASSED, closed-loop diagnostics PASSED, all 113 training candidates rejected on completion/unfinished safety. v1.6 milestone to follow.
 progress:
   total_phases: 5
   completed_phases: 5
@@ -25,10 +25,10 @@ See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-27)
 
 ## Current Position
 
-Phase: Phase 19 candidate — v1.5 method redesign
+Phase: Phase 20 candidate — v1.6 completion-aware finite-storage primal-dual
 Plan: —
-Status: In progress
-Last activity: 2026-05-27 — v1.5 r46 initial batch stayed rejected; the new completion-safety veto improved early composite signal but did not clear unfinished safety.
+Status: Awaiting v1.6 milestone start
+Last activity: 2026-05-28 — v1.5 closed out with method-risk finding. Next: v1.6 completion-aware finite-storage primal-dual controller.
 
 ## Performance Metrics
 
@@ -181,6 +181,7 @@ Last activity: 2026-05-27 — v1.5 r46 initial batch stayed rejected; the new co
 - [v1.5]: `v1_5_completion_tradeoff_analysis.json` reports 107 analyzed training cases, 75 unsafe cases, 52 composite-win cases, 24 safe-and-composite-win cases, and 33 core-baseline conflicts between unfinished oracle and composite oracle.
 - [v1.5]: `v1_5_revision_candidate_summary.json` reports `NO_CANDIDATE_SELECTED`; the next step is a structurally stronger completion model or completion-safety controller guard on fresh training seeds before any confirmatory holdout.
 - [Phase 18]: v1.4 claim refresh preserves `closed_loop_superiority_claim_allowed=false`; milestone audit found no overclaim or protocol drift.
+- [v1.5 closeout]: v1.5 is closed as method-risk finding: deterministic gates and closed-loop diagnostics PASSED, but 113/113 training candidates rejected on completion/unfinished safety; no superiority claim allowed; completion safety must be a first-class primal-dual component in v1.6, not a post-hoc guard.
 
 ### Pending Todos
 

@@ -22,6 +22,7 @@ Max-pressure/backpressure and capacity-aware pressure are first-class baselines,
 - v1.4 locked Gate C executed 1440/1440 rows and remained non-PASSED; closed-loop superiority remains disallowed.
 - v1.5 implementation work added occupancy-based finite-storage state, an occupancy-aware capacity baseline, `finite_storage_dynamic_primal_dual_v1_5`, deterministic method gates, closed-loop diagnostics, and locked holdout tooling.
 - The original v1.5 holdout protocol was superseded after activation audit showed no storage-binding decisions in early rows. The revised binding protocol activates storage/cascade/release mechanisms, but early locked rows trigger safety-guard failures against strong baselines; closed-loop superiority remains disallowed.
+- **v1.5 closeout (2026-05-28)**: v1.5 deterministic method gates PASSED (4/4 mechanisms), closed-loop diagnostics PASSED (action-change rate 0.55, binding action-change rate 0.756), but all 113 training candidates rejected on completion/unfinished safety; closed-loop superiority remains disallowed. See `v1_5_closeout_method_risk.md`.
 
 ## Repository layout
 
@@ -138,6 +139,7 @@ python scripts/reproduce_blocks.py --audit --manifest-out experiments/dual_sensi
 | `experiments/dual_sensitivity/v1_5_revision_candidate_summary.json` | r2-r46 convergence summary; `NO_CANDIDATE_SELECTED`; completion and safety risk remain unresolved. |
 | `experiments/dual_sensitivity/v1_5_completion_safety_contract_audit.json` | Safety-contract audit through r46; `REVISION_REQUIRED`; no candidate passes unfinished safety with positive core composite/action separation, and current evidence does not support weakening the guard. |
 | `experiments/dual_sensitivity/v1_5_completion_tradeoff_analysis.json` | Diagnostic execution-level tradeoff analysis across r2-r46 execution artifacts; 107 analyzed training cases, 75 unsafe cases, 52 composite-win cases, 24 safe-and-composite-win cases, and 33 core-baseline oracle conflicts. |
+| `experiments/dual_sensitivity/v1_5_closeout_method_risk.md` | v1.5 closeout: mechanism success, completion-safety failure, no superiority claim. |
 
 ## Known limitations
 
@@ -149,10 +151,11 @@ python scripts/reproduce_blocks.py --audit --manifest-out experiments/dual_sensi
 
 ## Next experiments
 
-1. Treat current v1.5 binding rows as a method-risk finding, not a superiority result.
-2. Rebuild completion modeling or add a stronger completion-safety controller guard on fresh training seeds before any confirmatory claim.
-3. Lock a new training protocol before any future confirmatory paired-evidence claim.
+1. v1.5 is closed out as a method-risk finding: mechanism success (storage/cascade/release activation), completion-safety failure (all 113 candidates rejected), no superiority claim.
+2. v1.6 **completion-aware dynamic finite-storage primal-dual pressure**: terminal completion dual price (ν_ℓ) as a first-class primal-dual component, not a post-hoc guard. Two-stage action selection: completion-safe feasible set → primal-dual optimal within safe set.
+3. v1.6 deterministic gates must include a terminal completion gate before any training protocol.
+4. Only after v1.6 training selection PASSES may a fresh holdout protocol be locked with fresh seeds.
 
 ## Claim discipline guardrails
 
-Do not describe the current result as universal dual-over-pressure dominance or closed-loop superiority. Superiority language requires a future locked v1.5 artifact with passing paired-seed evidence against the required strong baselines and ablations.
+Do not describe the current result as universal dual-over-pressure dominance or closed-loop superiority. v1.5 is closed out with method-risk finding status; superiority language requires a future locked v1.6 artifact with passing paired-seed evidence against the required strong baselines and ablations, satisfying both composite cost and unfinished-vehicle safety guards.
