@@ -1,0 +1,115 @@
+{
+  "experiment": "v1_5_r4_training_protocol",
+  "status": "TRAINING_LOCKED",
+  "generated_by": "scripts/lock_v15_r4_training_protocol.py",
+  "requirements_covered": [
+    "V15-R4-TRAIN-01",
+    "V15-CLAIM-01"
+  ],
+  "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r4_release_service",
+  "required_baselines": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "occupancy_capacity_aware_pressure",
+    "finite_storage_double_pressure",
+    "finite_storage_primal_dual_v1_4_score"
+  ],
+  "controller_params": {
+    "storage_threshold": 0.8,
+    "release_threshold": 0.72,
+    "dual_step_size": 0.0,
+    "release_step_size": 0.5,
+    "dual_decay": 0.18,
+    "alpha_release": 0.4,
+    "beta_storage": 0.0,
+    "gamma_cascade": 0.0,
+    "delta_service": 0.55,
+    "base_score_variant": "finite_storage_double_scaffold"
+  },
+  "training_split": {
+    "profile": "training",
+    "scenarios": [
+      "arterial_v1_5_storage_activation",
+      "arterial_spillback_stress",
+      "arterial_downstream_blockage"
+    ],
+    "seeds": [
+      20260821,
+      20260822,
+      20260823,
+      20260824,
+      20260825,
+      20260826
+    ],
+    "excluded_seed_sets": {
+      "v1_5_binding_locked_protocol": [
+        20260710,
+        20260711,
+        20260712,
+        20260713,
+        20260714,
+        20260715,
+        20260716,
+        20260717
+      ],
+      "v1_5_r2_training_protocol": [
+        20260801,
+        20260802,
+        20260803,
+        20260804,
+        20260805,
+        20260806
+      ],
+      "v1_5_r3_training_protocol": [
+        20260811,
+        20260812,
+        20260813,
+        20260814,
+        20260815,
+        20260816
+      ]
+    },
+    "demand_multipliers": [
+      0.85,
+      1.0,
+      1.15
+    ],
+    "controllers": [
+      "finite_storage_dynamic_primal_dual_v1_5_r4_release_service",
+      "max_pressure",
+      "capacity_aware_pressure",
+      "occupancy_capacity_aware_pressure",
+      "finite_storage_double_pressure",
+      "finite_storage_primal_dual_v1_4_score"
+    ],
+    "steps": 3600,
+    "warmup": 900,
+    "action_interval": 10,
+    "expected_row_count": 324
+  },
+  "selection_rule": {
+    "primary_endpoint": "composite_finite_storage_operating_cost",
+    "eligible_for_selection_only_if": [
+      "no safety-guard harm against max_pressure",
+      "no safety-guard harm against capacity_aware_pressure",
+      "no safety-guard harm against finite_storage_double_pressure",
+      "action separation from pressure is at least 5% on binding training rows",
+      "release/service mechanism activation remains present"
+    ],
+    "not_confirmatory_evidence": true
+  },
+  "supersedes_candidate": "finite_storage_dynamic_primal_dual_v1_5_r3_double_release",
+  "supersession_trigger": "experiments/dual_sensitivity/v1_5_r3_training_selection.json",
+  "protocol_fingerprint": "f1c58b79af6f48cb6e9d3f956787810dce591c166f0fb8a80a6dc69dcb4d287c",
+  "artifact_plan": {
+    "training_protocol": "experiments/dual_sensitivity/v1_5_r4_training_protocol.json",
+    "training_execution": "experiments/dual_sensitivity/v1_5_r4_training_execution.json",
+    "training_selection": "experiments/dual_sensitivity/v1_5_r4_training_selection.json",
+    "future_confirmatory_protocol": "experiments/dual_sensitivity/v1_5_r4_locked_protocol.json"
+  },
+  "claim_scope": {
+    "claim_ready": false,
+    "closed_loop_superiority_claim_allowed": false,
+    "why": "training protocol can select or reject a revised method but cannot confirm a superiority claim"
+  }
+}

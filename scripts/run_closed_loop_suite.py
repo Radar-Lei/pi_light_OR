@@ -43,9 +43,12 @@ DEFAULT_CONTROLLERS = [
     "actuated_local_pressure",
     "max_pressure",
     "capacity_aware_pressure",
+    "occupancy_capacity_aware_pressure",
     "cycle_pressure",
     "finite_storage_double_pressure",
     "finite_storage_primal_dual",
+    "finite_storage_primal_dual_v1_4_score",
+    "finite_storage_dynamic_primal_dual_v1_5",
     "local_pilight",
     "raw_neighbor_symbolic",
     "all_neighbor_symbolic",
@@ -123,7 +126,22 @@ def build_suite_spec(
             scenario_tag: (grid_seeds[:5] if scenario_tag == "grid_scalability" else arterial_seeds[:5] if scenario_tag == "arterial_main" else arterial_seeds[:1])
             for scenario_tag, _network in SCENARIOS
         }
-        stress_controllers = [c for c in controllers if c in {"fixed_time", "max_pressure", "capacity_aware_pressure", "cycle_pressure", "finite_storage_double_pressure", "finite_storage_primal_dual"}]
+        stress_controllers = [
+            c
+            for c in controllers
+            if c
+            in {
+                "fixed_time",
+                "max_pressure",
+                "capacity_aware_pressure",
+                "occupancy_capacity_aware_pressure",
+                "cycle_pressure",
+                "finite_storage_double_pressure",
+                "finite_storage_primal_dual",
+                "finite_storage_primal_dual_v1_4_score",
+                "finite_storage_dynamic_primal_dual_v1_5",
+            }
+        ]
         controllers_by_scenario = {
             scenario_tag: (controllers if scenario_tag in {"single_sanity", "arterial_main", "grid_scalability"} else stress_controllers)
             for scenario_tag, _network in SCENARIOS

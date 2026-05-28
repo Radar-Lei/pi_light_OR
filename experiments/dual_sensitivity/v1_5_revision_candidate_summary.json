@@ -1,0 +1,2104 @@
+{
+  "experiment": "v1_5_revision_candidate_summary",
+  "status": "NO_CANDIDATE_SELECTED",
+  "requirements_covered": [
+    "V15-REVISION-01",
+    "V15-CLAIM-01"
+  ],
+  "claim_ready": false,
+  "candidate_count": 113,
+  "selected_candidate_count": 0,
+  "rejected_candidate_count": 112,
+  "completion_safety_blocker_count": 107,
+  "candidates": [
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r2_training_selection.json",
+      "experiment": "v1_5_r2_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r2_guarded",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r2_guarded",
+      "claim_ready": false,
+      "action_change_rate": 0.011111111111111112,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 1,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 187058.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r3_training_selection.json",
+      "experiment": "v1_5_r3_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r3_double_release",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r3_double_release",
+      "claim_ready": false,
+      "action_change_rate": 0.12,
+      "binding_decision_rate": 0.9814814814814815,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 1205392.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r4_training_selection.json",
+      "experiment": "v1_5_r4_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r4_release_service",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r4_release_service",
+      "claim_ready": false,
+      "action_change_rate": 0.24592592592592594,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 2626348.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r5_training_selection.json",
+      "experiment": "v1_5_r5_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r5_double_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r5_double_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.07777777777777778,
+      "binding_decision_rate": 0.9814814814814815,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 1440571.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r6_training_selection.json",
+      "experiment": "v1_5_r6_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r6_terminal_flush",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r6_terminal_flush",
+      "claim_ready": false,
+      "action_change_rate": 0.15518518518518518,
+      "binding_decision_rate": 0.9981481481481481,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 591557.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r7_training_selection.json",
+      "experiment": "v1_5_r7_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r7_double_filter",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r7_double_filter",
+      "claim_ready": false,
+      "action_change_rate": 0.013333333333333334,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 1,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 37761.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r8_training_selection.json",
+      "experiment": "v1_5_r8_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r8_multi_baseline_filter",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r8_multi_baseline_filter",
+      "claim_ready": false,
+      "action_change_rate": 0.003703703703703704,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 1,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 2620984.0,
+      "safety_harm_count": 5,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r9_training_selection.json",
+      "experiment": "v1_5_r9_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r9_hold_only",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r9_hold_only",
+      "claim_ready": false,
+      "action_change_rate": 0.2362962962962963,
+      "binding_decision_rate": 0.9851851851851852,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 2740464.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r10_training_selection.json",
+      "experiment": "v1_5_r10_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r10_bounded_hold",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r10_bounded_hold",
+      "claim_ready": false,
+      "action_change_rate": 0.22111111111111112,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 451481.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r11_training_selection.json",
+      "experiment": "v1_5_r11_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r11_completion_risk",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r11_completion_risk",
+      "claim_ready": false,
+      "action_change_rate": 0.11370370370370371,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 726863.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r12_training_selection.json",
+      "experiment": "v1_5_r12_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r12_route_completion",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r12_route_completion",
+      "claim_ready": false,
+      "action_change_rate": 0.03851851851851852,
+      "binding_decision_rate": 0.9703703703703703,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r13_training_selection.json",
+      "experiment": "v1_5_r13_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r13_route_demand",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r13_route_demand",
+      "claim_ready": false,
+      "action_change_rate": 0.1725925925925926,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 1586885.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r14_training_selection.json",
+      "experiment": "v1_5_r14_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r14_route_demand_double_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r14_route_demand_double_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.00962962962962963,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 0,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r15_training_selection.json",
+      "experiment": "v1_5_r15_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r15_horizon_model",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r15_horizon_model",
+      "claim_ready": false,
+      "action_change_rate": 0.18592592592592594,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 826688.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r16_training_selection.json",
+      "experiment": "v1_5_r16_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r16_horizon_terminal",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r16_horizon_terminal",
+      "claim_ready": false,
+      "action_change_rate": 0.1537037037037037,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 509825.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r17_training_selection.json",
+      "experiment": "v1_5_r17_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r17_horizon_capacity_terminal",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r17_horizon_capacity_terminal",
+      "claim_ready": false,
+      "action_change_rate": 0.14592592592592593,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 1207436.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r18_training_selection.json",
+      "experiment": "v1_5_r18_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r18_horizon_balanced_terminal",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r18_horizon_balanced_terminal",
+      "claim_ready": false,
+      "action_change_rate": 0.1725925925925926,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 327944.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r19_training_selection.json",
+      "experiment": "v1_5_r19_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r19_horizon_double_anchored",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r19_horizon_double_anchored",
+      "claim_ready": false,
+      "action_change_rate": 0.14814814814814814,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 5,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 99541.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r20_training_selection.json",
+      "experiment": "v1_5_r20_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r20_horizon_max_double_terminal",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r20_horizon_max_double_terminal",
+      "claim_ready": false,
+      "action_change_rate": 0.15925925925925927,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 1178151.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r21_training_selection.json",
+      "experiment": "v1_5_r21_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r21_horizon_service_terminal",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r21_horizon_service_terminal",
+      "claim_ready": false,
+      "action_change_rate": 0.1325925925925926,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 1169552.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r22_training_selection.json",
+      "experiment": "v1_5_r22_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r22_horizon_completion_safety",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r22_horizon_completion_safety",
+      "claim_ready": false,
+      "action_change_rate": 0.047407407407407405,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r23_training_selection.json",
+      "experiment": "v1_5_r23_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r23_horizon_dominance",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r23_horizon_dominance",
+      "claim_ready": false,
+      "action_change_rate": 0.03925925925925926,
+      "binding_decision_rate": 0.9851851851851852,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 207524.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r24_training_selection.json",
+      "experiment": "v1_5_r24_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r24_staged_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r24_staged_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.1474074074074074,
+      "binding_decision_rate": 0.9851851851851852,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 1278091.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r25_training_selection.json",
+      "experiment": "v1_5_r25_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r25_staged_horizon_late_max",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r25_staged_horizon_late_max",
+      "claim_ready": false,
+      "action_change_rate": 0.16518518518518518,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 51382.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r26_training_selection.json",
+      "experiment": "v1_5_r26_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r26_relative_exit_urgency",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r26_relative_exit_urgency",
+      "claim_ready": false,
+      "action_change_rate": 0.14592592592592593,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 2414688.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r27_training_selection.json",
+      "experiment": "v1_5_r27_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r27_terminal_exit_protection",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r27_terminal_exit_protection",
+      "claim_ready": false,
+      "action_change_rate": 0.17629629629629628,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 2222070.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r28_training_selection.json",
+      "experiment": "v1_5_r28_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r28_max_pressure_envelope",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r28_max_pressure_envelope",
+      "claim_ready": false,
+      "action_change_rate": 0.11925925925925926,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 4,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 653692.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r29_training_selection.json",
+      "experiment": "v1_5_r29_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r29_core_baseline_envelope",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r29_core_baseline_envelope",
+      "claim_ready": false,
+      "action_change_rate": 0.1111111111111111,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 1,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 808427.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r30_training_selection.json",
+      "experiment": "v1_5_r30_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r30_double_envelope",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r30_double_envelope",
+      "claim_ready": false,
+      "action_change_rate": 0.1162962962962963,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r31_training_selection.json",
+      "experiment": "v1_5_r31_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r31_late_double_terminal",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r31_late_double_terminal",
+      "claim_ready": false,
+      "action_change_rate": 0.1688888888888889,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 1877638.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r32_training_selection.json",
+      "experiment": "v1_5_r32_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r32_preterminal_double_guard",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r32_preterminal_double_guard",
+      "claim_ready": false,
+      "action_change_rate": 0.17222222222222222,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 1,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 2966634.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r33_training_selection.json",
+      "experiment": "v1_5_r33_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r33_midcourse_double_guard",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r33_midcourse_double_guard",
+      "claim_ready": false,
+      "action_change_rate": 0.15407407407407409,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 349589.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r34_training_selection.json",
+      "experiment": "v1_5_r34_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r34_core_minimax_guard",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r34_core_minimax_guard",
+      "claim_ready": false,
+      "action_change_rate": 0.12666666666666668,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 1156135.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r35_training_selection.json",
+      "experiment": "v1_5_r35_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency",
+      "claim_ready": false,
+      "action_change_rate": 0.9177777777777778,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 15,
+      "unfinished_vehicle_harm_count": 5,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r36_training_selection.json",
+      "experiment": "v1_5_r36_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r36_late_deadline_anchor",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r36_late_deadline_anchor",
+      "claim_ready": false,
+      "action_change_rate": 0.1774074074074074,
+      "binding_decision_rate": 0.9981481481481481,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 40221.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r37_training_selection.json",
+      "experiment": "v1_5_r37_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r37_late_deadline_service_anchor",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r37_late_deadline_service_anchor",
+      "claim_ready": false,
+      "action_change_rate": 0.08962962962962963,
+      "binding_decision_rate": 0.9777777777777777,
+      "strong_baseline_positive_composite_count": 1,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 729151.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r38_training_selection.json",
+      "experiment": "v1_5_r38_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r38_capacity_rescue_guard",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r38_capacity_rescue_guard",
+      "claim_ready": false,
+      "action_change_rate": 0.17703703703703705,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 166443.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r39_training_selection.json",
+      "experiment": "v1_5_r39_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r39_capacity_score_envelope",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r39_capacity_score_envelope",
+      "claim_ready": false,
+      "action_change_rate": 0.014074074074074074,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 721502.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r40_training_selection.json",
+      "experiment": "v1_5_r40_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r40_pressure_safe_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r40_pressure_safe_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.052592592592592594,
+      "binding_decision_rate": 0.9851851851851852,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 156695.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r41_training_selection.json",
+      "experiment": "v1_5_r41_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r41_terminal_core_completion",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r41_terminal_core_completion",
+      "claim_ready": false,
+      "action_change_rate": 0.03481481481481481,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 554081.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r42_training_selection.json",
+      "experiment": "v1_5_r42_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r42_tail_completion_rescue",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r42_tail_completion_rescue",
+      "claim_ready": false,
+      "action_change_rate": 0.05407407407407407,
+      "binding_decision_rate": 0.9777777777777777,
+      "strong_baseline_positive_composite_count": 1,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 877566.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r43_training_selection.json",
+      "experiment": "v1_5_r43_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r43_staged_pressure_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r43_staged_pressure_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.02074074074074074,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 0,
+      "unfinished_vehicle_harm_count": 0,
+      "reasons": [
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r44_training_selection.json",
+      "experiment": "v1_5_r44_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r44_loose_staged_pressure_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r44_loose_staged_pressure_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.03259259259259259,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 3,
+      "min_strong_baseline_composite_difference": 316631.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r45_training_selection.json",
+      "experiment": "v1_5_r45_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.17728395061728394,
+      "binding_decision_rate": 0.3329218106995885,
+      "strong_baseline_positive_composite_count": 85,
+      "strong_baseline_result_count": 162,
+      "min_strong_baseline_composite_difference": 93.0,
+      "safety_harm_count": 176,
+      "unfinished_vehicle_harm_count": 117,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r46_training_selection.json",
+      "experiment": "v1_5_r46_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r46_occupancy_safe_completion",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r46_occupancy_safe_completion",
+      "claim_ready": false,
+      "action_change_rate": 0.1348148148148148,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 2035056.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r47_training_selection.json",
+      "experiment": "v1_5_r47_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r47_staged_severe_double_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r47_staged_severe_double_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.13592592592592592,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 573204.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r48_training_selection.json",
+      "experiment": "v1_5_r48_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r48_pressure_double_conflict_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r48_pressure_double_conflict_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.13666666666666666,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1414617.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r49_training_selection.json",
+      "experiment": "v1_5_r49_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r49_early_pressure_double_conflict_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r49_early_pressure_double_conflict_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.13925925925925925,
+      "binding_decision_rate": 0.9851851851851852,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1387563.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r50_training_selection.json",
+      "experiment": "v1_5_r50_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r50_completion_conflict_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r50_completion_conflict_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.02925925925925926,
+      "binding_decision_rate": 0.9907407407407407,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 424057.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r51_training_selection.json",
+      "experiment": "v1_5_r51_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r51_core_consensus_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r51_core_consensus_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.02962962962962963,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 5,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1135508.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r52_training_selection.json",
+      "experiment": "v1_5_r52_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r52_raw_consensus_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r52_raw_consensus_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.007037037037037037,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 50599.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r53_training_selection.json",
+      "experiment": "v1_5_r53_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r53_post_veto_double_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r53_post_veto_double_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.040740740740740744,
+      "binding_decision_rate": 0.987037037037037,
+      "strong_baseline_positive_composite_count": 5,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 84618.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r54_training_selection.json",
+      "experiment": "v1_5_r54_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r54_reactivated_dual_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r54_reactivated_dual_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.017777777777777778,
+      "binding_decision_rate": 0.9907407407407407,
+      "strong_baseline_positive_composite_count": 4,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 875446.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r55_training_selection.json",
+      "experiment": "v1_5_r55_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r55_reactivated_dual_uncapped_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r55_reactivated_dual_uncapped_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.02074074074074074,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 175973.0,
+      "safety_harm_count": 0,
+      "unfinished_vehicle_harm_count": 0,
+      "reasons": [
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r56_training_selection.json",
+      "experiment": "v1_5_r56_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r56_reactivated_dual_raw_consensus_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r56_reactivated_dual_raw_consensus_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.004074074074074074,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 123745.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r57_training_selection.json",
+      "experiment": "v1_5_r57_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r57_reactivated_dual_capacity_completion_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r57_reactivated_dual_capacity_completion_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.0044444444444444444,
+      "binding_decision_rate": 0.9981481481481481,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 626883.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r58_training_selection.json",
+      "experiment": "v1_5_r58_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r58_reactivated_dual_post_veto_double_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r58_reactivated_dual_post_veto_double_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.014074074074074074,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 1,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 454407.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r59_training_selection.json",
+      "experiment": "v1_5_r59_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r59_reactivated_dual_narrow_post_veto_double_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r59_reactivated_dual_narrow_post_veto_double_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.005555555555555556,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 878422.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r60_training_selection.json",
+      "experiment": "v1_5_r60_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r60_reactivated_dual_early_capacity_conflict_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r60_reactivated_dual_early_capacity_conflict_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.008518518518518519,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 4,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 329257.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r61_training_selection.json",
+      "experiment": "v1_5_r61_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r61_reactivated_dual_mid_severe_early_capacity_conflict_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r61_reactivated_dual_mid_severe_early_capacity_conflict_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.014074074074074074,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1255965.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r62_training_selection.json",
+      "experiment": "v1_5_r62_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r62_reactivated_dual_late_severe_raw_consensus_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r62_reactivated_dual_late_severe_raw_consensus_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.014074074074074074,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 283820.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r63_training_selection.json",
+      "experiment": "v1_5_r63_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r63_reactivated_dual_native_base_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r63_reactivated_dual_native_base_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.01,
+      "binding_decision_rate": 0.9907407407407407,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 821165.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r64_training_selection.json",
+      "experiment": "v1_5_r64_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r64_reactivated_dual_native_base_late_severe_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r64_reactivated_dual_native_base_late_severe_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.02925925925925926,
+      "binding_decision_rate": 0.9981481481481481,
+      "strong_baseline_positive_composite_count": 5,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 918085.0,
+      "safety_harm_count": 6,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r65_training_selection.json",
+      "experiment": "v1_5_r65_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r65_reactivated_dual_native_capacity_score_rescue",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r65_reactivated_dual_native_capacity_score_rescue",
+      "claim_ready": false,
+      "action_change_rate": 0.006666666666666667,
+      "binding_decision_rate": 1.0,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r66_training_selection.json",
+      "experiment": "v1_5_r66_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r66_reactivated_dual_native_horizon_score_blend",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r66_reactivated_dual_native_horizon_score_blend",
+      "claim_ready": false,
+      "action_change_rate": 0.00962962962962963,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 185.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r67_training_selection.json",
+      "experiment": "v1_5_r67_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r67_reactivated_dual_native_negative_total_penalty",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r67_reactivated_dual_native_negative_total_penalty",
+      "claim_ready": false,
+      "action_change_rate": 0.012222222222222223,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 673256.0,
+      "safety_harm_count": 5,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r68_training_selection.json",
+      "experiment": "v1_5_r68_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r68_reactivated_dual_native_double_horizon_blend",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r68_reactivated_dual_native_double_horizon_blend",
+      "claim_ready": false,
+      "action_change_rate": 0.007037037037037037,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 935573.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 0,
+      "reasons": [
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r69_training_selection.json",
+      "experiment": "v1_5_r69_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r69_reactivated_dual_release_biased_native_base",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r69_reactivated_dual_release_biased_native_base",
+      "claim_ready": false,
+      "action_change_rate": 0.01,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r70_training_selection.json",
+      "experiment": "v1_5_r70_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r70_reactivated_dual_descendant_release_native_base",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r70_reactivated_dual_descendant_release_native_base",
+      "claim_ready": false,
+      "action_change_rate": 0.0077777777777777776,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 5,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 126251.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r71_training_selection.json",
+      "experiment": "v1_5_r71_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r71_reactivated_dual_local_descendant_release_native_base",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r71_reactivated_dual_local_descendant_release_native_base",
+      "claim_ready": false,
+      "action_change_rate": 0.009259259259259259,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r72_training_selection.json",
+      "experiment": "v1_5_r72_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r72_reactivated_dual_release_risk_horizon_blend",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r72_reactivated_dual_release_risk_horizon_blend",
+      "claim_ready": false,
+      "action_change_rate": 0.008518518518518519,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 699111.0,
+      "safety_harm_count": 0,
+      "unfinished_vehicle_harm_count": 0,
+      "reasons": [
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r73_training_selection.json",
+      "experiment": "v1_5_r73_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r73_reactivated_dual_release_risk_late_conflict_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r73_reactivated_dual_release_risk_late_conflict_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.06222222222222222,
+      "binding_decision_rate": 0.9907407407407407,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1630475.0,
+      "safety_harm_count": 7,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r74_training_selection.json",
+      "experiment": "v1_5_r74_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r74_reactivated_dual_negative_total_consensus_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r74_reactivated_dual_negative_total_consensus_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.018518518518518517,
+      "binding_decision_rate": 0.9981481481481481,
+      "strong_baseline_positive_composite_count": 4,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 265051.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r75_training_selection.json",
+      "experiment": "v1_5_r75_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r75_reactivated_dual_release_risk_negative_pressure_blend",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r75_reactivated_dual_release_risk_negative_pressure_blend",
+      "claim_ready": false,
+      "action_change_rate": 0.01814814814814815,
+      "binding_decision_rate": 0.987037037037037,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 2617958.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r76_training_selection.json",
+      "experiment": "v1_5_r76_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r76_reactivated_dual_release_risk_negative_total_blend",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r76_reactivated_dual_release_risk_negative_total_blend",
+      "claim_ready": false,
+      "action_change_rate": 0.026296296296296297,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 4,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 15549.0,
+      "safety_harm_count": 5,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r77_training_selection.json",
+      "experiment": "v1_5_r77_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r77_reactivated_dual_conditional_risk_blend",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r77_reactivated_dual_conditional_risk_blend",
+      "claim_ready": false,
+      "action_change_rate": 0.037037037037037035,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 5,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 247311.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r78_training_selection.json",
+      "experiment": "v1_5_r78_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r78_reactivated_dual_conditional_risk_late_raw_consensus",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r78_reactivated_dual_conditional_risk_late_raw_consensus",
+      "claim_ready": false,
+      "action_change_rate": 0.061481481481481484,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 12,
+      "strong_baseline_result_count": 12,
+      "min_strong_baseline_composite_difference": 246990.0,
+      "safety_harm_count": 5,
+      "unfinished_vehicle_harm_count": 5,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r79_training_selection.json",
+      "experiment": "v1_5_r79_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r79_reactivated_dual_negative_total_completion_conflict",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r79_reactivated_dual_negative_total_completion_conflict",
+      "claim_ready": false,
+      "action_change_rate": 0.058888888888888886,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 11,
+      "strong_baseline_result_count": 12,
+      "min_strong_baseline_composite_difference": 275878.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r80_training_selection.json",
+      "experiment": "v1_5_r80_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r80_reactivated_dual_negative_total_raw_consensus",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r80_reactivated_dual_negative_total_raw_consensus",
+      "claim_ready": false,
+      "action_change_rate": 0.025555555555555557,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 147309.0,
+      "safety_harm_count": 6,
+      "unfinished_vehicle_harm_count": 6,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r81_training_selection.json",
+      "experiment": "v1_5_r81_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r81_reactivated_dual_severe_negative_total_raw_consensus",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r81_reactivated_dual_severe_negative_total_raw_consensus",
+      "claim_ready": false,
+      "action_change_rate": 0.03,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 5,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 900015.0,
+      "safety_harm_count": 6,
+      "unfinished_vehicle_harm_count": 6,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r82_training_selection.json",
+      "experiment": "v1_5_r82_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r82_reactivated_dual_conditional_low_total_pressure_blend",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r82_reactivated_dual_conditional_low_total_pressure_blend",
+      "claim_ready": false,
+      "action_change_rate": 0.04666666666666667,
+      "binding_decision_rate": 0.9898148148148148,
+      "strong_baseline_positive_composite_count": 12,
+      "strong_baseline_result_count": 12,
+      "min_strong_baseline_composite_difference": 1041642.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r83_training_selection.json",
+      "experiment": "v1_5_r83_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r83_reactivated_dual_low_total_consensus_completion",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r83_reactivated_dual_low_total_consensus_completion",
+      "claim_ready": false,
+      "action_change_rate": 0.051111111111111114,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1434334.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r84_training_selection.json",
+      "experiment": "v1_5_r84_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r84_reactivated_dual_conditional_release_gate",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r84_reactivated_dual_conditional_release_gate",
+      "claim_ready": false,
+      "action_change_rate": 0.043333333333333335,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 136219.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r85_training_selection.json",
+      "experiment": "v1_5_r85_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r85_reactivated_dual_horizon_local_pressure",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r85_reactivated_dual_horizon_local_pressure",
+      "claim_ready": false,
+      "action_change_rate": 0.05592592592592593,
+      "binding_decision_rate": 0.987037037037037,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 3458135.0,
+      "safety_harm_count": 9,
+      "unfinished_vehicle_harm_count": 6,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r86_training_selection.json",
+      "experiment": "v1_5_r86_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r86_reactivated_dual_horizon_zero_slack_floor",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r86_reactivated_dual_horizon_zero_slack_floor",
+      "claim_ready": false,
+      "action_change_rate": 0.04037037037037037,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 545134.0,
+      "safety_harm_count": 7,
+      "unfinished_vehicle_harm_count": 7,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r87_training_selection.json",
+      "experiment": "v1_5_r87_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r87_reactivated_dual_low_signal_bonus_gate",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r87_reactivated_dual_low_signal_bonus_gate",
+      "claim_ready": false,
+      "action_change_rate": 0.04814814814814815,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 688360.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r88_training_selection.json",
+      "experiment": "v1_5_r88_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r88_reactivated_dual_low_signal_bonus_scale",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r88_reactivated_dual_low_signal_bonus_scale",
+      "claim_ready": false,
+      "action_change_rate": 0.047407407407407405,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 6,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r89_training_selection.json",
+      "experiment": "v1_5_r89_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r89_reactivated_dual_low_signal_margin_cap",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r89_reactivated_dual_low_signal_margin_cap",
+      "claim_ready": false,
+      "action_change_rate": 0.05925925925925926,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1113628.0,
+      "safety_harm_count": 5,
+      "unfinished_vehicle_harm_count": 5,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r90_training_selection.json",
+      "experiment": "v1_5_r90_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r90_reactivated_dual_supported_margin_cap",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r90_reactivated_dual_supported_margin_cap",
+      "claim_ready": false,
+      "action_change_rate": 0.04296296296296296,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 5,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 914437.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r91_training_selection.json",
+      "experiment": "v1_5_r91_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r91_reactivated_dual_supported_narrow_margin_cap",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r91_reactivated_dual_supported_narrow_margin_cap",
+      "claim_ready": false,
+      "action_change_rate": 0.05185185185185185,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 2537305.0,
+      "safety_harm_count": 7,
+      "unfinished_vehicle_harm_count": 7,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r92_training_selection.json",
+      "experiment": "v1_5_r92_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r92_reactivated_dual_supported_score_gap_cap",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r92_reactivated_dual_supported_score_gap_cap",
+      "claim_ready": false,
+      "action_change_rate": 0.052592592592592594,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 4,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 444411.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r93_training_selection.json",
+      "experiment": "v1_5_r93_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r93_reactivated_dual_score_gap_consensus_safe",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r93_reactivated_dual_score_gap_consensus_safe",
+      "claim_ready": false,
+      "action_change_rate": 0.04888888888888889,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 481120.0,
+      "safety_harm_count": 6,
+      "unfinished_vehicle_harm_count": 6,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r94_training_selection.json",
+      "experiment": "v1_5_r94_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r94_reactivated_dual_supported_low_total_margin_cap",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r94_reactivated_dual_supported_low_total_margin_cap",
+      "claim_ready": false,
+      "action_change_rate": 0.054814814814814816,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1153554.0,
+      "safety_harm_count": 5,
+      "unfinished_vehicle_harm_count": 5,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r95_training_selection.json",
+      "experiment": "v1_5_r95_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r95_reactivated_dual_supported_negative_pressure_margin_cap",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r95_reactivated_dual_supported_negative_pressure_margin_cap",
+      "claim_ready": false,
+      "action_change_rate": 0.048518518518518516,
+      "binding_decision_rate": 0.987037037037037,
+      "strong_baseline_positive_composite_count": 4,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 256028.0,
+      "safety_harm_count": 5,
+      "unfinished_vehicle_harm_count": 5,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r96_training_selection.json",
+      "experiment": "v1_5_r96_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r96_reactivated_dual_unique_movement_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r96_reactivated_dual_unique_movement_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.05185185185185185,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 100170.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r97_training_selection.json",
+      "experiment": "v1_5_r97_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r97_reactivated_dual_unique_residual_power_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r97_reactivated_dual_unique_residual_power_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.04148148148148148,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1104538.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r98_training_selection.json",
+      "experiment": "v1_5_r98_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r98_reactivated_dual_unique_finishable_power_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r98_reactivated_dual_unique_finishable_power_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.05925925925925926,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 550416.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r99_training_selection.json",
+      "experiment": "v1_5_r99_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r99_reactivated_dual_unique_finishable_ratio_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r99_reactivated_dual_unique_finishable_ratio_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.05148148148148148,
+      "binding_decision_rate": 0.9981481481481481,
+      "strong_baseline_positive_composite_count": 0,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": null,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r100_training_selection.json",
+      "experiment": "v1_5_r100_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r100_reactivated_dual_unique_finishable_power_time_weight_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r100_reactivated_dual_unique_finishable_power_time_weight_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.04259259259259259,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 160682.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r101_training_selection.json",
+      "experiment": "v1_5_r101_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r101_reactivated_dual_unique_finishable_power_conditional_time_weight_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r101_reactivated_dual_unique_finishable_power_conditional_time_weight_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.05148148148148148,
+      "binding_decision_rate": 0.9851851851851852,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1535221.0,
+      "safety_harm_count": 6,
+      "unfinished_vehicle_harm_count": 6,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r102_training_selection.json",
+      "experiment": "v1_5_r102_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r102_reactivated_dual_unique_finishable_power_conditional_pressure_time_weight_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r102_reactivated_dual_unique_finishable_power_conditional_pressure_time_weight_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.04703703703703704,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1350545.0,
+      "safety_harm_count": 1,
+      "unfinished_vehicle_harm_count": 1,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r103_training_selection.json",
+      "experiment": "v1_5_r103_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r103_reactivated_dual_unique_finishable_power_movement_pressure_time_weight_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r103_reactivated_dual_unique_finishable_power_movement_pressure_time_weight_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.055185185185185184,
+      "binding_decision_rate": 0.9944444444444445,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1650759.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r104_training_selection.json",
+      "experiment": "v1_5_r104_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r104_reactivated_dual_unique_finishable_power_no_risky_margin_cap",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r104_reactivated_dual_unique_finishable_power_no_risky_margin_cap",
+      "claim_ready": false,
+      "action_change_rate": 0.051111111111111114,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 5,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 940289.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r105_training_selection.json",
+      "experiment": "v1_5_r105_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r105_reactivated_dual_unique_finishable_power_no_risky_nonpositive_pressure_margin_cap",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r105_reactivated_dual_unique_finishable_power_no_risky_nonpositive_pressure_margin_cap",
+      "claim_ready": false,
+      "action_change_rate": 0.051111111111111114,
+      "binding_decision_rate": 0.9907407407407407,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 826578.0,
+      "safety_harm_count": 5,
+      "unfinished_vehicle_harm_count": 5,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r106_training_selection.json",
+      "experiment": "v1_5_r106_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r106_reactivated_dual_unique_finishable_power_secondary_time_weight_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r106_reactivated_dual_unique_finishable_power_secondary_time_weight_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.053703703703703705,
+      "binding_decision_rate": 0.9981481481481481,
+      "strong_baseline_positive_composite_count": 2,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 756084.0,
+      "safety_harm_count": 7,
+      "unfinished_vehicle_harm_count": 6,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r107_training_selection.json",
+      "experiment": "v1_5_r107_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r107_reactivated_dual_low_support_bonus_damping",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r107_reactivated_dual_low_support_bonus_damping",
+      "claim_ready": false,
+      "action_change_rate": 0.04925925925925926,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 3,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 561864.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 4,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r108_training_selection.json",
+      "experiment": "v1_5_r108_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r108_reactivated_dual_low_support_core_anchor",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r108_reactivated_dual_low_support_core_anchor",
+      "claim_ready": false,
+      "action_change_rate": 0.056296296296296296,
+      "binding_decision_rate": 0.987037037037037,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 2270192.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r109_training_selection.json",
+      "experiment": "v1_5_r109_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r109_reactivated_dual_no_positive_pressure_finishable_count_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r109_reactivated_dual_no_positive_pressure_finishable_count_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.04111111111111111,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 4,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 388450.0,
+      "safety_harm_count": 4,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r110_training_selection.json",
+      "experiment": "v1_5_r110_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r110_reactivated_dual_high_finishable_count_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r110_reactivated_dual_high_finishable_count_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.04722222222222222,
+      "binding_decision_rate": 0.9898148148148148,
+      "strong_baseline_positive_composite_count": 10,
+      "strong_baseline_result_count": 12,
+      "min_strong_baseline_composite_difference": 185126.0,
+      "safety_harm_count": 5,
+      "unfinished_vehicle_harm_count": 5,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r111_training_selection.json",
+      "experiment": "v1_5_r111_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r111_reactivated_dual_no_positive_pressure_movement_finishable_power_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r111_reactivated_dual_no_positive_pressure_movement_finishable_power_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.04925925925925926,
+      "binding_decision_rate": 0.9962962962962963,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1503109.0,
+      "safety_harm_count": 3,
+      "unfinished_vehicle_harm_count": 3,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines",
+        "guarded r2 action separation from pressure is below 5% on completed training rows"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r112_training_selection.json",
+      "experiment": "v1_5_r112_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r112_reactivated_dual_no_positive_pressure_big_finishable_count_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r112_reactivated_dual_no_positive_pressure_big_finishable_count_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.052592592592592594,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1764533.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r113_training_selection.json",
+      "experiment": "v1_5_r113_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r113_reactivated_dual_no_positive_pressure_multi_big_finishable_power_horizon",
+      "status": "REJECTED",
+      "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r113_reactivated_dual_no_positive_pressure_multi_big_finishable_power_horizon",
+      "claim_ready": false,
+      "action_change_rate": 0.05148148148148148,
+      "binding_decision_rate": 0.9925925925925926,
+      "strong_baseline_positive_composite_count": 4,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 277889.0,
+      "safety_harm_count": 2,
+      "unfinished_vehicle_harm_count": 2,
+      "reasons": [
+        "training rows show safety-guard harm against strong baselines"
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r114_training_selection.json",
+      "experiment": "v1_5_r114_training_selection",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r114_reactivated_dual_supported_big_finishable_sum_horizon",
+      "status": "INCONCLUSIVE",
+      "decision": "continue_training_execution",
+      "claim_ready": false,
+      "action_change_rate": 0.0737037037037037,
+      "binding_decision_rate": 0.9888888888888889,
+      "strong_baseline_positive_composite_count": 6,
+      "strong_baseline_result_count": 6,
+      "min_strong_baseline_composite_difference": 1716597.0,
+      "safety_harm_count": 0,
+      "unfinished_vehicle_harm_count": 0,
+      "reasons": []
+    }
+  ],
+  "dominant_blocker": "unfinished_vehicle_count_safety_guard",
+  "recommendation": "horizon-modeled variants remain non-selected under zero-tolerance unfinished guards: tune only on fresh training seeds or revisit the safety contract before any confirmatory holdout",
+  "claim_scope": {
+    "closed_loop_superiority_claim_allowed": false,
+    "why": "training-only candidate convergence is not confirmatory evidence"
+  }
+}

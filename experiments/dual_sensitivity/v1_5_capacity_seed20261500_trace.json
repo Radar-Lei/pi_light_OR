@@ -1,0 +1,315 @@
+{
+  "network": "arterial",
+  "scenario_tag": "arterial_v1_5_storage_activation",
+  "controller": "capacity_aware_pressure",
+  "seed": 20261500,
+  "steps": 3600,
+  "warmup": 900,
+  "action_interval": 10,
+  "scenario_status": "completed",
+  "feasibility_status": "run",
+  "sumocfg": "experiments/dual_sensitivity/v1_5_r2_training_scaled_inputs/phase11_arterial_demand_0p85.sumocfg",
+  "base_sumocfg": "networks/arterial/arterial.sumocfg",
+  "net_file": "networks/arterial/arterial.net.xml",
+  "effective_capacity_scale": 0.1,
+  "route_decision": "pressure-equivalent",
+  "route_confidence": "MEDIUM",
+  "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+  "avg_travel_time": 61.796749729144096,
+  "penalized_avg_travel_time": 95.65604278074866,
+  "total_delay": 49275.0,
+  "completed_vehicles": 9230,
+  "completion_rate": 0.9871657754010695,
+  "throughput": 3.4185185185185185,
+  "mean_queue": 18.25,
+  "max_queue": 13.0,
+  "spillback_count": 12815,
+  "blocking_count": 8936,
+  "switching_count": 664,
+  "controller_runtime_sec": 0.08179045689757913,
+  "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+  "unfinished_vehicle_count": 120,
+  "objective_components": {
+    "delay": 49275.0,
+    "unfinished_vehicle_penalty": 324000.0,
+    "spillback_blocking_time": 58727700.0,
+    "switching_lost_time": 1328.0
+  },
+  "finite_storage_state": {
+    "downstream_storage": {
+      "C12C2": 10.912000000000003,
+      "C12N1": 11.456,
+      "C12S1": 11.456,
+      "C12W_in": 11.456,
+      "C22C1": 10.912000000000003,
+      "C22C3": 10.912000000000003,
+      "C22N2": 11.456,
+      "C22S2": 11.456,
+      "C32C2": 10.912000000000003,
+      "C32C4": 10.912000000000003,
+      "C32N3": 11.456,
+      "C32S3": 11.456,
+      "C42C3": 10.912000000000003,
+      "C42C5": 10.912000000000003,
+      "C42N4": 11.456,
+      "C42S4": 11.456,
+      "C52C4": 10.912000000000003,
+      "C52E_out": 11.456,
+      "C52N5": 11.456,
+      "C52S5": 11.456,
+      "E_out2C5": 11.456,
+      "N12C1": 11.456,
+      "N22C2": 11.456,
+      "N32C3": 11.456,
+      "N42C4": 11.456,
+      "N52C5": 11.456,
+      "S12C1": 11.456,
+      "S22C2": 11.456,
+      "S32C3": 11.456,
+      "S42C4": 11.456,
+      "S52C5": 11.456,
+      "W_in2C1": 11.456
+    },
+    "residual_receiving_capacity": {
+      "C12C2": 7.912000000000003,
+      "C12N1": 9.456,
+      "C12S1": 9.456,
+      "C12W_in": 10.456,
+      "C22C1": 0.0,
+      "C22C3": 0.0,
+      "C22N2": 9.456,
+      "C22S2": 9.456,
+      "C32C2": 3.9120000000000026,
+      "C32C4": 4.912000000000003,
+      "C32N3": 9.456,
+      "C32S3": 9.456,
+      "C42C3": 4.912000000000003,
+      "C42C5": 4.912000000000003,
+      "C42N4": 10.456,
+      "C42S4": 9.456,
+      "C52C4": 0.9120000000000026,
+      "C52E_out": 7.4559999999999995,
+      "C52N5": 9.456,
+      "C52S5": 9.456,
+      "E_out2C5": 8.456,
+      "N12C1": 10.456,
+      "N22C2": 10.456,
+      "N32C3": 10.456,
+      "N42C4": 10.456,
+      "N52C5": 10.456,
+      "S12C1": 11.456,
+      "S22C2": 10.456,
+      "S32C3": 10.456,
+      "S42C4": 10.456,
+      "S52C5": 10.456,
+      "W_in2C1": 4.4559999999999995
+    },
+    "spillback_blocking": {
+      "C12C2": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.2749266862170087
+      },
+      "C12N1": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.17458100558659218
+      },
+      "C12S1": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.17458100558659218
+      },
+      "C12W_in": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "C22C1": {
+        "spillback": true,
+        "blocking": true,
+        "occupancy_ratio": 1.1913489736070377
+      },
+      "C22C3": {
+        "spillback": true,
+        "blocking": true,
+        "occupancy_ratio": 1.0997067448680349
+      },
+      "C22N2": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.17458100558659218
+      },
+      "C22S2": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.17458100558659218
+      },
+      "C32C2": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.6414956011730204
+      },
+      "C32C4": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.5498533724340174
+      },
+      "C32N3": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.17458100558659218
+      },
+      "C32S3": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.17458100558659218
+      },
+      "C42C3": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.5498533724340174
+      },
+      "C42C5": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.5498533724340174
+      },
+      "C42N4": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "C42S4": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.17458100558659218
+      },
+      "C52C4": {
+        "spillback": true,
+        "blocking": true,
+        "occupancy_ratio": 0.9164222873900291
+      },
+      "C52E_out": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.34916201117318435
+      },
+      "C52N5": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.17458100558659218
+      },
+      "C52S5": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.17458100558659218
+      },
+      "E_out2C5": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.26187150837988826
+      },
+      "N12C1": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "N22C2": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "N32C3": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "N42C4": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "N52C5": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "S12C1": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.0
+      },
+      "S22C2": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "S32C3": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "S42C4": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "S52C5": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.08729050279329609
+      },
+      "W_in2C1": {
+        "spillback": false,
+        "blocking": false,
+        "occupancy_ratio": 0.6110335195530726
+      }
+    },
+    "switching_loss_state": {
+      "current_phase": 2,
+      "time_since_switch": 0.0
+    },
+    "service_urgency": {
+      "C12C2": 0.0,
+      "C12N1": 0.0,
+      "C12S1": 0.0,
+      "C12W_in": 0.0,
+      "C22C1": 0.5498533724340174,
+      "C22C3": 0.0916422287390029,
+      "C22N2": 0.0,
+      "C22S2": 0.0,
+      "C32C2": 0.0,
+      "C32C4": 0.0,
+      "C32N3": 0.0,
+      "C32S3": 0.0,
+      "C42C3": 0.0,
+      "C42C5": 0.0,
+      "C42N4": 0.0,
+      "C42S4": 0.0,
+      "C52C4": 0.0916422287390029,
+      "C52E_out": 0.0,
+      "C52N5": 0.0,
+      "C52S5": 0.0,
+      "E_out2C5": 0.0,
+      "N12C1": 0.0,
+      "N22C2": 0.0,
+      "N32C3": 0.0,
+      "N42C4": 0.0,
+      "N52C5": 0.0,
+      "S12C1": 0.0,
+      "S22C2": 0.0,
+      "S32C3": 0.0,
+      "S42C4": 0.08729050279329609,
+      "S52C5": 0.0,
+      "W_in2C1": 0.34916201117318435
+    },
+    "incident_capacity_drop": {
+      "active": false,
+      "edge": null,
+      "factor": 1.0
+    }
+  },
+  "stress_category": "v1_5_storage_activation",
+  "stress_mechanism": "diagnostic_effective_storage_capacity_scale"
+}

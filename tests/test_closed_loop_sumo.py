@@ -23,14 +23,22 @@ from run_closed_loop_sumo import (  # noqa: E402
     NOT_FEASIBLE_CONTROLLERS,
     aggregate_metrics,
     apply_failure_mode,
+    build_downstream_adjacency,
     build_completed_finite_storage_state,
     choose_controller_action,
     finite_storage_movement_decomposition,
     finite_storage_phase_decomposition,
+    finalize_action_decision_summary,
+    init_action_decision_summary,
+    initialize_dynamic_dual_state,
     load_route_metadata,
     resolve_network,
     run_experiment,
+    scenario_effective_capacity_scale,
+    scenario_stress_metadata,
     select_finite_storage_action_with_audit,
+    update_dynamic_dual_state,
+    update_action_decision_summary,
 )
 from render_closed_loop_report import render_report, write_csv  # noqa: E402
 from render_paper_artifacts import validate_inputs as validate_paper_inputs  # noqa: E402
@@ -56,6 +64,7 @@ def test_controller_registry_smoke_names() -> None:
         "actuated_local_pressure",
         "max_pressure",
         "capacity_aware_pressure",
+        "occupancy_capacity_aware_pressure",
         "cycle_pressure",
         "finite_storage_double_pressure",
         "local_pilight",
@@ -67,6 +76,9 @@ def test_controller_registry_smoke_names() -> None:
     }
     assert expected <= set(CONTROLLER_REGISTRY)
     assert "finite_storage_primal_dual" not in NOT_FEASIBLE_CONTROLLERS
+    assert "finite_storage_dynamic_primal_dual_v1_5" in CONTROLLER_REGISTRY
+    assert "finite_storage_dynamic_primal_dual_v1_5" not in NOT_FEASIBLE_CONTROLLERS
+    assert "occupancy_capacity_aware_pressure" not in NOT_FEASIBLE_CONTROLLERS
     assert "cycle_pressure" not in NOT_FEASIBLE_CONTROLLERS
     assert "finite_storage_double_pressure" not in NOT_FEASIBLE_CONTROLLERS
     assert "local_pilight" in NOT_FEASIBLE_CONTROLLERS
@@ -188,6 +200,42 @@ def test_capacity_aware_penalizes_full_downstream() -> None:
     assert action == 1
 
 
+def test_occupancy_capacity_aware_uses_vehicle_counts_not_queue_for_fullness() -> None:
+    phase_states = {"J0": ["Gr", "rG"]}
+    movements = {"J0": [("in_a", "out_a"), ("in_b", "out_b")]}
+    queues = {"in_a": 10.0, "out_a": 0.0, "in_b": 8.0, "out_b": 0.0}
+    capacities = {"out_a": 10.0, "out_b": 20.0}
+    vehicle_counts = {"out_a": 10.0, "out_b": 0.0}
+
+    queue_only_action = choose_controller_action(
+        "capacity_aware_pressure",
+        "J0",
+        current_phase=0,
+        step=20,
+        action_interval=10,
+        phase_states=phase_states,
+        tls_movements=movements,
+        queues=queues,
+        capacities=capacities,
+        vehicle_counts=vehicle_counts,
+    )
+    occupancy_action = choose_controller_action(
+        "occupancy_capacity_aware_pressure",
+        "J0",
+        current_phase=0,
+        step=20,
+        action_interval=10,
+        phase_states=phase_states,
+        tls_movements=movements,
+        queues=queues,
+        capacities=capacities,
+        vehicle_counts=vehicle_counts,
+    )
+
+    assert queue_only_action == 0
+    assert occupancy_action == 1
+
+
 def test_phase10_baseline_variants_are_selectable() -> None:
     phase_states = {"J0": ["Gr", "rG"]}
     movements = {"J0": [("in_a", "out_a"), ("in_b", "out_b")]}
@@ -282,6 +330,74 @@ def test_completed_finite_storage_state_schema() -> None:
     validate_state_objective_sample(row, path=Path("row.json"), sample_idx=0)
 
 
+def test_completed_finite_storage_state_uses_vehicle_counts_for_storage() -> None:
+    state = build_completed_finite_storage_state(
+        queues={"edge_a": 0.0, "edge_b": 9.0},
+        capacities={"edge_a": 10.0, "edge_b": 10.0},
+        vehicle_counts={"edge_a": 9.0, "edge_b": 2.0},
+        current_phase=1,
+        time_since_switch=5.0,
+    )
+
+    assert state["residual_receiving_capacity"]["edge_a"] == 1.0
+    assert state["spillback_blocking"]["edge_a"]["spillback"] is True
+    assert state["spillback_blocking"]["edge_a"]["occupancy_ratio"] == 0.9
+    assert state["service_urgency"]["edge_a"] == 0.0
+    assert state["service_urgency"]["edge_b"] == 0.9
+
+
+def test_dynamic_v1_5_dual_controller_separates_storage_binding() -> None:
+    phase_states = {"J0": ["Gr", "rG"]}
+    movements = {"J0": [("up_a", "down_a"), ("up_b", "down_b")]}
+    queues = {"up_a": 30.0, "down_a": 0.0, "up_b": 18.0, "down_b": 0.0}
+    capacities = {"up_a": 50.0, "down_a": 10.0, "up_b": 50.0, "down_b": 10.0}
+    vehicle_counts = {"up_a": 3.0, "down_a": 10.0, "up_b": 2.0, "down_b": 1.0}
+    state = build_completed_finite_storage_state(
+        queues,
+        capacities,
+        vehicle_counts=vehicle_counts,
+        current_phase=0,
+        time_since_switch=30.0,
+    )
+    dual_state = initialize_dynamic_dual_state(sorted(capacities))
+    update_dynamic_dual_state(dual_state, state, build_downstream_adjacency(movements))
+
+    audit = select_finite_storage_action_with_audit(
+        "J0",
+        0,
+        phase_states,
+        movements,
+        queues,
+        capacities,
+        state,
+        controller="finite_storage_dynamic_primal_dual_v1_5",
+        dynamic_dual_state=dual_state,
+    )
+
+    assert audit["pressure_action"] == 0
+    assert audit["finite_storage_action"] == 1
+    assert {"storage_price", "downstream_storage"} & set(audit["changing_terms"])
+    assert audit["dynamic_dual_snapshot"]["down_a"]["storage_price"] > 0.0
+
+
+def test_action_decision_summary_counts_binding_changes_and_terms() -> None:
+    phase_states, movements, queues, capacities, state = two_phase_fixture(binding=True)
+    audit = select_finite_storage_action_with_audit("J0", 0, phase_states, movements, queues, capacities, state)
+    summary = init_action_decision_summary("finite_storage_primal_dual")
+    update_action_decision_summary(summary, audit, state)
+    finalized = finalize_action_decision_summary(summary)
+
+    assert finalized["total_decisions"] == 1
+    assert finalized["action_changed_relative_to_pressure_count"] == 1
+    assert finalized["binding_decision_count"] == 1
+    assert finalized["binding_action_changed_count"] == 1
+    assert finalized["action_change_rate"] == 1.0
+    assert finalized["binding_action_change_rate"] == 1.0
+    assert finalized["any_phase_component_nonzero_counts"]["downstream_storage"] >= 1
+    assert finalized["max_occupancy_ratio_observed"] >= 1.0
+    assert finalized["min_residual_ratio_observed"] == 0.0
+
+
 def test_not_feasible_controller_has_explicit_state_and_objective_components() -> None:
     row = run_experiment(
         network="single",
@@ -322,6 +438,8 @@ def test_finite_storage_controller_run_experiment_row_audit() -> None:
     assert audit["controller"] == "finite_storage_primal_dual"
     assert audit["decision_scope"] == "last_action_decision_per_tls"
     assert audit["last_decision_by_tls"]
+    assert audit["decision_summary"]["total_decisions"] >= 1
+    assert "action_change_rate" in audit["decision_summary"]
     for tls_audit in audit["last_decision_by_tls"].values():
         assert tls_audit["selected_action"] == tls_audit["finite_storage_action"]
         assert "pressure_action" in tls_audit
@@ -395,6 +513,15 @@ def test_failure_mode_restores_speed_after_window() -> None:
     finally:
         apply_failure_mode.__globals__["traci"].edge.setMaxSpeed = original_set_max_speed
     assert calls == [("edge1", 7.0), ("edge1", 20.0)]
+
+
+def test_v15_storage_activation_scenario_has_explicit_capacity_scale_metadata() -> None:
+    metadata = scenario_stress_metadata("arterial_v1_5_storage_activation")
+
+    assert metadata["stress_category"] == "v1_5_storage_activation"
+    assert metadata["stress_mechanism"] == "diagnostic_effective_storage_capacity_scale"
+    assert scenario_effective_capacity_scale("arterial_v1_5_storage_activation") == 0.10
+    assert scenario_effective_capacity_scale("arterial_main") == 1.0
 
 
 def test_suite_spec_contents_and_seed_counts() -> None:
@@ -798,9 +925,13 @@ def main() -> None:
     test_finite_storage_binding_changes_action_and_terms()
     test_choose_controller_action_prefers_pressure_phase()
     test_capacity_aware_penalizes_full_downstream()
+    test_occupancy_capacity_aware_uses_vehicle_counts_not_queue_for_fullness()
     test_phase10_baseline_variants_are_selectable()
     test_metric_aggregation_schema()
     test_completed_finite_storage_state_schema()
+    test_completed_finite_storage_state_uses_vehicle_counts_for_storage()
+    test_dynamic_v1_5_dual_controller_separates_storage_binding()
+    test_action_decision_summary_counts_binding_changes_and_terms()
     test_not_feasible_controller_has_explicit_state_and_objective_components()
     test_finite_storage_controller_run_experiment_row_audit()
     test_route_metadata_loader()
@@ -808,6 +939,7 @@ def main() -> None:
     test_network_resolver_supports_phase4_networks()
     test_not_feasible_controller_metadata()
     test_failure_mode_restores_speed_after_window()
+    test_v15_storage_activation_scenario_has_explicit_capacity_scale_metadata()
     test_suite_spec_contents_and_seed_counts()
     test_aggregate_results_and_completion_gates()
     test_suite_payload_includes_phase6_schema_metadata()

@@ -1,0 +1,263 @@
+{
+  "experiment": "v1_5_r2_training_selection",
+  "status": "REJECTED",
+  "requirements_covered": [
+    "V15-R2-TRAIN-02",
+    "V15-CLAIM-01"
+  ],
+  "claim_ready": false,
+  "input_artifact": "experiments/dual_sensitivity/v1_5_r2_training_execution.json",
+  "input_status": "IN_PROGRESS",
+  "training_protocol_fingerprint": "b73112dd45ee48b3dadf9a6810e94228708dc464b9a21f5277b428ecd7cbd640",
+  "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r2_guarded",
+  "row_audit": {
+    "expected_row_count": 324,
+    "raw_row_count": 6,
+    "completed_row_count": 6,
+    "missing_row_count": 318,
+    "failed_row_count": 0,
+    "duplicate_row_count": 0,
+    "missing_rows": [
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20260801"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20260802"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20260803"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20260804"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20260805"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20260806"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20260801"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20260802"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20260803"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20260804"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20260805"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20260806"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r2_guarded/seed=20260801"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r2_guarded/seed=20260802"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r2_guarded/seed=20260803"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r2_guarded/seed=20260804"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r2_guarded/seed=20260805"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r2_guarded/seed=20260806"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20260801"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20260802"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20260803"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20260804"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20260805"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20260806"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20260801"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20260802"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20260803"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20260804"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20260805"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20260806"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20260801"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20260802"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20260803"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20260804"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20260805"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20260806"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20260801"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20260802"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20260803"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20260804"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20260805"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20260806"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20260801"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20260802"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20260803"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20260804"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20260805"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20260806"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_dynamic_primal_dual_v1_5_r2_guarded/seed=20260801"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_dynamic_primal_dual_v1_5_r2_guarded/seed=20260802"
+      }
+    ],
+    "failed_rows": [],
+    "duplicate_rows": []
+  },
+  "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r2_guarded",
+  "mechanism_summary": {
+    "controller_rows": 1,
+    "total_decisions": 1350,
+    "action_changed_relative_to_pressure_count": 15,
+    "binding_decision_count": 1345,
+    "guardrail_activation_count": 1304,
+    "action_change_rate": 0.011111111111111112,
+    "binding_decision_rate": 0.9962962962962963
+  },
+  "primary_composite_training_results": [
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20260801,
+      "baseline": "max_pressure",
+      "difference_definition": "baseline_composite_minus_r2_composite",
+      "positive_means": "r2_lower_composite_cost",
+      "r2_composite": 55896666.0,
+      "baseline_composite": 55896666.0,
+      "paired_difference": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20260801,
+      "baseline": "capacity_aware_pressure",
+      "difference_definition": "baseline_composite_minus_r2_composite",
+      "positive_means": "r2_lower_composite_cost",
+      "r2_composite": 55896666.0,
+      "baseline_composite": 56083724.0,
+      "paired_difference": 187058.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20260801,
+      "baseline": "occupancy_capacity_aware_pressure",
+      "difference_definition": "baseline_composite_minus_r2_composite",
+      "positive_means": "r2_lower_composite_cost",
+      "r2_composite": 55896666.0,
+      "baseline_composite": 158869410.0,
+      "paired_difference": 102972744.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20260801,
+      "baseline": "finite_storage_double_pressure",
+      "difference_definition": "baseline_composite_minus_r2_composite",
+      "positive_means": "r2_lower_composite_cost",
+      "r2_composite": 55896666.0,
+      "baseline_composite": 53900764.0,
+      "paired_difference": -1995902.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20260801,
+      "baseline": "finite_storage_primal_dual_v1_4_score",
+      "difference_definition": "baseline_composite_minus_r2_composite",
+      "positive_means": "r2_lower_composite_cost",
+      "r2_composite": 55896666.0,
+      "baseline_composite": 110052129.0,
+      "paired_difference": 54155463.0
+    }
+  ],
+  "safety_harms": [
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20260801,
+      "baseline": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "r2": 123.0,
+      "baseline_value": 120.0,
+      "allowed": 120.0,
+      "practical_harm_tolerance": 0.0
+    }
+  ],
+  "reasons": [
+    "training rows show safety-guard harm against strong baselines",
+    "guarded r2 action separation from pressure is below 5% on completed training rows"
+  ],
+  "claim_scope": {
+    "closed_loop_superiority_claim_allowed": false,
+    "why": "training selection can reject or select a candidate for a future protocol, but cannot itself prove a claim"
+  }
+}

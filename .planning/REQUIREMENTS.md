@@ -1,0 +1,107 @@
+# Requirements: v1.5 Dynamic Finite-Storage Primal-Dual Redesign
+
+## Validated Claim Boundary
+
+- v1.3 and v1.4 do not permit closed-loop superiority language over max-pressure-style baselines.
+- v1.4 locked Gate C executed the full 1440-row confirmation set with clean row audit, but strict paired evidence remained non-PASSED.
+- Static v1.4 exploratory and locked artifacts may motivate redesign, but they are not final claim evidence for v1.5.
+
+## Active Requirements
+
+- [x] **STATE-01**: Finite-storage state uses vehicle-count occupancy for storage scarcity, residual receiving capacity, and spillback/blocking indicators.
+- [x] **STATE-02**: Queue state remains available separately for pressure and service urgency, so storage occupancy is not conflated with halting queue.
+- [x] **CTRL-01**: Register `finite_storage_dynamic_primal_dual_v1_5` as a distinct controller, not a relabeling of v1.4.
+- [x] **CTRL-02**: Maintain stateful storage, release, cascade, and service-age shadow prices with auditable per-action decomposition.
+- [x] **BASE-01**: Preserve `max_pressure`, `capacity_aware_pressure`, and `finite_storage_double_pressure` as first-class comparators.
+- [x] **BASE-02**: Include `occupancy_capacity_aware_pressure` and static v1.4 as ablations so occupancy effects and dynamic dual effects can be separated.
+- [x] **GATE-01**: Add deterministic v1.5 separation fixtures for slack pressure recovery, storage scarcity, cascade spillback, and upstream release behavior.
+- [x] **DIAG-01**: Add closed-loop v1.5 diagnostics for storage activation rates, action-difference rates, and mechanism term activation in binding SUMO regimes.
+- [x] **GATE-02**: Define a locked training/holdout protocol before any v1.5 closed-loop superiority claim.
+- [x] **EVID-01**: Use a theory-aligned composite finite-storage operating cost as the primary endpoint, with practical-harm safety guards on key traffic metrics.
+- [x] **HOLDOUT-01**: Add fail-closed, resumable v1.5 locked holdout execution tooling that consumes the locked protocol.
+- [x] **EVID-02**: Add strict v1.5 paired-evidence checker over the locked holdout execution artifact.
+- [x] **PROTO-02**: Audit the original v1.5 locked protocol for actual storage-binding activation before treating it as a valid holdout design.
+- [x] **PROTO-03**: Supersede non-binding holdout design with a binding-focused locked protocol when activation audit fails.
+- [x] **EARLY-01**: Stop current binding holdout execution if early locked rows show repeated safety-guard harm against strong baselines after mechanism activation is verified.
+- [x] **R2-CTRL-01**: Add a post-holdout guarded dynamic v1.5-r2 controller variant that caps non-pressure corrections instead of tuning on failed holdout seeds.
+- [x] **R2-TRAIN-01**: Lock a training-only r2 protocol with fresh seeds disjoint from the current binding holdout seeds.
+- [x] **R2-TRAIN-02**: Execute initial r2 training rows and reject the guarded candidate when training selection detects safety harm and insufficient action separation.
+- [x] **R3-CTRL-01**: Test a double-pressure scaffold plus bounded release/service dynamic candidate on fresh training seeds; reject due unfinished-vehicle safety harm.
+- [x] **R4-CTRL-01**: Test a release/service-only dynamic candidate on fresh training seeds; reject due unfinished-vehicle safety harm.
+- [x] **R5-CTRL-01**: Test a finite-storage-double safety-fallback candidate on fresh training seeds; reject due unfinished-vehicle safety harm.
+- [x] **REVISION-01**: Summarize r2-r5 training-only candidate convergence and identify completion-risk control as the dominant blocker.
+- [x] **R6-CTRL-01**: Test terminal finite-storage-double flush fallback on fresh training seeds; reject due unfinished-vehicle safety harm on the second seed.
+- [x] **R7-CTRL-01**: Test per-action finite-storage-double score filtering; reject because it becomes too pressure-equivalent and still harms capacity-aware unfinished-vehicle safety.
+- [x] **R8-CTRL-01**: Test a multi-baseline action safety filter covering capacity-aware and finite-storage-double actions; reject due unfinished-vehicle safety harm and insufficient action separation.
+- [x] **R9-CTRL-01**: Test hold-only dynamic overrides; reject due unfinished-vehicle safety harm.
+- [x] **R10-CTRL-01**: Test bounded-hold dynamic overrides; reject after second seed due unfinished-vehicle safety harm.
+- [x] **R11-CTRL-01**: Test a local completion-risk service-preservation filter; reject after second seed due unfinished-vehicle safety harm.
+- [x] **R12-CTRL-01**: Test a receiver-constrained route-completion proxy; reject in the first training seed due unfinished-vehicle safety harm and insufficient action separation.
+- [x] **R13-CTRL-01**: Test TraCI movement-level route-demand completion prediction; reject in the first training seed due unfinished-vehicle safety harm.
+- [x] **R14-CTRL-01**: Test route-demand completion with finite-storage-double score veto; reject because it becomes too pressure-equivalent and triggers total-delay safety harm.
+- [x] **R15-CTRL-01**: Test horizon-aware modeled completion using finishable movement demand and free-flow remaining time; reject due unfinished-vehicle safety harm despite positive core composite signals.
+- [x] **R16-CTRL-01**: Test horizon-aware modeled completion with terminal finite-storage-double lock; reject on the second training seed due capacity-aware unfinished-vehicle safety harm.
+- [x] **R17-CTRL-01**: Test horizon-aware modeled completion with terminal capacity-aware lock; reject in the first training seed due finite-storage-double unfinished-vehicle safety harm.
+- [x] **R18-CTRL-01**: Test horizon-aware modeled completion with balanced terminal capacity/double lock; reject in the first training seed due finite-storage-double unfinished-vehicle safety harm and negative composite against finite-storage double pressure.
+- [x] **R19-CTRL-01**: Test horizon-aware modeled completion with stronger finite-storage-double anchoring; reject on the second training seed due max-pressure unfinished-vehicle safety harm despite positive composite means.
+- [x] **R20-CTRL-01**: Test horizon-aware modeled completion with balanced max-pressure/double terminal lock; reject in the first training seed due max-pressure and finite-storage-double unfinished-vehicle safety harm despite positive composite means.
+- [x] **R21-CTRL-01**: Test horizon-aware modeled completion with terminal max/double completion-service guard; reject in the first training seed due max-pressure and finite-storage-double unfinished-vehicle safety harm despite positive composite means.
+- [x] **R22-CTRL-01**: Test horizon-aware modeled completion with all-interval completion-safety veto; reject in the first training seed because action separation falls below 5%, composite means turn negative against core baselines, and unfinished-vehicle safety still fails.
+- [x] **R23-CTRL-01**: Test horizon-aware modeled completion with baseline-dominance filter for marginal horizon overrides; reject in the first training seed because action separation falls below 5% and unfinished-vehicle safety still fails.
+- [x] **SAFETY-CONTRACT-AUDIT-01**: Audit r2-r23 training selections against the unfinished-vehicle safety contract; current evidence does not support weakening the zero-tolerance guard or locking a confirmatory holdout.
+- [x] **R24-CTRL-01**: Test staged horizon completion that delays route-completion overrides until late-horizon risk; reject in the first training seed because max-pressure unfinished-vehicle safety still fails by one vehicle despite positive core composite means and adequate action separation.
+- [x] **SAFETY-CONTRACT-AUDIT-02**: Refresh the completion-safety contract audit through r24; r24 adds a third near miss, but still no candidate passes unfinished-vehicle safety.
+- [x] **R25-CTRL-01**: Test staged horizon completion with late max-pressure terminal lock; reject in the first training seed because unfinished-vehicle safety worsens against max-pressure and finite-storage double despite positive core composite means.
+- [x] **SAFETY-CONTRACT-AUDIT-03**: Refresh the completion-safety contract audit through r25; no candidate passes unfinished-vehicle safety and late terminal locking does not resolve the blocker.
+- [x] **R26-CTRL-01**: Test staged horizon completion with remaining-horizon relative exit urgency; reject in the first training seed because unfinished-vehicle safety worsens against all core strong baselines despite positive core composite means.
+- [x] **SAFETY-CONTRACT-AUDIT-04**: Refresh the completion-safety contract audit through r26; 17 candidates have positive core composite means and 16 also meet the action-separation floor, but zero pass unfinished-vehicle safety.
+- [x] **R27-CTRL-01**: Test staged horizon completion with a late terminal exit-protection guard; reject in the first training seed because max-pressure unfinished-vehicle safety still fails despite positive core composite means and 17.6% action separation.
+- [x] **SAFETY-CONTRACT-AUDIT-05**: Refresh the completion-safety contract audit through r27; 18 candidates have positive core composite means and 17 also meet the action-separation floor, but zero pass unfinished-vehicle safety.
+- [x] **R28-CTRL-01**: Test staged horizon completion with a max-pressure completion envelope; continue after the first training seed but reject on the second seed because unfinished-vehicle safety fails against all core strong baselines.
+- [x] **SAFETY-CONTRACT-AUDIT-06**: Refresh the completion-safety contract audit through r28; 19 candidates have positive core composite means and 18 also meet the action-separation floor, but zero pass unfinished-vehicle safety.
+- [x] **R29-CTRL-01**: Test staged horizon completion with an all-core-baseline completion envelope; reject in the first training seed because finite-storage-double unfinished-vehicle safety still fails and composite means turn negative against max-pressure and finite-storage double.
+- [x] **SAFETY-CONTRACT-AUDIT-07**: Refresh the completion-safety contract audit through r29; no candidate passes unfinished-vehicle safety and core-baseline envelope filtering does not resolve the blocker.
+- [x] **R30-CTRL-01**: Test staged horizon completion with a finite-storage-double completion envelope; reject in the first training seed because capacity-aware unfinished-vehicle safety still fails and composite means turn negative against all core strong baselines.
+- [x] **SAFETY-CONTRACT-AUDIT-08**: Refresh the completion-safety contract audit through r30; no candidate passes unfinished-vehicle safety and double-envelope filtering does not resolve the blocker.
+- [x] **R31-CTRL-01**: Test staged horizon completion with the r24 finite-storage-double terminal lock delayed from 0.78 to 0.88; reject in the first training seed because finite-storage-double unfinished-vehicle safety still fails by one vehicle despite positive core composite means.
+- [x] **SAFETY-CONTRACT-AUDIT-09**: Refresh the completion-safety contract audit through r31; 20 candidates have positive core composite means and 19 also meet the action-separation floor, but zero pass unfinished-vehicle safety.
+- [x] **R32-CTRL-01**: Test r31 with a narrow preterminal finite-storage-double guard active only after 0.82; reject on the second training seed because finite-storage-double unfinished-vehicle safety fails despite a clean first seed.
+- [x] **SAFETY-CONTRACT-AUDIT-10**: Refresh the completion-safety contract audit through r32; 31 candidates are rejected, 30 have unfinished safety blockers, and zero pass unfinished-vehicle safety.
+- [x] **R33-CTRL-01**: Test r31 with a midcourse finite-storage-double guard active after 0.70; reject in the first training seed because max-pressure and capacity-aware unfinished-vehicle safety fail despite positive core composite means.
+- [x] **SAFETY-CONTRACT-AUDIT-11**: Refresh the completion-safety contract audit through r33; 32 candidates are rejected, 31 have unfinished safety blockers, and zero pass unfinished-vehicle safety.
+- [x] **R34-CTRL-01**: Test r31 with a core-minimax guard balancing max-pressure, capacity-aware, and finite-storage-double scores; reject in the first training seed because max-pressure and finite-storage-double unfinished-vehicle safety both fail and composite mean is negative against max-pressure.
+- [x] **SAFETY-CONTRACT-AUDIT-12**: Refresh the completion-safety contract audit through r34; 33 candidates are rejected, 32 have unfinished safety blockers, and zero pass unfinished-vehicle safety.
+- [x] **COMPLETION-TRADEOFF-01**: Generate `v1_5_completion_tradeoff_analysis.json` from r2-r34 execution artifacts; show 40 analyzed training cases, 32 unsafe cases, 23 composite-win cases, only 4 safe-and-composite-win cases, and 21 core-baseline oracle conflicts between unfinished safety and composite cost.
+- [x] **R35-CTRL-01**: Test r31 with deadline-oriented route urgency that prioritizes low-slack finishable vehicles; reject in the first training seed because action separation explodes to 91.8% and all core safety/composite metrics collapse.
+- [x] **SAFETY-CONTRACT-AUDIT-13**: Refresh revision summary, safety-contract audit, and completion tradeoff analysis through r35; 34 candidates are rejected, 33 have unfinished safety blockers, and zero pass unfinished-vehicle safety.
+- [x] **R36-CTRL-01**: Test r35 with late-gated deadline urgency starting at 0.78 and higher base weight; reject on the second training seed because unfinished-vehicle safety fails against all core baselines despite positive core composite means and controlled action separation.
+- [x] **SAFETY-CONTRACT-AUDIT-14**: Refresh revision summary, safety-contract audit, and completion tradeoff analysis through r36; 35 candidates are rejected, 34 have unfinished safety blockers, and zero pass unfinished-vehicle safety.
+- [x] **R37-CTRL-01**: Test r36 with a completion-service anchor blended into late-gated deadline horizon scoring; reject in the first training seed because action separation falls to 8.96%, composite cost loses to max-pressure and capacity-aware pressure, and capacity-aware unfinished-vehicle safety still fails.
+- [x] **SAFETY-CONTRACT-AUDIT-15**: Refresh revision summary, safety-contract audit, and completion tradeoff analysis through r37; 36 candidates are rejected, 35 have unfinished safety blockers, zero pass unfinished-vehicle safety, and 35/44 analyzed cases are unsafe.
+- [x] **R38-CTRL-01**: Test r36 with a late capacity-aware rescue guard for horizon actions with weaker projected completion; reject in the first training seed because the guard triggers only once, capacity-aware unfinished-vehicle safety still fails, and composite cost is negative against capacity-aware pressure.
+- [x] **SAFETY-CONTRACT-AUDIT-16**: Refresh revision summary, safety-contract audit, and completion tradeoff analysis through r38; 37 candidates are rejected, 36 have unfinished safety blockers, zero pass unfinished-vehicle safety, and 36/45 analyzed cases are unsafe.
+- [x] **R39-CTRL-01**: Test r36 with a capacity-aware score envelope on late horizon overrides; reject in the first training seed because action separation falls to 1.4% and unfinished-vehicle safety still fails against max-pressure and capacity-aware pressure despite positive core composite means.
+- [x] **SAFETY-CONTRACT-AUDIT-17**: Refresh revision summary, safety-contract audit, and completion tradeoff analysis through r39; 38 candidates are rejected, 37 have unfinished safety blockers, zero pass unfinished-vehicle safety, and 37/46 analyzed cases are unsafe.
+- [x] **R40-CTRL-01**: Test r36 with a pressure-safe horizon override guard that only permits completion overrides inside pressure, capacity-aware, and double-pressure local envelopes; reject in the first training seed because unfinished-vehicle safety still fails against all core baselines despite positive core composite means and 5.26% action separation.
+- [x] **SAFETY-CONTRACT-AUDIT-18**: Refresh revision summary, safety-contract audit, and completion tradeoff analysis through r40; 39 candidates are rejected, 38 have unfinished safety blockers, zero pass unfinished-vehicle safety, and 38/47 analyzed cases are unsafe.
+- [x] **R41-CTRL-01**: Test r40 with a locked terminal core-completion choice among pressure, capacity-aware, and finite-storage double actions; reject in the first training seed because action separation falls to 3.48% and unfinished-vehicle safety still fails against all core baselines despite positive core composite means.
+- [x] **SAFETY-CONTRACT-AUDIT-19**: Refresh revision summary, safety-contract audit, and completion tradeoff analysis through r41; 40 candidates are rejected, 39 have unfinished safety blockers, zero pass unfinished-vehicle safety, and 39/48 analyzed cases are unsafe.
+- [x] **R42-CTRL-01**: Test r40 with a late tail-completion rescue after pressure-safe horizon reverts; reject in the first training seed because unfinished-vehicle safety still fails against capacity-aware and finite-storage double pressure and composite means turn negative against both despite 5.41% action separation.
+- [x] **SAFETY-CONTRACT-AUDIT-20**: Refresh revision summary, safety-contract audit, and completion tradeoff analysis through r42; 41 candidates are rejected, 40 have unfinished safety blockers, zero pass unfinished-vehicle safety, and 40/49 analyzed cases are unsafe.
+- [x] **R43-CTRL-01**: Test r24 staged horizon with a strict pressure-safe guard and no deadline urgency; reject in the first training seed because unfinished safety passes but action separation falls to 2.07% and composite means are negative against all core baselines.
+- [x] **R44-CTRL-01**: Test r43 with a looser pressure-safe guard; reject in the first training seed because composite means recover positive but action separation is still only 3.26% and unfinished-vehicle safety fails against capacity-aware and finite-storage double pressure.
+- [x] **SAFETY-CONTRACT-AUDIT-21**: Refresh revision summary, safety-contract audit, and completion tradeoff analysis through r44; 43 candidates are rejected, 41 have unfinished safety blockers, zero pass unfinished-vehicle safety with positive core composite/action separation, and 41/51 analyzed cases are unsafe.
+- [x] **R45-CTRL-01**: Test r45 with a preterminal pressure-safe guard and route-horizon tail-completion rescue; reject after the full 324-row training execution because 176 safety harms accumulate, unfinished-vehicle regressions spread across strong baselines, and core composite means turn negative against max-pressure and capacity-aware pressure.
+- [x] **SAFETY-CONTRACT-AUDIT-22**: Refresh revision summary, completion-safety contract audit, and completion tradeoff analysis through r45; 44 candidates are rejected, 42 have unfinished safety blockers, only 26 keep positive core composite means, only 22 also clear the action-separation floor, zero pass unfinished-vehicle safety, and execution-level tradeoff analysis reports 105 cases with 74 unsafe and 31 oracle-conflict cases.
+- [x] **R46-CTRL-01**: Test r45 with an occupancy-gated completion-safety veto that only activates in preterminal high-occupancy or low-residual regimes; reject after the first 12-row batch because unfinished-vehicle safety still fails on `arterial_v1_5_storage_activation` seed `20261218`, even though early core composite means are positive against all core baselines.
+- [x] **SAFETY-CONTRACT-AUDIT-23**: Refresh revision summary, completion-safety contract audit, and completion tradeoff analysis through r46; 45 candidates are rejected, 43 have unfinished safety blockers, 27 keep positive core composite means, 23 also clear the action-separation floor, zero pass unfinished-vehicle safety, and execution-level tradeoff analysis reports 107 cases with 75 unsafe and 33 oracle-conflict cases.
+- [ ] **SAFETY-CONTRACT-01**: Before any further confirmatory holdout, add an explicit completion-safety controller guard that passes fresh training seeds; do not revise the unfinished-vehicle safety contract unless future evidence supports a predeclared non-weakening revision.
+- [ ] **R11-HOLDOUT-01**: If a future training candidate is selected, lock a fresh/superseding confirmatory protocol with non-training seeds.
+- [ ] **CLAIM-01**: Keep superiority language disallowed unless a locked v1.5 paired-seed artifact passes against the required strong baselines and ablations.
+
+## Out of Scope
+
+- Reinterpreting v1.4 as passing closed-loop superiority evidence.
+- Weakening max-pressure-style comparators to make the new method easier to pass.
+- Treating pilot or training-split results as final holdout evidence.
+- Tuning `finite_storage_dynamic_primal_dual_v1_5` on the current binding holdout seeds and reusing the same locked protocol as confirmatory evidence.

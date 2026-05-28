@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.4
-milestone_name: Strong Baseline-Dominance Method Search
-status: awaiting_next_milestone
-stopped_at: v1.4 complete — ready for next milestone
-last_updated: "2026-05-26T09:06:23.150Z"
-last_activity: 2026-05-26 — Milestone 1.4 completed and archived
+milestone: v1.5
+milestone_name: Dynamic Finite-Storage Primal-Dual Method Redesign
+status: in_progress
+stopped_at: v1.5 r46 early batch rejected despite positive core composite means
+last_updated: "2026-05-27T00:00:00+08:00"
+last_activity: 2026-05-27 — v1.5 r46 occupancy-gated completion-safety veto was implemented, initial 12-row training batch stayed rejected on unfinished safety, and aggregate tradeoff/audit artifacts were refreshed.
 progress:
   total_phases: 5
   completed_phases: 5
-  total_plans: 17
-  completed_plans: 17
+  total_plans: 45
+  completed_plans: 45
   percent: 100
 ---
 
@@ -18,17 +18,17 @@ progress:
 
 ## Project Reference
 
-See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-26)
+See: /home/samuel/projects/pi_light_OR/.planning/PROJECT.md (updated 2026-05-27)
 
 **Core value:** Show that finite-storage primal-dual pressure control strictly generalizes max-pressure: it reduces to pressure when constraints are slack, adds scarcity-aware shadow-price corrections when storage, spillback, switching, service, or incident constraints bind, and can be deployed or compressed into auditable symbolic traffic-signal policies.
-**Current focus:** v1.4 milestone lifecycle — audit, complete, cleanup
+**Current focus:** v1.5 dynamic finite-storage primal-dual redesign — occupancy state, stateful shadow prices, diagnostics, and locked protocol
 
 ## Current Position
 
-Phase: Milestone 1.4 complete
+Phase: Phase 19 candidate — v1.5 method redesign
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-05-26 — Milestone 1.4 completed and archived
+Status: In progress
+Last activity: 2026-05-27 — v1.5 r46 initial batch stayed rejected; the new completion-safety veto improved early composite signal but did not clear unfinished safety.
 
 ## Performance Metrics
 
@@ -124,7 +124,62 @@ Last activity: 2026-05-26 — Milestone 1.4 completed and archived
 - [Phase 14]: v1.3 strict Gate C remains `INCONCLUSIVE`; diagnostics are explanatory and not claim-ready evidence.
 - [Phase 15]: All v1.4 workstream pilot artifacts are exploratory with `claim_ready=false` and `final_gate_c_import_allowed=false`.
 - [Phase 16]: `finite_storage_primal_dual_v1_4_score` is the single locked candidate route for Phase 17; strong baselines remain required comparators.
-- [Phase 17]: v1.4 locked execution and strict Gate C both fail closed as `INCONCLUSIVE` until the 1440 locked SUMO rows are executed/resumed.
+- [Phase 17]: v1.4 locked execution completed 1440/1440 rows with clean row audit, but strict Gate C remained non-PASSED; closed-loop superiority remains disallowed.
+- [v1.5]: The finite-storage state must use vehicle-count occupancy for storage scarcity and receiving capacity; queue remains appropriate for pressure/service urgency.
+- [v1.5]: `finite_storage_dynamic_primal_dual_v1_5` is a new controller, not a relabeling of v1.4; keep static v1.4 as an ablation and preserve strong baselines.
+- [v1.5]: `v1_5_closed_loop_diagnostics.json` is diagnostic evidence only; it validates storage activation/action separation readiness, not locked holdout performance.
+- [v1.5]: `v1_5_locked_protocol.json` locks the composite finite-storage operating cost endpoint and required baselines before any holdout claim.
+- [v1.5]: `v1_5_protocol_activation_audit.json` marks the original locked protocol as non-binding in early execution rows; it is superseded by `v1_5_binding_locked_protocol.json`.
+- [v1.5]: `v1_5_binding_protocol_activation_audit.json` passes on the revised protocol, confirming storage/cascade/release mechanisms activate in executed v1.5 rows.
+- [v1.5]: `v1_5_binding_paired_evidence.json` remains `INCONCLUSIVE` because execution is partial and not claim-ready.
+- [v1.5]: `v1_5_binding_early_holdout_risk.json` is `FAILED`: after activation is verified, early locked rows show repeated safety-guard harm against max-pressure, capacity-aware pressure, and finite-storage double pressure.
+- [v1.5]: Do not tune on the current binding holdout seeds and reuse the same protocol as confirmatory evidence.
+- [v1.5]: `finite_storage_dynamic_primal_dual_v1_5_r2_guarded` is a post-holdout method-revision candidate with capped non-pressure dynamic corrections.
+- [v1.5]: `v1_5_r2_training_protocol.json` is training-only, uses seeds disjoint from the current binding holdout seeds, and cannot support a superiority claim by itself.
+- [v1.5]: `v1_5_r2_training_selection.json` rejects r2 on training evidence: action separation is about 1.1%, composite ties max-pressure, and unfinished vehicles harm finite-storage double pressure.
+- [v1.5]: r3-r5 training candidates improve composite cost in their first fresh training cells, but each is rejected by unfinished-vehicle safety guards.
+- [v1.5]: r6 terminal finite-storage-double flush preserves positive composite signal but is rejected after the second fresh training seed triggers unfinished-vehicle safety harm.
+- [v1.5]: r7 finite-storage-double score filtering ties finite-storage double but is rejected because action separation falls to about 1.3% and capacity-aware unfinished-vehicle safety still fails.
+- [v1.5]: r8-r10 safety-filter variants also fail training selection; r10 keeps positive composite signals on two seeds but still increases unfinished vehicles on the second seed.
+- [v1.5]: r11 local completion-risk service preservation activates and keeps action separation above 5%, but is rejected after the second training seed because unfinished vehicles still harm max-pressure, capacity-aware pressure, and finite-storage double pressure.
+- [v1.5]: r12 receiver-constrained route-completion proxy activates on every decision, but is rejected on the first training seed because unfinished vehicles still harm strong baselines and action separation falls below 5%.
+- [v1.5]: r13 TraCI movement-level route-demand completion restores action separation and improves composite against max-pressure/capacity-aware pressure, but is rejected because unfinished vehicles still harm strong baselines.
+- [v1.5]: r14 route-demand with finite-storage-double score veto removes unfinished harm in the first training seed, but is rejected because it becomes too pressure-equivalent and triggers total-delay safety harm.
+- [v1.5]: r15 horizon-aware completion restores action separation and yields positive composite signal against max-pressure, capacity-aware pressure, and finite-storage double pressure, but is rejected by unfinished-vehicle safety harm.
+- [v1.5]: r16 adds terminal finite-storage-double lock and passes the first training seed, but is rejected on the second seed by capacity-aware unfinished-vehicle safety harm.
+- [v1.5]: r17 switches the terminal lock to capacity-aware and is rejected by finite-storage-double unfinished-vehicle safety harm.
+- [v1.5]: r18 uses a balanced terminal capacity/double lock and restores action separation, but is rejected in the first training seed by finite-storage-double unfinished-vehicle safety harm and negative composite against finite-storage double pressure.
+- [v1.5]: r19 strengthens finite-storage-double anchoring and keeps positive composite means against core baselines through two training seeds, but is rejected by a one-vehicle unfinished safety harm against max-pressure.
+- [v1.5]: r20 balances max-pressure and finite-storage double in the terminal lock, but is rejected in the first training seed by unfinished safety harm against both max-pressure and finite-storage double pressure.
+- [v1.5]: r21 uses terminal completion-service selection between max-pressure and finite-storage double, but is rejected in the first training seed by unfinished safety harm against both.
+- [v1.5]: r22 adds an all-interval completion-safety veto; it activates but is rejected because action separation falls below 5%, composite means turn negative against core baselines, and unfinished safety still fails.
+- [v1.5]: r23 filters marginal horizon overrides by baseline dominance; it preserves only a small positive composite signal, but action separation falls below 5% and unfinished safety still fails.
+- [v1.5]: r24 delays horizon completion overrides until late-horizon risk; it preserves positive composite means and action separation, but is rejected by one-vehicle max-pressure unfinished safety harm.
+- [v1.5]: r25 adds a late max-pressure terminal lock to r24, but is rejected by unfinished safety harm against max-pressure and finite-storage double pressure.
+- [v1.5]: r26 changes staged horizon completion to weight exit urgency relative to remaining simulation time, but is rejected in the first training seed by unfinished safety harm against all core strong baselines.
+- [v1.5]: r27 adds a late terminal exit-protection guard with direct finishable-route and service scoring, but is rejected in the first training seed by max-pressure unfinished safety harm.
+- [v1.5]: r28 adds a max-pressure completion envelope; it clears the first training seed but is rejected on the second by unfinished safety harm against max-pressure, capacity-aware pressure, and finite-storage double pressure.
+- [v1.5]: r29 adds an all-core-baseline completion envelope; it is rejected in the first training seed by finite-storage-double unfinished safety harm and negative composite means against max-pressure and finite-storage double pressure.
+- [v1.5]: r30 adds a finite-storage-double completion envelope; it is rejected in the first training seed by capacity-aware unfinished safety harm and negative composite means against all core strong baselines.
+- [v1.5]: r31 delays the r24 finite-storage-double terminal lock from 0.78 to 0.88; it is rejected in the first training seed by one-vehicle finite-storage-double unfinished safety harm despite positive core composite means.
+- [v1.5]: r32 adds a narrow preterminal finite-storage-double guard after 0.82; it clears the first training seed, then is rejected on the second by finite-storage-double unfinished safety harm.
+- [v1.5]: r33 moves the finite-storage-double guard earlier to 0.70; it is rejected in the first training seed by max-pressure and capacity-aware unfinished safety harm despite positive core composite means.
+- [v1.5]: r34 adds a core-minimax guard across max-pressure, capacity-aware pressure, and finite-storage double scores; it is rejected in the first training seed by max-pressure and finite-storage-double unfinished safety harm, with negative composite mean against max-pressure.
+- [v1.5]: r35 adds deadline-oriented route urgency for low-slack finishable vehicles; it is rejected in the first training seed with 91.8% action separation, 1209 unfinished vehicles, and negative composite means against all core baselines.
+- [v1.5]: r36 delays deadline urgency to 0.78 and raises the base weight; it clears the first training seed with 17.7% action separation and positive core composite means, then is rejected on the second by unfinished safety harm against all core baselines.
+- [v1.5]: r37 adds a late-gated completion-service anchor; it is rejected in the first training seed with 8.96% action separation, negative composite means against max-pressure and capacity-aware pressure, and capacity-aware unfinished safety harm.
+- [v1.5]: r38 adds a narrow late capacity-aware rescue guard; it is rejected in the first training seed with 17.7% action separation, one guard activation, negative composite mean against capacity-aware pressure, and capacity-aware unfinished safety harm.
+- [v1.5]: r39 adds a strict late capacity-aware score envelope; it is rejected in the first training seed with positive core composite means, 1.4% action separation, and unfinished safety harm against max-pressure and capacity-aware pressure.
+- [v1.5]: r40 adds a pressure-safe horizon override guard; it is rejected in the first training seed with positive core composite means, 5.26% action separation, and unfinished safety harm against max-pressure, capacity-aware pressure, and finite-storage double pressure.
+- [v1.5]: r41 adds a locked terminal core-completion choice among pressure, capacity-aware, and finite-storage double actions; it is rejected in the first training seed with positive core composite means, 3.48% action separation, and unfinished safety harm against all core baselines.
+- [v1.5]: r42 adds a late tail-completion rescue after pressure-safe horizon reverts; it is rejected in the first training seed with 5.41% action separation, two unfinished safety harms, and negative composite means against capacity-aware and finite-storage double pressure.
+- [v1.5]: r43 returns to r24 staged horizon with a strict pressure-safe guard and no deadline urgency; it is rejected in the first training seed because unfinished safety passes but action separation falls to 2.07% and composite means are negative against all core baselines.
+- [v1.5]: r44 loosens the r43 pressure-safe guard; it is rejected in the first training seed because composite means recover positive, but action separation remains 3.26% and unfinished safety fails against capacity-aware and finite-storage double pressure.
+- [v1.5]: r45 preterminal pressure-safe guard plus route-horizon tail-completion rescue was run through the full 324-row training split and remained `REJECTED`; it accumulated 176 safety harms and turned core composite means negative against max-pressure and capacity-aware pressure.
+- [v1.5]: r46 adds an occupancy-gated completion-safety veto on top of r45; the first 12-row batch remains `REJECTED`, but early core composite means are positive against max-pressure, capacity-aware pressure, and finite-storage double pressure before one storage-activation seed reintroduces unfinished-vehicle safety harm.
+- [v1.5]: `v1_5_completion_safety_contract_audit.json` reports `REVISION_REQUIRED`: 45 candidates are rejected, 43 have unfinished safety blockers, 27 keep positive core composite means, 23 also clear the action-separation floor, and zero pass unfinished-vehicle safety; the audit does not support weakening the safety contract.
+- [v1.5]: `v1_5_completion_tradeoff_analysis.json` reports 107 analyzed training cases, 75 unsafe cases, 52 composite-win cases, 24 safe-and-composite-win cases, and 33 core-baseline conflicts between unfinished oracle and composite oracle.
+- [v1.5]: `v1_5_revision_candidate_summary.json` reports `NO_CANDIDATE_SELECTED`; the next step is a structurally stronger completion model or completion-safety controller guard on fresh training seeds before any confirmatory holdout.
 - [Phase 18]: v1.4 claim refresh preserves `closed_loop_superiority_claim_allowed=false`; milestone audit found no overclaim or protocol drift.
 
 ### Pending Todos
@@ -142,6 +197,10 @@ Last activity: 2026-05-26 — Milestone 1.4 completed and archived
 - v1.4 must preserve strong max-pressure-style baselines as first-class comparators, including capacity-aware pressure and finite-storage double-pressure.
 - Phase 17 must consume `experiments/dual_sensitivity/v1_4_locked_gate_c_protocol.json` and must not change candidate selection after confirmation begins.
 - Phase 18 must keep closed-loop superiority `claim_allowed=false` unless `experiments/dual_sensitivity/v1_4_gate_c_paired_evidence.json` is `PASSED`.
+- v1.5 current candidate is not claim-ready: mechanism activation is no longer the blocker, but safety-guard harm against strong baselines is.
+- v1.5 r2 must be selected or rejected on training-only evidence before any fresh confirmatory holdout is locked.
+- v1.5 r2 has been rejected; the next method candidate must not reuse current binding holdout seeds for tuning.
+- v1.5 r3-r46 have also been rejected on training-only evidence; no confirmatory protocol should be locked until a candidate passes training selection.
 
 ## Deferred Items
 

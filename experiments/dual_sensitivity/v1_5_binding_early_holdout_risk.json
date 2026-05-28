@@ -1,0 +1,272 @@
+{
+  "experiment": "v1_5_binding_early_holdout_risk",
+  "status": "FAILED",
+  "generated_at": "2026-05-27T04:02:34.524115+00:00",
+  "requirements_covered": [
+    "V15-EARLY-01",
+    "V15-CLAIM-01"
+  ],
+  "claim_ready": false,
+  "input_evidence": "experiments/dual_sensitivity/v1_5_binding_paired_evidence.json",
+  "input_activation_audit": "experiments/dual_sensitivity/v1_5_binding_protocol_activation_audit.json",
+  "evidence_status": "INCONCLUSIVE",
+  "activation_status": "PASSED",
+  "locked_protocol_fingerprint": "9638898db29eee75a72663c9c57e870c08e4b32206951d131b76a8b3248870eb",
+  "min_harm_seeds": 2,
+  "activation_summary": {
+    "controller_rows": 3,
+    "total_decisions": 4050,
+    "binding_decision_count": 3930,
+    "binding_decision_rate": 0.9703703703703703,
+    "action_changed_relative_to_pressure_count": 2659,
+    "action_change_rate": 0.6565432098765432,
+    "dynamic_term_counts": {
+      "storage_price": 4049,
+      "cascade_price": 4050,
+      "release": 4050
+    },
+    "criteria": {
+      "controller_rows_present": true,
+      "binding_decisions_present": true,
+      "storage_price_active": true,
+      "cascade_or_release_active": true
+    },
+    "row_summaries": [
+      {
+        "scenario_tag": "arterial_v1_5_storage_activation",
+        "demand_multiplier": 0.9,
+        "seed": 20260710,
+        "total_decisions": 1350,
+        "binding_decision_count": 1295,
+        "action_change_rate": 0.6666666666666666,
+        "binding_decision_rate": 0.9592592592592593,
+        "max_occupancy_ratio_observed": 4.3988269794721395,
+        "min_residual_ratio_observed": 0.0,
+        "dynamic_term_counts": {
+          "storage_price": 1349,
+          "cascade_price": 1350,
+          "release": 1350
+        }
+      },
+      {
+        "scenario_tag": "arterial_v1_5_storage_activation",
+        "demand_multiplier": 0.9,
+        "seed": 20260711,
+        "total_decisions": 1350,
+        "binding_decision_count": 1310,
+        "action_change_rate": 0.6474074074074074,
+        "binding_decision_rate": 0.9703703703703703,
+        "max_occupancy_ratio_observed": 3.7573313782991193,
+        "min_residual_ratio_observed": 0.0,
+        "dynamic_term_counts": {
+          "storage_price": 1350,
+          "cascade_price": 1350,
+          "release": 1350
+        }
+      },
+      {
+        "scenario_tag": "arterial_v1_5_storage_activation",
+        "demand_multiplier": 0.9,
+        "seed": 20260712,
+        "total_decisions": 1350,
+        "binding_decision_count": 1325,
+        "action_change_rate": 0.6555555555555556,
+        "binding_decision_rate": 0.9814814814814815,
+        "max_occupancy_ratio_observed": 3.7573313782991193,
+        "min_residual_ratio_observed": 0.0,
+        "dynamic_term_counts": {
+          "storage_price": 1350,
+          "cascade_price": 1350,
+          "release": 1350
+        }
+      }
+    ]
+  },
+  "primary_composite_summary": [
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "max_pressure",
+      "n_seeds": 3,
+      "mean_paired_difference": 952299.6666666666,
+      "classification": "inconclusive",
+      "strict_positive_signal": false
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "capacity_aware_pressure",
+      "n_seeds": 3,
+      "mean_paired_difference": 1560821.6666666667,
+      "classification": "inconclusive",
+      "strict_positive_signal": false
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "occupancy_capacity_aware_pressure",
+      "n_seeds": 3,
+      "mean_paired_difference": 147402586.66666666,
+      "classification": "strict_positive",
+      "strict_positive_signal": true
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "finite_storage_double_pressure",
+      "n_seeds": 3,
+      "mean_paired_difference": 1159011.6666666667,
+      "classification": "inconclusive",
+      "strict_positive_signal": false
+    }
+  ],
+  "safety_harm_summary": [
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "harm_count": 3,
+      "harm_seed_count": 3,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "max_pressure",
+      "metric": "total_delay",
+      "harm_count": 3,
+      "harm_seed_count": 3,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "harm_count": 3,
+      "harm_seed_count": 3,
+      "practical_harm_tolerance": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "harm_count": 3,
+      "harm_seed_count": 3,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "harm_count": 3,
+      "harm_seed_count": 3,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "harm_count": 3,
+      "harm_seed_count": 3,
+      "practical_harm_tolerance": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "harm_count": 3,
+      "harm_seed_count": 3,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "harm_count": 3,
+      "harm_seed_count": 3,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.9,
+      "baseline": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "harm_count": 2,
+      "harm_seed_count": 2,
+      "practical_harm_tolerance": 0.0
+    }
+  ],
+  "harm_totals_by_baseline_metric": [
+    {
+      "baseline": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "harm_count": 3
+    },
+    {
+      "baseline": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "harm_count": 3
+    },
+    {
+      "baseline": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "harm_count": 3
+    },
+    {
+      "baseline": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "harm_count": 3
+    },
+    {
+      "baseline": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "harm_count": 3
+    },
+    {
+      "baseline": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "harm_count": 2
+    },
+    {
+      "baseline": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "harm_count": 3
+    },
+    {
+      "baseline": "max_pressure",
+      "metric": "total_delay",
+      "harm_count": 3
+    },
+    {
+      "baseline": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "harm_count": 3
+    }
+  ],
+  "harmful_core_baselines": [
+    "capacity_aware_pressure",
+    "finite_storage_double_pressure",
+    "max_pressure"
+  ],
+  "reasons": [
+    "storage-binding mechanism audit passed, so harms are not explained by a non-binding protocol",
+    "safety guards show repeated practical harm against strong baselines before full holdout completion"
+  ],
+  "recommendation": "stop current full binding holdout for method revision; do not tune on these holdout seeds and reuse the same protocol",
+  "claim_scope": {
+    "closed_loop_superiority_claim_allowed": false,
+    "why": "early locked-holdout rows show repeated safety-guard harm against strong baselines",
+    "required_before_new_claim": [
+      "method revision outside this holdout evidence",
+      "new or explicitly superseding locked protocol",
+      "fresh paired evidence with passing safety guards and primary endpoint"
+    ]
+  }
+}

@@ -1,0 +1,3242 @@
+{
+  "experiment": "v1_5_completion_tradeoff_analysis",
+  "status": "ANALYZED",
+  "requirements_covered": [
+    "V15-COMPLETION-TRADEOFF-01",
+    "V15-CLAIM-01"
+  ],
+  "claim_ready": false,
+  "input_count": 45,
+  "execution_count": 45,
+  "case_count": 107,
+  "unsafe_case_count": 75,
+  "composite_win_case_count": 52,
+  "safe_and_composite_win_case_count": 24,
+  "oracle_conflict_count": 33,
+  "executions": [
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r2_training_execution.json",
+      "experiment": "v1_5_r2_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r2_guarded",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 3.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260801,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r2_guarded",
+          "candidate_unfinished_vehicle_count": 123.0,
+          "candidate_composite_cost": 55896666.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 123.0,
+            "capacity_aware_pressure": 127.0,
+            "finite_storage_double_pressure": 120.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55896666.0,
+            "capacity_aware_pressure": 56083724.0,
+            "finite_storage_double_pressure": 53900764.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 7.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r3_training_execution.json",
+      "experiment": "v1_5_r3_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r3_double_release",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 7.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260811,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r3_double_release",
+          "candidate_unfinished_vehicle_count": 125.0,
+          "candidate_composite_cost": 53066141.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 133.0,
+            "capacity_aware_pressure": 123.0,
+            "finite_storage_double_pressure": 118.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57081779.0,
+            "capacity_aware_pressure": 54271533.0,
+            "finite_storage_double_pressure": 55592689.0
+          },
+          "candidate_safety_excess_vs_best_core": 7.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 15.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r4_training_execution.json",
+      "experiment": "v1_5_r4_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r4_release_service",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 6.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260821,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r4_release_service",
+          "candidate_unfinished_vehicle_count": 128.0,
+          "candidate_composite_cost": 53962364.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 126.0,
+            "capacity_aware_pressure": 122.0,
+            "finite_storage_double_pressure": 126.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57707116.0,
+            "capacity_aware_pressure": 56588712.0,
+            "finite_storage_double_pressure": 57381792.0
+          },
+          "candidate_safety_excess_vs_best_core": 6.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 4.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r5_training_execution.json",
+      "experiment": "v1_5_r5_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r5_double_safe",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 7.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260831,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r5_double_safe",
+          "candidate_unfinished_vehicle_count": 127.0,
+          "candidate_composite_cost": 53413920.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 120.0,
+            "capacity_aware_pressure": 120.0,
+            "finite_storage_double_pressure": 130.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57570443.0,
+            "capacity_aware_pressure": 57570443.0,
+            "finite_storage_double_pressure": 54854491.0
+          },
+          "candidate_safety_excess_vs_best_core": 7.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 10.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r6_training_execution.json",
+      "experiment": "v1_5_r6_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r6_terminal_flush",
+      "case_count": 2,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 2,
+      "oracle_conflict_count": 2,
+      "max_candidate_safety_excess_vs_best_core": 16.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260841,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r6_terminal_flush",
+          "candidate_unfinished_vehicle_count": 113.0,
+          "candidate_composite_cost": 54746084.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 124.0,
+            "capacity_aware_pressure": 124.0,
+            "finite_storage_double_pressure": 127.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55878617.0,
+            "capacity_aware_pressure": 55878617.0,
+            "finite_storage_double_pressure": 55506585.0
+          },
+          "candidate_safety_excess_vs_best_core": -11.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 3.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260842,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r6_terminal_flush",
+          "candidate_unfinished_vehicle_count": 138.0,
+          "candidate_composite_cost": 54119629.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 122.0,
+            "capacity_aware_pressure": 132.0,
+            "finite_storage_double_pressure": 131.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55545842.0,
+            "capacity_aware_pressure": 54711186.0,
+            "finite_storage_double_pressure": 55113866.0
+          },
+          "candidate_safety_excess_vs_best_core": 16.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 10.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r7_training_execution.json",
+      "experiment": "v1_5_r7_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r7_double_filter",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 1.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260851,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r7_double_filter",
+          "candidate_unfinished_vehicle_count": 126.0,
+          "candidate_composite_cost": 56148648.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 130.0,
+            "capacity_aware_pressure": 125.0,
+            "finite_storage_double_pressure": 126.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56186409.0,
+            "capacity_aware_pressure": 55432346.0,
+            "finite_storage_double_pressure": 56148648.0
+          },
+          "candidate_safety_excess_vs_best_core": 1.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 5.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r8_training_execution.json",
+      "experiment": "v1_5_r8_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r8_multi_baseline_filter",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 17.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260861,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r8_multi_baseline_filter",
+          "candidate_unfinished_vehicle_count": 139.0,
+          "candidate_composite_cost": 56503555.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 122.0,
+            "capacity_aware_pressure": 128.0,
+            "finite_storage_double_pressure": 132.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 54954738.0,
+            "capacity_aware_pressure": 54819594.0,
+            "finite_storage_double_pressure": 59124539.0
+          },
+          "candidate_safety_excess_vs_best_core": 17.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 10.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r9_training_execution.json",
+      "experiment": "v1_5_r9_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r9_hold_only",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 8.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260871,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r9_hold_only",
+          "candidate_unfinished_vehicle_count": 127.0,
+          "candidate_composite_cost": 54746682.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 121.0,
+            "capacity_aware_pressure": 119.0,
+            "finite_storage_double_pressure": 129.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 58080571.0,
+            "capacity_aware_pressure": 57487146.0,
+            "finite_storage_double_pressure": 57965667.0
+          },
+          "candidate_safety_excess_vs_best_core": 8.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 10.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r10_training_execution.json",
+      "experiment": "v1_5_r10_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r10_bounded_hold",
+      "case_count": 2,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 2,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 9.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260881,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r10_bounded_hold",
+          "candidate_unfinished_vehicle_count": 124.0,
+          "candidate_composite_cost": 53846739.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 125.0,
+            "capacity_aware_pressure": 131.0,
+            "finite_storage_double_pressure": 124.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56153530.0,
+            "capacity_aware_pressure": 56403506.0,
+            "finite_storage_double_pressure": 57303332.0
+          },
+          "candidate_safety_excess_vs_best_core": 0.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 7.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260882,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r10_bounded_hold",
+          "candidate_unfinished_vehicle_count": 135.0,
+          "candidate_composite_cost": 53700725.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 129.0,
+            "capacity_aware_pressure": 129.0,
+            "finite_storage_double_pressure": 126.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 54598238.0,
+            "capacity_aware_pressure": 54598238.0,
+            "finite_storage_double_pressure": 54152206.0
+          },
+          "candidate_safety_excess_vs_best_core": 9.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 3.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r11_training_execution.json",
+      "experiment": "v1_5_r11_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r11_completion_risk",
+      "case_count": 2,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 12.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260891,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r11_completion_risk",
+          "candidate_unfinished_vehicle_count": 119.0,
+          "candidate_composite_cost": 54416564.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 122.0,
+            "capacity_aware_pressure": 126.0,
+            "finite_storage_double_pressure": 126.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55143427.0,
+            "capacity_aware_pressure": 54003208.0,
+            "finite_storage_double_pressure": 53922384.0
+          },
+          "candidate_safety_excess_vs_best_core": -3.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 4.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260892,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r11_completion_risk",
+          "candidate_unfinished_vehicle_count": 131.0,
+          "candidate_composite_cost": 55424449.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 119.0,
+            "capacity_aware_pressure": 121.0,
+            "finite_storage_double_pressure": 129.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55362760.0,
+            "capacity_aware_pressure": 56764120.0,
+            "finite_storage_double_pressure": 57589539.0
+          },
+          "candidate_safety_excess_vs_best_core": 12.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 10.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r12_training_execution.json",
+      "experiment": "v1_5_r12_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r12_route_completion",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 14.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260901,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r12_route_completion",
+          "candidate_unfinished_vehicle_count": 132.0,
+          "candidate_composite_cost": 57665292.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 118.0,
+            "capacity_aware_pressure": 132.0,
+            "finite_storage_double_pressure": 127.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55860412.0,
+            "capacity_aware_pressure": 56913807.0,
+            "finite_storage_double_pressure": 56897620.0
+          },
+          "candidate_safety_excess_vs_best_core": 14.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 14.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r13_training_execution.json",
+      "experiment": "v1_5_r13_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r13_route_demand",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 5.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260911,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r13_route_demand",
+          "candidate_unfinished_vehicle_count": 123.0,
+          "candidate_composite_cost": 55470200.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 118.0,
+            "capacity_aware_pressure": 118.0,
+            "finite_storage_double_pressure": 119.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57057085.0,
+            "capacity_aware_pressure": 57057085.0,
+            "finite_storage_double_pressure": 54579116.0
+          },
+          "candidate_safety_excess_vs_best_core": 5.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r14_training_execution.json",
+      "experiment": "v1_5_r14_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r14_route_demand_double_safe",
+      "case_count": 1,
+      "unsafe_case_count": 0,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 0.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260921,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r14_route_demand_double_safe",
+          "candidate_unfinished_vehicle_count": 121.0,
+          "candidate_composite_cost": 56925172.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 130.0,
+            "capacity_aware_pressure": 128.0,
+            "finite_storage_double_pressure": 121.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 53956456.0,
+            "capacity_aware_pressure": 55363298.0,
+            "finite_storage_double_pressure": 56925172.0
+          },
+          "candidate_safety_excess_vs_best_core": 0.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 9.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r15_training_execution.json",
+      "experiment": "v1_5_r15_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r15_horizon_model",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 4.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260931,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r15_horizon_model",
+          "candidate_unfinished_vehicle_count": 123.0,
+          "candidate_composite_cost": 53190434.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 119.0,
+            "capacity_aware_pressure": 119.0,
+            "finite_storage_double_pressure": 122.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 54017122.0,
+            "capacity_aware_pressure": 54017122.0,
+            "finite_storage_double_pressure": 56773786.0
+          },
+          "candidate_safety_excess_vs_best_core": 4.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 3.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r16_training_execution.json",
+      "experiment": "v1_5_r16_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r16_horizon_terminal",
+      "case_count": 2,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 2,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 3.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260941,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r16_horizon_terminal",
+          "candidate_unfinished_vehicle_count": 121.0,
+          "candidate_composite_cost": 52262436.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 122.0,
+            "capacity_aware_pressure": 122.0,
+            "finite_storage_double_pressure": 123.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 54466185.0,
+            "capacity_aware_pressure": 54466185.0,
+            "finite_storage_double_pressure": 54857609.0
+          },
+          "candidate_safety_excess_vs_best_core": -1.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260942,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r16_horizon_terminal",
+          "candidate_unfinished_vehicle_count": 121.0,
+          "candidate_composite_cost": 53485320.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 125.0,
+            "capacity_aware_pressure": 118.0,
+            "finite_storage_double_pressure": 133.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 53995145.0,
+            "capacity_aware_pressure": 53997469.0,
+            "finite_storage_double_pressure": 55514032.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 15.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r17_training_execution.json",
+      "experiment": "v1_5_r17_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r17_horizon_capacity_terminal",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 1.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260951,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r17_horizon_capacity_terminal",
+          "candidate_unfinished_vehicle_count": 125.0,
+          "candidate_composite_cost": 53871438.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 126.0,
+            "capacity_aware_pressure": 126.0,
+            "finite_storage_double_pressure": 124.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55078874.0,
+            "capacity_aware_pressure": 55078874.0,
+            "finite_storage_double_pressure": 58332167.0
+          },
+          "candidate_safety_excess_vs_best_core": 1.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 2.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r18_training_execution.json",
+      "experiment": "v1_5_r18_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r18_horizon_balanced_terminal",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 7.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260961,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r18_horizon_balanced_terminal",
+          "candidate_unfinished_vehicle_count": 122.0,
+          "candidate_composite_cost": 55356462.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 134.0,
+            "capacity_aware_pressure": 122.0,
+            "finite_storage_double_pressure": 115.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57324087.0,
+            "capacity_aware_pressure": 55684406.0,
+            "finite_storage_double_pressure": 54517164.0
+          },
+          "candidate_safety_excess_vs_best_core": 7.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 19.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r19_training_execution.json",
+      "experiment": "v1_5_r19_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r19_horizon_double_anchored",
+      "case_count": 2,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 1.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260971,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r19_horizon_double_anchored",
+          "candidate_unfinished_vehicle_count": 123.0,
+          "candidate_composite_cost": 54071095.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 128.0,
+            "capacity_aware_pressure": 135.0,
+            "finite_storage_double_pressure": 126.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56599851.0,
+            "capacity_aware_pressure": 57242802.0,
+            "finite_storage_double_pressure": 55557288.0
+          },
+          "candidate_safety_excess_vs_best_core": -3.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 9.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260972,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r19_horizon_double_anchored",
+          "candidate_unfinished_vehicle_count": 122.0,
+          "candidate_composite_cost": 55730410.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 121.0,
+            "capacity_aware_pressure": 125.0,
+            "finite_storage_double_pressure": 123.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55829951.0,
+            "capacity_aware_pressure": 56057331.0,
+            "finite_storage_double_pressure": 55552097.0
+          },
+          "candidate_safety_excess_vs_best_core": 1.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 4.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r20_training_execution.json",
+      "experiment": "v1_5_r20_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r20_horizon_max_double_terminal",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 9.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260981,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r20_horizon_max_double_terminal",
+          "candidate_unfinished_vehicle_count": 123.0,
+          "candidate_composite_cost": 55298537.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 121.0,
+            "capacity_aware_pressure": 130.0,
+            "finite_storage_double_pressure": 114.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57718618.0,
+            "capacity_aware_pressure": 57320851.0,
+            "finite_storage_double_pressure": 56476688.0
+          },
+          "candidate_safety_excess_vs_best_core": 9.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 16.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r21_training_execution.json",
+      "experiment": "v1_5_r21_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r21_horizon_service_terminal",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 7.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20260991,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r21_horizon_service_terminal",
+          "candidate_unfinished_vehicle_count": 128.0,
+          "candidate_composite_cost": 53236469.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 125.0,
+            "capacity_aware_pressure": 129.0,
+            "finite_storage_double_pressure": 121.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55754627.0,
+            "capacity_aware_pressure": 54406021.0,
+            "finite_storage_double_pressure": 55149508.0
+          },
+          "candidate_safety_excess_vs_best_core": 7.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 8.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r22_training_execution.json",
+      "experiment": "v1_5_r22_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r22_horizon_completion_safety",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 6.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261001,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r22_horizon_completion_safety",
+          "candidate_unfinished_vehicle_count": 120.0,
+          "candidate_composite_cost": 56791786.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 114.0,
+            "capacity_aware_pressure": 114.0,
+            "finite_storage_double_pressure": 119.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56083926.0,
+            "capacity_aware_pressure": 56083926.0,
+            "finite_storage_double_pressure": 55859933.0
+          },
+          "candidate_safety_excess_vs_best_core": 6.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 5.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r23_training_execution.json",
+      "experiment": "v1_5_r23_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r23_horizon_dominance",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 7.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261011,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r23_horizon_dominance",
+          "candidate_unfinished_vehicle_count": 127.0,
+          "candidate_composite_cost": 55157894.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 120.0,
+            "capacity_aware_pressure": 120.0,
+            "finite_storage_double_pressure": 129.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55365418.0,
+            "capacity_aware_pressure": 55365418.0,
+            "finite_storage_double_pressure": 55854410.0
+          },
+          "candidate_safety_excess_vs_best_core": 7.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 9.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r24_training_execution.json",
+      "experiment": "v1_5_r24_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r24_staged_horizon",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 1.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261021,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r24_staged_horizon",
+          "candidate_unfinished_vehicle_count": 118.0,
+          "candidate_composite_cost": 53363276.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 117.0,
+            "capacity_aware_pressure": 118.0,
+            "finite_storage_double_pressure": 124.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55165643.0,
+            "capacity_aware_pressure": 54641367.0,
+            "finite_storage_double_pressure": 56957270.0
+          },
+          "candidate_safety_excess_vs_best_core": 1.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 7.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r25_training_execution.json",
+      "experiment": "v1_5_r25_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r25_staged_horizon_late_max",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 8.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261031,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r25_staged_horizon_late_max",
+          "candidate_unfinished_vehicle_count": 129.0,
+          "candidate_composite_cost": 54046710.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 124.0,
+            "capacity_aware_pressure": 129.0,
+            "finite_storage_double_pressure": 121.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55911002.0,
+            "capacity_aware_pressure": 54133876.0,
+            "finite_storage_double_pressure": 54098092.0
+          },
+          "candidate_safety_excess_vs_best_core": 8.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 8.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r26_training_execution.json",
+      "experiment": "v1_5_r26_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r26_relative_exit_urgency",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 11.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261041,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r26_relative_exit_urgency",
+          "candidate_unfinished_vehicle_count": 133.0,
+          "candidate_composite_cost": 53682352.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 124.0,
+            "capacity_aware_pressure": 122.0,
+            "finite_storage_double_pressure": 127.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56240234.0,
+            "capacity_aware_pressure": 56097040.0,
+            "finite_storage_double_pressure": 56551867.0
+          },
+          "candidate_safety_excess_vs_best_core": 11.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 5.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r27_training_execution.json",
+      "experiment": "v1_5_r27_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r27_terminal_exit_protection",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 8.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261051,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r27_terminal_exit_protection",
+          "candidate_unfinished_vehicle_count": 128.0,
+          "candidate_composite_cost": 55564952.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 120.0,
+            "capacity_aware_pressure": 128.0,
+            "finite_storage_double_pressure": 133.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 58114361.0,
+            "capacity_aware_pressure": 57990514.0,
+            "finite_storage_double_pressure": 57787022.0
+          },
+          "candidate_safety_excess_vs_best_core": 8.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 13.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r28_training_execution.json",
+      "experiment": "v1_5_r28_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r28_max_pressure_envelope",
+      "case_count": 2,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 9.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261061,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r28_max_pressure_envelope",
+          "candidate_unfinished_vehicle_count": 119.0,
+          "candidate_composite_cost": 56289559.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 124.0,
+            "capacity_aware_pressure": 124.0,
+            "finite_storage_double_pressure": 126.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55665085.0,
+            "capacity_aware_pressure": 55665085.0,
+            "finite_storage_double_pressure": 58272846.0
+          },
+          "candidate_safety_excess_vs_best_core": -5.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 2.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261062,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r28_max_pressure_envelope",
+          "candidate_unfinished_vehicle_count": 130.0,
+          "candidate_composite_cost": 55814334.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 121.0,
+            "capacity_aware_pressure": 127.0,
+            "finite_storage_double_pressure": 129.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57821368.0,
+            "capacity_aware_pressure": 56551867.0,
+            "finite_storage_double_pressure": 56468026.0
+          },
+          "candidate_safety_excess_vs_best_core": 9.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 8.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r29_training_execution.json",
+      "experiment": "v1_5_r29_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r29_core_baseline_envelope",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 2.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261071,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r29_core_baseline_envelope",
+          "candidate_unfinished_vehicle_count": 120.0,
+          "candidate_composite_cost": 55627479.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 121.0,
+            "capacity_aware_pressure": 133.0,
+            "finite_storage_double_pressure": 118.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55192795.0,
+            "capacity_aware_pressure": 56435906.0,
+            "finite_storage_double_pressure": 54717240.0
+          },
+          "candidate_safety_excess_vs_best_core": 2.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 15.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r30_training_execution.json",
+      "experiment": "v1_5_r30_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r30_double_envelope",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 1.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261081,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r30_double_envelope",
+          "candidate_unfinished_vehicle_count": 128.0,
+          "candidate_composite_cost": 57213498.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 128.0,
+            "capacity_aware_pressure": 127.0,
+            "finite_storage_double_pressure": 128.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55584066.0,
+            "capacity_aware_pressure": 55649495.0,
+            "finite_storage_double_pressure": 56809418.0
+          },
+          "candidate_safety_excess_vs_best_core": 1.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r31_training_execution.json",
+      "experiment": "v1_5_r31_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r31_late_double_terminal",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 1.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261091,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r31_late_double_terminal",
+          "candidate_unfinished_vehicle_count": 121.0,
+          "candidate_composite_cost": 54670918.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 126.0,
+            "capacity_aware_pressure": 126.0,
+            "finite_storage_double_pressure": 120.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56548556.0,
+            "capacity_aware_pressure": 56548556.0,
+            "finite_storage_double_pressure": 58097113.0
+          },
+          "candidate_safety_excess_vs_best_core": 1.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 6.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r32_training_execution.json",
+      "experiment": "v1_5_r32_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r32_preterminal_double_guard",
+      "case_count": 2,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 2,
+      "max_candidate_safety_excess_vs_best_core": 10.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261101,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r32_preterminal_double_guard",
+          "candidate_unfinished_vehicle_count": 121.0,
+          "candidate_composite_cost": 56197672.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 124.0,
+            "capacity_aware_pressure": 126.0,
+            "finite_storage_double_pressure": 125.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55735591.0,
+            "capacity_aware_pressure": 55241499.0,
+            "finite_storage_double_pressure": 56174538.0
+          },
+          "candidate_safety_excess_vs_best_core": -3.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 2.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261102,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r32_preterminal_double_guard",
+          "candidate_unfinished_vehicle_count": 129.0,
+          "candidate_composite_cost": 55946724.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 129.0,
+            "capacity_aware_pressure": 129.0,
+            "finite_storage_double_pressure": 119.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55322295.0,
+            "capacity_aware_pressure": 55322295.0,
+            "finite_storage_double_pressure": 58913358.0
+          },
+          "candidate_safety_excess_vs_best_core": 10.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 10.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r33_training_execution.json",
+      "experiment": "v1_5_r33_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r33_midcourse_double_guard",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 3.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261111,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r33_midcourse_double_guard",
+          "candidate_unfinished_vehicle_count": 120.0,
+          "candidate_composite_cost": 55803860.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 117.0,
+            "capacity_aware_pressure": 117.0,
+            "finite_storage_double_pressure": 121.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56153449.0,
+            "capacity_aware_pressure": 56153449.0,
+            "finite_storage_double_pressure": 56816189.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 4.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r34_training_execution.json",
+      "experiment": "v1_5_r34_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r34_core_minimax_guard",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 5.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261121,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r34_core_minimax_guard",
+          "candidate_unfinished_vehicle_count": 126.0,
+          "candidate_composite_cost": 55567965.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 121.0,
+            "capacity_aware_pressure": 126.0,
+            "finite_storage_double_pressure": 122.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 54914543.0,
+            "capacity_aware_pressure": 56724100.0,
+            "finite_storage_double_pressure": 58294306.0
+          },
+          "candidate_safety_excess_vs_best_core": 5.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 5.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r35_training_execution.json",
+      "experiment": "v1_5_r35_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 1085.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261131,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency",
+          "candidate_unfinished_vehicle_count": 1209.0,
+          "candidate_composite_cost": 196889413.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 124.0,
+            "capacity_aware_pressure": 124.0,
+            "finite_storage_double_pressure": 125.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56064884.0,
+            "capacity_aware_pressure": 56064884.0,
+            "finite_storage_double_pressure": 59159262.0
+          },
+          "candidate_safety_excess_vs_best_core": 1085.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r36_training_execution.json",
+      "experiment": "v1_5_r36_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r36_late_deadline_anchor",
+      "case_count": 2,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 2,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 8.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261141,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r36_late_deadline_anchor",
+          "candidate_unfinished_vehicle_count": 122.0,
+          "candidate_composite_cost": 54969185.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 123.0,
+            "capacity_aware_pressure": 124.0,
+            "finite_storage_double_pressure": 128.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55287830.0,
+            "capacity_aware_pressure": 55520154.0,
+            "finite_storage_double_pressure": 55395902.0
+          },
+          "candidate_safety_excess_vs_best_core": -1.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 5.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261142,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r36_late_deadline_anchor",
+          "candidate_unfinished_vehicle_count": 129.0,
+          "candidate_composite_cost": 55500472.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 124.0,
+            "capacity_aware_pressure": 122.0,
+            "finite_storage_double_pressure": 121.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55540693.0,
+            "capacity_aware_pressure": 56472815.0,
+            "finite_storage_double_pressure": 57487448.0
+          },
+          "candidate_safety_excess_vs_best_core": 8.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 3.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r37_training_execution.json",
+      "experiment": "v1_5_r37_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r37_late_deadline_service_anchor",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 3.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261151,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r37_late_deadline_service_anchor",
+          "candidate_unfinished_vehicle_count": 123.0,
+          "candidate_composite_cost": 54989403.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 127.0,
+            "capacity_aware_pressure": 120.0,
+            "finite_storage_double_pressure": 125.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 54382206.0,
+            "capacity_aware_pressure": 54417312.0,
+            "finite_storage_double_pressure": 55718554.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 7.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r38_training_execution.json",
+      "experiment": "v1_5_r38_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r38_capacity_rescue_guard",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 4.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261161,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r38_capacity_rescue_guard",
+          "candidate_unfinished_vehicle_count": 123.0,
+          "candidate_composite_cost": 56212018.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 129.0,
+            "capacity_aware_pressure": 119.0,
+            "finite_storage_double_pressure": 130.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56378461.0,
+            "capacity_aware_pressure": 55959818.0,
+            "finite_storage_double_pressure": 56448726.0
+          },
+          "candidate_safety_excess_vs_best_core": 4.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 11.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r39_training_execution.json",
+      "experiment": "v1_5_r39_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r39_capacity_score_envelope",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 7.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261171,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r39_capacity_score_envelope",
+          "candidate_unfinished_vehicle_count": 124.0,
+          "candidate_composite_cost": 54048959.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 117.0,
+            "capacity_aware_pressure": 118.0,
+            "finite_storage_double_pressure": 126.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 54770461.0,
+            "capacity_aware_pressure": 55846479.0,
+            "finite_storage_double_pressure": 57424807.0
+          },
+          "candidate_safety_excess_vs_best_core": 7.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 9.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r40_training_execution.json",
+      "experiment": "v1_5_r40_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r40_pressure_safe_horizon",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 1,
+      "max_candidate_safety_excess_vs_best_core": 6.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261181,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r40_pressure_safe_horizon",
+          "candidate_unfinished_vehicle_count": 128.0,
+          "candidate_composite_cost": 55483965.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 127.0,
+            "capacity_aware_pressure": 122.0,
+            "finite_storage_double_pressure": 122.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55640660.0,
+            "capacity_aware_pressure": 56333760.0,
+            "finite_storage_double_pressure": 58702362.0
+          },
+          "candidate_safety_excess_vs_best_core": 6.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 5.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r41_training_execution.json",
+      "experiment": "v1_5_r41_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r41_terminal_core_completion",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 15.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261187,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r41_terminal_core_completion",
+          "candidate_unfinished_vehicle_count": 131.0,
+          "candidate_composite_cost": 54209432.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 123.0,
+            "capacity_aware_pressure": 125.0,
+            "finite_storage_double_pressure": 116.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56508043.0,
+            "capacity_aware_pressure": 56000078.0,
+            "finite_storage_double_pressure": 54763513.0
+          },
+          "candidate_safety_excess_vs_best_core": 15.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 9.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r42_training_execution.json",
+      "experiment": "v1_5_r42_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r42_tail_completion_rescue",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 8.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261193,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r42_tail_completion_rescue",
+          "candidate_unfinished_vehicle_count": 128.0,
+          "candidate_composite_cost": 56324414.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 128.0,
+            "capacity_aware_pressure": 120.0,
+            "finite_storage_double_pressure": 125.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57201980.0,
+            "capacity_aware_pressure": 55083032.0,
+            "finite_storage_double_pressure": 55364533.0
+          },
+          "candidate_safety_excess_vs_best_core": 8.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 8.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r43_training_execution.json",
+      "experiment": "v1_5_r43_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r43_staged_pressure_safe",
+      "case_count": 1,
+      "unsafe_case_count": 0,
+      "composite_win_case_count": 0,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": -7.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261199,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r43_staged_pressure_safe",
+          "candidate_unfinished_vehicle_count": 121.0,
+          "candidate_composite_cost": 58513616.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 130.0,
+            "capacity_aware_pressure": 132.0,
+            "finite_storage_double_pressure": 128.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55817045.0,
+            "capacity_aware_pressure": 56292990.0,
+            "finite_storage_double_pressure": 55390429.0
+          },
+          "candidate_safety_excess_vs_best_core": -7.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 4.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r44_training_execution.json",
+      "experiment": "v1_5_r44_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r44_loose_staged_pressure_safe",
+      "case_count": 1,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 0,
+      "max_candidate_safety_excess_vs_best_core": 5.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261205,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r44_loose_staged_pressure_safe",
+          "candidate_unfinished_vehicle_count": 126.0,
+          "candidate_composite_cost": 53838312.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 126.0,
+            "capacity_aware_pressure": 124.0,
+            "finite_storage_double_pressure": 121.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56336272.0,
+            "capacity_aware_pressure": 55437720.0,
+            "finite_storage_double_pressure": 54154943.0
+          },
+          "candidate_safety_excess_vs_best_core": 5.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 5.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r45_training_execution.json",
+      "experiment": "v1_5_r45_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+      "case_count": 54,
+      "unsafe_case_count": 33,
+      "composite_win_case_count": 22,
+      "oracle_conflict_count": 7,
+      "max_candidate_safety_excess_vs_best_core": 910.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261211,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 122.0,
+          "candidate_composite_cost": 376438.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 130.0,
+            "capacity_aware_pressure": 130.0,
+            "finite_storage_double_pressure": 130.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 399509.0,
+            "capacity_aware_pressure": 399509.0,
+            "finite_storage_double_pressure": 399509.0
+          },
+          "candidate_safety_excess_vs_best_core": -8.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261211,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 162.0,
+          "candidate_composite_cost": 524191.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 181.0,
+            "capacity_aware_pressure": 167.0,
+            "finite_storage_double_pressure": 167.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 579981.0,
+            "capacity_aware_pressure": 546044.0,
+            "finite_storage_double_pressure": 546044.0
+          },
+          "candidate_safety_excess_vs_best_core": -5.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 14.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261211,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 244.0,
+          "candidate_composite_cost": 823321.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 252.0,
+            "capacity_aware_pressure": 244.0,
+            "finite_storage_double_pressure": 244.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 863600.0,
+            "capacity_aware_pressure": 834338.0,
+            "finite_storage_double_pressure": 834338.0
+          },
+          "candidate_safety_excess_vs_best_core": 0.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 8.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261212,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 132.0,
+          "candidate_composite_cost": 406466.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 127.0,
+            "capacity_aware_pressure": 127.0,
+            "finite_storage_double_pressure": 127.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 390857.0,
+            "capacity_aware_pressure": 390857.0,
+            "finite_storage_double_pressure": 390857.0
+          },
+          "candidate_safety_excess_vs_best_core": 5.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261212,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 182.0,
+          "candidate_composite_cost": 577810.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 175.0,
+            "capacity_aware_pressure": 179.0,
+            "finite_storage_double_pressure": 179.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 561142.0,
+            "capacity_aware_pressure": 571977.0,
+            "finite_storage_double_pressure": 571977.0
+          },
+          "candidate_safety_excess_vs_best_core": 7.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 4.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261212,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 225.0,
+          "candidate_composite_cost": 764629.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 236.0,
+            "capacity_aware_pressure": 246.0,
+            "finite_storage_double_pressure": 246.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 808785.0,
+            "capacity_aware_pressure": 834094.0,
+            "finite_storage_double_pressure": 834094.0
+          },
+          "candidate_safety_excess_vs_best_core": -11.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 10.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261213,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 124.0,
+          "candidate_composite_cost": 382716.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 116.0,
+            "capacity_aware_pressure": 116.0,
+            "finite_storage_double_pressure": 116.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 360246.0,
+            "capacity_aware_pressure": 360246.0,
+            "finite_storage_double_pressure": 360246.0
+          },
+          "candidate_safety_excess_vs_best_core": 8.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261213,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 173.0,
+          "candidate_composite_cost": 553470.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 170.0,
+            "capacity_aware_pressure": 176.0,
+            "finite_storage_double_pressure": 176.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 552244.0,
+            "capacity_aware_pressure": 566530.0,
+            "finite_storage_double_pressure": 566530.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 6.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261213,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 253.0,
+          "candidate_composite_cost": 839827.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 235.0,
+            "capacity_aware_pressure": 251.0,
+            "finite_storage_double_pressure": 251.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 803383.0,
+            "capacity_aware_pressure": 845095.0,
+            "finite_storage_double_pressure": 845095.0
+          },
+          "candidate_safety_excess_vs_best_core": 18.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 16.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261214,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 125.0,
+          "candidate_composite_cost": 385332.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 122.0,
+            "capacity_aware_pressure": 122.0,
+            "finite_storage_double_pressure": 122.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 377315.0,
+            "capacity_aware_pressure": 377315.0,
+            "finite_storage_double_pressure": 377315.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261214,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 184.0,
+          "candidate_composite_cost": 584564.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 170.0,
+            "capacity_aware_pressure": 170.0,
+            "finite_storage_double_pressure": 170.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 548779.0,
+            "capacity_aware_pressure": 548779.0,
+            "finite_storage_double_pressure": 548779.0
+          },
+          "candidate_safety_excess_vs_best_core": 14.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261214,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 230.0,
+          "candidate_composite_cost": 792031.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 243.0,
+            "capacity_aware_pressure": 250.0,
+            "finite_storage_double_pressure": 250.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 834341.0,
+            "capacity_aware_pressure": 859570.0,
+            "finite_storage_double_pressure": 859570.0
+          },
+          "candidate_safety_excess_vs_best_core": -13.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 7.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261215,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 119.0,
+          "candidate_composite_cost": 370920.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 119.0,
+            "capacity_aware_pressure": 119.0,
+            "finite_storage_double_pressure": 119.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 371013.0,
+            "capacity_aware_pressure": 371013.0,
+            "finite_storage_double_pressure": 371013.0
+          },
+          "candidate_safety_excess_vs_best_core": 0.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261215,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 169.0,
+          "candidate_composite_cost": 540303.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 178.0,
+            "capacity_aware_pressure": 179.0,
+            "finite_storage_double_pressure": 179.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 569628.0,
+            "capacity_aware_pressure": 570703.0,
+            "finite_storage_double_pressure": 570703.0
+          },
+          "candidate_safety_excess_vs_best_core": -9.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261215,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 244.0,
+          "candidate_composite_cost": 823721.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 249.0,
+            "capacity_aware_pressure": 243.0,
+            "finite_storage_double_pressure": 243.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 843174.0,
+            "capacity_aware_pressure": 825420.0,
+            "finite_storage_double_pressure": 825420.0
+          },
+          "candidate_safety_excess_vs_best_core": 1.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 6.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261216,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 123.0,
+          "candidate_composite_cost": 380489.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 115.0,
+            "capacity_aware_pressure": 115.0,
+            "finite_storage_double_pressure": 115.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 359087.0,
+            "capacity_aware_pressure": 359087.0,
+            "finite_storage_double_pressure": 359087.0
+          },
+          "candidate_safety_excess_vs_best_core": 8.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261216,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 176.0,
+          "candidate_composite_cost": 568756.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 174.0,
+            "capacity_aware_pressure": 173.0,
+            "finite_storage_double_pressure": 173.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 564668.0,
+            "capacity_aware_pressure": 561823.0,
+            "finite_storage_double_pressure": 561823.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_downstream_blockage",
+          "seed": 20261216,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 230.0,
+          "candidate_composite_cost": 788326.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 250.0,
+            "capacity_aware_pressure": 241.0,
+            "finite_storage_double_pressure": 241.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 845975.0,
+            "capacity_aware_pressure": 828871.0,
+            "finite_storage_double_pressure": 828871.0
+          },
+          "candidate_safety_excess_vs_best_core": -11.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 9.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261211,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 122.0,
+          "candidate_composite_cost": 376438.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 130.0,
+            "capacity_aware_pressure": 130.0,
+            "finite_storage_double_pressure": 130.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 399509.0,
+            "capacity_aware_pressure": 399509.0,
+            "finite_storage_double_pressure": 399509.0
+          },
+          "candidate_safety_excess_vs_best_core": -8.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261211,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 162.0,
+          "candidate_composite_cost": 524191.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 181.0,
+            "capacity_aware_pressure": 167.0,
+            "finite_storage_double_pressure": 167.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 579981.0,
+            "capacity_aware_pressure": 546044.0,
+            "finite_storage_double_pressure": 546044.0
+          },
+          "candidate_safety_excess_vs_best_core": -5.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 14.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261211,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 244.0,
+          "candidate_composite_cost": 823321.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 252.0,
+            "capacity_aware_pressure": 244.0,
+            "finite_storage_double_pressure": 244.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 863600.0,
+            "capacity_aware_pressure": 834338.0,
+            "finite_storage_double_pressure": 834338.0
+          },
+          "candidate_safety_excess_vs_best_core": 0.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 8.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261212,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 132.0,
+          "candidate_composite_cost": 406466.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 127.0,
+            "capacity_aware_pressure": 127.0,
+            "finite_storage_double_pressure": 127.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 390857.0,
+            "capacity_aware_pressure": 390857.0,
+            "finite_storage_double_pressure": 390857.0
+          },
+          "candidate_safety_excess_vs_best_core": 5.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261212,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 182.0,
+          "candidate_composite_cost": 577810.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 175.0,
+            "capacity_aware_pressure": 179.0,
+            "finite_storage_double_pressure": 179.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 561142.0,
+            "capacity_aware_pressure": 571977.0,
+            "finite_storage_double_pressure": 571977.0
+          },
+          "candidate_safety_excess_vs_best_core": 7.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 4.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261212,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 225.0,
+          "candidate_composite_cost": 764629.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 236.0,
+            "capacity_aware_pressure": 246.0,
+            "finite_storage_double_pressure": 246.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 808785.0,
+            "capacity_aware_pressure": 834094.0,
+            "finite_storage_double_pressure": 834094.0
+          },
+          "candidate_safety_excess_vs_best_core": -11.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 10.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261213,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 124.0,
+          "candidate_composite_cost": 382716.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 116.0,
+            "capacity_aware_pressure": 116.0,
+            "finite_storage_double_pressure": 116.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 360246.0,
+            "capacity_aware_pressure": 360246.0,
+            "finite_storage_double_pressure": 360246.0
+          },
+          "candidate_safety_excess_vs_best_core": 8.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261213,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 173.0,
+          "candidate_composite_cost": 553470.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 170.0,
+            "capacity_aware_pressure": 176.0,
+            "finite_storage_double_pressure": 176.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 552244.0,
+            "capacity_aware_pressure": 566530.0,
+            "finite_storage_double_pressure": 566530.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 6.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261213,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 253.0,
+          "candidate_composite_cost": 839827.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 235.0,
+            "capacity_aware_pressure": 251.0,
+            "finite_storage_double_pressure": 251.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 803383.0,
+            "capacity_aware_pressure": 845095.0,
+            "finite_storage_double_pressure": 845095.0
+          },
+          "candidate_safety_excess_vs_best_core": 18.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 16.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261214,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 125.0,
+          "candidate_composite_cost": 385332.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 122.0,
+            "capacity_aware_pressure": 122.0,
+            "finite_storage_double_pressure": 122.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 377315.0,
+            "capacity_aware_pressure": 377315.0,
+            "finite_storage_double_pressure": 377315.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261214,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 184.0,
+          "candidate_composite_cost": 584564.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 170.0,
+            "capacity_aware_pressure": 170.0,
+            "finite_storage_double_pressure": 170.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 548779.0,
+            "capacity_aware_pressure": 548779.0,
+            "finite_storage_double_pressure": 548779.0
+          },
+          "candidate_safety_excess_vs_best_core": 14.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261214,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 230.0,
+          "candidate_composite_cost": 792031.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 243.0,
+            "capacity_aware_pressure": 250.0,
+            "finite_storage_double_pressure": 250.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 834341.0,
+            "capacity_aware_pressure": 859570.0,
+            "finite_storage_double_pressure": 859570.0
+          },
+          "candidate_safety_excess_vs_best_core": -13.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 7.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261215,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 119.0,
+          "candidate_composite_cost": 370920.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 119.0,
+            "capacity_aware_pressure": 119.0,
+            "finite_storage_double_pressure": 119.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 371013.0,
+            "capacity_aware_pressure": 371013.0,
+            "finite_storage_double_pressure": 371013.0
+          },
+          "candidate_safety_excess_vs_best_core": 0.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261215,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 169.0,
+          "candidate_composite_cost": 540303.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 178.0,
+            "capacity_aware_pressure": 179.0,
+            "finite_storage_double_pressure": 179.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 569628.0,
+            "capacity_aware_pressure": 570703.0,
+            "finite_storage_double_pressure": 570703.0
+          },
+          "candidate_safety_excess_vs_best_core": -9.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261215,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 244.0,
+          "candidate_composite_cost": 823721.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 249.0,
+            "capacity_aware_pressure": 243.0,
+            "finite_storage_double_pressure": 243.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 843174.0,
+            "capacity_aware_pressure": 825420.0,
+            "finite_storage_double_pressure": 825420.0
+          },
+          "candidate_safety_excess_vs_best_core": 1.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 6.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261216,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 123.0,
+          "candidate_composite_cost": 380489.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 115.0,
+            "capacity_aware_pressure": 115.0,
+            "finite_storage_double_pressure": 115.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 359087.0,
+            "capacity_aware_pressure": 359087.0,
+            "finite_storage_double_pressure": 359087.0
+          },
+          "candidate_safety_excess_vs_best_core": 8.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 0.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261216,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 176.0,
+          "candidate_composite_cost": 568756.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 174.0,
+            "capacity_aware_pressure": 173.0,
+            "finite_storage_double_pressure": 173.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 564668.0,
+            "capacity_aware_pressure": 561823.0,
+            "finite_storage_double_pressure": 561823.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_spillback_stress",
+          "seed": 20261216,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 230.0,
+          "candidate_composite_cost": 788326.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 250.0,
+            "capacity_aware_pressure": 241.0,
+            "finite_storage_double_pressure": 241.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 845975.0,
+            "capacity_aware_pressure": 828871.0,
+            "finite_storage_double_pressure": 828871.0
+          },
+          "candidate_safety_excess_vs_best_core": -11.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 9.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261211,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 117.0,
+          "candidate_composite_cost": 55716201.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 124.0,
+            "capacity_aware_pressure": 124.0,
+            "finite_storage_double_pressure": 120.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57556799.0,
+            "capacity_aware_pressure": 57556799.0,
+            "finite_storage_double_pressure": 55068463.0
+          },
+          "candidate_safety_excess_vs_best_core": -3.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 4.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261211,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 184.0,
+          "candidate_composite_cost": 111670213.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 177.0,
+            "capacity_aware_pressure": 185.0,
+            "finite_storage_double_pressure": 170.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 101666427.0,
+            "capacity_aware_pressure": 103277779.0,
+            "finite_storage_double_pressure": 109884797.0
+          },
+          "candidate_safety_excess_vs_best_core": 14.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 15.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261211,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 1145.0,
+          "candidate_composite_cost": 130437058.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 248.0,
+            "capacity_aware_pressure": 287.0,
+            "finite_storage_double_pressure": 1569.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 117198621.0,
+            "capacity_aware_pressure": 125898925.0,
+            "finite_storage_double_pressure": 248007181.0
+          },
+          "candidate_safety_excess_vs_best_core": 897.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 1321.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261212,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 126.0,
+          "candidate_composite_cost": 54207005.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 127.0,
+            "capacity_aware_pressure": 127.0,
+            "finite_storage_double_pressure": 123.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56867342.0,
+            "capacity_aware_pressure": 56867342.0,
+            "finite_storage_double_pressure": 55108523.0
+          },
+          "candidate_safety_excess_vs_best_core": 3.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 4.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261212,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 178.0,
+          "candidate_composite_cost": 107541643.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 172.0,
+            "capacity_aware_pressure": 181.0,
+            "finite_storage_double_pressure": 171.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 101047963.0,
+            "capacity_aware_pressure": 101584623.0,
+            "finite_storage_double_pressure": 102775049.0
+          },
+          "candidate_safety_excess_vs_best_core": 7.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 10.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261212,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 1134.0,
+          "candidate_composite_cost": 127270893.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 256.0,
+            "capacity_aware_pressure": 265.0,
+            "finite_storage_double_pressure": 1518.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 120501122.0,
+            "capacity_aware_pressure": 130108771.0,
+            "finite_storage_double_pressure": 255031166.0
+          },
+          "candidate_safety_excess_vs_best_core": 878.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 1262.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261213,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 127.0,
+          "candidate_composite_cost": 54892533.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 128.0,
+            "capacity_aware_pressure": 123.0,
+            "finite_storage_double_pressure": 127.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56613955.0,
+            "capacity_aware_pressure": 56819488.0,
+            "finite_storage_double_pressure": 56349022.0
+          },
+          "candidate_safety_excess_vs_best_core": 4.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 5.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261213,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 698.0,
+          "candidate_composite_cost": 111516741.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 166.0,
+            "capacity_aware_pressure": 182.0,
+            "finite_storage_double_pressure": 188.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 96712364.0,
+            "capacity_aware_pressure": 101268157.0,
+            "finite_storage_double_pressure": 98003065.0
+          },
+          "candidate_safety_excess_vs_best_core": 532.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 22.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261213,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 1150.0,
+          "candidate_composite_cost": 127943803.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 241.0,
+            "capacity_aware_pressure": 273.0,
+            "finite_storage_double_pressure": 1572.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 118599952.0,
+            "capacity_aware_pressure": 126985178.0,
+            "finite_storage_double_pressure": 252451444.0
+          },
+          "candidate_safety_excess_vs_best_core": 909.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 1331.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261214,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 120.0,
+          "candidate_composite_cost": 54236873.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 123.0,
+            "capacity_aware_pressure": 122.0,
+            "finite_storage_double_pressure": 122.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55776206.0,
+            "capacity_aware_pressure": 55524770.0,
+            "finite_storage_double_pressure": 54712303.0
+          },
+          "candidate_safety_excess_vs_best_core": -2.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261214,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 167.0,
+          "candidate_composite_cost": 106279884.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 171.0,
+            "capacity_aware_pressure": 179.0,
+            "finite_storage_double_pressure": 189.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 101486296.0,
+            "capacity_aware_pressure": 101935190.0,
+            "finite_storage_double_pressure": 101549682.0
+          },
+          "candidate_safety_excess_vs_best_core": -4.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 18.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261214,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 1107.0,
+          "candidate_composite_cost": 127905581.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 235.0,
+            "capacity_aware_pressure": 275.0,
+            "finite_storage_double_pressure": 1512.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 125853594.0,
+            "capacity_aware_pressure": 129085559.0,
+            "finite_storage_double_pressure": 245580431.0
+          },
+          "candidate_safety_excess_vs_best_core": 872.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 1277.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261215,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 129.0,
+          "candidate_composite_cost": 57399661.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 118.0,
+            "capacity_aware_pressure": 125.0,
+            "finite_storage_double_pressure": 125.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56876102.0,
+            "capacity_aware_pressure": 55762197.0,
+            "finite_storage_double_pressure": 56557506.0
+          },
+          "candidate_safety_excess_vs_best_core": 11.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 7.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261215,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 176.0,
+          "candidate_composite_cost": 108991977.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 171.0,
+            "capacity_aware_pressure": 172.0,
+            "finite_storage_double_pressure": 183.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 100298332.0,
+            "capacity_aware_pressure": 104697965.0,
+            "finite_storage_double_pressure": 103151419.0
+          },
+          "candidate_safety_excess_vs_best_core": 5.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 12.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261215,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 1149.0,
+          "candidate_composite_cost": 127246387.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 239.0,
+            "capacity_aware_pressure": 320.0,
+            "finite_storage_double_pressure": 1501.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 115902648.0,
+            "capacity_aware_pressure": 123384570.0,
+            "finite_storage_double_pressure": 255208370.0
+          },
+          "candidate_safety_excess_vs_best_core": 910.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 1262.0,
+          "core_oracles_disagree": false
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261216,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 118.0,
+          "candidate_composite_cost": 53335542.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 122.0,
+            "capacity_aware_pressure": 123.0,
+            "finite_storage_double_pressure": 121.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 56497945.0,
+            "capacity_aware_pressure": 55265198.0,
+            "finite_storage_double_pressure": 55857254.0
+          },
+          "candidate_safety_excess_vs_best_core": -3.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 2.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261216,
+          "demand_multiplier": 1.0,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 169.0,
+          "candidate_composite_cost": 102156190.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 182.0,
+            "capacity_aware_pressure": 177.0,
+            "finite_storage_double_pressure": 178.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 100072562.0,
+            "capacity_aware_pressure": 103801732.0,
+            "finite_storage_double_pressure": 100205666.0
+          },
+          "candidate_safety_excess_vs_best_core": -8.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 5.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261216,
+          "demand_multiplier": 1.15,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r45_preterminal_pressure_safe",
+          "candidate_unfinished_vehicle_count": 1112.0,
+          "candidate_composite_cost": 133458997.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 232.0,
+            "capacity_aware_pressure": 293.0,
+            "finite_storage_double_pressure": 1569.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 122729751.0,
+            "capacity_aware_pressure": 129666479.0,
+            "finite_storage_double_pressure": 251460177.0
+          },
+          "candidate_safety_excess_vs_best_core": 880.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "max_pressure",
+          "core_composite_oracle": "max_pressure",
+          "core_unfinished_range": 1337.0,
+          "core_oracles_disagree": false
+        }
+      ]
+    },
+    {
+      "input": "experiments/dual_sensitivity/v1_5_r46_training_execution.json",
+      "experiment": "v1_5_r46_training_execution",
+      "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r46_occupancy_safe_completion",
+      "case_count": 2,
+      "unsafe_case_count": 1,
+      "composite_win_case_count": 1,
+      "oracle_conflict_count": 2,
+      "max_candidate_safety_excess_vs_best_core": 13.0,
+      "cases": [
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261217,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r46_occupancy_safe_completion",
+          "candidate_unfinished_vehicle_count": 124.0,
+          "candidate_composite_cost": 54884636.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 126.0,
+            "capacity_aware_pressure": 126.0,
+            "finite_storage_double_pressure": 127.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 57113824.0,
+            "capacity_aware_pressure": 57113824.0,
+            "finite_storage_double_pressure": 56919692.0
+          },
+          "candidate_safety_excess_vs_best_core": -2.0,
+          "candidate_safe_against_all_core_unfinished": true,
+          "candidate_composite_beats_all_core": true,
+          "core_unfinished_oracle": "capacity_aware_pressure",
+          "core_composite_oracle": "finite_storage_double_pressure",
+          "core_unfinished_range": 1.0,
+          "core_oracles_disagree": true
+        },
+        {
+          "scenario_tag": "arterial_v1_5_storage_activation",
+          "seed": 20261218,
+          "demand_multiplier": 0.85,
+          "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r46_occupancy_safe_completion",
+          "candidate_unfinished_vehicle_count": 124.0,
+          "candidate_composite_cost": 56017411.0,
+          "baseline_unfinished_vehicle_count": {
+            "max_pressure": 118.0,
+            "capacity_aware_pressure": 118.0,
+            "finite_storage_double_pressure": 111.0
+          },
+          "baseline_composite_cost": {
+            "max_pressure": 55587509.0,
+            "capacity_aware_pressure": 55587509.0,
+            "finite_storage_double_pressure": 55814709.0
+          },
+          "candidate_safety_excess_vs_best_core": 13.0,
+          "candidate_safe_against_all_core_unfinished": false,
+          "candidate_composite_beats_all_core": false,
+          "core_unfinished_oracle": "finite_storage_double_pressure",
+          "core_composite_oracle": "capacity_aware_pressure",
+          "core_unfinished_range": 7.0,
+          "core_oracles_disagree": true
+        }
+      ]
+    }
+  ],
+  "interpretation": {
+    "completion_safety_is_not_solved": true,
+    "core_baselines_have_completion_composite_tradeoff": true,
+    "why_no_claim": "execution tradeoff analysis is diagnostic training evidence, not confirmatory holdout evidence"
+  },
+  "claim_scope": {
+    "closed_loop_superiority_claim_allowed": false,
+    "confirmatory_holdout_allowed": false
+  }
+}

@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes>
+    <vType id="car" length="5" minGap="2.5" maxSpeed="13.89" accel="2.6" decel="4.5" />
+
+    <route id="r_W_in2C1__C12C2" edges="W_in2C1 C12C2" />
+    <route id="r_W_in2C1__C12S1" edges="W_in2C1 C12S1" />
+    <route id="r_W_in2C1__C12N1" edges="W_in2C1 C12N1" />
+    <route id="r_C22C1__C12W_in" edges="C22C1 C12W_in" />
+    <route id="r_C22C1__C12N1" edges="C22C1 C12N1" />
+    <route id="r_C22C1__C12S1" edges="C22C1 C12S1" />
+    <route id="r_N12C1__C12S1" edges="N12C1 C12S1" />
+    <route id="r_N12C1__C12W_in" edges="N12C1 C12W_in" />
+    <route id="r_N12C1__C12C2" edges="N12C1 C12C2" />
+    <route id="r_S12C1__C12N1" edges="S12C1 C12N1" />
+    <route id="r_S12C1__C12C2" edges="S12C1 C12C2" />
+    <route id="r_S12C1__C12W_in" edges="S12C1 C12W_in" />
+    <route id="r_C12C2__C22C3" edges="C12C2 C22C3" />
+    <route id="r_C12C2__C22S2" edges="C12C2 C22S2" />
+    <route id="r_C12C2__C22N2" edges="C12C2 C22N2" />
+    <route id="r_C32C2__C22C1" edges="C32C2 C22C1" />
+    <route id="r_C32C2__C22N2" edges="C32C2 C22N2" />
+    <route id="r_C32C2__C22S2" edges="C32C2 C22S2" />
+    <route id="r_N22C2__C22S2" edges="N22C2 C22S2" />
+    <route id="r_N22C2__C22C1" edges="N22C2 C22C1" />
+    <route id="r_N22C2__C22C3" edges="N22C2 C22C3" />
+    <route id="r_S22C2__C22N2" edges="S22C2 C22N2" />
+    <route id="r_S22C2__C22C3" edges="S22C2 C22C3" />
+    <route id="r_S22C2__C22C1" edges="S22C2 C22C1" />
+    <route id="r_C22C3__C32C4" edges="C22C3 C32C4" />
+    <route id="r_C22C3__C32S3" edges="C22C3 C32S3" />
+    <route id="r_C22C3__C32N3" edges="C22C3 C32N3" />
+    <route id="r_C42C3__C32C2" edges="C42C3 C32C2" />
+    <route id="r_C42C3__C32N3" edges="C42C3 C32N3" />
+    <route id="r_C42C3__C32S3" edges="C42C3 C32S3" />
+    <route id="r_N32C3__C32S3" edges="N32C3 C32S3" />
+    <route id="r_N32C3__C32C2" edges="N32C3 C32C2" />
+    <route id="r_N32C3__C32C4" edges="N32C3 C32C4" />
+    <route id="r_S32C3__C32N3" edges="S32C3 C32N3" />
+    <route id="r_S32C3__C32C4" edges="S32C3 C32C4" />
+    <route id="r_S32C3__C32C2" edges="S32C3 C32C2" />
+    <route id="r_C32C4__C42C5" edges="C32C4 C42C5" />
+    <route id="r_C32C4__C42S4" edges="C32C4 C42S4" />
+    <route id="r_C32C4__C42N4" edges="C32C4 C42N4" />
+    <route id="r_C52C4__C42C3" edges="C52C4 C42C3" />
+    <route id="r_C52C4__C42N4" edges="C52C4 C42N4" />
+    <route id="r_C52C4__C42S4" edges="C52C4 C42S4" />
+    <route id="r_N42C4__C42S4" edges="N42C4 C42S4" />
+    <route id="r_N42C4__C42C3" edges="N42C4 C42C3" />
+    <route id="r_N42C4__C42C5" edges="N42C4 C42C5" />
+    <route id="r_S42C4__C42N4" edges="S42C4 C42N4" />
+    <route id="r_S42C4__C42C5" edges="S42C4 C42C5" />
+    <route id="r_S42C4__C42C3" edges="S42C4 C42C3" />
+    <route id="r_C42C5__C52E_out" edges="C42C5 C52E_out" />
+    <route id="r_C42C5__C52S5" edges="C42C5 C52S5" />
+    <route id="r_C42C5__C52N5" edges="C42C5 C52N5" />
+    <route id="r_E_out2C5__C52C4" edges="E_out2C5 C52C4" />
+    <route id="r_E_out2C5__C52N5" edges="E_out2C5 C52N5" />
+    <route id="r_E_out2C5__C52S5" edges="E_out2C5 C52S5" />
+    <route id="r_N52C5__C52S5" edges="N52C5 C52S5" />
+    <route id="r_N52C5__C52C4" edges="N52C5 C52C4" />
+    <route id="r_N52C5__C52E_out" edges="N52C5 C52E_out" />
+    <route id="r_S52C5__C52N5" edges="S52C5 C52N5" />
+    <route id="r_S52C5__C52E_out" edges="S52C5 C52E_out" />
+    <route id="r_S52C5__C52C4" edges="S52C5 C52C4" />
+
+    <flow id="f_0" route="r_W_in2C1__C12C2" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_1" route="r_W_in2C1__C12S1" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_2" route="r_W_in2C1__C12N1" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_3" route="r_C22C1__C12W_in" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_4" route="r_C22C1__C12N1" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_5" route="r_C22C1__C12S1" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_6" route="r_N12C1__C12S1" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_7" route="r_N12C1__C12W_in" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_8" route="r_N12C1__C12C2" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_9" route="r_S12C1__C12N1" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_10" route="r_S12C1__C12C2" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_11" route="r_S12C1__C12W_in" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_12" route="r_C12C2__C22C3" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_13" route="r_C12C2__C22S2" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_14" route="r_C12C2__C22N2" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_15" route="r_C32C2__C22C1" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_16" route="r_C32C2__C22N2" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_17" route="r_C32C2__C22S2" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_18" route="r_N22C2__C22S2" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_19" route="r_N22C2__C22C1" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_20" route="r_N22C2__C22C3" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_21" route="r_S22C2__C22N2" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_22" route="r_S22C2__C22C3" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_23" route="r_S22C2__C22C1" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_24" route="r_C22C3__C32C4" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_25" route="r_C22C3__C32S3" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_26" route="r_C22C3__C32N3" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_27" route="r_C42C3__C32C2" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_28" route="r_C42C3__C32N3" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_29" route="r_C42C3__C32S3" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_30" route="r_N32C3__C32S3" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_31" route="r_N32C3__C32C2" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_32" route="r_N32C3__C32C4" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_33" route="r_S32C3__C32N3" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_34" route="r_S32C3__C32C4" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_35" route="r_S32C3__C32C2" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_36" route="r_C32C4__C42C5" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_37" route="r_C32C4__C42S4" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_38" route="r_C32C4__C42N4" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_39" route="r_C52C4__C42C3" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_40" route="r_C52C4__C42N4" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_41" route="r_C52C4__C42S4" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_42" route="r_N42C4__C42S4" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_43" route="r_N42C4__C42C3" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_44" route="r_N42C4__C42C5" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_45" route="r_S42C4__C42N4" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_46" route="r_S42C4__C42C5" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_47" route="r_S42C4__C42C3" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_48" route="r_C42C5__C52E_out" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_49" route="r_C42C5__C52S5" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_50" route="r_C42C5__C52N5" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_51" route="r_E_out2C5__C52C4" begin="0" end="3600" period="5.84545" departSpeed="max" departLane="best" />
+    <flow id="f_52" route="r_E_out2C5__C52N5" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_53" route="r_E_out2C5__C52S5" begin="0" end="3600" period="27.2727" departSpeed="max" departLane="best" />
+    <flow id="f_54" route="r_N52C5__C52S5" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_55" route="r_N52C5__C52C4" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_56" route="r_N52C5__C52E_out" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_57" route="r_S52C5__C52N5" begin="0" end="3600" period="18.1818" departSpeed="max" departLane="best" />
+    <flow id="f_58" route="r_S52C5__C52E_out" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+    <flow id="f_59" route="r_S52C5__C52C4" begin="0" end="3600" period="54.5455" departSpeed="max" departLane="best" />
+</routes>

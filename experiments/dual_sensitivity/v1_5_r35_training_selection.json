@@ -1,0 +1,443 @@
+{
+  "experiment": "v1_5_r35_training_selection",
+  "status": "REJECTED",
+  "requirements_covered": [
+    "V15-R2-TRAIN-02",
+    "V15-CLAIM-01"
+  ],
+  "claim_ready": false,
+  "input_artifact": "experiments/dual_sensitivity/v1_5_r35_training_execution.json",
+  "input_status": "IN_PROGRESS",
+  "training_protocol_fingerprint": "3d13303205f51e74cfdfd946529a2988201b516772f0679f241004ed71e7bc71",
+  "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency",
+  "row_audit": {
+    "expected_row_count": 324,
+    "raw_row_count": 6,
+    "completed_row_count": 6,
+    "missing_row_count": 318,
+    "failed_row_count": 0,
+    "duplicate_row_count": 0,
+    "missing_rows": [
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20261131"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20261132"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20261133"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20261134"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20261135"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/capacity_aware_pressure/seed=20261136"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20261131"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20261132"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20261133"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20261134"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20261135"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_double_pressure/seed=20261136"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency/seed=20261131"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency/seed=20261132"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency/seed=20261133"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency/seed=20261134"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency/seed=20261135"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency/seed=20261136"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20261131"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20261132"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20261133"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20261134"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20261135"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/finite_storage_primal_dual_v1_4_score/seed=20261136"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20261131"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20261132"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20261133"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20261134"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20261135"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/max_pressure/seed=20261136"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20261131"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20261132"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20261133"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20261134"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20261135"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/0.85/occupancy_capacity_aware_pressure/seed=20261136"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20261131"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20261132"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20261133"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20261134"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20261135"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/capacity_aware_pressure/seed=20261136"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20261131"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20261132"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20261133"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20261134"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20261135"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_double_pressure/seed=20261136"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency/seed=20261131"
+      },
+      {
+        "row_key": "arterial_downstream_blockage/1.15/finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency/seed=20261132"
+      }
+    ],
+    "failed_rows": [],
+    "duplicate_rows": []
+  },
+  "decision": "reject_finite_storage_dynamic_primal_dual_v1_5_r35_deadline_urgency",
+  "mechanism_summary": {
+    "controller_rows": 1,
+    "total_decisions": 1350,
+    "action_changed_relative_to_pressure_count": 1239,
+    "binding_decision_count": 1350,
+    "guardrail_activation_count": 0,
+    "double_safety_fallback_count": 0,
+    "terminal_completion_fallback_count": 160,
+    "double_score_safety_filter_count": 0,
+    "multi_baseline_safety_filter_count": 0,
+    "hold_only_safety_filter_count": 0,
+    "max_hold_safety_filter_count": 0,
+    "completion_risk_filter_count": 0,
+    "route_completion_prediction_filter_count": 0,
+    "route_demand_completion_filter_count": 0,
+    "route_demand_double_score_veto_count": 0,
+    "route_horizon_completion_filter_count": 1185,
+    "route_horizon_dominance_filter_count": 0,
+    "terminal_exit_protection_guard_count": 0,
+    "route_horizon_max_pressure_envelope_count": 0,
+    "route_horizon_core_baseline_envelope_count": 0,
+    "route_horizon_double_pressure_envelope_count": 0,
+    "route_horizon_core_minimax_guard_count": 0,
+    "action_change_rate": 0.9177777777777778,
+    "binding_decision_rate": 1.0
+  },
+  "core_composite_mean_differences": {
+    "capacity_aware_pressure": -140824529.0,
+    "finite_storage_double_pressure": -137730151.0,
+    "max_pressure": -140824529.0
+  },
+  "primary_composite_training_results": [
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "max_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 196889413.0,
+      "r2_composite": 196889413.0,
+      "baseline_composite": 56064884.0,
+      "paired_difference": -140824529.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "capacity_aware_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 196889413.0,
+      "r2_composite": 196889413.0,
+      "baseline_composite": 56064884.0,
+      "paired_difference": -140824529.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "occupancy_capacity_aware_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 196889413.0,
+      "r2_composite": 196889413.0,
+      "baseline_composite": 106745577.0,
+      "paired_difference": -90143836.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "finite_storage_double_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 196889413.0,
+      "r2_composite": 196889413.0,
+      "baseline_composite": 59159262.0,
+      "paired_difference": -137730151.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "finite_storage_primal_dual_v1_4_score",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 196889413.0,
+      "r2_composite": 196889413.0,
+      "baseline_composite": 109552907.0,
+      "paired_difference": -87336506.0
+    }
+  ],
+  "safety_harms": [
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "max_pressure",
+      "metric": "penalized_avg_travel_time",
+      "r2": 633.0197646348823,
+      "baseline_value": 96.24973262032086,
+      "allowed": 101.0622192513369,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "max_pressure",
+      "metric": "total_delay",
+      "r2": 2048679.0,
+      "baseline_value": 46662.0,
+      "allowed": 48995.1,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "r2": 1209.0,
+      "baseline_value": 124.0,
+      "allowed": 124.0,
+      "practical_harm_tolerance": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "r2": 633.0197646348823,
+      "baseline_value": 96.24973262032086,
+      "allowed": 101.0622192513369,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "capacity_aware_pressure",
+      "metric": "total_delay",
+      "r2": 2048679.0,
+      "baseline_value": 46662.0,
+      "allowed": 48995.1,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "r2": 1209.0,
+      "baseline_value": 124.0,
+      "allowed": 124.0,
+      "practical_harm_tolerance": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "occupancy_capacity_aware_pressure",
+      "metric": "penalized_avg_travel_time",
+      "r2": 633.0197646348823,
+      "baseline_value": 455.5704529115744,
+      "allowed": 478.34897555715315,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "occupancy_capacity_aware_pressure",
+      "metric": "total_delay",
+      "r2": 2048679.0,
+      "baseline_value": 907313.0,
+      "allowed": 952678.65,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "occupancy_capacity_aware_pressure",
+      "metric": "unfinished_vehicle_count",
+      "r2": 1209.0,
+      "baseline_value": 1202.0,
+      "allowed": 1202.0,
+      "practical_harm_tolerance": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "finite_storage_double_pressure",
+      "metric": "penalized_avg_travel_time",
+      "r2": 633.0197646348823,
+      "baseline_value": 97.02203208556149,
+      "allowed": 101.87313368983958,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "finite_storage_double_pressure",
+      "metric": "total_delay",
+      "r2": 2048679.0,
+      "baseline_value": 49540.0,
+      "allowed": 52017.0,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "finite_storage_double_pressure",
+      "metric": "unfinished_vehicle_count",
+      "r2": 1209.0,
+      "baseline_value": 125.0,
+      "allowed": 125.0,
+      "practical_harm_tolerance": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "finite_storage_primal_dual_v1_4_score",
+      "metric": "penalized_avg_travel_time",
+      "r2": 633.0197646348823,
+      "baseline_value": 123.71379679144385,
+      "allowed": 129.89948663101606,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "finite_storage_primal_dual_v1_4_score",
+      "metric": "total_delay",
+      "r2": 2048679.0,
+      "baseline_value": 142477.0,
+      "allowed": 149600.85,
+      "practical_harm_tolerance": 0.05
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 0.85,
+      "seed": 20261131,
+      "baseline": "finite_storage_primal_dual_v1_4_score",
+      "metric": "unfinished_vehicle_count",
+      "r2": 1209.0,
+      "baseline_value": 173.0,
+      "allowed": 173.0,
+      "practical_harm_tolerance": 0.0
+    }
+  ],
+  "reasons": [
+    "training rows show safety-guard harm against strong baselines"
+  ],
+  "claim_scope": {
+    "closed_loop_superiority_claim_allowed": false,
+    "why": "training selection can reject or select a candidate for a future protocol, but cannot itself prove a claim"
+  }
+}

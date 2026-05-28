@@ -1,0 +1,91 @@
+{
+  "experiment": "v1_5_protocol_activation_audit",
+  "status": "PASSED",
+  "generated_by": "scripts/audit_v15_protocol_activation.py",
+  "generated_at": "2026-05-27T04:00:37.222187+00:00",
+  "requirements_covered": [
+    "V15-PROTO-AUDIT-01",
+    "V15-CLAIM-01"
+  ],
+  "input_artifact": "experiments/dual_sensitivity/v1_5_binding_holdout_execution.json",
+  "input_status": "INCONCLUSIVE",
+  "locked_protocol_fingerprint": "9638898db29eee75a72663c9c57e870c08e4b32206951d131b76a8b3248870eb",
+  "summary": {
+    "controller_rows": 3,
+    "total_decisions": 4050,
+    "binding_decision_count": 3930,
+    "binding_decision_rate": 0.9703703703703703,
+    "action_changed_relative_to_pressure_count": 2659,
+    "action_change_rate": 0.6565432098765432,
+    "dynamic_term_counts": {
+      "storage_price": 4049,
+      "cascade_price": 4050,
+      "release": 4050
+    },
+    "criteria": {
+      "controller_rows_present": true,
+      "binding_decisions_present": true,
+      "storage_price_active": true,
+      "cascade_or_release_active": true
+    },
+    "row_summaries": [
+      {
+        "scenario_tag": "arterial_v1_5_storage_activation",
+        "demand_multiplier": 0.9,
+        "seed": 20260710,
+        "total_decisions": 1350,
+        "binding_decision_count": 1295,
+        "action_change_rate": 0.6666666666666666,
+        "binding_decision_rate": 0.9592592592592593,
+        "max_occupancy_ratio_observed": 4.3988269794721395,
+        "min_residual_ratio_observed": 0.0,
+        "dynamic_term_counts": {
+          "storage_price": 1349,
+          "cascade_price": 1350,
+          "release": 1350
+        }
+      },
+      {
+        "scenario_tag": "arterial_v1_5_storage_activation",
+        "demand_multiplier": 0.9,
+        "seed": 20260711,
+        "total_decisions": 1350,
+        "binding_decision_count": 1310,
+        "action_change_rate": 0.6474074074074074,
+        "binding_decision_rate": 0.9703703703703703,
+        "max_occupancy_ratio_observed": 3.7573313782991193,
+        "min_residual_ratio_observed": 0.0,
+        "dynamic_term_counts": {
+          "storage_price": 1350,
+          "cascade_price": 1350,
+          "release": 1350
+        }
+      },
+      {
+        "scenario_tag": "arterial_v1_5_storage_activation",
+        "demand_multiplier": 0.9,
+        "seed": 20260712,
+        "total_decisions": 1350,
+        "binding_decision_count": 1325,
+        "action_change_rate": 0.6555555555555556,
+        "binding_decision_rate": 0.9814814814814815,
+        "max_occupancy_ratio_observed": 3.7573313782991193,
+        "min_residual_ratio_observed": 0.0,
+        "dynamic_term_counts": {
+          "storage_price": 1350,
+          "cascade_price": 1350,
+          "release": 1350
+        }
+      }
+    ]
+  },
+  "reasons": [],
+  "recommendation": "continue locked holdout execution",
+  "claim_scope": {
+    "allowed_now": "protocol activation audit only",
+    "not_claimed": [
+      "closed_loop_superiority",
+      "locked_holdout_passed"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+    <input>
+        <net-file value="/home/samuel/projects/pi_light_OR/networks/arterial/arterial.net.xml" />
+        <route-files value="/home/samuel/projects/pi_light_OR/experiments/dual_sensitivity/v1_5_r31_training_scaled_inputs/phase11_arterial_demand_1p15.rou.xml" />
+    </input>
+    <time>
+        <begin value="0" />
+        <end value="3600" />
+        <step-length value="1.0" />
+    </time>
+    <processing>
+        <time-to-teleport value="-1" />
+    </processing>
+    <report>
+        <no-step-log value="true" />
+    </report>
+</configuration>

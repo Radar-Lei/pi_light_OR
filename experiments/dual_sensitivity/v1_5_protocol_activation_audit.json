@@ -1,0 +1,79 @@
+{
+  "experiment": "v1_5_protocol_activation_audit",
+  "status": "FAILED",
+  "generated_by": "scripts/audit_v15_protocol_activation.py",
+  "generated_at": "2026-05-27T03:54:04.243353+00:00",
+  "requirements_covered": [
+    "V15-PROTO-AUDIT-01",
+    "V15-CLAIM-01"
+  ],
+  "input_artifact": "experiments/dual_sensitivity/v1_5_locked_holdout_execution.json",
+  "input_status": "INCONCLUSIVE",
+  "locked_protocol_fingerprint": "27b0661113b1abb334e9615a367eb1db2220b809b6ee0782545215378b7e0695",
+  "summary": {
+    "controller_rows": 2,
+    "total_decisions": 2700,
+    "binding_decision_count": 0,
+    "binding_decision_rate": 0.0,
+    "action_changed_relative_to_pressure_count": 478,
+    "action_change_rate": 0.17703703703703705,
+    "dynamic_term_counts": {
+      "storage_price": 0,
+      "cascade_price": 0,
+      "release": 0
+    },
+    "criteria": {
+      "controller_rows_present": true,
+      "binding_decisions_present": false,
+      "storage_price_active": false,
+      "cascade_or_release_active": false
+    },
+    "row_summaries": [
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "demand_multiplier": 0.9,
+        "seed": 20260610,
+        "total_decisions": 1350,
+        "binding_decision_count": 0,
+        "action_change_rate": 0.16444444444444445,
+        "binding_decision_rate": 0.0,
+        "max_occupancy_ratio_observed": 0.3665689149560117,
+        "min_residual_ratio_observed": 0.6334310850439884,
+        "dynamic_term_counts": {
+          "storage_price": 0,
+          "cascade_price": 0,
+          "release": 0
+        }
+      },
+      {
+        "scenario_tag": "arterial_downstream_blockage",
+        "demand_multiplier": 0.9,
+        "seed": 20260611,
+        "total_decisions": 1350,
+        "binding_decision_count": 0,
+        "action_change_rate": 0.18962962962962962,
+        "binding_decision_rate": 0.0,
+        "max_occupancy_ratio_observed": 0.34824046920821106,
+        "min_residual_ratio_observed": 0.6517595307917889,
+        "dynamic_term_counts": {
+          "storage_price": 0,
+          "cascade_price": 0,
+          "release": 0
+        }
+      }
+    ]
+  },
+  "reasons": [
+    "executed v1.5 rows did not enter finite-storage binding states",
+    "storage shadow price did not activate in executed v1.5 rows",
+    "cascade or release dynamic terms did not activate in executed v1.5 rows"
+  ],
+  "recommendation": "supersede this holdout protocol with a storage-activation holdout before any claim-eligible run",
+  "claim_scope": {
+    "allowed_now": "protocol activation audit only",
+    "not_claimed": [
+      "closed_loop_superiority",
+      "locked_holdout_passed"
+    ]
+  }
+}

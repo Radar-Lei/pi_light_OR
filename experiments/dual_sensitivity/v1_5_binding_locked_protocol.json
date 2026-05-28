@@ -1,0 +1,148 @@
+{
+  "experiment": "v1_5_binding_locked_protocol",
+  "status": "LOCKED",
+  "generated_by": "scripts/lock_v15_binding_protocol.py",
+  "generated_at": "2026-05-27T03:54:04.340068+00:00",
+  "requirements_covered": [
+    "V15-PROTO-02",
+    "V15-CLAIM-01"
+  ],
+  "protocol_fingerprint": "9638898db29eee75a72663c9c57e870c08e4b32206951d131b76a8b3248870eb",
+  "claim_scope": {
+    "allowed_now": "protocol lock and future-evidence contract only",
+    "not_claimed": [
+      "closed_loop_superiority",
+      "locked_holdout_passed",
+      "deployment_readiness"
+    ]
+  },
+  "controller_id": "finite_storage_dynamic_primal_dual_v1_5",
+  "controller_params": {
+    "alpha_release": 0.7,
+    "beta_storage": 1.2,
+    "delta_service": 0.35,
+    "dual_decay": 0.12,
+    "dual_step_size": 0.85,
+    "gamma_cascade": 0.85,
+    "release_step_size": 0.55,
+    "release_threshold": 0.7,
+    "storage_threshold": 0.72
+  },
+  "required_baselines": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "occupancy_capacity_aware_pressure",
+    "finite_storage_double_pressure",
+    "finite_storage_primal_dual_v1_4_score"
+  ],
+  "training_split": {
+    "role": "pilot_and_parameter_selection_only",
+    "scenarios": [
+      "arterial_v1_5_storage_activation",
+      "arterial_spillback_stress",
+      "arterial_downstream_blockage"
+    ],
+    "seeds": [
+      20260527,
+      20260528,
+      20260529
+    ],
+    "not_claim_evidence": true
+  },
+  "locked_holdout": {
+    "role": "claim_eligible_only_if_executed_after_protocol_lock",
+    "profile": "main",
+    "steps": 3600,
+    "warmup": 900,
+    "action_interval": 10,
+    "scenarios": [
+      "arterial_v1_5_storage_activation",
+      "arterial_spillback_stress",
+      "arterial_downstream_blockage",
+      "arterial_incident_capacity_drop"
+    ],
+    "seeds": [
+      20260710,
+      20260711,
+      20260712,
+      20260713,
+      20260714,
+      20260715,
+      20260716,
+      20260717
+    ],
+    "demand_multipliers": [
+      0.9,
+      1.0,
+      1.1
+    ],
+    "controllers": [
+      "finite_storage_dynamic_primal_dual_v1_5",
+      "max_pressure",
+      "capacity_aware_pressure",
+      "occupancy_capacity_aware_pressure",
+      "finite_storage_double_pressure",
+      "finite_storage_primal_dual_v1_4_score"
+    ],
+    "expected_row_count": 576
+  },
+  "primary_endpoint": {
+    "name": "composite_finite_storage_operating_cost",
+    "components": [
+      "delay",
+      "spillback_blocking_time",
+      "switching_lost_time",
+      "unfinished_vehicle_penalty"
+    ],
+    "weights": {
+      "delay": 1.0,
+      "unfinished_vehicle_penalty": 1.0,
+      "spillback_blocking_time": 1.0,
+      "switching_lost_time": 1.0
+    },
+    "formula": "delay + unfinished_vehicle_penalty + spillback_blocking_time + switching_lost_time",
+    "paired_seed_comparison": true,
+    "required_result": "lower_is_better_against_each_required_baseline"
+  },
+  "safety_guards": {
+    "penalized_avg_travel_time": {
+      "practical_harm_tolerance": 0.05,
+      "direction": "lower_is_better"
+    },
+    "total_delay": {
+      "practical_harm_tolerance": 0.05,
+      "direction": "lower_is_better"
+    },
+    "unfinished_vehicle_count": {
+      "practical_harm_tolerance": 0.0,
+      "direction": "lower_is_better"
+    }
+  },
+  "secondary_metrics": [
+    "spillback_count",
+    "blocking_count",
+    "switching_count",
+    "throughput",
+    "completion_rate"
+  ],
+  "failure_rules": {
+    "training_rows_not_claim_evidence": true,
+    "missing_required_baseline_fails_closed": true,
+    "missing_paired_seed_fails_closed": true,
+    "post_lock_controller_param_change_fails_closed": true,
+    "closed_loop_superiority_allowed_only_if_locked_holdout_passes": true
+  },
+  "diagnostic_prerequisites": [
+    "experiments/dual_sensitivity/v1_5_dynamic_primal_dual_gates.json",
+    "experiments/dual_sensitivity/v1_5_closed_loop_diagnostics.json",
+    "experiments/dual_sensitivity/v1_5_protocol_activation_audit.json"
+  ],
+  "artifact_plan": {
+    "locked_protocol": "experiments/dual_sensitivity/v1_5_binding_locked_protocol.json",
+    "locked_holdout_execution": "experiments/dual_sensitivity/v1_5_binding_holdout_execution.json",
+    "paired_evidence": "experiments/dual_sensitivity/v1_5_binding_paired_evidence.json",
+    "claim_refresh": "experiments/dual_sensitivity/v1_5_binding_summary.md"
+  },
+  "supersedes_protocol": "experiments/dual_sensitivity/v1_5_locked_protocol.json",
+  "supersession_reason": "Early executed rows from the first v1.5 holdout did not enter finite-storage binding states, so that protocol is unsuitable for the storage-activation claim target."
+}

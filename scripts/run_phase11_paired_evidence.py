@@ -1112,6 +1112,7 @@ def execute_spec(
     execution_row_limit: int | None,
     progress_out: Path | None = None,
     resume_progress: Path | None = None,
+    max_new_rows: int | None = None,
 ) -> tuple[list[dict[str, Any]], list[str], str]:
     if dry_run:
         return dry_run_placeholder_rows(spec, route_metadata), ["dry-run requested; no SUMO rows executed"], "dry_run_spec_only"
@@ -1129,12 +1130,16 @@ def execute_spec(
     elif resume_progress is not None and progress_out is None:
         raise FileNotFoundError(resume_progress)
     completed_keys = {row_key(row) for row in rows}
+    new_rows_attempted = 0
     for item in spec:
         key = row_key(item)
         if key in completed_keys:
             continue
+        if max_new_rows is not None and new_rows_attempted >= max_new_rows:
+            break
         if key not in attempted_row_keys:
             attempted_row_keys.append(key)
+        new_rows_attempted += 1
         try:
             row = run_experiment(
                 item["network"],
@@ -1168,7 +1173,11 @@ def execute_spec(
             write_progress(progress_out, spec, rows, attempted_row_keys, reasons)
     if progress_enabled and not progress_out.exists():
         write_progress(progress_out, spec, rows, attempted_row_keys, reasons)
-    return rows, reasons, "executed_with_progress" if progress_enabled or resume_progress is not None else "executed"
+    if max_new_rows is not None:
+        mode = "executed_incremental_with_progress" if progress_enabled or resume_progress is not None else "executed_incremental"
+    else:
+        mode = "executed_with_progress" if progress_enabled or resume_progress is not None else "executed"
+    return rows, reasons, mode
 
 
 def main() -> None:

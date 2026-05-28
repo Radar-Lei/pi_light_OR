@@ -1,0 +1,975 @@
+{
+  "experiment": "v1_5_dynamic_primal_dual_gates",
+  "status": "PASSED",
+  "generated_by": "scripts/check_v15_dynamic_primal_dual.py",
+  "generated_at": "2026-05-27T03:31:42.171048+00:00",
+  "scope": "deterministic_one_step_v15_method_gates_no_closed_loop_claims",
+  "requirements_covered": [
+    "V15-STATE-01",
+    "V15-CTRL-01",
+    "V15-GATE-01",
+    "V15-CLAIM-01"
+  ],
+  "schema_version": "phase6_explicit_state_v1",
+  "controller_id": "finite_storage_dynamic_primal_dual_v1_5",
+  "criteria": {
+    "slack_pressure_recovery": true,
+    "occupancy_storage_separation": true,
+    "cascade_spillback_separation": true,
+    "upstream_release_value": true
+  },
+  "claim_scope": {
+    "allowed": "deterministic v1.5 method-gate evidence for state truth, slack recovery, and action separation mechanisms",
+    "not_claimed": [
+      "closed_loop_superiority",
+      "deployment_readiness",
+      "universal_cross_regime_advantage",
+      "locked_holdout_performance"
+    ]
+  },
+  "cases": [
+    {
+      "name": "slack_pressure_recovery",
+      "criteria": {
+        "dynamic_matches_pressure": true,
+        "dual_prices_zero": true
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 40.0,
+          "down_a": 40.0,
+          "up_b": 40.0,
+          "down_b": 40.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 32.0,
+          "down_a": 35.0,
+          "up_b": 33.0,
+          "down_b": 36.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.2
+          },
+          "down_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.125
+          },
+          "up_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.175
+          },
+          "down_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.1
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.5,
+          "down_a": 0.125,
+          "up_b": 0.35,
+          "down_b": 0.1
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "dual_state": {
+        "down_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "down_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "up_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "up_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        }
+      },
+      "audit": {
+        "tls_id": "J0",
+        "controller": "finite_storage_dynamic_primal_dual_v1_5",
+        "pressure_action": 0,
+        "finite_storage_action": 0,
+        "selected_action": 0,
+        "pressure_phase_scores": {
+          "0": 15.0,
+          "1": 10.0
+        },
+        "phase_scores": {
+          "0": {
+            "phase_index": 0,
+            "score": 15.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "downstream_storage": 0.0,
+              "incident": 0.0,
+              "pressure": 15.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 15.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_a",
+                  "down_a"
+                ],
+                "components": {
+                  "pressure": 15.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "total": 15.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_dynamic_primal_dual_v1_5"
+          },
+          "1": {
+            "phase_index": 1,
+            "score": 10.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "downstream_storage": 0.0,
+              "incident": 0.0,
+              "pressure": 10.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 10.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_b",
+                  "down_b"
+                ],
+                "components": {
+                  "pressure": 10.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "total": 10.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_dynamic_primal_dual_v1_5"
+          }
+        },
+        "selected_component_totals": {
+          "cascade_price": 0.0,
+          "downstream_storage": 0.0,
+          "incident": 0.0,
+          "pressure": 15.0,
+          "release": 0.0,
+          "service": 0.0,
+          "service_age": 0.0,
+          "spillback": 0.0,
+          "storage_price": 0.0,
+          "switching": 0.0,
+          "total": 15.0
+        },
+        "action_changed_relative_to_pressure": false,
+        "changing_terms": [],
+        "dynamic_dual_snapshot": {
+          "down_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "down_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "up_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "up_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          }
+        },
+        "dynamic_params": {
+          "alpha_release": 0.7,
+          "beta_storage": 1.2,
+          "delta_service": 0.35,
+          "dual_decay": 0.12,
+          "dual_step_size": 0.85,
+          "gamma_cascade": 0.85,
+          "release_step_size": 0.55,
+          "release_threshold": 0.7,
+          "storage_threshold": 0.72
+        }
+      }
+    },
+    {
+      "name": "occupancy_storage_separation",
+      "queue_capacity_action": 0,
+      "occupancy_capacity_action": 1,
+      "criteria": {
+        "storage_uses_vehicle_count": true,
+        "dynamic_changes_from_pressure": true,
+        "dynamic_matches_occupancy_ablation": true,
+        "queue_ablation_misses_storage_fullness": true,
+        "storage_price_active": true
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 50.0,
+          "down_a": 10.0,
+          "up_b": 50.0,
+          "down_b": 10.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 47.0,
+          "down_a": 0.0,
+          "up_b": 48.0,
+          "down_b": 9.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.06
+          },
+          "down_a": {
+            "spillback": true,
+            "blocking": false,
+            "occupancy_ratio": 1.0
+          },
+          "up_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.04
+          },
+          "down_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.1
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.6,
+          "down_a": 0.0,
+          "up_b": 0.36,
+          "down_b": 0.0
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "dual_state": {
+        "down_a": {
+          "storage_price": 0.23800000000000002,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "down_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "up_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.1666,
+          "service_age": 0.0
+        },
+        "up_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        }
+      },
+      "audit": {
+        "tls_id": "J0",
+        "controller": "finite_storage_dynamic_primal_dual_v1_5",
+        "pressure_action": 0,
+        "finite_storage_action": 1,
+        "selected_action": 1,
+        "pressure_phase_scores": {
+          "0": 30.0,
+          "1": 18.0
+        },
+        "phase_scores": {
+          "0": {
+            "phase_index": 0,
+            "score": 6.431999999999999,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "downstream_storage": -10.0,
+              "incident": 0.0,
+              "pressure": 30.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": -5.0,
+              "storage_price": -8.568000000000001,
+              "switching": 0.0,
+              "total": 6.431999999999999
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_a",
+                  "down_a"
+                ],
+                "components": {
+                  "pressure": 30.0,
+                  "downstream_storage": -10.0,
+                  "spillback": -5.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -8.568000000000001,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "total": 6.431999999999999
+                }
+              }
+            ],
+            "score_variant": "finite_storage_dynamic_primal_dual_v1_5"
+          },
+          "1": {
+            "phase_index": 1,
+            "score": 17.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "downstream_storage": -1.0,
+              "incident": 0.0,
+              "pressure": 18.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 17.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_b",
+                  "down_b"
+                ],
+                "components": {
+                  "pressure": 18.0,
+                  "downstream_storage": -1.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "total": 17.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_dynamic_primal_dual_v1_5"
+          }
+        },
+        "selected_component_totals": {
+          "cascade_price": 0.0,
+          "downstream_storage": -1.0,
+          "incident": 0.0,
+          "pressure": 18.0,
+          "release": 0.0,
+          "service": 0.0,
+          "service_age": 0.0,
+          "spillback": 0.0,
+          "storage_price": 0.0,
+          "switching": 0.0,
+          "total": 17.0
+        },
+        "action_changed_relative_to_pressure": true,
+        "changing_terms": [
+          "downstream_storage",
+          "spillback",
+          "storage_price"
+        ],
+        "dynamic_dual_snapshot": {
+          "down_a": {
+            "storage_price": 0.23800000000000002,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "down_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "up_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.1666,
+            "service_age": 0.0
+          },
+          "up_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          }
+        },
+        "dynamic_params": {
+          "alpha_release": 0.7,
+          "beta_storage": 1.2,
+          "delta_service": 0.35,
+          "dual_decay": 0.12,
+          "dual_step_size": 0.85,
+          "gamma_cascade": 0.85,
+          "release_step_size": 0.55,
+          "release_threshold": 0.7,
+          "storage_threshold": 0.72
+        }
+      }
+    },
+    {
+      "name": "cascade_spillback_separation",
+      "criteria": {
+        "descendant_storage_price_active": true,
+        "intermediate_cascade_price_active": true,
+        "dynamic_avoids_cascade_path": true
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 40.0,
+          "mid_a": 20.0,
+          "up_b": 40.0,
+          "mid_b": 20.0,
+          "down_full": 10.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 37.0,
+          "mid_a": 19.0,
+          "up_b": 37.0,
+          "mid_b": 19.0,
+          "down_full": 0.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.075
+          },
+          "mid_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.05
+          },
+          "up_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.075
+          },
+          "mid_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.05
+          },
+          "down_full": {
+            "spillback": true,
+            "blocking": false,
+            "occupancy_ratio": 1.0
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.5,
+          "mid_a": 0.0,
+          "up_b": 0.475,
+          "mid_b": 0.0,
+          "down_full": 0.0
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "dual_state": {
+        "down_full": {
+          "storage_price": 0.23800000000000002,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "mid_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.1666,
+          "service_age": 0.0
+        },
+        "mid_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "up_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0714,
+          "service_age": 0.0
+        },
+        "up_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        }
+      },
+      "audit": {
+        "tls_id": "J0",
+        "controller": "finite_storage_dynamic_primal_dual_v1_5",
+        "pressure_action": 0,
+        "finite_storage_action": 1,
+        "selected_action": 1,
+        "pressure_phase_scores": {
+          "0": 20.0,
+          "1": 19.0
+        },
+        "phase_scores": {
+          "0": {
+            "phase_index": 0,
+            "score": 16.1678,
+            "component_totals": {
+              "cascade_price": -2.8322,
+              "downstream_storage": -1.0,
+              "incident": 0.0,
+              "pressure": 20.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 16.1678
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_a",
+                  "mid_a"
+                ],
+                "components": {
+                  "pressure": 20.0,
+                  "downstream_storage": -1.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -2.8322,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "total": 16.1678
+                }
+              }
+            ],
+            "score_variant": "finite_storage_dynamic_primal_dual_v1_5"
+          },
+          "1": {
+            "phase_index": 1,
+            "score": 19.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "downstream_storage": 0.0,
+              "incident": 0.0,
+              "pressure": 19.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 19.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_b",
+                  "mid_b"
+                ],
+                "components": {
+                  "pressure": 19.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "total": 19.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_dynamic_primal_dual_v1_5"
+          }
+        },
+        "selected_component_totals": {
+          "cascade_price": 0.0,
+          "downstream_storage": 0.0,
+          "incident": 0.0,
+          "pressure": 19.0,
+          "release": 0.0,
+          "service": 0.0,
+          "service_age": 0.0,
+          "spillback": 0.0,
+          "storage_price": 0.0,
+          "switching": 0.0,
+          "total": 19.0
+        },
+        "action_changed_relative_to_pressure": true,
+        "changing_terms": [
+          "cascade_price",
+          "downstream_storage"
+        ],
+        "dynamic_dual_snapshot": {
+          "down_full": {
+            "storage_price": 0.23800000000000002,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "mid_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.1666,
+            "service_age": 0.0
+          },
+          "mid_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "up_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0714,
+            "service_age": 0.0
+          },
+          "up_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          }
+        },
+        "dynamic_params": {
+          "alpha_release": 0.7,
+          "beta_storage": 1.2,
+          "delta_service": 0.35,
+          "dual_decay": 0.12,
+          "dual_step_size": 0.85,
+          "gamma_cascade": 0.85,
+          "release_step_size": 0.55,
+          "release_threshold": 0.7,
+          "storage_threshold": 0.72
+        }
+      }
+    },
+    {
+      "name": "upstream_release_value",
+      "criteria": {
+        "release_price_active": true,
+        "dynamic_serves_release_movement": true
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "up_a": 20.0,
+          "down_a": 20.0,
+          "up_b": 20.0,
+          "down_b": 20.0
+        },
+        "residual_receiving_capacity": {
+          "up_a": 18.0,
+          "down_a": 19.0,
+          "up_b": 0.0,
+          "down_b": 19.0
+        },
+        "spillback_blocking": {
+          "up_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.1
+          },
+          "down_a": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.05
+          },
+          "up_b": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 1.0
+          },
+          "down_b": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.05
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 30.0
+        },
+        "service_urgency": {
+          "up_a": 0.5,
+          "down_a": 0.0,
+          "up_b": 0.45,
+          "down_b": 0.0
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "dual_state": {
+        "down_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "down_b": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "up_a": {
+          "storage_price": 0.0,
+          "release_price": 0.0,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        },
+        "up_b": {
+          "storage_price": 0.23800000000000002,
+          "release_price": 0.16500000000000004,
+          "cascade_price": 0.0,
+          "service_age": 0.0
+        }
+      },
+      "audit": {
+        "tls_id": "J0",
+        "controller": "finite_storage_dynamic_primal_dual_v1_5",
+        "pressure_action": 0,
+        "finite_storage_action": 1,
+        "selected_action": 1,
+        "pressure_phase_scores": {
+          "0": 10.0,
+          "1": 9.0
+        },
+        "phase_scores": {
+          "0": {
+            "phase_index": 0,
+            "score": 10.0,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "downstream_storage": 0.0,
+              "incident": 0.0,
+              "pressure": 10.0,
+              "release": 0.0,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 10.0
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_a",
+                  "down_a"
+                ],
+                "components": {
+                  "pressure": 10.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 0.0,
+                  "service_age": 0.0,
+                  "total": 10.0
+                }
+              }
+            ],
+            "score_variant": "finite_storage_dynamic_primal_dual_v1_5"
+          },
+          "1": {
+            "phase_index": 1,
+            "score": 10.0395,
+            "component_totals": {
+              "cascade_price": 0.0,
+              "downstream_storage": 0.0,
+              "incident": 0.0,
+              "pressure": 9.0,
+              "release": 1.0395,
+              "service": 0.0,
+              "service_age": 0.0,
+              "spillback": 0.0,
+              "storage_price": 0.0,
+              "switching": 0.0,
+              "total": 10.0395
+            },
+            "movement_decompositions": [
+              {
+                "movement": [
+                  "up_b",
+                  "down_b"
+                ],
+                "components": {
+                  "pressure": 9.0,
+                  "downstream_storage": 0.0,
+                  "spillback": 0.0,
+                  "switching": 0.0,
+                  "service": 0.0,
+                  "incident": 0.0,
+                  "storage_price": -0.0,
+                  "cascade_price": -0.0,
+                  "release": 1.0395,
+                  "service_age": 0.0,
+                  "total": 10.0395
+                }
+              }
+            ],
+            "score_variant": "finite_storage_dynamic_primal_dual_v1_5"
+          }
+        },
+        "selected_component_totals": {
+          "cascade_price": 0.0,
+          "downstream_storage": 0.0,
+          "incident": 0.0,
+          "pressure": 9.0,
+          "release": 1.0395,
+          "service": 0.0,
+          "service_age": 0.0,
+          "spillback": 0.0,
+          "storage_price": 0.0,
+          "switching": 0.0,
+          "total": 10.0395
+        },
+        "action_changed_relative_to_pressure": true,
+        "changing_terms": [
+          "release"
+        ],
+        "dynamic_dual_snapshot": {
+          "down_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "down_b": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "up_a": {
+            "storage_price": 0.0,
+            "release_price": 0.0,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          },
+          "up_b": {
+            "storage_price": 0.23800000000000002,
+            "release_price": 0.16500000000000004,
+            "cascade_price": 0.0,
+            "service_age": 0.0
+          }
+        },
+        "dynamic_params": {
+          "alpha_release": 0.7,
+          "beta_storage": 1.2,
+          "delta_service": 0.35,
+          "dual_decay": 0.12,
+          "dual_step_size": 0.85,
+          "gamma_cascade": 0.85,
+          "release_step_size": 0.55,
+          "release_threshold": 0.7,
+          "storage_threshold": 0.72
+        }
+      }
+    }
+  ]
+}

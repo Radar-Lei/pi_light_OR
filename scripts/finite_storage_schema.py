@@ -172,6 +172,7 @@ def build_finite_storage_state(
     queues: dict[str, float],
     capacities: dict[str, float],
     *,
+    vehicle_counts: dict[str, float] | None = None,
     current_phase: int | None = None,
     time_since_switch: float | None = None,
     incident_edge: str | None = None,
@@ -179,15 +180,20 @@ def build_finite_storage_state(
 ) -> dict[str, Any]:
     normalized_capacities = {edge: max(float(capacity), 0.0) for edge, capacity in capacities.items()}
     normalized_queues = {edge: max(float(queues.get(edge, 0.0)), 0.0) for edge in normalized_capacities}
+    storage_counts = {
+        edge: max(float((vehicle_counts or queues).get(edge, 0.0)), 0.0)
+        for edge in normalized_capacities
+    }
     residual = {
-        edge: max(capacity - normalized_queues.get(edge, 0.0), 0.0)
+        edge: max(capacity - storage_counts.get(edge, 0.0), 0.0)
         for edge, capacity in normalized_capacities.items()
     }
     spillback_blocking = {}
     service_urgency = {}
     for edge, capacity in normalized_capacities.items():
         denominator = max(capacity, 1.0)
-        occupancy_ratio = normalized_queues.get(edge, 0.0) / denominator
+        occupancy_ratio = storage_counts.get(edge, 0.0) / denominator
+        queue_ratio = normalized_queues.get(edge, 0.0) / denominator
         spillback = occupancy_ratio >= 0.85
         blocking = spillback and normalized_queues.get(edge, 0.0) > 0.0 and residual[edge] <= 0.15 * denominator
         spillback_blocking[edge] = {
@@ -195,7 +201,7 @@ def build_finite_storage_state(
             "blocking": bool(blocking),
             "occupancy_ratio": float(occupancy_ratio),
         }
-        service_urgency[edge] = float(occupancy_ratio)
+        service_urgency[edge] = float(queue_ratio)
 
     factor = 1.0 if capacity_drop_factor is None else float(capacity_drop_factor)
     state = {
@@ -289,8 +295,8 @@ def schema_artifact_payload() -> dict[str, Any]:
         "objective_component_fields": sorted(OBJECTIVE_COMPONENT_FIELDS),
         "finite_storage_state_contract": {
             "downstream_storage": "edge -> finite storage capacity",
-            "residual_receiving_capacity": "edge -> max(storage - queue, 0)",
-            "spillback_blocking": "edge -> explicit spillback/blocking indicators and occupancy ratio",
+            "residual_receiving_capacity": "edge -> max(storage - vehicle_count, 0); legacy callers without vehicle_counts fall back to queue",
+            "spillback_blocking": "edge -> explicit spillback/blocking indicators and occupancy ratio from vehicle_count/storage",
             "switching_loss_state": "current_phase plus time_since_switch",
             "service_urgency": "edge -> queue-derived urgency ratio",
             "incident_capacity_drop": "active flag, affected edge, and remaining capacity factor",

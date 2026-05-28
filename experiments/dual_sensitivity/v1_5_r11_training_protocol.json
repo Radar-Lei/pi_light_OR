@@ -1,0 +1,155 @@
+{
+  "experiment": "v1_5_r11_training_protocol",
+  "status": "TRAINING_LOCKED",
+  "generated_by": "scripts/lock_v15_r11_training_protocol.py",
+  "requirements_covered": [
+    "V15-R11-CTRL-01",
+    "V15-CLAIM-01"
+  ],
+  "controller_id": "finite_storage_dynamic_primal_dual_v1_5_r11_completion_risk",
+  "required_baselines": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "occupancy_capacity_aware_pressure",
+    "finite_storage_double_pressure",
+    "finite_storage_primal_dual_v1_4_score"
+  ],
+  "controller_params": {
+    "storage_threshold": 0.8,
+    "release_threshold": 0.72,
+    "dual_step_size": 0.0,
+    "release_step_size": 0.5,
+    "dual_decay": 0.18,
+    "alpha_release": 0.4,
+    "beta_storage": 0.0,
+    "gamma_cascade": 0.0,
+    "delta_service": 0.55,
+    "base_score_variant": "finite_storage_double_scaffold",
+    "completion_risk_filter": 1.0,
+    "completion_risk_start_fraction": 0.45,
+    "completion_risk_queue_threshold": 8.0,
+    "completion_risk_occupancy_threshold": 0.7,
+    "completion_service_tolerance": 0.0
+  },
+  "training_split": {
+    "profile": "training",
+    "scenarios": [
+      "arterial_v1_5_storage_activation",
+      "arterial_spillback_stress",
+      "arterial_downstream_blockage"
+    ],
+    "seeds": [
+      20260891,
+      20260892,
+      20260893,
+      20260894,
+      20260895,
+      20260896
+    ],
+    "excluded_seed_sets": {
+      "all_prior_v1_5_training_and_binding": [
+        20260710,
+        20260711,
+        20260712,
+        20260713,
+        20260714,
+        20260715,
+        20260716,
+        20260717,
+        20260801,
+        20260802,
+        20260803,
+        20260804,
+        20260805,
+        20260806,
+        20260811,
+        20260812,
+        20260813,
+        20260814,
+        20260815,
+        20260816,
+        20260821,
+        20260822,
+        20260823,
+        20260824,
+        20260825,
+        20260826,
+        20260831,
+        20260832,
+        20260833,
+        20260834,
+        20260835,
+        20260836,
+        20260841,
+        20260842,
+        20260843,
+        20260844,
+        20260845,
+        20260846,
+        20260851,
+        20260852,
+        20260853,
+        20260854,
+        20260855,
+        20260856,
+        20260861,
+        20260862,
+        20260863,
+        20260864,
+        20260865,
+        20260866,
+        20260871,
+        20260872,
+        20260873,
+        20260874,
+        20260875,
+        20260876,
+        20260881,
+        20260882,
+        20260883,
+        20260884,
+        20260885,
+        20260886
+      ]
+    },
+    "demand_multipliers": [
+      0.85,
+      1.0,
+      1.15
+    ],
+    "controllers": [
+      "finite_storage_dynamic_primal_dual_v1_5_r11_completion_risk",
+      "max_pressure",
+      "capacity_aware_pressure",
+      "occupancy_capacity_aware_pressure",
+      "finite_storage_double_pressure",
+      "finite_storage_primal_dual_v1_4_score"
+    ],
+    "steps": 3600,
+    "warmup": 900,
+    "action_interval": 10,
+    "expected_row_count": 324
+  },
+  "selection_rule": {
+    "primary_endpoint": "composite_finite_storage_operating_cost",
+    "eligible_for_selection_only_if": [
+      "no safety-guard harm against max_pressure",
+      "no safety-guard harm against capacity_aware_pressure",
+      "no safety-guard harm against finite_storage_double_pressure",
+      "completion-risk filter preserves service capacity under high backlog, high occupancy, or late-horizon risk"
+    ],
+    "not_confirmatory_evidence": true
+  },
+  "supersedes_candidate": "finite_storage_dynamic_primal_dual_v1_5_r10_bounded_hold",
+  "supersession_trigger": "experiments/dual_sensitivity/v1_5_revision_candidate_summary.json",
+  "protocol_fingerprint": "e16143e7a0b51f0f9e08ff7093065b0db7146792d623cf2dcec4c403dccfb1d1",
+  "artifact_plan": {
+    "training_protocol": "experiments/dual_sensitivity/v1_5_r11_training_protocol.json",
+    "training_execution": "experiments/dual_sensitivity/v1_5_r11_training_execution.json",
+    "training_selection": "experiments/dual_sensitivity/v1_5_r11_training_selection.json"
+  },
+  "claim_scope": {
+    "claim_ready": false,
+    "closed_loop_superiority_claim_allowed": false
+  }
+}

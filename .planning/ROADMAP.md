@@ -2,6 +2,7 @@
 
 ## Milestones
 
+- Active **v1.5 Dynamic Finite-Storage Primal-Dual Method Redesign** — started 2026-05-27; follows `gpt_pro_suggestion_round1.md` by replacing queue-based storage proxies with occupancy-based storage state, adding dynamic storage/release/cascade/service shadow prices, preserving strong baselines and occupancy/static ablations, and locking a new holdout protocol before any superiority claim. Deterministic gates and diagnostics pass, the original non-binding protocol was superseded, and the binding protocol now exposes an early safety-risk failure rather than a claim-ready result.
 - Complete **v1.4 Strong Baseline-Dominance Method Search** — Phases 14-18 shipped 2026-05-26; v1.4 diagnosed the v1.3 failure, ran exploratory method workstreams, selected and locked one candidate, generated fail-closed locked Gate C artifacts with strict status `INCONCLUSIVE`, and refreshed claim surfaces with closed-loop superiority disallowed. Archived in [`milestones/v1.4-ROADMAP.md`](milestones/v1.4-ROADMAP.md).
 - Complete **v1.3 Complete Predeclared Gate C Evidence** — Phase 13 shipped 2026-05-25; full 2160-row Phase 11 main artifact generated `FAILED`, strict Gate C generated `INCONCLUSIVE`, and Phase 12 regenerated conservative claim surfaces. Archived in [`milestones/v1.3-ROADMAP.md`](milestones/v1.3-ROADMAP.md).
 - Complete **v1.1 Explicit Finite-Storage Primal-Dual Separation** — Phases 6-12.1 established claim discipline, finite-storage state/objective fields, slack/binding theory, a live auditable controller, deterministic Gate A/B, strong baseline/stress infrastructure, predeclared Gate C tooling, and fail-closed reproducibility surfaces.
@@ -9,7 +10,7 @@
 
 ## Current Planning
 
-No active milestone is currently defined. Start the next milestone with `$gsd-new-milestone`.
+v1.5 is active as an implementation-led method redesign. The current first candidate is methodologically useful but not claim-ready: binding mechanisms activate, yet early locked rows violate safety guards against strong baselines. Training-only r2-r46 candidates were evaluated on fresh seeds; several produce positive composite signals, but all are rejected by unfinished-vehicle safety guards, delay safety harm, insufficient action separation, over-rotation of route urgency, loss against finite-storage double pressure, or loss against max-pressure and capacity-aware pressure. r15-r21 and r24-r34 show that horizon-modeled completion can produce useful action separation and positive composite means, r35 shows naive deadline urgency can catastrophically over-steer actions, r36 shows late gating can restore action stability but not unfinished safety, r37 shows a service anchor can overcorrect stability while erasing composite gains, r38 shows a narrow capacity rescue guard is too sparse to protect completion safety, r39 shows a strict capacity-aware score envelope can recover composite signal while collapsing action separation, r40 shows a pressure-safe horizon guard can keep action separation barely above 5% but still miss unfinished safety, r41 shows a locked terminal core-completion choice preserves positive composite while dropping action separation below 5% and worsening unfinished safety, r42 shows a late tail-completion rescue restores action separation but is too sparse and loses against capacity/double baselines, the r43/r44/r45 staged-pressure-safe bracket shows a strict guard can pass unfinished safety only by becoming too pressure-equivalent while a looser guard restores composite but reintroduces unfinished harm, and early r46 evidence shows that adding an occupancy-gated completion-safety veto preserves positive core composite means but still fails unfinished safety on storage-activation rows. The completion-safety contract audit keeps the zero-tolerance unfinished guard in force because no candidate passes it with positive core composite and sufficient action separation, and current evidence does not justify weakening it. Closed-loop superiority remains disallowed until a future superseding locked v1.5 Gate C passes.
 
 ## Next Phase Number
 
@@ -17,6 +18,6 @@ Continue from Phase 19.
 
 ## Backlog
 
-- Execute or resume the locked 1440-row v1.4 Gate C main run, then rerun strict v1.4 Gate C and claim refresh.
-- If the locked v1.4 Gate C remains non-PASSED after full execution, start a new method-design milestone without importing exploratory pilot rows as final claim evidence.
-- Manuscript drafting remains deferred until strict locked Gate C evidence permits the relevant closed-loop claim.
+- Rebuild completion modeling or add a stronger completion-safety controller guard on fresh training seeds before any confirmatory holdout; do not use current binding holdout seeds for tuning.
+- Lock a fresh training protocol before any next confirmatory holdout.
+- Manuscript drafting remains deferred until strict locked v1.5 evidence permits the relevant closed-loop claim.
