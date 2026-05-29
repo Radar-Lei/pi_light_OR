@@ -1,0 +1,217 @@
+{
+  "experiment": "v1_7_training_selection",
+  "status": "REJECTED",
+  "requirements_covered": [
+    "V17-TRAIN-01",
+    "V17-CLAIM-01"
+  ],
+  "claim_ready": false,
+  "input_artifact": "experiments/dual_sensitivity/v1_7_training_execution.json",
+  "input_status": "COMPLETE_PENDING_SELECTION",
+  "training_protocol_fingerprint": "7bf6ac2f96967ac46e9ec896681132943e82f207bb856e61f6905692dc36db0f",
+  "controller_id": "finite_storage_completion_primal_dual_v1_7",
+  "row_audit": {
+    "expected_row_count": 12,
+    "raw_row_count": 12,
+    "completed_row_count": 12,
+    "missing_row_count": 0,
+    "failed_row_count": 0,
+    "duplicate_row_count": 0,
+    "missing_rows": [],
+    "failed_rows": [],
+    "duplicate_rows": []
+  },
+  "decision": "reject_finite_storage_completion_primal_dual_v1_7",
+  "mechanism_summary": {
+    "controller_rows": 3,
+    "total_decisions": 4050,
+    "action_changed_relative_to_pressure_count": 80,
+    "binding_decision_count": 1350,
+    "advantage_gate_activation_count": 15,
+    "regime_counts": {
+      "slack": 0,
+      "storage_binding": 0,
+      "cascade_risk": 0,
+      "completion_critical": 15
+    },
+    "regime_distribution": {
+      "slack": 0.0,
+      "storage_binding": 0.0,
+      "cascade_risk": 0.0,
+      "completion_critical": 1.0
+    },
+    "action_change_rate": 0.019753086419753086,
+    "binding_decision_rate": 0.3333333333333333,
+    "advantage_gate_activation_rate": 1.0
+  },
+  "minimax_regret_analysis": {
+    "objective": "minimax_regret",
+    "formula": "max over baselines of mean_[J(candidate) - J(baseline)]_+",
+    "mean_regret_by_baseline": {
+      "capacity_aware_pressure": 0.0,
+      "delay_based_max_pressure": null,
+      "finite_storage_double_pressure": 0.0,
+      "max_pressure": 10585.333333333334,
+      "occupancy_capacity_aware_pressure": null,
+      "switching_loss_max_pressure": null
+    },
+    "minimax_regret": 10585.333333333334,
+    "worst_baseline": "max_pressure"
+  },
+  "core_composite_mean_differences": {
+    "capacity_aware_pressure": 0.0,
+    "finite_storage_double_pressure": 819253.0,
+    "max_pressure": 411114.3333333333
+  },
+  "primary_composite_training_results": [
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "max_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 565345.0,
+      "baseline_composite": 549467.0,
+      "paired_difference": -15878.0,
+      "positive_part_difference": 15878.0
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "capacity_aware_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 565345.0,
+      "baseline_composite": 565345.0,
+      "paired_difference": 0.0,
+      "positive_part_difference": 0.0
+    },
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "finite_storage_double_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 565345.0,
+      "baseline_composite": 565345.0,
+      "paired_difference": 0.0,
+      "positive_part_difference": 0.0
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "max_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 565345.0,
+      "baseline_composite": 549467.0,
+      "paired_difference": -15878.0,
+      "positive_part_difference": 15878.0
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "capacity_aware_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 565345.0,
+      "baseline_composite": 565345.0,
+      "paired_difference": 0.0,
+      "positive_part_difference": 0.0
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "finite_storage_double_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 565345.0,
+      "baseline_composite": 565345.0,
+      "paired_difference": 0.0,
+      "positive_part_difference": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "max_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 99768421.0,
+      "baseline_composite": 101033520.0,
+      "paired_difference": 1265099.0,
+      "positive_part_difference": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "capacity_aware_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 99768421.0,
+      "baseline_composite": 99768421.0,
+      "paired_difference": 0.0,
+      "positive_part_difference": 0.0
+    },
+    {
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "finite_storage_double_pressure",
+      "difference_definition": "baseline_composite_minus_candidate_composite",
+      "positive_means": "candidate_lower_composite_cost",
+      "candidate_composite": 99768421.0,
+      "baseline_composite": 102226180.0,
+      "paired_difference": 2457759.0,
+      "positive_part_difference": 0.0
+    }
+  ],
+  "safety_harms": [
+    {
+      "scenario_tag": "arterial_downstream_blockage",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "candidate_value": 175.0,
+      "baseline_value": 169.0,
+      "allowed": 169.0,
+      "practical_harm_tolerance": 0.0
+    },
+    {
+      "scenario_tag": "arterial_spillback_stress",
+      "demand_multiplier": 1.0,
+      "seed": 20261701,
+      "baseline": "max_pressure",
+      "metric": "unfinished_vehicle_count",
+      "candidate_value": 175.0,
+      "baseline_value": 169.0,
+      "allowed": 169.0,
+      "practical_harm_tolerance": 0.0
+    }
+  ],
+  "reasons": [
+    "missing comparator occupancy_capacity_aware_pressure for ('arterial_downstream_blockage', 1.0, 20261701)",
+    "missing comparator delay_based_max_pressure for ('arterial_downstream_blockage', 1.0, 20261701)",
+    "missing comparator switching_loss_max_pressure for ('arterial_downstream_blockage', 1.0, 20261701)",
+    "missing comparator occupancy_capacity_aware_pressure for ('arterial_spillback_stress', 1.0, 20261701)",
+    "missing comparator delay_based_max_pressure for ('arterial_spillback_stress', 1.0, 20261701)",
+    "missing comparator switching_loss_max_pressure for ('arterial_spillback_stress', 1.0, 20261701)",
+    "missing comparator occupancy_capacity_aware_pressure for ('arterial_v1_5_storage_activation', 1.0, 20261701)",
+    "missing comparator delay_based_max_pressure for ('arterial_v1_5_storage_activation', 1.0, 20261701)",
+    "missing comparator switching_loss_max_pressure for ('arterial_v1_5_storage_activation', 1.0, 20261701)",
+    "training rows show safety-guard harm against strong baselines",
+    "action separation from pressure is below 5% on completed training rows"
+  ],
+  "claim_scope": {
+    "closed_loop_superiority_claim_allowed": false,
+    "why": "training selection can reject or select a candidate for a future protocol, but cannot itself prove a claim"
+  }
+}

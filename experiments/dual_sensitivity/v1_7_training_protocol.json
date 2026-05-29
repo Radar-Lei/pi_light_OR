@@ -1,0 +1,218 @@
+{
+  "experiment": "v1_7_training_protocol",
+  "status": "TRAINING_LOCKED",
+  "generated_by": "scripts/lock_v17_protocol.py",
+  "generated_at": "2026-05-28T19:01:59.042495+00:00",
+  "requirements_covered": [
+    "V17-PROTO-01",
+    "V17-EVID-01",
+    "V17-CLAIM-01"
+  ],
+  "protocol_fingerprint": "7e9bffe97c7fcc4261434c6a4a54c667bd5859056535b6fc6843b9cf2a51831d",
+  "claim_scope": {
+    "allowed_now": "protocol lock and future-evidence contract only",
+    "not_claimed": [
+      "closed_loop_superiority",
+      "locked_holdout_passed",
+      "deployment_readiness"
+    ]
+  },
+  "controller_id": "finite_storage_completion_primal_dual_v1_7",
+  "controller_params": {
+    "H_rollout": 3.0,
+    "alpha_release": 0.7,
+    "beta_storage": 0.15,
+    "capacity_correction_activation": 0.7,
+    "cascade_risk_threshold": 0.3,
+    "completion_critical_horizon_fraction": 0.3,
+    "completion_deficit_threshold": 0.75,
+    "completion_horizon_fraction": 0.7,
+    "completion_safe_margin": 0.1,
+    "correction_cap_floor": 2.0,
+    "correction_cap_ratio": 0.6,
+    "delta_service": 0.35,
+    "dual_decay": 0.25,
+    "dual_step_size": 0.3,
+    "eps_u": 0.05,
+    "eta_completion": 0.5,
+    "gamma_cascade": 0.1,
+    "kappa_completion": 0.2,
+    "lambda_blocking": 0.3,
+    "lambda_spillback": 0.5,
+    "lambda_switching": 0.25,
+    "nu_decay": 0.15,
+    "nu_step_size": 0.8,
+    "release_step_size": 0.3,
+    "release_threshold": 0.7,
+    "rollout_dt": 1.0,
+    "saturation_flow": 5.0,
+    "slack_occupancy_threshold": 0.65,
+    "storage_binding_threshold": 0.8,
+    "storage_threshold": 0.72,
+    "supersaturation_threshold": 3.0,
+    "switching_hold_bonus": 1.0,
+    "tau_adv": 0.1
+  },
+  "required_baselines": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "occupancy_capacity_aware_pressure",
+    "finite_storage_double_pressure",
+    "delay_based_max_pressure",
+    "switching_loss_max_pressure"
+  ],
+  "training_split": {
+    "profile": "training",
+    "scenarios": [
+      "arterial_v1_5_storage_activation",
+      "arterial_spillback_stress",
+      "arterial_downstream_blockage"
+    ],
+    "seeds": [
+      20261701,
+      20261702,
+      20261703,
+      20261704,
+      20261705,
+      20261706
+    ],
+    "demand_multipliers": [
+      0.85,
+      1.0,
+      1.15
+    ],
+    "controllers": [
+      "finite_storage_completion_primal_dual_v1_7",
+      "max_pressure",
+      "capacity_aware_pressure",
+      "occupancy_capacity_aware_pressure",
+      "finite_storage_double_pressure",
+      "delay_based_max_pressure",
+      "switching_loss_max_pressure"
+    ],
+    "steps": 3600,
+    "warmup": 900,
+    "action_interval": 10,
+    "not_claim_evidence": true,
+    "expected_row_count": 378,
+    "screen_row_count": 12,
+    "screen_subset": {
+      "seeds": [
+        20261701
+      ],
+      "demand_multipliers": [
+        1.0
+      ],
+      "controllers": [
+        "finite_storage_completion_primal_dual_v1_7",
+        "max_pressure",
+        "capacity_aware_pressure",
+        "finite_storage_double_pressure"
+      ]
+    }
+  },
+  "locked_holdout": {
+    "role": "claim_eligible_only_if_executed_after_protocol_lock",
+    "profile": "main",
+    "scenarios": [
+      "arterial_downstream_blockage",
+      "arterial_spillback_stress",
+      "arterial_oversaturation",
+      "arterial_turning_shock",
+      "arterial_incident_capacity_drop",
+      "arterial_switching_loss_sensitive"
+    ],
+    "seeds": [
+      20261707,
+      20261708,
+      20261709,
+      20261710
+    ],
+    "demand_multipliers": [
+      0.85,
+      1.0,
+      1.15
+    ],
+    "controllers": [
+      "finite_storage_completion_primal_dual_v1_7",
+      "max_pressure",
+      "capacity_aware_pressure",
+      "occupancy_capacity_aware_pressure",
+      "finite_storage_double_pressure",
+      "delay_based_max_pressure",
+      "switching_loss_max_pressure"
+    ],
+    "steps": 3600,
+    "warmup": 900,
+    "action_interval": 10,
+    "expected_row_count": 504
+  },
+  "primary_endpoint": {
+    "name": "composite_finite_storage_operating_cost",
+    "components": [
+      "delay",
+      "spillback_blocking_time",
+      "switching_lost_time",
+      "unfinished_vehicle_penalty"
+    ],
+    "weights": {
+      "delay": 1.0,
+      "unfinished_vehicle_penalty": 1.0,
+      "spillback_blocking_time": 1.0,
+      "switching_lost_time": 1.0
+    },
+    "formula": "delay + unfinished_vehicle_penalty + spillback_blocking_time + switching_lost_time",
+    "paired_seed_comparison": true,
+    "required_result": "lower_is_better_against_each_required_baseline"
+  },
+  "safety_guards": {
+    "penalized_avg_travel_time": {
+      "practical_harm_tolerance": 0.05,
+      "direction": "lower_is_better"
+    },
+    "total_delay": {
+      "practical_harm_tolerance": 0.05,
+      "direction": "lower_is_better"
+    },
+    "unfinished_vehicle_count": {
+      "practical_harm_tolerance": 0.0,
+      "direction": "lower_is_better"
+    }
+  },
+  "selection_rule": {
+    "objective": "minimax_regret",
+    "formula": "min over candidate params of max over baselines of [J(candidate, s) - J(baseline, s)]_+",
+    "eligible_for_selection_only_if": [
+      "no safety-guard harm against max_pressure",
+      "no safety-guard harm against capacity_aware_pressure",
+      "no safety-guard harm against finite_storage_double_pressure",
+      "advantage_gate_activation_rate > 0",
+      "action_separation_rate > 0.05"
+    ],
+    "not_confirmatory_evidence": true
+  },
+  "secondary_metrics": [
+    "spillback_count",
+    "blocking_count",
+    "switching_count",
+    "throughput",
+    "completion_rate"
+  ],
+  "failure_rules": {
+    "training_rows_not_claim_evidence": true,
+    "missing_required_baseline_fails_closed": true,
+    "missing_paired_seed_fails_closed": true,
+    "post_lock_controller_param_change_fails_closed": true,
+    "closed_loop_superiority_allowed_only_if_locked_holdout_passes": true
+  },
+  "diagnostic_prerequisites": [
+    "experiments/dual_sensitivity/v1_7_cfs_pd_mpc_gates.json"
+  ],
+  "artifact_plan": {
+    "training_protocol": "experiments/dual_sensitivity/v1_7_training_protocol.json",
+    "training_execution": "experiments/dual_sensitivity/v1_7_training_execution.json",
+    "training_selection": "experiments/dual_sensitivity/v1_7_training_selection.json",
+    "locked_holdout_execution": "experiments/dual_sensitivity/v1_7_locked_holdout_execution.json",
+    "paired_evidence": "experiments/dual_sensitivity/v1_7_paired_evidence.json"
+  }
+}
