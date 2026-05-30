@@ -1,0 +1,154 @@
+{
+  "experiment": "v1_8_locked_holdout_protocol",
+  "status": "HOLDOUT_LOCKED",
+  "generated_at": "2026-05-30T07:37:57Z",
+  "locked": true,
+  "no_changes_allowed": true,
+  "source_protocol": "experiments/dual_sensitivity/v1_8_training_protocol.json",
+  "controller_id": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+  "controller_params": {
+    "H_rollout": 3.0,
+    "alpha_release": 0.7,
+    "beta_storage": 0.15,
+    "capacity_correction_activation": 0.7,
+    "cascade_risk_threshold": 0.3,
+    "completion_critical_horizon_fraction": 0.3,
+    "completion_deficit_threshold": 0.75,
+    "completion_horizon_fraction": 0.7,
+    "completion_safe_margin": 0.1,
+    "correction_cap_floor": 2.0,
+    "correction_cap_ratio": 0.6,
+    "delta_service": 0.35,
+    "dual_decay": 0.25,
+    "dual_step_size": 0.3,
+    "eps_u": 0.05,
+    "eta_completion": 0.5,
+    "gamma_cascade": 0.1,
+    "kappa_completion": 0.2,
+    "lambda_blocking": 0.3,
+    "lambda_spillback": 0.5,
+    "lambda_switching": 0.25,
+    "nu_decay": 0.15,
+    "nu_step_size": 0.8,
+    "release_step_size": 0.3,
+    "release_threshold": 0.7,
+    "rollout_dt": 1.0,
+    "saturation_flow": 5.0,
+    "slack_occupancy_threshold": 0.65,
+    "storage_binding_threshold": 0.8,
+    "storage_threshold": 0.72,
+    "supersaturation_threshold": 3.0,
+    "switching_hold_bonus": 1.0,
+    "tau_adv": 0.1
+  },
+  "controller_params_fingerprint": "4187f0476084ac13",
+  "required_baselines": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "occupancy_capacity_aware_pressure",
+    "finite_storage_double_pressure",
+    "delay_based_max_pressure",
+    "switching_loss_max_pressure"
+  ],
+  "all_controllers": [
+    "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+    "max_pressure",
+    "capacity_aware_pressure",
+    "occupancy_capacity_aware_pressure",
+    "finite_storage_double_pressure",
+    "delay_based_max_pressure",
+    "switching_loss_max_pressure"
+  ],
+  "holdout_grid": {
+    "profile": "holdout",
+    "scenarios": [
+      "arterial_downstream_blockage",
+      "arterial_spillback_stress",
+      "arterial_oversaturation",
+      "arterial_turning_shock",
+      "arterial_incident_capacity_drop",
+      "arterial_switching_loss_sensitive"
+    ],
+    "seeds": [
+      20261811,
+      20261812,
+      20261813,
+      20261814
+    ],
+    "demand_multipliers": [
+      0.85,
+      1.0,
+      1.15
+    ],
+    "controllers": [
+      "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "max_pressure",
+      "capacity_aware_pressure",
+      "occupancy_capacity_aware_pressure",
+      "finite_storage_double_pressure",
+      "delay_based_max_pressure",
+      "switching_loss_max_pressure"
+    ],
+    "steps": 3600,
+    "warmup": 900,
+    "action_interval": 10
+  },
+  "seed_isolation": {
+    "training_seeds": [
+      20261801,
+      20261802,
+      20261803,
+      20261804,
+      20261805,
+      20261806
+    ],
+    "holdout_seeds": [
+      20261811,
+      20261812,
+      20261813,
+      20261814
+    ],
+    "overlap": false,
+    "verified": true
+  },
+  "primary_endpoint": {
+    "name": "composite_finite_storage_operating_cost",
+    "components": [
+      "delay",
+      "spillback_blocking_time",
+      "switching_lost_time",
+      "unfinished_vehicle_penalty"
+    ],
+    "weights": {
+      "delay": 1.0,
+      "unfinished_vehicle_penalty": 1.0,
+      "spillback_blocking_time": 1.0,
+      "switching_lost_time": 1.0
+    },
+    "formula": "delay + unfinished_vehicle_penalty + spillback_blocking_time + switching_lost_time",
+    "paired_seed_comparison": true,
+    "required_result": "lower_is_better_against_each_required_baseline"
+  },
+  "safety_guards": {
+    "penalized_avg_travel_time": {
+      "practical_harm_tolerance": 0.05,
+      "direction": "lower_is_better"
+    },
+    "total_delay": {
+      "practical_harm_tolerance": 0.05,
+      "direction": "lower_is_better"
+    },
+    "unfinished_vehicle_count": {
+      "practical_harm_tolerance": 0.0,
+      "direction": "lower_is_better"
+    }
+  },
+  "expected_row_count": 504,
+  "artifact_plan": {
+    "execution": "experiments/dual_sensitivity/v1_8_locked_holdout_execution.json",
+    "progress": "experiments/dual_sensitivity/v1_8_locked_holdout_progress.json",
+    "analysis": "experiments/dual_sensitivity/v1_8_locked_holdout_analysis.json"
+  },
+  "scaled_input_dir": "experiments/dual_sensitivity/v1_8_training_scaled_inputs",
+  "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json"
+}

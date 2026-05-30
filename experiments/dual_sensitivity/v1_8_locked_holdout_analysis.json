@@ -1,0 +1,164 @@
+{
+  "experiment": "v1_8_locked_holdout_analysis",
+  "status": "COMPLETE",
+  "total_rows": 504,
+  "failures": 0,
+  "seed_isolation": {
+    "training_seeds": [
+      20261801,
+      20261802,
+      20261803,
+      20261804,
+      20261805,
+      20261806
+    ],
+    "holdout_seeds": [
+      20261811,
+      20261812,
+      20261813,
+      20261814
+    ],
+    "overlap": false
+  },
+  "v18_overall_rank": 3,
+  "v18_overall_rank_of": 7,
+  "ranked_controllers": [
+    {
+      "controller": "delay_based_max_pressure",
+      "mean_cost": 580868.1
+    },
+    {
+      "controller": "switching_loss_max_pressure",
+      "mean_cost": 585797.2
+    },
+    {
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "mean_cost": 593059.4
+    },
+    {
+      "controller": "capacity_aware_pressure",
+      "mean_cost": 598200.4
+    },
+    {
+      "controller": "finite_storage_double_pressure",
+      "mean_cost": 598200.4
+    },
+    {
+      "controller": "max_pressure",
+      "mean_cost": 599974.0
+    },
+    {
+      "controller": "occupancy_capacity_aware_pressure",
+      "mean_cost": 602372.3
+    }
+  ],
+  "baseline_comparisons": {
+    "capacity_aware_pressure": {
+      "paired_comparisons": 72,
+      "v18_wins": 42,
+      "v18_losses": 30,
+      "win_pct": 58.3,
+      "mean_diff": 5141.04,
+      "median_diff": 2599.0,
+      "t_stat": 1.5765,
+      "p_value": 0.119366,
+      "significant_at_005": false
+    },
+    "delay_based_max_pressure": {
+      "paired_comparisons": 72,
+      "v18_wins": 26,
+      "v18_losses": 46,
+      "win_pct": 36.1,
+      "mean_diff": -12191.32,
+      "median_diff": -10590.5,
+      "t_stat": -3.7,
+      "p_value": 0.000422,
+      "significant_at_005": true
+    },
+    "finite_storage_double_pressure": {
+      "paired_comparisons": 72,
+      "v18_wins": 42,
+      "v18_losses": 30,
+      "win_pct": 58.3,
+      "mean_diff": 5141.04,
+      "median_diff": 2599.0,
+      "t_stat": 1.5765,
+      "p_value": 0.119366,
+      "significant_at_005": false
+    },
+    "max_pressure": {
+      "paired_comparisons": 72,
+      "v18_wins": 43,
+      "v18_losses": 29,
+      "win_pct": 59.7,
+      "mean_diff": 6914.61,
+      "median_diff": 3554.0,
+      "t_stat": 2.8111,
+      "p_value": 0.006377,
+      "significant_at_005": true
+    },
+    "occupancy_capacity_aware_pressure": {
+      "paired_comparisons": 72,
+      "v18_wins": 46,
+      "v18_losses": 26,
+      "win_pct": 63.9,
+      "mean_diff": 9312.88,
+      "median_diff": 4797.0,
+      "t_stat": 2.9365,
+      "p_value": 0.004472,
+      "significant_at_005": true
+    },
+    "switching_loss_max_pressure": {
+      "paired_comparisons": 72,
+      "v18_wins": 25,
+      "v18_losses": 47,
+      "win_pct": 34.7,
+      "mean_diff": -7262.19,
+      "median_diff": -10455.0,
+      "t_stat": -2.4882,
+      "p_value": 0.015186,
+      "significant_at_005": true
+    }
+  },
+  "scenario_breakdown": {
+    "arterial_downstream_blockage": {
+      "v18_mean_cost": 592076.1,
+      "mp_mean_cost": 601012.8,
+      "diff_pct": -1.49
+    },
+    "arterial_incident_capacity_drop": {
+      "v18_mean_cost": 592076.1,
+      "mp_mean_cost": 601012.8,
+      "diff_pct": -1.49
+    },
+    "arterial_oversaturation": {
+      "v18_mean_cost": 595392.0,
+      "mp_mean_cost": 601917.8,
+      "diff_pct": -1.08
+    },
+    "arterial_spillback_stress": {
+      "v18_mean_cost": 595392.0,
+      "mp_mean_cost": 601917.8,
+      "diff_pct": -1.08
+    },
+    "arterial_switching_loss_sensitive": {
+      "v18_mean_cost": 588028.2,
+      "mp_mean_cost": 592065.0,
+      "diff_pct": -0.68
+    },
+    "arterial_turning_shock": {
+      "v18_mean_cost": 595392.0,
+      "mp_mean_cost": 601917.8,
+      "diff_pct": -1.08
+    }
+  },
+  "key_findings": {
+    "v18_beats_mp": true,
+    "v18_vs_mp_win_pct": 59.7,
+    "v18_vs_mp_p_value": 0.006377,
+    "v18_vs_mp_significant": true,
+    "average_win_pct_across_baselines": 51.8
+  },
+  "verdict": "HOLDOUT_PASSED",
+  "verdict_details": "v1.8 CFS-PD-MPC advantage generalizes to unseen holdout seeds. Overall rank #3/7. vs MP: 59.7% win rate (p=0.0064). Average win% across all baselines: 51.8%."
+}
