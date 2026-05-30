@@ -1,0 +1,87 @@
+{
+  "version": "v1.7",
+  "controller": "finite_storage_completion_primal_dual_v1_7",
+  "status": "REJECTED",
+  "closeout_date": "2026-05-29",
+  "row_audit": {
+    "expected": 378,
+    "raw": 378,
+    "completed": 378,
+    "missing": 0,
+    "failed": 0,
+    "duplicate": 0
+  },
+  "failure_modes": {
+    "action_separation": {
+      "total_decisions": 72900,
+      "action_changes": 2057,
+      "rate": 0.02821673525377229,
+      "target": ">5%",
+      "verdict": "FAILED",
+      "description": "Controller diverges from max-pressure on only 2.82% of decisions, far below the 5% action-separation gate. The controller is effectively a near-clone of pressure in most states, with the completion-critical regime activating uniformly but failing to produce differentiated actions."
+    },
+    "regime_collapse": {
+      "regime_counts": {
+        "slack": 0,
+        "storage_binding": 0,
+        "cascade_risk": 0,
+        "completion_critical": 270
+      },
+      "total_binding_decisions": 24270,
+      "completion_critical_count": 270,
+      "completion_critical_pct": 100.0,
+      "other_regimes_activated": {
+        "slack": 0,
+        "storage_binding": 0,
+        "cascade_risk": 0
+      },
+      "verdict": "FAILED",
+      "description": "Regime classifier collapsed entirely to completion_critical: all 270 controller-row observations land in a single regime. Slack, storage_binding, and cascade_risk regimes were never activated despite the training split including spillback stress and downstream blockage scenarios designed to trigger them. The classifier lacks discriminative power."
+    },
+    "baseline_regret": {
+      "mean_regret_by_baseline": {
+        "max_pressure": 1078330.648148148,
+        "capacity_aware_pressure": 4712.777777777777,
+        "occupancy_capacity_aware_pressure": 6527.740740740741,
+        "finite_storage_double_pressure": 252151.61111111112,
+        "delay_based_max_pressure": 1272257.037037037,
+        "switching_loss_max_pressure": 1949566.462962963
+      },
+      "worst_baseline": "switching_loss_max_pressure",
+      "worst_regret": 1949566.462962963,
+      "verdict": "FAILED",
+      "description": "Minimax regret is ~1.95M against switching_loss_max_pressure. All baselines except capacity_aware_pressure and occupancy_capacity_aware_pressure show six-figure or higher mean regret. The controller is consistently outperformed, especially by switching-aware and delay-aware baselines that model mechanisms v1.7 ignores."
+    },
+    "safety_harms": {
+      "description": "243 safety-guard violations across all 6 baselines. Violations span total_delay (88), unfinished_vehicle_count (133), and penalized_avg_travel_time (22). Worst offender is switching_loss_max_pressure with 92 violations. Even max_pressure produces 23 violations. The controller causes real harm: more vehicles stuck unfinished and higher delay than baselines.",
+      "total_violations": 243,
+      "violations_by_metric": {
+        "total_delay": 88,
+        "unfinished_vehicle_count": 133,
+        "penalized_avg_travel_time": 22
+      },
+      "violations_by_baseline": {
+        "switching_loss_max_pressure": 92,
+        "delay_based_max_pressure": 70,
+        "occupancy_capacity_aware_pressure": 24,
+        "max_pressure": 23,
+        "finite_storage_double_pressure": 20,
+        "capacity_aware_pressure": 14
+      },
+      "verdict": "FAILED"
+    }
+  },
+  "root_cause_ranking": [
+    "1. Regime classifier collapse: the four-regime classifier (slack/storage_binding/cascade_risk/completion_critical) collapsed to a single regime (completion_critical=100%). This is the root failure -- without regime discrimination, the controller cannot apply regime-appropriate corrections and falls back to near-pressure behavior everywhere.",
+    "2. Safety envelope not regime-dependent: with all observations classified as completion_critical, the safety envelope is applied uniformly and is too conservative in states that should be slack, while being too loose in states that should be cascade_risk or storage_binding. This produces 243 safety-guard violations across all baselines.",
+    "3. No switching/coordination mechanism: the controller lacks any explicit switching-loss or inter-intersection coordination model. switching_loss_max_pressure is the worst baseline (regret ~1.95M), confirming that switching cost awareness is critical for arterial networks with coordinated signal timing.",
+    "4. Uncalibrated rollout predictions: the 3-step rollout with H_rollout=3.0 produces advantage-gate activations (95.9% rate) that are disconnected from actual performance improvements. The gate activates pervasively but the resulting actions barely differ from pressure (2.82% change rate), indicating the rollout model does not identify genuinely beneficial departures."
+  ],
+  "v18_implications": {
+    "regime_classifier": "Must be first gate -- regime balance must pass before training. v1.8 should validate regime distribution on held-out states before any closed-loop run. Require minimum 10% activation in at least 3 of 4 regimes.",
+    "safety_envelope": "Must be regime-dependent. Different regimes need different safety thresholds. The current flat tolerance model is structurally insufficient.",
+    "switching": "Must be first-class mechanism. Switching loss appears in the primary endpoint and in the worst baseline. v1.8 must include explicit switching cost in the controller objective or dual decomposition.",
+    "rollout": "Must pass sign-accuracy gate. The rollout model should be validated for directional accuracy (does the predicted improvement match the actual improvement?) before being used for action selection."
+  },
+  "training_iterations_summary": "Single-parameter controller (finite_storage_completion_primal_dual_v1_7) evaluated on 378 training rows (54 controller rows x 6 baselines x 6 seeds x 3 demand multipliers). Row audit is clean (378/378 completed, 0 missing/failed/duplicate). Mechanism diagnostics show total failure: regime collapse to single class, action separation at 2.82% vs 5% target, minimax regret ~1.95M against switching_loss_max_pressure, and 243 safety-guard violations. Decision: REJECT. Claim scope remains non-confirmatory -- training rows are not claim evidence per protocol."
+}

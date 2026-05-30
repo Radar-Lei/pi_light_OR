@@ -1,0 +1,56 @@
+{
+  "version": "v1.7",
+  "baselines": [
+    {
+      "name": "max_pressure",
+      "type": "pressure",
+      "strength": "theoretically optimal in slack regimes"
+    },
+    {
+      "name": "capacity_aware_pressure",
+      "type": "capacity_aware",
+      "strength": "handles downstream capacity limits"
+    },
+    {
+      "name": "occupancy_capacity_aware_pressure",
+      "type": "occupancy_aware",
+      "strength": "occupancy-based capacity correction"
+    },
+    {
+      "name": "finite_storage_double_pressure",
+      "type": "finite_storage",
+      "strength": "explicit storage-aware pressure"
+    },
+    {
+      "name": "delay_based_max_pressure",
+      "type": "delay_aware",
+      "strength": "delay-weighted pressure"
+    },
+    {
+      "name": "switching_loss_max_pressure",
+      "type": "switching_aware",
+      "strength": "penalizes frequent phase changes"
+    }
+  ],
+  "oracle_analysis": {
+    "mean_regret_by_baseline": {
+      "capacity_aware_pressure": 4712.777777777777,
+      "delay_based_max_pressure": 1272257.037037037,
+      "finite_storage_double_pressure": 252151.61111111112,
+      "max_pressure": 1078330.648148148,
+      "occupancy_capacity_aware_pressure": 6527.740740740741,
+      "switching_loss_max_pressure": 1949566.462962963
+    },
+    "worst_baseline": "switching_loss_max_pressure",
+    "worst_regret": 1949566.462962963,
+    "strongest_adversary": "switching_loss_max_pressure",
+    "adversary_characteristics": "Handles switching loss well, hard to beat in switching-sensitive scenarios"
+  },
+  "implications_for_v18": {
+    "storage_binding_regimes": "capacity_aware baselines likely oracle - v1.8 storage dual must show clear advantage",
+    "switching_sensitive_regimes": "switching_loss_max_pressure is strongest adversary - v1.8 needs stateful switching dual",
+    "completion_critical_regimes": "max_pressure often sufficient - v1.8 should be conservative here",
+    "slack_regimes": "max_pressure near-optimal - v1.8 should revert to MP behavior"
+  },
+  "recommended_v18_baselines": "Keep all 6 current baselines, do not weaken"
+}

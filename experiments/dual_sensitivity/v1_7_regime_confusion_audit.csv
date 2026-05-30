@@ -1,0 +1,60 @@
+expected_regime,actual_regime,count,pct,issue
+slack,completion_critical,270,100.0,regime_not_activated
+storage_binding,completion_critical,0,0.0,regime_not_activated
+cascade_risk,completion_critical,0,0.0,regime_not_activated
+completion_critical,completion_critical,270,100.0,ok
+switching_sensitive,completion_critical,0,0.0,regime_not_in_model
+coordination,completion_critical,0,0.0,regime_not_in_model
+TOTAL,,270,100.0,
+COMPLETION_CRITICAL_PCT,completion_critical,270,100.0,dominant_regime_collapse
+OTHER_REGIMES_PCT,other,0,0.0,near_zero_activation
+# --- COMMENT SECTION ---
+# 1. WHY REGIME COLLAPSE HAPPENED
+# The v1.7 regime_tagging gate (V17-GATE-07 in v1_7_cfs_pd_mpc_gates.json) confirmed that
+# four regimes can be activated in hand-crafted deterministic test states: slack, storage_binding,
+# cascade_risk, and completion_critical. However, in the full 270-row training suite
+# (v1_7_training_selection.json, 72900 total decisions across 54 controller rows x 6 baselines x
+# various scenario/seed combos), the regime_counts field shows completion_critical=270 while
+# slack=0, storage_binding=0, cascade_risk=0. This means every single scenario row was tagged
+# completion_critical. The root cause is that the completion_critical tag uses a combination of
+# occupancy_ratio thresholds and finishable_ratio checks that are too easily triggered: the
+# completion_deficit_threshold=0.6 and storage_threshold=0.72 thresholds are met in virtually
+# all sampled arterial and grid states because downstream links routinely have occupancy_ratio=1.0
+# (the completion_state blocks show occupancy_ratio=1.0 and finishable_ratio=0.0 for most edges).
+# The deterministic gate tests set up carefully separated states (e.g., slack case with
+# occupancy_ratio ~0.1-0.2), but real SUMO-sampled states in the training suite almost always
+# have at least one movement with high occupancy and zero finishable vehicles, triggering
+# completion_critical universally. In effect, the regime boundary thresholds are too strict on
+# the slack/storage/cascade side and too loose on the completion side, causing a single regime
+# to absorb all decisions.
+#
+# 2. WHAT THIS MEANS FOR v1.8
+# v1.8 must redesign the regime-tagging mechanism with three changes:
+# (a) Softer regime boundaries: replace hard thresholds with soft scoring functions so that a
+#     state can have non-zero membership in multiple regimes simultaneously. For example, a
+#     continuous regime_score per regime based on how far the state is from the regime centroid,
+#     rather than a boolean gate.
+# (b) Multi-label regime scoring: instead of mutually exclusive regime assignment, allow each
+#     decision to carry a weighted regime vector (e.g., slack=0.3, storage_binding=0.5,
+#     completion_critical=0.2) so that the controller can blend regime-appropriate corrections.
+# (c) Per-regime activation floor: enforce a minimum activation rate for each designed regime
+#     in the training suite. If a regime falls below 5% activation across all scenarios, flag
+#     it as a collapsed regime and adjust thresholds or add scenario diversity until it activates.
+#
+# 3. SPECIFIC GATE THAT SHOULD CATCH THIS IN v1.8
+# A new gate V18-GATE-REGIME-DIVERSITY should be added that:
+# - Computes regime_counts and regime_distribution over the full training suite after regime
+#   tagging, exactly as v1.7 does.
+# - Asserts that no single regime exceeds 80% of all tagged decisions.
+# - Asserts that every designed regime has at least 5% activation.
+# - Fails the gate with status REGIME_COLLAPSE if either assertion is violated, blocking
+#   progression to closed-loop experiments until regime boundaries are recalibrated.
+# This gate should run BEFORE the training selection gate (V17-TRAIN-01 equivalent) so that
+# regime collapse is caught early, not after 72900 decisions have been evaluated.
+#
+# DATA SOURCES:
+# - v1_7_training_selection.json: regime_counts={slack:0, storage_binding:0, cascade_risk:0, completion_critical:270}
+# - v1_7_cfs_pd_mpc_gates.json: regime_tagging gate tested 4 regimes in isolation, all passed deterministically
+# - Regime distribution: completion_critical=1.0, all others=0.0
+# - Total decisions in training: 72900 (54 controller_rows x ~1350 decisions each)
+# - switching_sensitive and coordination were not implemented in v1.7 regime_tagging (regime_not_in_model)

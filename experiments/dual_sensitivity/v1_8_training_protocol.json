@@ -1,0 +1,357 @@
+{
+  "experiment": "v1_8_training_protocol",
+  "status": "TRAINING_LOCKED",
+  "generated_at": "2026-05-29",
+  "requirements_covered": [
+    "V18-PROTO-01",
+    "V18-EVID-01",
+    "V18-CLAIM-01"
+  ],
+  "prerequisites": [
+    {
+      "artifact": "experiments/dual_sensitivity/v1_7_failure_decomposition.json",
+      "status": "REJECTED",
+      "reason": "v1.7 closed out with regime collapse, action separation failure, and 243 safety-guard violations. v1.8 addresses all four root causes identified in the decomposition."
+    },
+    {
+      "artifact": "experiments/dual_sensitivity/v1_7_training_protocol.json",
+      "status": "CLOSED",
+      "reason": "v1.7 protocol locked and executed. Results rejected. v1.8 inherits structural conventions but overhauls eligibility, selection, and parameter grid."
+    }
+  ],
+  "claim_scope": {
+    "allowed_now": "protocol lock and future-evidence contract only",
+    "not_claimed": [
+      "closed_loop_superiority",
+      "locked_holdout_passed",
+      "deployment_readiness"
+    ]
+  },
+  "controller_id": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+  "controller_params": {
+    "H_rollout": 3.0,
+    "alpha_release": 0.7,
+    "beta_storage": 0.15,
+    "capacity_correction_activation": 0.7,
+    "cascade_risk_threshold": 0.3,
+    "completion_critical_horizon_fraction": 0.3,
+    "completion_deficit_threshold": 0.75,
+    "completion_horizon_fraction": 0.7,
+    "completion_safe_margin": 0.1,
+    "correction_cap_floor": 2.0,
+    "correction_cap_ratio": 0.6,
+    "delta_service": 0.35,
+    "dual_decay": 0.25,
+    "dual_step_size": 0.3,
+    "eps_u": 0.05,
+    "eta_completion": 0.5,
+    "gamma_cascade": 0.1,
+    "kappa_completion": 0.2,
+    "lambda_blocking": 0.3,
+    "lambda_spillback": 0.5,
+    "lambda_switching": 0.25,
+    "nu_decay": 0.15,
+    "nu_step_size": 0.8,
+    "release_step_size": 0.3,
+    "release_threshold": 0.7,
+    "rollout_dt": 1.0,
+    "saturation_flow": 5.0,
+    "slack_occupancy_threshold": 0.65,
+    "storage_binding_threshold": 0.8,
+    "storage_threshold": 0.72,
+    "supersaturation_threshold": 3.0,
+    "switching_hold_bonus": 1.0,
+    "tau_adv": 0.1
+  },
+  "required_baselines": [
+    "max_pressure",
+    "capacity_aware_pressure",
+    "occupancy_capacity_aware_pressure",
+    "finite_storage_double_pressure",
+    "delay_based_max_pressure",
+    "switching_loss_max_pressure"
+  ],
+  "baseline_note": "All 6 baselines retained from v1.7 without weakening. switching_loss_max_pressure remains the hardest baseline per v1.7 failure decomposition (worst regret ~1.95M).",
+  "training_grid": {
+    "H": [2, 3, 4],
+    "beta_storage": [0.10, 0.15, 0.20],
+    "gamma_cascade": [0.05, 0.10, 0.15],
+    "eta_completion": [0.30, 0.50, 0.70],
+    "lambda_switching": [0.15, 0.25, 0.35],
+    "eps_u_per_regime": {
+      "slack": [0.03, 0.05],
+      "storage_binding": [0.04, 0.06],
+      "cascade_risk": [0.03, 0.05],
+      "completion_critical": [0.05, 0.08]
+    },
+    "tau_adv_per_regime": {
+      "slack": [0.05, 0.10],
+      "storage_binding": [0.08, 0.12],
+      "cascade_risk": [0.06, 0.10],
+      "completion_critical": [0.10, 0.15]
+    }
+  },
+  "training_split": {
+    "profile": "training",
+    "scenarios": [
+      "arterial_v1_5_storage_activation",
+      "arterial_spillback_stress",
+      "arterial_downstream_blockage",
+      "arterial_oversaturation",
+      "arterial_switching_loss_sensitive"
+    ],
+    "seeds": [
+      20261801,
+      20261802,
+      20261803,
+      20261804,
+      20261805,
+      20261806
+    ],
+    "demand_multipliers": [
+      0.85,
+      1.0,
+      1.15
+    ],
+    "controllers": [
+      "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "max_pressure",
+      "capacity_aware_pressure",
+      "occupancy_capacity_aware_pressure",
+      "finite_storage_double_pressure",
+      "delay_based_max_pressure",
+      "switching_loss_max_pressure"
+    ],
+    "steps": 3600,
+    "warmup": 900,
+    "action_interval": 10,
+    "not_claim_evidence": true,
+    "expected_row_count_per_param_config": 630,
+    "screen_row_count": 15,
+    "screen_subset": {
+      "seeds": [
+        20261801
+      ],
+      "demand_multipliers": [
+        1.0
+      ],
+      "controllers": [
+        "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+        "max_pressure",
+        "capacity_aware_pressure",
+        "finite_storage_double_pressure",
+        "switching_loss_max_pressure"
+      ]
+    }
+  },
+  "locked_holdout": {
+    "role": "claim_eligible_only_if_executed_after_protocol_lock",
+    "profile": "main",
+    "fresh_seed_requirement": "Holdout seeds must not overlap with any v1.7 or v1.8 training seed.",
+    "scenarios": [
+      "arterial_downstream_blockage",
+      "arterial_spillback_stress",
+      "arterial_oversaturation",
+      "arterial_turning_shock",
+      "arterial_incident_capacity_drop",
+      "arterial_switching_loss_sensitive"
+    ],
+    "seeds": [
+      20261811,
+      20261812,
+      20261813,
+      20261814
+    ],
+    "demand_multipliers": [
+      0.85,
+      1.0,
+      1.15
+    ],
+    "controllers": [
+      "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "max_pressure",
+      "capacity_aware_pressure",
+      "occupancy_capacity_aware_pressure",
+      "finite_storage_double_pressure",
+      "delay_based_max_pressure",
+      "switching_loss_max_pressure"
+    ],
+    "steps": 3600,
+    "warmup": 900,
+    "action_interval": 10,
+    "expected_row_count": 504
+  },
+  "primary_endpoint": {
+    "name": "composite_finite_storage_operating_cost",
+    "components": [
+      "delay",
+      "spillback_blocking_time",
+      "switching_lost_time",
+      "unfinished_vehicle_penalty"
+    ],
+    "weights": {
+      "delay": 1.0,
+      "unfinished_vehicle_penalty": 1.0,
+      "spillback_blocking_time": 1.0,
+      "switching_lost_time": 1.0
+    },
+    "formula": "delay + unfinished_vehicle_penalty + spillback_blocking_time + switching_lost_time",
+    "paired_seed_comparison": true,
+    "required_result": "lower_is_better_against_each_required_baseline"
+  },
+  "safety_guards": {
+    "penalized_avg_travel_time": {
+      "practical_harm_tolerance": 0.05,
+      "direction": "lower_is_better"
+    },
+    "total_delay": {
+      "practical_harm_tolerance": 0.05,
+      "direction": "lower_is_better"
+    },
+    "unfinished_vehicle_count": {
+      "practical_harm_tolerance": 0.0,
+      "direction": "lower_is_better"
+    }
+  },
+  "eligibility_requirements": {
+    "action_change_rate_overall": {
+      "description": "Overall action-change rate must exceed 5%, ensuring the controller meaningfully departs from pressure-based defaults.",
+      "threshold": 0.05,
+      "direction": "greater_than",
+      "v1_7_failure_value": 0.0282,
+      "rationale": "v1.7 failed at 2.82%. v1.8 requires the regime-calibrated classifier to produce differentiated actions across regimes."
+    },
+    "action_change_rate_storage_cascade": {
+      "description": "Action-change rate specifically in storage-binding and cascade-risk regimes must exceed 10%, ensuring these regimes produce substantially different actions from pressure.",
+      "threshold": 0.10,
+      "direction": "greater_than",
+      "rationale": "v1.7 regime collapse meant storage and cascade regimes never activated. v1.8 requires meaningful deviation in the regimes where dual corrections should be strongest."
+    },
+    "regime_balance": {
+      "description": "No single regime may account for more than 80% of binding decisions. At least 3 of 4 regimes (slack, storage_binding, cascade_risk, completion_critical) must each activate in at least 10% of binding decisions.",
+      "max_single_regime_pct": 80.0,
+      "min_regimes_at_10pct": 3,
+      "direction": "enforce_bounds",
+      "v1_7_failure_value": "completion_critical at 100%",
+      "rationale": "v1.7 collapsed entirely to completion_critical. v1.8 regime classifier must discriminate before training proceeds."
+    },
+    "rollout_sign_accuracy": {
+      "description": "Predicted advantage direction (improve vs worsen) from rollout must match actual outcome direction in >60% of evaluated decisions.",
+      "threshold": 0.60,
+      "direction": "greater_than",
+      "v1_7_failure_value": "pervasive activation with disconnected improvement (95.9% activation, 2.82% action change)",
+      "rationale": "v1.7 rollout produced advantage-gate activations disconnected from real performance. v1.8 requires directional accuracy as a calibration gate."
+    },
+    "no_catastrophic_unfinished_harm": {
+      "description": "Unfinished vehicle count must not increase by more than 5% relative to any baseline on any scenario-seed-demand combination. This is a hard safety floor.",
+      "tolerance": 0.05,
+      "direction": "relative_increase_cap",
+      "v1_7_failure_value": "133 unfinished_vehicle_count violations",
+      "rationale": "v1.7 produced 133 unfinished violations. v1.8 enforces a per-row cap instead of aggregate tolerance."
+    },
+    "no_practical_safety_harm": {
+      "description": "No safety-guard metric (penalized_avg_travel_time, total_delay) may show practical harm against any baseline. Practical harm = metric worse by >5% tolerance.",
+      "tolerance": 0.05,
+      "direction": "no_harm_vs_any_baseline",
+      "v1_7_failure_value": "243 total safety-guard violations across all baselines",
+      "rationale": "v1.7 violated safety guards against all 6 baselines. v1.8 requires clean safety profile as a pre-selection gate."
+    }
+  },
+  "selection_rule": {
+    "objective": "minimax_regret",
+    "formula": "min over candidate params of max over baselines of [J(candidate, s) - J(baseline, s)]_+",
+    "win_vs_mp": {
+      "description": "At least 70% of training scenario x demand group combinations must show positive J improvement over max_pressure.",
+      "threshold": 0.70,
+      "direction": "fraction_positive_improvement",
+      "rationale": "Generalized pressure claim requires consistent improvement over the base pressure baseline."
+    },
+    "win_vs_core_finite_storage_baselines": {
+      "description": "Aggregate non-worse against capacity_aware_pressure, finite_storage_double_pressure, and occupancy_capacity_aware_pressure. Non-worse = no statistically significant regression (paired seed, p>0.05 two-sided).",
+      "baselines": [
+        "capacity_aware_pressure",
+        "finite_storage_double_pressure",
+        "occupancy_capacity_aware_pressure"
+      ],
+      "direction": "aggregate_non_worse",
+      "rationale": "Controller must not regress against baselines that already incorporate storage/finite-capacity awareness."
+    },
+    "switching_robustness": {
+      "description": "switching_loss_max_pressure must NOT be the dominant worst-regret baseline. If it is the worst baseline, its regret must be within 50% of the second-worst baseline's regret.",
+      "forbidden_dominant": "switching_loss_max_pressure",
+      "max_dominance_ratio": 1.5,
+      "direction": "constrain_worst_regret_source",
+      "v1_7_failure_value": "switching_loss_max_pressure worst regret at ~1.95M, far exceeding all others",
+      "rationale": "v1.7 was dominated by switching_loss regret. v1.8 must include switching as a first-class mechanism."
+    },
+    "mechanism_contribution": {
+      "description": "Each mechanism (storage, cascade, release, completion, switching) must contribute non-zero correction in its corresponding regime. Contribution = mean absolute dual-value weight associated with the mechanism when its regime is active.",
+      "required_mechanisms": ["storage", "cascade", "release", "completion", "switching"],
+      "direction": "each_mechanism_non_zero_in_corresponding_regime",
+      "rationale": "v1.7 regime collapse meant no mechanism discrimination. v1.8 requires each mechanism to activate when its regime fires."
+    },
+    "advantage_realization": {
+      "description": "More than 55% of decisions where the controller deviates from the baseline action must show realized improvement in the primary endpoint.",
+      "threshold": 0.55,
+      "direction": "greater_than",
+      "rationale": "v1.7 had 95.9% advantage-gate activation but only 2.82% action change -- most activations did not translate to improvement. v1.8 requires realized improvement."
+    },
+    "eligible_for_selection_only_if": [
+      "all eligibility_requirements pass",
+      "no safety-guard harm against any required_baseline",
+      "win_vs_mp threshold met",
+      "win_vs_core_finite_storage_baselines aggregate non-worse",
+      "switching_robustness constraint satisfied",
+      "mechanism_contribution all mechanisms non-zero",
+      "advantage_realization threshold met"
+    ],
+    "not_confirmatory_evidence": true
+  },
+  "secondary_metrics": [
+    "spillback_count",
+    "blocking_count",
+    "switching_count",
+    "throughput",
+    "completion_rate",
+    "regime_distribution",
+    "action_change_rate_by_regime",
+    "rollout_sign_accuracy_by_regime"
+  ],
+  "failure_rules": {
+    "training_rows_not_claim_evidence": true,
+    "missing_required_baseline_fails_closed": true,
+    "missing_paired_seed_fails_closed": true,
+    "post_lock_controller_param_change_fails_closed": true,
+    "closed_loop_superiority_allowed_only_if_locked_holdout_passes": true,
+    "regime_collapse_fails_closed": true,
+    "eligibility_gate_failure_prevents_selection": true
+  },
+  "diagnostic_prerequisites": [
+    "experiments/dual_sensitivity/v1_7_failure_decomposition.json",
+    "experiments/dual_sensitivity/v1_8_regime_classifier_validation.json"
+  ],
+  "v1_7_closeout_reference": {
+    "version": "v1.7",
+    "status": "REJECTED",
+    "key_failures": [
+      "regime_collapse_to_completion_critical_100pct",
+      "action_separation_2_82pct_vs_5pct_target",
+      "minimax_regret_1_95M_vs_switching_loss_max_pressure",
+      "243_safety_guard_violations"
+    ],
+    "root_causes_addressed_in_v1_8": [
+      "regime_classifier: v1.8 requires regime balance (no regime >80%, min 3 regimes at >10%)",
+      "safety_envelope: v1.8 requires no practical safety harm vs any baseline",
+      "switching_mechanism: v1.8 adds lambda_switching to training grid and switching_robustness selection gate",
+      "rollout_calibration: v1.8 requires rollout_sign_accuracy >60% as eligibility gate"
+    ]
+  },
+  "artifact_plan": {
+    "training_protocol": "experiments/dual_sensitivity/v1_8_training_protocol.json",
+    "regime_classifier_validation": "experiments/dual_sensitivity/v1_8_regime_classifier_validation.json",
+    "training_execution": "experiments/dual_sensitivity/v1_8_training_execution.json",
+    "training_selection": "experiments/dual_sensitivity/v1_8_training_selection.json",
+    "locked_holdout_execution": "experiments/dual_sensitivity/v1_8_locked_holdout_execution.json",
+    "paired_evidence": "experiments/dual_sensitivity/v1_8_paired_evidence.json"
+  }
+}

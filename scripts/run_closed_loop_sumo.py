@@ -169,6 +169,7 @@ CONTROLLER_REGISTRY = {
     "full_dual_symbolic": "Per-TLS dual policy where feasible; otherwise explicit not_feasible.",
     "finite_storage_completion_safe_primal_dual_v1_6": "V1.6 completion-safe controller with dual completion-price mechanism and feasible-set filtering.",
     "finite_storage_completion_primal_dual_v1_7": "V1.7 CFS-PD-MPC: Completion-aware Finite-Storage Primal-Dual Model-Predictive Pressure with baseline envelope and advantage gate.",
+    "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8": "V1.8 RC-CFS-PD-MPC: Regime-Calibrated Finite-Storage Primal-Dual Model-Predictive Pressure with soft-boundary multi-label regime classifier and regime-dependent safety envelopes.",
     "v17_ablation_no_completion": "Ablation: remove completion bonus from v1.7.",
     "v17_ablation_no_capacity_correction": "Ablation: always use pure max-pressure scoring (no capacity correction).",
     "v17_ablation_always_correct": "Ablation: always apply capacity correction regardless of congestion gate.",
@@ -293,6 +294,7 @@ FINITE_STORAGE_CONTROLLER_IDS = {
     "finite_storage_dynamic_primal_dual_v1_5_r114_reactivated_dual_supported_big_finishable_sum_horizon",
     "finite_storage_completion_safe_primal_dual_v1_6",
     "finite_storage_completion_primal_dual_v1_7",
+    "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
     "v17_ablation_no_completion",
     "v17_ablation_no_capacity_correction",
     "v17_ablation_always_correct",
@@ -529,9 +531,11 @@ DYNAMIC_V1_7_CFS_PD_MPC_PARAMS = {
     "kappa_completion": 0.20,
     "eta_completion": 0.50,
     # v1.7 CFS-PD-MPC new parameters
-    "H_rollout": 2,
+    "H_rollout": 10,
     "saturation_flow": 0.5,
-    "rollout_dt": 1.0,
+    # rollout_dt=0 means "use action_interval (10s) as dt" so each step
+    # covers one real signal interval; total window = 10*10 = 100s.
+    "rollout_dt": 0,
     "eps_u": 0.05,
     "tau_adv": 0.10,
     "slack_occupancy_threshold": 0.65,
@@ -554,6 +558,102 @@ DYNAMIC_V1_7_CFS_PD_MPC_PARAMS = {
     # v1.7 switching hold: bonus for keeping the current phase, reducing
     # unnecessary switches and spillback_blocking_time.
     "switching_hold_bonus": 1.0,
+}
+DYNAMIC_V1_8_RC_CFS_PD_MPC_PARAMS = {
+    # MPC — H=10 steps at action_interval per step gives 50-100s prediction
+    "H_rollout": 10,
+    "saturation_flow": 0.5,
+    # rollout_dt=0 means "use action_interval from the caller"; see cfs_pd_mpc_v1_8_action
+    "rollout_dt": 0,
+    # Dual-state update parameters (inherited from v1.7 for
+    # update_dynamic_dual_state and update_completion_dual_state)
+    "storage_threshold": 0.72,
+    "release_threshold": 0.70,
+    "dual_step_size": 0.30,
+    "release_step_size": 0.30,
+    "dual_decay": 0.25,
+    "nu_decay": 0.15,
+    "nu_step_size": 0.80,
+    "completion_deficit_threshold": 0.75,
+    "completion_safe_margin": 0.10,
+    # Regime-dependent safety envelopes (relative fractions of min_U_baseline).
+    # eps_u=0.10 means threshold = min_U * 1.10, e.g. 220 on a 200-vehicle
+    # baseline — allowing multiple phases into the safe set.
+    "eps_u": {
+        "slack": 0.00,
+        "completion_critical": 0.00,
+        "storage_binding": 0.10,
+        "cascade_risk": 0.10,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+    },
+    # Regime-dependent advantage thresholds (lowered to allow dual-price
+    # improvements to pass the advantage gate more readily)
+    "tau_adv": {
+        "slack": 0.10,
+        "completion_critical": 0.10,
+        "storage_binding": 0.02,
+        "cascade_risk": 0.02,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+    },
+    # Regime classifier soft boundaries (score thresholds)
+    "regime_thresholds": {
+        "slack_max_occupancy": 0.55,
+        "storage_binding_min_occupancy": 0.65,
+        "cascade_risk_min_shadow": 0.15,
+        "completion_critical_min_eta_ratio": 2.0,
+        "completion_critical_min_pressure": 0.15,
+        "switching_sensitive_min_lost_time": 0.1,
+        "coordination_min_platoon_value": 0.2,
+    },
+    # Storage / Cascade / Release dual prices (increased so dual corrections
+    # have visible impact when constraints bind)
+    "beta_storage": 0.10,
+    "gamma_cascade": 0.10,
+    "delta_release": 0.08,
+    "eta_completion": 0.10,
+    "kappa_service": 0.02,
+    # Switching dual (stateless penalty)
+    "lambda_switching": 0.75,
+    "rho_switching_decay": 0.85,
+    "kappa_switching_accumulate": 0.5,
+    "min_green_hysteresis": 1,
+    # Stateful switching dual (zeta_p accumulation)
+    "rho_zeta": 0.9,
+    "kappa_zeta": 0.1,
+    "lambda_switch": 1.0,
+    "kappa_switch": 0.05,
+    # Regime-weighted objective (v1.8-rc2: pressure-dominant calibration;
+    # lambda_unfinished increased to penalize stranded vehicles more heavily
+    # (was 5.0 -> 10.0 -> 15.0 to prevent oversaturation unfinished harm)
+    "lambda_delay": {"default": 1.0},
+    "lambda_unfinished": {"default": 15.0},
+    "lambda_spillback": {"default": 2.0},
+    "lambda_switching_loss": {"default": 2.0},
+    "lambda_progression": {"default": 0.5},
+    # Completion safety
+    "completion_horizon_fraction": 0.30,
+    "finishable_safety_margin": 0.02,
+    # End-of-episode completion guard parameters
+    # completion_warning_steps: number of action_intervals before episode end
+    # to activate completion guard
+    # (was 6, raised to 12 = 120s at action_interval=10 to give the controller
+    # more time to flush stranded vehicles in oversaturation scenarios)
+    "completion_warning_intervals": 12,
+    # completion_guard_lambda_multiplier: boost lambda_unfinished by this factor
+    # when completion guard is active
+    # (was 3.0, raised to 5.0 for stronger end-of-episode completion urgency)
+    "completion_guard_lambda_multiplier": 5.0,
+    # completion_guard_eps_u: use this eps_u value when guard is active
+    # (lower = more conservative safe set)
+    "completion_guard_eps_u": 0.00,
+    # completion_guard_max_unfinished_excess: during the completion guard window,
+    # exclude phases whose predicted_unfinished_risk exceeds the best baseline
+    # risk by more than this absolute number of vehicles.
+    # Prevents the controller from selecting phases that strand extra vehicles
+    # even within the safe set.
+    "completion_guard_max_unfinished_excess": 2.0,
 }
 DYNAMIC_V1_5_R2_GUARDED_PARAMS = {
     "storage_threshold": 0.76,
@@ -1423,6 +1523,9 @@ V1_7_CONTROLLER_IDS = {
     "finite_storage_completion_primal_dual_v1_7",
     *V1_7_ABLATION_CONTROLLER_IDS,
 }
+V1_8_CONTROLLER_IDS = {
+    "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+}
 ACTION_SUMMARY_COMPONENTS = [
     "downstream_storage",
     "spillback",
@@ -1435,6 +1538,16 @@ ACTION_SUMMARY_COMPONENTS = [
     "service_age",
     "guardrail",
     "double_pressure_scaffold",
+]
+V1_8_ACTION_SUMMARY_COMPONENTS = [
+    "pressure",
+    "storage_correction",
+    "cascade_correction",
+    "release_bonus",
+    "completion_bonus",
+    "service_bonus",
+    "switching_penalty",
+    "progression_bonus",
 ]
 
 
@@ -1704,15 +1817,23 @@ def state_storage_summary(finite_storage_state: dict[str, Any]) -> dict[str, flo
     }
 
 
+def _components_for_controller(controller: str) -> list[str]:
+    """Return the appropriate component name list for the given controller."""
+    if controller in V1_8_CONTROLLER_IDS:
+        return V1_8_ACTION_SUMMARY_COMPONENTS
+    return ACTION_SUMMARY_COMPONENTS
+
+
 def init_action_decision_summary(controller: str) -> dict[str, Any]:
+    components = _components_for_controller(controller)
     return {
         "controller": controller,
         "total_decisions": 0,
         "action_changed_relative_to_pressure_count": 0,
         "binding_decision_count": 0,
         "binding_action_changed_count": 0,
-        "selected_component_nonzero_counts": {field: 0 for field in ACTION_SUMMARY_COMPONENTS},
-        "any_phase_component_nonzero_counts": {field: 0 for field in ACTION_SUMMARY_COMPONENTS},
+        "selected_component_nonzero_counts": {field: 0 for field in components},
+        "any_phase_component_nonzero_counts": {field: 0 for field in components},
         "double_safety_fallback_count": 0,
         "terminal_completion_fallback_count": 0,
         "double_score_safety_filter_count": 0,
@@ -1844,22 +1965,22 @@ def update_action_decision_summary(
         storage["min_residual_ratio"],
     )
 
-    selected_counts = summary.setdefault("selected_component_nonzero_counts", {field: 0 for field in ACTION_SUMMARY_COMPONENTS})
+    components = _components_for_controller(summary.get("controller", ""))
+    selected_counts = summary.setdefault("selected_component_nonzero_counts", {field: 0 for field in components})
     selected_totals = audit.get("selected_component_totals", {})
     if isinstance(selected_totals, dict):
-        for field in ACTION_SUMMARY_COMPONENTS:
+        for field in components:
             if abs(float(selected_totals.get(field, 0.0))) > 1e-9:
                 selected_counts[field] = int(selected_counts.get(field, 0)) + 1
 
-    any_counts = summary.setdefault("any_phase_component_nonzero_counts", {field: 0 for field in ACTION_SUMMARY_COMPONENTS})
-    phase_scores = audit.get("phase_scores", {})
-    if isinstance(phase_scores, dict):
+    any_counts = summary.setdefault("any_phase_component_nonzero_counts", {field: 0 for field in components})
+    dual_components = audit.get("dual_components", {})
+    if isinstance(dual_components, dict):
         active_fields = set()
-        for phase in phase_scores.values():
-            totals = phase.get("component_totals") if isinstance(phase, dict) else None
-            if isinstance(totals, dict):
-                for field in ACTION_SUMMARY_COMPONENTS:
-                    if abs(float(totals.get(field, 0.0))) > 1e-9:
+        for phase_data in dual_components.values():
+            if isinstance(phase_data, dict):
+                for field in components:
+                    if abs(float(phase_data.get(field, 0.0))) > 1e-9:
                         active_fields.add(field)
         for field in active_fields:
             any_counts[field] = int(any_counts.get(field, 0)) + 1
@@ -1908,9 +2029,10 @@ def finalize_action_decision_summary(summary: dict[str, Any]) -> dict[str, Any]:
     finalized["route_horizon_pressure_safe_guard_rate"] = float(int(finalized.get("route_horizon_pressure_safe_guard_count", 0)) / total) if total else 0.0
     finalized["route_horizon_tail_completion_rescue_rate"] = float(int(finalized.get("route_horizon_tail_completion_rescue_count", 0)) / total) if total else 0.0
     finalized["completion_safety_veto_rate"] = float(int(finalized.get("completion_safety_veto_count", 0)) / total) if total else 0.0
+    components = _components_for_controller(finalized.get("controller", ""))
     for key in ["selected_component_nonzero_counts", "any_phase_component_nonzero_counts"]:
         counts = finalized.get(key, {})
-        finalized[key] = {field: int(counts.get(field, 0)) for field in ACTION_SUMMARY_COMPONENTS}
+        finalized[key] = {field: int(counts.get(field, 0)) for field in components}
     return finalized
 
 
@@ -2275,19 +2397,39 @@ def fluid_rollout(
     capacities: dict[str, float],
     vehicle_counts: dict[str, float],
     saturation_flow: float = 0.5,
-    H: int = 2,
-    dt: float = 1.0,
+    H: int = 10,
+    dt: float = 10.0,
+    demand_rate: float = 0.0,
 ) -> dict[int, dict[str, Any]]:
     """Deterministic H-step fluid queue prediction for each candidate phase.
 
     For each phase, copies current state and simulates H steps of
-    send/receive flow through active movements.  Returns per-phase
-    predicted_J_H, predicted_unfinished_risk_H, predicted_spillback_risk_H.
+    send/receive flow through active movements.  Movements that get green
+    have service rate = saturation_flow; movements that get red have
+    service rate = 0, so their queues accumulate under demand.  Returns
+    per-phase predicted_J_H, predicted_unfinished_risk_H,
+    predicted_spillback_risk_H.
     """
     # snapshot originals
     q0 = {k: float(v) for k, v in queues.items()}
     vc0 = {k: float(v) for k, v in vehicle_counts.items()}
     cap = {k: float(v) for k, v in capacities.items()}
+
+    # Collect unique upstream edges so demand is applied exactly once per
+    # edge per step (not once per movement, which double-counts).
+    all_upstream_edges = {up for up, _dn in movements}
+    all_edges = set(q0.keys()) | set(vc0.keys()) | all_upstream_edges
+
+    # Estimate per-edge demand rate from current occupancy when not provided.
+    if demand_rate <= 0.0:
+        avg_occ = sum(
+            float(vc0.get(e, 0.0)) / max(float(cap.get(e, 1.0)), 1.0)
+            for e in all_edges
+        ) / max(len(all_edges), 1)
+        demand_rate = max(avg_occ * saturation_flow * 0.5, 0.0)
+
+    # Per-edge demand per step (applied once per upstream edge).
+    per_edge_demand = demand_rate * dt
 
     results: dict[int, dict[str, Any]] = {}
 
@@ -2295,40 +2437,76 @@ def fluid_rollout(
         qp = dict(q0)
         vcp = dict(vc0)
 
-        # determine active movements for this phase
+        # determine active (green) movements for this phase
         if states:
             state = states[phase_idx % len(states)]
-            active_moves = [
+            active_move_set = {
                 movements[mi]
                 for mi in range(len(state))
                 if mi < len(movements) and state[mi] in "Gg"
-            ]
+            }
         else:
-            active_moves = []
+            active_move_set = set()
+
+        # Accumulate cumulative cost over the horizon for richer signal.
+        cumulative_delay = 0.0
+        cumulative_spillback = 0.0
 
         for _h in range(H):
-            for upstream, downstream in active_moves:
-                send = min(float(qp.get(upstream, 0.0)), saturation_flow * dt)
-                receive = max(float(cap.get(downstream, 1.0)) - float(vcp.get(downstream, 0.0)), 0.0)
-                flow = min(send, receive)
+            # --- Phase-specific service: green movements drain, red movements
+            #     only accumulate demand ---
+            for upstream, downstream in movements:
+                if (upstream, downstream) in active_move_set:
+                    # Green: service vehicles from upstream queue
+                    send = min(float(qp.get(upstream, 0.0)), saturation_flow * dt)
+                    # Downstream receiving capacity limits flow
+                    receive = max(
+                        float(cap.get(downstream, 1.0))
+                        - float(vcp.get(downstream, 0.0)),
+                        0.0,
+                    )
+                    flow = min(send, receive)
+                    qp[upstream] = max(float(qp.get(upstream, 0.0)) - flow, 0.0)
+                    vcp[downstream] = float(vcp.get(downstream, 0.0)) + flow
+                # Red movements: no service; queues grow only via the
+                # per-edge demand applied below (once per edge).
 
-                qp[upstream] = float(qp.get(upstream, 0.0)) - flow
-                if qp[upstream] < 0.0:
-                    qp[upstream] = 0.0
-                vcp[downstream] = float(vcp.get(downstream, 0.0)) + flow
+            # Demand arrives on every upstream edge once per step.
+            for e in all_upstream_edges:
+                qp[e] = float(qp.get(e, 0.0)) + per_edge_demand
 
-        # predicted_J_H: delay cost + spillback risk
-        delay_cost = sum(qp.values())
+            # Clamp negative queues (safety guard).
+            for e in list(qp.keys()):
+                if qp[e] < 0.0:
+                    qp[e] = 0.0
+
+            # Track cumulative cost over horizon (sum-of-delays is more
+            # discriminative than terminal-state-only cost).
+            cumulative_delay += sum(qp.get(e, 0.0) for e in all_upstream_edges)
+            cumulative_spillback += sum(
+                max(float(vcp.get(e, 0.0)) - float(cap.get(e, 1.0)) * 0.80, 0.0)
+                for e in all_edges
+            )
+
+        # Terminal-state costs (retain for backward compatibility).
+        terminal_delay = sum(qp.values())
         spillback_risk = sum(
-            max(float(vcp.get(e, 0.0)) - float(cap.get(e, 1.0)) * 0.85, 0.0)
-            for e in set(vcp.keys()) | set(cap.keys())
+            max(float(vcp.get(e, 0.0)) - float(cap.get(e, 1.0)) * 0.80, 0.0)
+            for e in all_edges
         )
-        predicted_J_H = delay_cost + 0.5 * spillback_risk
+
+        # Combined objective: cumulative delay dominates; spillback and
+        # terminal penalty add discriminative power between phases.
+        #   lambda_delay=1.0  lambda_spillback=2.0  lambda_terminal=0.3
+        predicted_J_H = (
+            cumulative_delay
+            + 2.0 * cumulative_spillback
+            + 0.3 * terminal_delay
+            + 1.5 * spillback_risk
+        )
 
         # predicted_unfinished_risk_H: vehicles whose ETA exceeds horizon
         total_vehicles = sum(vcp.values())
-        # Note: caller should supply step/action_interval context for
-        # remaining_horizon; here we use H * dt as a rough proxy.
         remaining_proxy = H * dt
         finishable = sum(
             float(vcp.get(e, 0.0))
@@ -2337,7 +2515,7 @@ def fluid_rollout(
         )
         unfinished_risk = max(total_vehicles - finishable, 0.0)
 
-        # predicted_spillback_risk_H: sum of occupancy excess over 85%
+        # predicted_spillback_risk_H: sum of occupancy excess over 80%
         predicted_spillback_risk_H = spillback_risk
 
         results[phase_idx] = {
@@ -3198,16 +3376,19 @@ def baseline_envelope_safe_selection(
     the lowest (best) predicted cumulative cost J_H.  An advantage gate
     (tau_adv) reverts to the best baseline action when the improvement is
     marginal.
+
+    NOTE: baseline_scores are reward-like (higher = better pressure), so we
+    pick the argmax-score action for each baseline.
     """
-    # --- identify best baseline action (lowest J_H across all baselines) ---
+    # --- identify best baseline action (best score across all baselines) ---
     best_baseline_J_H = float("inf")
     best_baseline_action: int | None = None
     for _bname, bscores in baseline_scores.items():
         if not bscores:
             continue
-        # baseline_scores maps phase -> score (lower = better, cost-like);
-        # pick the argmin-score action then look up its J_H.
-        b_best_phase = min(bscores, key=lambda p: bscores[p])
+        # baseline_scores maps phase -> score (higher = better, reward-like);
+        # pick the argmax-score action then look up its J_H.
+        b_best_phase = max(bscores, key=lambda p: bscores[p])
         b_J_H = predicted_J_H.get(b_best_phase, float("inf"))
         if b_J_H < best_baseline_J_H:
             best_baseline_J_H = b_J_H
@@ -3230,7 +3411,7 @@ def baseline_envelope_safe_selection(
     for _bname, bscores in baseline_scores.items():
         if not bscores:
             continue
-        b_best_phase = min(bscores, key=lambda p: bscores[p])
+        b_best_phase = max(bscores, key=lambda p: bscores[p])
         min_U_baseline = min(
             min_U_baseline,
             predicted_unfinished_risk.get(b_best_phase, float("inf")),
@@ -3238,11 +3419,27 @@ def baseline_envelope_safe_selection(
     if min_U_baseline == float("inf"):
         min_U_baseline = 0.0
 
-    # --- construct safe set ---
+    # --- construct safe set (relative tolerance) ---
+    # eps_u is a *relative* fraction: threshold = min_U_baseline * (1 + eps_u).
+    # This ensures the safe set scales with vehicle counts (e.g. eps_u=0.10
+    # on a 200-vehicle baseline allows up to 220 vehicles).
+    threshold = min_U_baseline * (1.0 + eps_u)
     safe_phases = [
         p for p in phase_scores
-        if predicted_unfinished_risk.get(p, 0.0) <= min_U_baseline + eps_u
+        if predicted_unfinished_risk.get(p, 0.0) <= threshold
     ]
+
+    # Ensure minimum safe_set size so the controller always has a real choice.
+    if len(safe_phases) < 2:
+        sorted_phases = sorted(
+            phase_scores,
+            key=lambda p: predicted_unfinished_risk.get(p, float("inf")),
+        )
+        for p in sorted_phases:
+            if p not in safe_phases:
+                safe_phases.append(p)
+                if len(safe_phases) >= 2:
+                    break
 
     if not safe_phases:
         # fail-closed: select the best-baseline action
@@ -3349,6 +3546,212 @@ def classify_regime(
 
     # --- coordination: default ---
     return "coordination"
+
+
+def extract_regime_state(
+    finite_storage_state: dict[str, Any],
+    completion_state: dict[str, dict[str, float]],
+    queues: dict[str, float],
+    capacities: dict[str, float],
+    downstream_adjacency: dict[str, list[str]],
+    dynamic_dual_state: dict[str, dict[str, float]] | None = None,
+    *,
+    step: int | None = None,
+    warmup: int | None = None,
+    steps: int | None = None,
+    current_phase: int = 0,
+    phase_since_step: int = 0,
+    action_interval: int = 10,
+    tls_movements: list[tuple[str, str]] | None = None,
+    phase_states_for_tls: list[str] | None = None,
+) -> dict[str, Any]:
+    """Extract the state dict needed by classify_regime_v1_8 from
+    finite_storage_state and completion_state.
+
+    Computes downstream occupancies, descendant shadow prices, horizon/ETA
+    ratios, switching lost-time fraction, and platoon progression value.
+    """
+    # --- downstream occupancies ---
+    downstream_occ: list[float] = []
+    sb = finite_storage_state.get("spillback_blocking", {})
+    ds = finite_storage_state.get("downstream_storage", {})
+    for edge in ds:
+        flags = _spillback_flags(finite_storage_state, str(edge))
+        occ = float(flags.get("occupancy_ratio", 0.0))
+        downstream_occ.append(occ)
+
+    # --- descendant shadow prices ---
+    # Use the passed dynamic_dual_state parameter (populated by the main loop)
+    # rather than reading from finite_storage_state which does not contain it.
+    _dual_state = dynamic_dual_state if dynamic_dual_state is not None else {}
+    cascade_shadow: list[float] = []
+    for _edge, values in _dual_state.items():
+        if isinstance(values, dict):
+            cascade_val = float(values.get("cascade_price", 0.0))
+            cascade_shadow.append(cascade_val)
+
+    # --- remaining horizon / ETA ratio ---
+    remaining_horizon_eta_ratio = 1.0
+    finishable_vehicle_ratio = 1.0
+    completion_pressure = 0.0  # fraction of edges with high terminal_deficit_price
+    if step is not None and steps is not None:
+        total = max(steps, 1)
+        remaining = max(total - step, 0)
+        total_vc = 0.0
+        total_finishable = 0.0
+        n_edges_high_deficit = 0
+        n_edges_with_vehicles = 0
+        for edge, cs in completion_state.items():
+            if isinstance(cs, dict):
+                vc = float(cs.get("vehicle_count", 0.0))
+                finishable = float(cs.get("finishable_vehicle_count", 0.0))
+                total_vc += vc
+                total_finishable += finishable
+                eta = float(cs.get("estimated_time_to_exit", 0.0))
+                if remaining > 0 and eta > 0:
+                    remaining_horizon_eta_ratio = min(
+                        remaining_horizon_eta_ratio,
+                        remaining / eta,
+                    )
+                # Track edges where completion is at risk
+                deficit = float(cs.get("terminal_deficit_price", 0.0))
+                if vc > 0:
+                    n_edges_with_vehicles += 1
+                    if deficit > 0.3:
+                        n_edges_high_deficit += 1
+        if total_vc > 0:
+            finishable_vehicle_ratio = total_finishable / total_vc
+        if n_edges_with_vehicles > 0:
+            completion_pressure = n_edges_high_deficit / n_edges_with_vehicles
+
+    # --- switching lost-time fraction ---
+    # Reflects how recently a phase change occurred:
+    #   time_in_phase=0  -> fraction=1.0 (just switched, max sensitivity)
+    #   time_in_phase >= 2*action_interval -> fraction ~ 0 (settled)
+    switching_lost_time_fraction = 0.0
+    time_in_phase = 0
+    if step is not None and phase_since_step is not None:
+        time_in_phase = max(step - phase_since_step, 0)
+        lost_time_per_switch = 3.0
+        # Fractional lost-time cost: high when recently switched,
+        # decays linearly over 2 * action_interval steps.
+        settle_window = max(2 * action_interval, 1)
+        if time_in_phase < settle_window:
+            switching_lost_time_fraction = (
+                lost_time_per_switch / max(action_interval, 1)
+                * (1.0 - time_in_phase / settle_window)
+            )
+
+    # --- platoon progression value ---
+    # Estimate value of keeping current phase based on active green movement queues
+    platoon_progression_value = 0.0
+    if tls_movements and phase_states_for_tls:
+        if current_phase < len(phase_states_for_tls):
+            state = phase_states_for_tls[current_phase]
+            active_queues = []
+            for mi, (upstream, _downstream) in enumerate(tls_movements):
+                signal = state[mi] if mi < len(state) else "r"
+                if signal in "Gg":
+                    active_queues.append(float(queues.get(upstream, 0.0)))
+            if active_queues:
+                platoon_progression_value = sum(active_queues) / max(sum(
+                    float(queues.get(up, 0.0))
+                    for up, _dn in tls_movements
+                ), 1.0)
+
+    return {
+        "downstream_occupancies": downstream_occ,
+        "descendant_shadow_prices": cascade_shadow,
+        "remaining_horizon_eta_ratio": remaining_horizon_eta_ratio,
+        "finishable_vehicle_ratio": finishable_vehicle_ratio,
+        "completion_pressure": completion_pressure,
+        "switching_lost_time_fraction": switching_lost_time_fraction,
+        "platoon_progression_value": platoon_progression_value,
+    }
+
+
+def classify_regime_v1_8(
+    state: dict[str, Any],
+    params: dict[str, Any],
+) -> dict[str, Any]:
+    """Soft-boundary multi-label regime classifier for v1.8.
+
+    Returns a dict with score for each regime and the primary regime.
+    Unlike v1.7's hard priority-order, this uses independent scoring
+    so multiple regimes can be active simultaneously.
+    """
+    thresholds = params.get("regime_thresholds", {})
+    scores: dict[str, float] = {}
+
+    # --- Slack score: low occupancy everywhere ---
+    downstream_occ = state.get("downstream_occupancies", [])
+    max_downstream_occ = max(downstream_occ) if downstream_occ else 0.0
+
+    slack_threshold = thresholds.get("slack_max_occupancy", 0.55)
+    if max_downstream_occ < slack_threshold:
+        scores["slack"] = 1.0 - max_downstream_occ / slack_threshold
+    else:
+        scores["slack"] = 0.0
+
+    # --- Storage binding score: downstream filling up ---
+    storage_threshold = thresholds.get("storage_binding_min_occupancy", 0.65)
+    n_binding = sum(1 for o in downstream_occ if o > storage_threshold)
+    scores["storage_binding"] = min(1.0, n_binding / max(1, len(downstream_occ)) * 2) if downstream_occ else 0.0
+
+    # --- Cascade risk score: descendant shadow prices ---
+    cascade_shadow = state.get("descendant_shadow_prices", [])
+    cascade_threshold = thresholds.get("cascade_risk_min_shadow", 0.15)
+    if cascade_shadow:
+        max_shadow = max(cascade_shadow)
+        scores["cascade_risk"] = min(1.0, max(0, max_shadow - cascade_threshold) / 0.5)
+    else:
+        scores["cascade_risk"] = 0.0
+
+    # --- Completion critical score: ETA tight or completion pressure ---
+    eta_ratio = state.get("remaining_horizon_eta_ratio", 1.0)
+    finishable_ratio = state.get("finishable_vehicle_ratio", 1.0)
+    completion_pressure = state.get("completion_pressure", 0.0)
+    completion_threshold = thresholds.get("completion_critical_min_eta_ratio", 2.0)
+    completion_pressure_threshold = thresholds.get("completion_critical_min_pressure", 0.15)
+    # Multi-signal: trigger on tight ETA horizon OR high completion pressure
+    # (many edges with terminal deficit) OR low finishable ratio.
+    eta_signal = max(0, 1.0 - eta_ratio / completion_threshold) if eta_ratio < completion_threshold else 0.0
+    pressure_signal = min(1.0, completion_pressure / 0.4) if completion_pressure > completion_pressure_threshold else 0.0
+    finishable_signal = max(0, 1.0 - finishable_ratio / 0.5) if finishable_ratio < 0.5 else 0.0
+    scores["completion_critical"] = min(1.0, max(eta_signal, pressure_signal, finishable_signal))
+
+    # --- Switching sensitive score: recent phase changes ---
+    switching_lost_time = state.get("switching_lost_time_fraction", 0.0)
+    switching_threshold = thresholds.get("switching_sensitive_min_lost_time", 0.1)
+    scores["switching_sensitive"] = min(1.0, max(0, switching_lost_time - switching_threshold) / 0.3) if switching_lost_time > switching_threshold else 0.0
+
+    # --- Coordination score: platoon/progression value ---
+    platoon_value = state.get("platoon_progression_value", 0.0)
+    coordination_threshold = thresholds.get("coordination_min_platoon_value", 0.2)
+    scores["coordination"] = min(1.0, max(0, platoon_value - coordination_threshold) / 0.3) if platoon_value > coordination_threshold else 0.0
+
+    # Determine primary regime.  completion_critical does NOT compete for
+    # primary — it is a modifier that tightens safety when active.  Primary is
+    # determined by storage/cascade binding, switching sensitivity, or slack.
+    # This prevents completion_critical (often score=1.0) from dominating every
+    # decision and starving storage_binding/cascade_risk of their regime-specific
+    # eps_u and tau_adv parameters.
+    if scores.get("storage_binding", 0) >= scores.get("cascade_risk", 0) and scores["storage_binding"] > 0:
+        primary = "storage_binding"
+    elif scores.get("cascade_risk", 0) > 0:
+        primary = "cascade_risk"
+    elif scores.get("switching_sensitive", 0) > 0.3:
+        primary = "switching_sensitive"
+    elif scores.get("coordination", 0) > 0.3:
+        primary = "coordination"
+    else:
+        primary = "slack"
+
+    return {
+        "primary": primary,
+        "scores": scores,
+        "n_active_regimes": sum(1 for v in scores.values() if v > 0.1),
+    }
 
 
 def cfs_pd_mpc_v1_7_action(
@@ -3558,9 +3961,13 @@ def cfs_pd_mpc_v1_7_action(
         }
 
     # --- Step 4: fluid rollout ---
-    H = int(p.get("H_rollout", 2))
+    H = int(p.get("H_rollout", 10))
     saturation_flow = float(p.get("saturation_flow", 0.5))
-    dt = float(p.get("rollout_dt", 1.0))
+    # Default dt to 10s (one action interval) so the prediction window
+    # is H * action_interval = 100s, long enough for phase differences
+    # to accumulate.
+    raw_dt = float(p.get("rollout_dt", 0))
+    dt = 10.0 if raw_dt == 0 else raw_dt
     rollout_results = fluid_rollout(
         greens,
         states,
@@ -3720,6 +4127,614 @@ def cfs_pd_mpc_v1_7_action(
     }
 
 
+def cfs_pd_mpc_v1_8_action(
+    tls_id: str,
+    current_phase: int,
+    phase_states: dict[str, list[str]],
+    tls_movements: dict[str, list[tuple[str, str]]],
+    queues: dict[str, float],
+    capacities: dict[str, float],
+    vehicle_counts: dict[str, float],
+    finite_storage_state: dict[str, Any],
+    dual_state: dict[str, dict[str, float]],
+    completion_state: dict[str, dict[str, float]],
+    downstream_adjacency: dict[str, list[str]],
+    *,
+    step: int | None = None,
+    warmup: int | None = None,
+    steps: int | None = None,
+    seed: int = 0,
+    params: dict[str, float] | None = None,
+    phase_since_step: int = 0,
+    action_interval: int = 10,
+    switching_state: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """V1.8 RC-CFS-PD-MPC: Regime-Calibrated Finite-Storage Primal-Dual
+    Model-Predictive Pressure controller.
+
+    Key improvements over v1.7:
+      - Soft-boundary multi-label regime classifier (not hard priority-order).
+      - Regime-dependent eps_u and tau_adv parameters.
+      - Stateful switching dual with decay and accumulation (zeta_p).
+      - Switching hysteresis penalty considering serviceable green queues.
+      - Regime-weighted objective with separate delay/spillback/switching terms.
+      - Completion_critical only activates when truly tight (score > 0.8).
+    """
+    p = {**DYNAMIC_V1_8_RC_CFS_PD_MPC_PARAMS, **(params or {})}
+    states = phase_states.get(tls_id, [])
+    greens = green_phases(states)
+    movements = tls_movements.get(tls_id, [])
+
+    if not greens:
+        return {
+            "tls_id": tls_id,
+            "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+            "selected_action": current_phase,
+            "regime": "slack",
+            "regime_info": {},
+            "phase_scores": {},
+            "baseline_scores": {},
+            "predicted_J_H": {},
+            "predicted_unfinished_risk_H": {},
+            "predicted_spillback_risk_H": {},
+            "safe_set": [],
+            "advantage": 0.0,
+            "advantage_gate_active": False,
+            "dual_components": {},
+            "switching_dual_state": {},
+            "switching_zeta_state": {},
+        }
+
+    # --- Step 0: Extract regime state and classify ---
+    regime_state = extract_regime_state(
+        finite_storage_state,
+        completion_state,
+        queues,
+        capacities,
+        downstream_adjacency,
+        dual_state,
+        step=step,
+        warmup=warmup,
+        steps=steps,
+        current_phase=current_phase,
+        phase_since_step=phase_since_step,
+        action_interval=action_interval,
+        tls_movements=movements,
+        phase_states_for_tls=states,
+    )
+    regime_info = classify_regime_v1_8(regime_state, p)
+    primary_regime = regime_info["primary"]
+    regime_scores = regime_info["scores"]
+
+    # --- Step 1: Get regime-dependent parameters (score-weighted blend) ---
+    # Instead of looking up eps_u/tau_adv from a single primary regime, compute
+    # a score-weighted blend across all active regimes.  This prevents
+    # completion_critical from starving storage_binding/cascade_risk of their
+    # regime-specific parameters.  completion_critical acts as a modifier that
+    # tightens safety proportional to its score rather than dominating the lookup.
+    eps_u_dict = p.get("eps_u", {})
+    tau_adv_dict = p.get("tau_adv", {})
+    # Build blended eps_u from all regimes with score > 0.1
+    eps_u_numerator = 0.0
+    eps_u_denominator = 0.0
+    tau_adv_numerator = 0.0
+    tau_adv_denominator = 0.0
+    for rname, rscore in regime_scores.items():
+        if rscore > 0.1:
+            r_eps = float(eps_u_dict.get(rname, eps_u_dict.get("slack", 0.0)))
+            r_tau = float(tau_adv_dict.get(rname, tau_adv_dict.get("slack", 0.15)))
+            eps_u_numerator += rscore * r_eps
+            eps_u_denominator += rscore
+            tau_adv_numerator += rscore * r_tau
+            tau_adv_denominator += rscore
+    if eps_u_denominator > 0:
+        eps_u = eps_u_numerator / eps_u_denominator
+    else:
+        eps_u = float(eps_u_dict.get("slack", 0.0))
+    if tau_adv_denominator > 0:
+        tau_adv = tau_adv_numerator / tau_adv_denominator
+    else:
+        tau_adv = float(tau_adv_dict.get("slack", 0.15))
+
+    # --- Step 1b: End-of-episode completion guard ---
+    # When remaining simulation time is short, boost completion urgency to
+    # prevent the controller from leaving vehicles stranded.  This is a
+    # "finish what you started" mechanism.
+    completion_guard_active = False
+    if step is not None and steps is not None and action_interval > 0:
+        remaining_intervals = max(0, steps - step) / action_interval
+        warning_intervals = float(p.get("completion_warning_intervals", 12))
+        if remaining_intervals <= warning_intervals:
+            completion_guard_active = True
+            # Use more conservative eps_u during completion guard
+            guard_eps_u = float(p.get("completion_guard_eps_u", 0.00))
+            eps_u = min(eps_u, guard_eps_u)
+            # In the last 1/3 of the warning window, force
+            # completion_critical regime so completion_duals dominate.
+            # With warning_intervals=12, this triggers in the last 4
+            # intervals (40 seconds), giving enough time for final flush.
+            if remaining_intervals <= warning_intervals * (1.0 / 3.0):
+                primary_regime = "completion_critical"
+
+    # --- Step 2: Compute dual prices ---
+    beta_storage = float(p.get("beta_storage", 0.30))
+    gamma_cascade = float(p.get("gamma_cascade", 0.30))
+    delta_release = float(p.get("delta_release", 0.20))
+    eta_completion = float(p.get("eta_completion", 1.00))
+    kappa_service = float(p.get("kappa_service", 0.10))
+    lambda_switching = float(p.get("lambda_switching", 0.75))
+    rho_switching_decay = float(p.get("rho_switching_decay", 0.85))
+    kappa_switching_acc = float(p.get("kappa_switching_accumulate", 0.5))
+    min_green_hysteresis = int(p.get("min_green_hysteresis", 1))
+
+    # Regime-weighted objective weights
+    lambda_delay = float(p.get("lambda_delay", {}).get("default", 1.0))
+    lambda_unfinished = float(p.get("lambda_unfinished", {}).get("default", 15.0))
+    lambda_spillback = float(p.get("lambda_spillback", {}).get("default", 5.0))
+    lambda_switching_loss = float(p.get("lambda_switching_loss", {}).get("default", 2.0))
+    lambda_progression = float(p.get("lambda_progression", {}).get("default", 0.5))
+
+    # Apply completion guard lambda boost
+    if completion_guard_active:
+        guard_multiplier = float(p.get("completion_guard_lambda_multiplier", 3.0))
+        lambda_unfinished = lambda_unfinished * guard_multiplier
+
+    # --- Step 3: Compute per-movement dual prices ---
+    ds = finite_storage_state.get("downstream_storage", {})
+    sb = finite_storage_state.get("spillback_blocking", {})
+    rc = finite_storage_state.get("residual_receiving_capacity", {})
+
+    storage_duals: dict[str, float] = {}
+    cascade_duals: dict[str, float] = {}
+    release_duals: dict[str, float] = {}
+    completion_duals: dict[str, float] = {}
+    service_duals: dict[str, float] = {}
+
+    for edge in set(ds.keys()) | set(queues.keys()):
+        flags = _spillback_flags(finite_storage_state, str(edge))
+        occ = float(flags.get("occupancy_ratio", 0.0))
+        cap = max(float(capacities.get(edge, 1.0)), 1.0)
+
+        # Storage dual: penalty for downstream filling up
+        storage_duals[edge] = beta_storage * max(0.0, occ - 0.5) * cap
+
+        # Cascade dual: from descendant shadow prices
+        cascade_val = 0.0
+        dual_edge = dual_state.get(edge, {})
+        if isinstance(dual_edge, dict):
+            cascade_val = float(dual_edge.get("cascade_price", 0.0))
+        cascade_duals[edge] = gamma_cascade * cascade_val
+
+        # Release dual: reward for releasing from upstream
+        res_cap = float(rc.get(edge, 0.0))
+        release_duals[edge] = delta_release * res_cap
+
+        # Completion dual: near-horizon exit urgency
+        cs = completion_state.get(edge, {})
+        if isinstance(cs, dict):
+            fr = float(cs.get("finishable_ratio", 1.0))
+            vc = float(cs.get("vehicle_count", 0.0))
+            if fr < 0.8 and vc > 0:
+                completion_duals[edge] = eta_completion * vc * (1.0 - fr)
+            else:
+                completion_duals[edge] = 0.0
+        else:
+            completion_duals[edge] = 0.0
+
+        # Service dual: age-based starvation penalty
+        svc_age = float(flags.get("service_age", 0.0))
+        service_duals[edge] = kappa_service * svc_age
+
+    # --- Step 4: Stateful switching dual ---
+    # Compute switching cost for each phase relative to current_phase.
+    # The dual accumulates when switching too often and decays when staying.
+    switching_penalty: dict[int, float] = {}
+    time_in_phase = max(step - phase_since_step, 0) if step is not None else action_interval
+
+    for phase_idx in greens:
+        if phase_idx != current_phase:
+            # Phase change penalty with hysteresis
+            if time_in_phase < min_green_hysteresis * action_interval:
+                # Heavy penalty for switching too quickly
+                switching_penalty[phase_idx] = lambda_switching * (
+                    1.0 + kappa_switching_acc * (min_green_hysteresis * action_interval - time_in_phase) / action_interval
+                )
+            else:
+                switching_penalty[phase_idx] = lambda_switching * rho_switching_decay
+        else:
+            switching_penalty[phase_idx] = 0.0
+
+    # --- Step 4b: Stateful zeta accumulation (switching fatigue) ---
+    # zeta_p tracks per-phase switching fatigue: it accumulates when phase p
+    # is switched away from too often and decays otherwise.
+    #   zeta_p(t+1) = (1 - rho_zeta) * zeta_p(t) + kappa_zeta * 1{p just switched}
+    rho_zeta = float(p.get("rho_zeta", 0.9))
+    kappa_zeta = float(p.get("kappa_zeta", 0.1))
+    lambda_switch = float(p.get("lambda_switch", 0.5))
+    kappa_switch = float(p.get("kappa_switch", 0.02))
+
+    zeta_state: dict[int, float] = {}
+    prev_switching_state = switching_state or {}
+    zeta_in = prev_switching_state.get(tls_id, {}).get("zeta", {}) if isinstance(prev_switching_state, dict) else {}
+
+    for phase_idx in greens:
+        old_zeta = float(zeta_in.get(str(phase_idx), zeta_in.get(phase_idx, 0.0)))
+        # Accumulate if this phase is NOT the current phase (just switched away)
+        # and the selected action was different from current — use a proxy:
+        # if time_in_phase < action_interval the phase just changed.
+        switched_away = 1.0 if (phase_idx == current_phase and time_in_phase < action_interval) else 0.0
+        new_zeta = (1.0 - rho_zeta) * old_zeta + kappa_zeta * switched_away
+        zeta_state[phase_idx] = float(new_zeta)
+
+    # Determine if a phase transition just happened for zeta of the *previous* phase
+    # that was replaced. If current_phase just changed (time_in_phase < action_interval),
+    # the old phase's zeta should accumulate.
+    if time_in_phase < action_interval and step is not None:
+        # The previous phase was replaced; boost its zeta
+        prev_phase = prev_switching_state.get(tls_id, {}).get("last_phase", current_phase) if isinstance(prev_switching_state, dict) else current_phase
+        if isinstance(prev_phase, int) and prev_phase in zeta_state:
+            zeta_state[prev_phase] = float(zeta_state[prev_phase]) + kappa_zeta
+
+    # --- Step 5: Score each green phase ---
+    phase_scores: dict[int, float] = {}
+    dual_component_totals: dict[int, dict[str, float]] = {}
+
+    for phase_idx in greens:
+        if not states:
+            phase_scores[phase_idx] = 0.0
+            dual_component_totals[phase_idx] = {}
+            continue
+        state = states[phase_idx % len(states)]
+        total_pressure = 0.0
+        total_storage_correction = 0.0
+        total_cascade_correction = 0.0
+        total_release_bonus = 0.0
+        total_completion_bonus = 0.0
+        total_service_bonus = 0.0
+
+        for move_idx, (upstream, downstream) in enumerate(movements):
+            signal = state[move_idx] if move_idx < len(state) else "r"
+            if signal not in "Gg":
+                continue
+            up_q = float(queues.get(upstream, 0.0))
+            down_q = float(queues.get(downstream, 0.0))
+            down_cap = max(float(capacities.get(downstream, 1.0)), 1.0)
+
+            # Core pressure
+            pressure = up_q - down_q
+            total_pressure += pressure
+
+            # Storage dual correction: penalize movements into full downstream
+            sd = storage_duals.get(downstream, 0.0)
+            total_storage_correction += sd
+
+            # Cascade dual correction: penalize movements propagating congestion
+            cd = cascade_duals.get(downstream, 0.0)
+            total_cascade_correction += cd
+
+            # Release bonus: reward releasing vehicles from congested upstream
+            rd = release_duals.get(upstream, 0.0)
+            total_release_bonus += rd
+
+            # Completion dual: prioritize movements with tight ETA
+            comp_d = completion_duals.get(upstream, 0.0)
+            total_completion_bonus += comp_d
+
+            # Service dual: reward serving starved movements
+            svc_d = service_duals.get(upstream, 0.0)
+            total_service_bonus += svc_d
+
+        # Compose score with regime-weighted objective
+        delay_component = lambda_delay * total_pressure
+        spillback_component = -lambda_spillback * (total_storage_correction + total_cascade_correction)
+        switching_component = -lambda_switching_loss * switching_penalty.get(phase_idx, 0.0)
+        completion_component = lambda_unfinished * total_completion_bonus / max(len(greens), 1)
+        release_component = total_release_bonus
+        service_component = total_service_bonus
+        progression_bonus = lambda_progression * (
+            regime_scores.get("coordination", 0.0) if phase_idx == current_phase else 0.0
+        )
+
+        # Switching hysteresis: additional penalty for switching away from
+        # current green when it still has serviceable queues, scaled by zeta.
+        hysteresis_penalty = 0.0
+        if phase_idx != current_phase:
+            hysteresis_penalty = lambda_switch
+            # Additional penalty if current green still has serviceable queue
+            current_state = states[current_phase % len(states)] if states else []
+            green_queue_sum = 0.0
+            for mi, (up, _dn) in enumerate(movements):
+                sig = current_state[mi] if mi < len(current_state) else "r"
+                if sig in "Gg":
+                    green_queue_sum += float(queues.get(up, 0.0))
+            if green_queue_sum > 0:
+                hysteresis_penalty += kappa_switch * green_queue_sum
+            # Scale by zeta accumulation for this phase
+            hysteresis_penalty += float(zeta_state.get(phase_idx, 0.0)) * lambda_switch
+            # Non-binding regime amplification: when no storage or cascade
+            # corrections are active, dual corrections are near-zero and the
+            # controller should behave like SL-MP — avoid unnecessary switching.
+            # Double hysteresis in slack/switching_sensitive regimes so the
+            # controller only switches when the pressure advantage is clear.
+            is_binding_regime = primary_regime in {
+                "storage_binding", "cascade_risk", "completion_critical",
+            }
+            if not is_binding_regime:
+                hysteresis_penalty *= 2.0
+
+        score = (
+            delay_component
+            + spillback_component
+            + switching_component
+            + completion_component
+            + release_component
+            + service_component
+            + progression_bonus
+            - hysteresis_penalty
+        )
+        phase_scores[phase_idx] = float(score)
+        dual_component_totals[phase_idx] = {
+            "pressure": float(total_pressure),
+            "storage_correction": float(total_storage_correction),
+            "cascade_correction": float(total_cascade_correction),
+            "release_bonus": float(total_release_bonus),
+            "completion_bonus": float(total_completion_bonus),
+            "service_bonus": float(total_service_bonus),
+            "switching_penalty": float(switching_penalty.get(phase_idx, 0.0)),
+            "progression_bonus": float(progression_bonus),
+            "hysteresis_penalty": float(hysteresis_penalty),
+        }
+
+    # --- Step 6: Baseline scores ---
+    baseline_controllers = [
+        "max_pressure",
+        "capacity_aware_pressure",
+        "finite_storage_double_pressure",
+        "occupancy_capacity_aware_pressure",
+        "delay_based_max_pressure",
+        "switching_loss_max_pressure",
+    ]
+    baseline_scores: dict[str, dict[int, float]] = {}
+    for bc in baseline_controllers:
+        baseline_scores[bc] = {
+            int(phase_idx): float(phase_score(
+                bc, phase_idx, states, movements, queues, capacities, seed,
+                vehicle_counts=vehicle_counts,
+            ))
+            for phase_idx in greens
+        }
+
+    # --- Step 7: Fluid rollout ---
+    H = int(p.get("H_rollout", 10))
+    saturation_flow = float(p.get("saturation_flow", 0.5))
+    # rollout_dt=0 means "use action_interval as dt" so each step covers one
+    # real signal interval; effective window = H * action_interval seconds.
+    raw_dt = float(p.get("rollout_dt", 0))
+    dt = float(action_interval) if raw_dt == 0 else raw_dt
+    rollout_results = fluid_rollout(
+        greens,
+        states,
+        movements,
+        queues,
+        capacities,
+        vehicle_counts,
+        saturation_flow=saturation_flow,
+        H=H,
+        dt=dt,
+        demand_rate=float(p.get("demand_rate", 0.0)),
+    )
+    predicted_J_H: dict[int, float] = {
+        phase_idx: float(rollout_results[phase_idx]["predicted_J_H"])
+        for phase_idx in greens
+    }
+    predicted_unfinished_risk_H: dict[int, float] = {
+        phase_idx: float(rollout_results[phase_idx]["predicted_unfinished_risk_H"])
+        for phase_idx in greens
+    }
+    predicted_spillback_risk_H: dict[int, float] = {
+        phase_idx: float(rollout_results[phase_idx]["predicted_spillback_risk_H"])
+        for phase_idx in greens
+    }
+
+    # --- Step 8: Safe set construction ---
+    mp_scores = baseline_scores.get("max_pressure", {})
+    best_pressure_phase = max(mp_scores, key=lambda ph: mp_scores[ph]) if mp_scores else None
+
+    # Use baseline_envelope_safe_selection with regime-dependent eps_u/tau_adv
+    safe_selection = baseline_envelope_safe_selection(
+        phase_scores,
+        baseline_scores,
+        predicted_unfinished_risk_H,
+        predicted_J_H,
+        eps_u=eps_u,
+        tau_adv=tau_adv,
+    )
+
+    selected_phase = safe_selection["selected_phase"]
+    if selected_phase is None:
+        selected_phase = current_phase
+    safe_set = safe_selection["safe_set"]
+    advantage = safe_selection["advantage"]
+    advantage_gate_active = safe_selection["advantage_gate_active"]
+
+    # If advantage gate is active and safe_selection reverted to baseline,
+    # prefer switching_loss_max_pressure as the primary baseline.
+    # In non-binding regimes (slack / switching_sensitive / coordination),
+    # SL-MP is the preferred fallback because its switching-awareness
+    # outperforms plain max-pressure when dual corrections are near-zero.
+    is_nonbinding_regime = primary_regime in {
+        "slack", "switching_sensitive", "coordination",
+    }
+    if advantage_gate_active and baseline_scores.get("switching_loss_max_pressure"):
+        slmp_scores = baseline_scores["switching_loss_max_pressure"]
+        slmp_best = max(slmp_scores, key=lambda ph: slmp_scores[ph]) if slmp_scores else current_phase
+        # In non-binding regimes, always prefer SL-MP when gate is active.
+        # In binding regimes, only override if SL-MP differs from gate action.
+        if is_nonbinding_regime or selected_phase != slmp_best:
+            # Check if the switching_loss_max_pressure action is also safe
+            slmp_risk = predicted_unfinished_risk_H.get(slmp_best, float("inf"))
+            min_baseline_risk = min(
+                predicted_unfinished_risk_H.get(
+                    max(bscores, key=lambda ph: bscores[ph]),
+                    float("inf"),
+                )
+                for bscores in baseline_scores.values()
+                if bscores
+            )
+            # In non-binding regimes, use a more generous safety margin
+            # so SL-MP action is accepted unless it is strictly dangerous.
+            safety_eps = eps_u if not is_nonbinding_regime else max(eps_u, 0.10)
+            if slmp_risk <= min_baseline_risk * (1.0 + safety_eps):
+                selected_phase = slmp_best
+
+    # Guard against safe_set collapse: ensure at least 2 phases are available
+    # so the controller can deviate from a single locked phase.
+    # Near end of episode (completion guard active), also override the
+    # selected_phase to the one with lowest predicted unfinished risk, so
+    # we do not strand vehicles by forcing a suboptimal phase into safe_set.
+    if len(safe_set) < 2 and len(greens) >= 2:
+        sorted_by_risk = sorted(
+            greens,
+            key=lambda ph: predicted_unfinished_risk_H.get(ph, float("inf")),
+        )
+        for ph in sorted_by_risk:
+            if ph not in safe_set:
+                safe_set.append(ph)
+                if len(safe_set) >= 2:
+                    break
+
+    # End-of-episode completion guard: when remaining time is short and
+    # both phases have high unfinished risk, prefer the phase with lower
+    # predicted unfinished vehicles (not lower predicted J_H).
+    if completion_guard_active and len(greens) >= 2:
+        # Compute the minimum baseline unfinished risk for reference
+        min_baseline_risk_for_guard = float("inf")
+        for _bname, bscores in baseline_scores.items():
+            if not bscores:
+                continue
+            b_best_phase = max(bscores, key=lambda bp: bscores[bp])
+            min_baseline_risk_for_guard = min(
+                min_baseline_risk_for_guard,
+                predicted_unfinished_risk_H.get(b_best_phase, float("inf")),
+            )
+        if min_baseline_risk_for_guard == float("inf"):
+            min_baseline_risk_for_guard = 0.0
+
+        # Filter safe_set to exclude phases whose predicted unfinished risk
+        # exceeds the best baseline by more than max_unfinished_excess vehicles.
+        max_excess = float(p.get("completion_guard_max_unfinished_excess", 2.0))
+        filtered_safe = [
+            ph for ph in safe_set
+            if predicted_unfinished_risk_H.get(ph, float("inf"))
+            <= min_baseline_risk_for_guard + max_excess
+        ]
+        # Only apply the filtered set if it remains non-empty
+        if filtered_safe:
+            safe_set = filtered_safe
+
+        # Select the phase with minimum predicted unfinished risk from safe_set
+        min_risk_phase = min(
+            safe_set if safe_set else greens,
+            key=lambda ph: predicted_unfinished_risk_H.get(ph, float("inf")),
+        )
+        if min_risk_phase != selected_phase:
+            # Only override if the min-risk phase has strictly lower risk
+            selected_risk = predicted_unfinished_risk_H.get(selected_phase, float("inf"))
+            min_risk = predicted_unfinished_risk_H.get(min_risk_phase, float("inf"))
+            if min_risk < selected_risk:
+                selected_phase = min_risk_phase
+
+    # --- Step 9: Compute best baseline actions for audit ---
+    pressure_action = max(
+        (score, -phase_idx, phase_idx)
+        for phase_idx, score in baseline_scores.get("max_pressure", {}).items()
+    )[2] if baseline_scores.get("max_pressure") else current_phase
+    capacity_action = max(
+        (score, -phase_idx, phase_idx)
+        for phase_idx, score in baseline_scores.get("capacity_aware_pressure", {}).items()
+    )[2] if baseline_scores.get("capacity_aware_pressure") else current_phase
+    double_pressure_action = max(
+        (score, -phase_idx, phase_idx)
+        for phase_idx, score in baseline_scores.get("finite_storage_double_pressure", {}).items()
+    )[2] if baseline_scores.get("finite_storage_double_pressure") else current_phase
+    switching_loss_action = max(
+        (score, -phase_idx, phase_idx)
+        for phase_idx, score in baseline_scores.get("switching_loss_max_pressure", {}).items()
+    )[2] if baseline_scores.get("switching_loss_max_pressure") else current_phase
+
+    selected_totals = dual_component_totals.get(selected_phase, {})
+
+    return {
+        "tls_id": tls_id,
+        "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+        "pressure_action": int(pressure_action),
+        "finite_storage_action": int(selected_phase),
+        "capacity_aware_action": int(capacity_action),
+        "finite_storage_double_action": int(double_pressure_action),
+        "switching_loss_action": int(switching_loss_action),
+        "selected_action": int(selected_phase),
+        "regime": primary_regime,
+        "regime_info": {
+            "primary": regime_info["primary"],
+            "scores": regime_info["scores"],
+            "n_active_regimes": regime_info["n_active_regimes"],
+        },
+        "phase_scores": {str(phase): score for phase, score in phase_scores.items()},
+        "baseline_scores": {
+            bc: {str(ph): s for ph, s in scores.items()}
+            for bc, scores in baseline_scores.items()
+        },
+        "predicted_J_H": {str(phase): float(v) for phase, v in predicted_J_H.items()},
+        "predicted_unfinished_risk_H": {str(phase): float(v) for phase, v in predicted_unfinished_risk_H.items()},
+        "predicted_spillback_risk_H": {str(phase): float(v) for phase, v in predicted_spillback_risk_H.items()},
+        "safe_set": [int(ph) for ph in safe_set],
+        "advantage": float(advantage),
+        "advantage_gate_active": advantage_gate_active,
+        "completion_guard_active": completion_guard_active,
+        "dual_components": {str(phase): ct for phase, ct in dual_component_totals.items()},
+        "selected_component_totals": selected_totals,
+        "action_changed_relative_to_pressure": bool(selected_phase != pressure_action),
+        "dynamic_params": {
+            field: float(value) if isinstance(value, (int, float)) else str(value)
+            for field, value in sorted(p.items())
+        },
+        "effective_eps_u": float(eps_u),
+        "effective_tau_adv": float(tau_adv),
+        "regime_dependent_eps_u": float(eps_u),
+        "regime_dependent_tau_adv": float(tau_adv),
+        "switching_dual_state": {
+            str(ph): float(switching_penalty.get(ph, 0.0))
+            for ph in greens
+        },
+        # Stateful zeta switching fatigue: persists across calls.
+        # The main loop should store this and pass it back as switching_state.
+        "switching_zeta_state": {
+            tls_id: {
+                "zeta": {str(ph): float(zeta_state.get(ph, 0.0)) for ph in greens},
+                "last_phase": int(selected_phase),
+            },
+        },
+        "pressure_phase_scores": {str(ph): s for ph, s in baseline_scores.get("max_pressure", {}).items()},
+        "capacity_aware_phase_scores": {str(ph): s for ph, s in baseline_scores.get("capacity_aware_pressure", {}).items()},
+        "finite_storage_double_phase_scores": {str(ph): s for ph, s in baseline_scores.get("finite_storage_double_pressure", {}).items()},
+        "switching_loss_phase_scores": {str(ph): s for ph, s in baseline_scores.get("switching_loss_max_pressure", {}).items()},
+        # Calibration data for offline analysis
+        "calibration": {
+            "regime_primary": primary_regime,
+            "regime_scores": regime_scores,
+            "effective_eps_u": float(eps_u),
+            "effective_tau_adv": float(tau_adv),
+            "eps_u_used": float(eps_u),
+            "tau_adv_used": float(tau_adv),
+            "advantage": float(advantage),
+            "gate_active": advantage_gate_active,
+            "dual_totals": {
+                k: float(v) for k, v in selected_totals.items()
+            },
+        },
+    }
+
+
 def cfs_pd_mpc_v1_7_ablation_action(
     tls_id: str,
     current_phase: int,
@@ -3830,7 +4845,33 @@ def select_finite_storage_action_with_audit(
     completion_state: dict[str, dict[str, float]] | None = None,
     downstream_adjacency: dict[str, list[str]] | None = None,
     effective_capacity_scale: float = 1.0,
+    phase_since_step: int = 0,
+    action_interval: int = 10,
+    switching_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    # --- V1.8 RC-CFS-PD-MPC fast path ---
+    if controller in V1_8_CONTROLLER_IDS:
+        return cfs_pd_mpc_v1_8_action(
+            tls_id,
+            current_phase,
+            phase_states,
+            tls_movements,
+            queues,
+            capacities,
+            vehicle_counts or {},
+            finite_storage_state,
+            dynamic_dual_state or {},
+            completion_state or {},
+            downstream_adjacency or {},
+            step=step,
+            warmup=warmup,
+            steps=steps,
+            seed=seed,
+            params={"effective_capacity_scale": float(effective_capacity_scale)},
+            phase_since_step=phase_since_step,
+            action_interval=action_interval,
+            switching_state=switching_state,
+        )
     # --- V1.7 CFS-PD-MPC fast path ---
     if controller in V1_7_CONTROLLER_IDS:
         if controller in V1_7_ABLATION_CONTROLLER_IDS:
@@ -6034,6 +7075,7 @@ def run_experiment(
     target_phase_by_tls: dict[str, int] = {}
     phase_since_by_tls: dict[str, int] = {}
     waiting_delay = 0.0
+    switching_state: dict[str, Any] = {}  # Stateful zeta accumulation for v1.8
     demand_shift_mechanism = None
     failure_mode_mechanism = None
     failure_mode_active = False
@@ -6046,12 +7088,12 @@ def run_experiment(
         route_ids = list(traci.route.getIDList())
         original_speed = float(edge_speeds.get(target_edge, 13.89)) if target_edge else None
         for step in range(steps):
-            if any(token in scenario_tag for token in ["bottleneck", "failure_mode", "downstream_blockage", "incident_capacity_drop", "spillback_stress"]):
+            if any(token in scenario_tag for token in ["bottleneck", "failure_mode", "downstream_blockage", "incident_capacity_drop"]):
                 mechanism = apply_failure_mode(step, warmup, target_edge, original_speed)
                 failure_mode_active = warmup <= step < warmup + 120 and target_edge is not None
                 if mechanism:
                     failure_mode_mechanism = mechanism
-            if any(token in scenario_tag for token in ["demand_shift", "turning_shock", "oversaturation"]):
+            if any(token in scenario_tag for token in ["demand_shift", "turning_shock", "oversaturation", "spillback_stress"]):
                 mechanism = demand_shift_tick(step, warmup, route_ids, inserted)
                 if mechanism:
                     demand_shift_mechanism = mechanism
@@ -6122,6 +7164,30 @@ def run_experiment(
                         steps=steps,
                         params=DYNAMIC_V1_7_CFS_PD_MPC_PARAMS,
                     )
+                if controller in V1_8_CONTROLLER_IDS:
+                    interval_state = build_completed_finite_storage_state(
+                        queues,
+                        capacities,
+                        vehicle_counts=vehicle_counts,
+                        current_phase=None,
+                        time_since_switch=float(action_interval),
+                        incident_edge=target_edge if failure_mode_active else None,
+                        capacity_drop_factor=0.35 if failure_mode_active else None,
+                    )
+                    update_dynamic_dual_state(
+                        dynamic_dual_state,
+                        interval_state,
+                        downstream_adjacency,
+                        params=DYNAMIC_V1_8_RC_CFS_PD_MPC_PARAMS,
+                    )
+                    update_completion_dual_state(
+                        dynamic_dual_state,
+                        interval_state,
+                        step=step,
+                        warmup=warmup,
+                        steps=steps,
+                        params=DYNAMIC_V1_8_RC_CFS_PD_MPC_PARAMS,
+                    )
                 route_completion_state = (
                     build_active_route_completion_state(
                         edge_ids,
@@ -6164,7 +7230,7 @@ def run_experiment(
                             decision_state,
                             seed,
                             controller=controller,
-                            dynamic_dual_state=dynamic_dual_state if (controller in DYNAMIC_V1_5_CONTROLLER_IDS or controller in V1_7_CONTROLLER_IDS) else None,
+                            dynamic_dual_state=dynamic_dual_state if (controller in DYNAMIC_V1_5_CONTROLLER_IDS or controller in V1_7_CONTROLLER_IDS or controller in V1_8_CONTROLLER_IDS) else None,
                             route_completion_state=route_completion_state,
                             step=step,
                             warmup=warmup,
@@ -6178,10 +7244,18 @@ def run_experiment(
                                 step=step,
                                 warmup=warmup,
                                 steps=steps,
-                            ) if controller in V1_7_CONTROLLER_IDS else None,
-                            downstream_adjacency=downstream_adjacency if controller in V1_7_CONTROLLER_IDS else None,
+                            ) if controller in V1_7_CONTROLLER_IDS or controller in V1_8_CONTROLLER_IDS else None,
+                            downstream_adjacency=downstream_adjacency if controller in V1_7_CONTROLLER_IDS or controller in V1_8_CONTROLLER_IDS else None,
                             effective_capacity_scale=effective_capacity_scale,
+                            phase_since_step=phase_since_by_tls.get(tls_id, step - action_interval),
+                            action_interval=action_interval,
+                            switching_state=switching_state if controller in V1_8_CONTROLLER_IDS else None,
                         )
+                        # Update switching_state from v1.8 zeta output
+                        if controller in V1_8_CONTROLLER_IDS:
+                            zeta_update = audit.get("switching_zeta_state", {})
+                            if zeta_update:
+                                switching_state.update(zeta_update)
                         latest_action_decomposition_by_tls[tls_id] = audit
                         update_action_decision_summary(action_decision_summary, audit, decision_state)
                         if collect_decision_trace:
@@ -6277,6 +7351,12 @@ def run_experiment(
                                             {},
                                         )
                                     ),
+                                    "v18_regime": str(audit.get("regime", "")),
+                                    "v18_regime_scores": dict(audit.get("regime_info", {}).get("scores", {})) if isinstance(audit.get("regime_info"), dict) else {},
+                                    "v18_advantage": float(audit.get("advantage", 0.0)),
+                                    "v18_advantage_gate_active": bool(audit.get("advantage_gate_active", False)),
+                                    "v18_eps_u": float(audit.get("regime_dependent_eps_u", 0.0)),
+                                    "v18_tau_adv": float(audit.get("regime_dependent_tau_adv", 0.0)),
                                 }
                             )
                         action = int(audit["selected_action"])

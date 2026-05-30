@@ -1,0 +1,1688 @@
+{
+  "experiment": "v1_8_param_sweep",
+  "grid": {
+    "tau_adv_variants": {
+      "conservative": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.08,
+        "coordination": 0.08,
+        "slack": 0.1,
+        "completion_critical": 0.1
+      },
+      "moderate": {
+        "storage_binding": 0.02,
+        "cascade_risk": 0.02,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.08,
+        "completion_critical": 0.08
+      },
+      "aggressive": {
+        "storage_binding": 0.01,
+        "cascade_risk": 0.01,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.05,
+        "completion_critical": 0.05
+      }
+    },
+    "eps_u_variants": {
+      "tight": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "medium": {
+        "storage_binding": 0.1,
+        "cascade_risk": 0.1,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "wide": {
+        "storage_binding": 0.2,
+        "cascade_risk": 0.2,
+        "switching_sensitive": 0.1,
+        "coordination": 0.1,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      }
+    }
+  },
+  "scenarios": [
+    "arterial_v1_5_storage_activation",
+    "arterial_switching_loss_sensitive"
+  ],
+  "seed": 20261801,
+  "steps": 300,
+  "warmup": 60,
+  "action_interval": 10,
+  "network": "arterial",
+  "controllers": [
+    "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+    "max_pressure"
+  ],
+  "comparison_table": [
+    {
+      "combo": "conservative__tight",
+      "tau_adv": "conservative",
+      "eps_u": "tight",
+      "tau_adv_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.08,
+        "coordination": 0.08,
+        "slack": 0.1,
+        "completion_critical": 0.1
+      },
+      "eps_u_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_v1_5_storage_activation",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.4
+    },
+    {
+      "combo": "conservative__tight",
+      "tau_adv": "conservative",
+      "eps_u": "tight",
+      "tau_adv_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.08,
+        "coordination": 0.08,
+        "slack": 0.1,
+        "completion_critical": 0.1
+      },
+      "eps_u_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_switching_loss_sensitive",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.8
+    },
+    {
+      "combo": "conservative__medium",
+      "tau_adv": "conservative",
+      "eps_u": "medium",
+      "tau_adv_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.08,
+        "coordination": 0.08,
+        "slack": 0.1,
+        "completion_critical": 0.1
+      },
+      "eps_u_values": {
+        "storage_binding": 0.1,
+        "cascade_risk": 0.1,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_v1_5_storage_activation",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.5
+    },
+    {
+      "combo": "conservative__medium",
+      "tau_adv": "conservative",
+      "eps_u": "medium",
+      "tau_adv_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.08,
+        "coordination": 0.08,
+        "slack": 0.1,
+        "completion_critical": 0.1
+      },
+      "eps_u_values": {
+        "storage_binding": 0.1,
+        "cascade_risk": 0.1,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_switching_loss_sensitive",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.1
+    },
+    {
+      "combo": "conservative__wide",
+      "tau_adv": "conservative",
+      "eps_u": "wide",
+      "tau_adv_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.08,
+        "coordination": 0.08,
+        "slack": 0.1,
+        "completion_critical": 0.1
+      },
+      "eps_u_values": {
+        "storage_binding": 0.2,
+        "cascade_risk": 0.2,
+        "switching_sensitive": 0.1,
+        "coordination": 0.1,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_v1_5_storage_activation",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.2
+    },
+    {
+      "combo": "conservative__wide",
+      "tau_adv": "conservative",
+      "eps_u": "wide",
+      "tau_adv_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.08,
+        "coordination": 0.08,
+        "slack": 0.1,
+        "completion_critical": 0.1
+      },
+      "eps_u_values": {
+        "storage_binding": 0.2,
+        "cascade_risk": 0.2,
+        "switching_sensitive": 0.1,
+        "coordination": 0.1,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_switching_loss_sensitive",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.5
+    },
+    {
+      "combo": "moderate__tight",
+      "tau_adv": "moderate",
+      "eps_u": "tight",
+      "tau_adv_values": {
+        "storage_binding": 0.02,
+        "cascade_risk": 0.02,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.08,
+        "completion_critical": 0.08
+      },
+      "eps_u_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_v1_5_storage_activation",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.4
+    },
+    {
+      "combo": "moderate__tight",
+      "tau_adv": "moderate",
+      "eps_u": "tight",
+      "tau_adv_values": {
+        "storage_binding": 0.02,
+        "cascade_risk": 0.02,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.08,
+        "completion_critical": 0.08
+      },
+      "eps_u_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_switching_loss_sensitive",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.1
+    },
+    {
+      "combo": "moderate__medium",
+      "tau_adv": "moderate",
+      "eps_u": "medium",
+      "tau_adv_values": {
+        "storage_binding": 0.02,
+        "cascade_risk": 0.02,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.08,
+        "completion_critical": 0.08
+      },
+      "eps_u_values": {
+        "storage_binding": 0.1,
+        "cascade_risk": 0.1,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_v1_5_storage_activation",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.8
+    },
+    {
+      "combo": "moderate__medium",
+      "tau_adv": "moderate",
+      "eps_u": "medium",
+      "tau_adv_values": {
+        "storage_binding": 0.02,
+        "cascade_risk": 0.02,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.08,
+        "completion_critical": 0.08
+      },
+      "eps_u_values": {
+        "storage_binding": 0.1,
+        "cascade_risk": 0.1,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_switching_loss_sensitive",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.5
+    },
+    {
+      "combo": "moderate__wide",
+      "tau_adv": "moderate",
+      "eps_u": "wide",
+      "tau_adv_values": {
+        "storage_binding": 0.02,
+        "cascade_risk": 0.02,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.08,
+        "completion_critical": 0.08
+      },
+      "eps_u_values": {
+        "storage_binding": 0.2,
+        "cascade_risk": 0.2,
+        "switching_sensitive": 0.1,
+        "coordination": 0.1,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_v1_5_storage_activation",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.2
+    },
+    {
+      "combo": "moderate__wide",
+      "tau_adv": "moderate",
+      "eps_u": "wide",
+      "tau_adv_values": {
+        "storage_binding": 0.02,
+        "cascade_risk": 0.02,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.08,
+        "completion_critical": 0.08
+      },
+      "eps_u_values": {
+        "storage_binding": 0.2,
+        "cascade_risk": 0.2,
+        "switching_sensitive": 0.1,
+        "coordination": 0.1,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_switching_loss_sensitive",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.6
+    },
+    {
+      "combo": "aggressive__tight",
+      "tau_adv": "aggressive",
+      "eps_u": "tight",
+      "tau_adv_values": {
+        "storage_binding": 0.01,
+        "cascade_risk": 0.01,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.05,
+        "completion_critical": 0.05
+      },
+      "eps_u_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_v1_5_storage_activation",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.1
+    },
+    {
+      "combo": "aggressive__tight",
+      "tau_adv": "aggressive",
+      "eps_u": "tight",
+      "tau_adv_values": {
+        "storage_binding": 0.01,
+        "cascade_risk": 0.01,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.05,
+        "completion_critical": 0.05
+      },
+      "eps_u_values": {
+        "storage_binding": 0.05,
+        "cascade_risk": 0.05,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_switching_loss_sensitive",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.5
+    },
+    {
+      "combo": "aggressive__medium",
+      "tau_adv": "aggressive",
+      "eps_u": "medium",
+      "tau_adv_values": {
+        "storage_binding": 0.01,
+        "cascade_risk": 0.01,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.05,
+        "completion_critical": 0.05
+      },
+      "eps_u_values": {
+        "storage_binding": 0.1,
+        "cascade_risk": 0.1,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_v1_5_storage_activation",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.7
+    },
+    {
+      "combo": "aggressive__medium",
+      "tau_adv": "aggressive",
+      "eps_u": "medium",
+      "tau_adv_values": {
+        "storage_binding": 0.01,
+        "cascade_risk": 0.01,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.05,
+        "completion_critical": 0.05
+      },
+      "eps_u_values": {
+        "storage_binding": 0.1,
+        "cascade_risk": 0.1,
+        "switching_sensitive": 0.05,
+        "coordination": 0.05,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_switching_loss_sensitive",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.3
+    },
+    {
+      "combo": "aggressive__wide",
+      "tau_adv": "aggressive",
+      "eps_u": "wide",
+      "tau_adv_values": {
+        "storage_binding": 0.01,
+        "cascade_risk": 0.01,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.05,
+        "completion_critical": 0.05
+      },
+      "eps_u_values": {
+        "storage_binding": 0.2,
+        "cascade_risk": 0.2,
+        "switching_sensitive": 0.1,
+        "coordination": 0.1,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_v1_5_storage_activation",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.3
+    },
+    {
+      "combo": "aggressive__wide",
+      "tau_adv": "aggressive",
+      "eps_u": "wide",
+      "tau_adv_values": {
+        "storage_binding": 0.01,
+        "cascade_risk": 0.01,
+        "switching_sensitive": 0.03,
+        "coordination": 0.03,
+        "slack": 0.05,
+        "completion_critical": 0.05
+      },
+      "eps_u_values": {
+        "storage_binding": 0.2,
+        "cascade_risk": 0.2,
+        "switching_sensitive": 0.1,
+        "coordination": 0.1,
+        "slack": 0.0,
+        "completion_critical": 0.0
+      },
+      "scenario": "arterial_switching_loss_sensitive",
+      "seed": 20261801,
+      "v18": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "max_pressure": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      },
+      "delta_att_pct": 0.0,
+      "delta_delay_pct": 0.0,
+      "delta_completion_rate": 0.0,
+      "v18_beats_mp_att": false,
+      "v18_beats_mp_delay": false,
+      "elapsed_sec": 4.4
+    }
+  ],
+  "combo_wins": {
+    "conservative__tight": {
+      "att_wins": 0,
+      "delay_wins": 0,
+      "total": 2
+    },
+    "conservative__medium": {
+      "att_wins": 0,
+      "delay_wins": 0,
+      "total": 2
+    },
+    "conservative__wide": {
+      "att_wins": 0,
+      "delay_wins": 0,
+      "total": 2
+    },
+    "moderate__tight": {
+      "att_wins": 0,
+      "delay_wins": 0,
+      "total": 2
+    },
+    "moderate__medium": {
+      "att_wins": 0,
+      "delay_wins": 0,
+      "total": 2
+    },
+    "moderate__wide": {
+      "att_wins": 0,
+      "delay_wins": 0,
+      "total": 2
+    },
+    "aggressive__tight": {
+      "att_wins": 0,
+      "delay_wins": 0,
+      "total": 2
+    },
+    "aggressive__medium": {
+      "att_wins": 0,
+      "delay_wins": 0,
+      "total": 2
+    },
+    "aggressive__wide": {
+      "att_wins": 0,
+      "delay_wins": 0,
+      "total": 2
+    }
+  },
+  "best_combo": "aggressive__medium",
+  "all_results": [
+    {
+      "combo": "conservative__tight",
+      "tau_adv": "conservative",
+      "eps_u": "tight",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__tight",
+      "tau_adv": "conservative",
+      "eps_u": "tight",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__tight",
+      "tau_adv": "conservative",
+      "eps_u": "tight",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__tight",
+      "tau_adv": "conservative",
+      "eps_u": "tight",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__medium",
+      "tau_adv": "conservative",
+      "eps_u": "medium",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__medium",
+      "tau_adv": "conservative",
+      "eps_u": "medium",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__medium",
+      "tau_adv": "conservative",
+      "eps_u": "medium",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__medium",
+      "tau_adv": "conservative",
+      "eps_u": "medium",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__wide",
+      "tau_adv": "conservative",
+      "eps_u": "wide",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__wide",
+      "tau_adv": "conservative",
+      "eps_u": "wide",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__wide",
+      "tau_adv": "conservative",
+      "eps_u": "wide",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "conservative__wide",
+      "tau_adv": "conservative",
+      "eps_u": "wide",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__tight",
+      "tau_adv": "moderate",
+      "eps_u": "tight",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__tight",
+      "tau_adv": "moderate",
+      "eps_u": "tight",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__tight",
+      "tau_adv": "moderate",
+      "eps_u": "tight",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__tight",
+      "tau_adv": "moderate",
+      "eps_u": "tight",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__medium",
+      "tau_adv": "moderate",
+      "eps_u": "medium",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__medium",
+      "tau_adv": "moderate",
+      "eps_u": "medium",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__medium",
+      "tau_adv": "moderate",
+      "eps_u": "medium",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__medium",
+      "tau_adv": "moderate",
+      "eps_u": "medium",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__wide",
+      "tau_adv": "moderate",
+      "eps_u": "wide",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__wide",
+      "tau_adv": "moderate",
+      "eps_u": "wide",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__wide",
+      "tau_adv": "moderate",
+      "eps_u": "wide",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "moderate__wide",
+      "tau_adv": "moderate",
+      "eps_u": "wide",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__tight",
+      "tau_adv": "aggressive",
+      "eps_u": "tight",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__tight",
+      "tau_adv": "aggressive",
+      "eps_u": "tight",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__tight",
+      "tau_adv": "aggressive",
+      "eps_u": "tight",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__tight",
+      "tau_adv": "aggressive",
+      "eps_u": "tight",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__medium",
+      "tau_adv": "aggressive",
+      "eps_u": "medium",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__medium",
+      "tau_adv": "aggressive",
+      "eps_u": "medium",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__medium",
+      "tau_adv": "aggressive",
+      "eps_u": "medium",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__medium",
+      "tau_adv": "aggressive",
+      "eps_u": "medium",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__wide",
+      "tau_adv": "aggressive",
+      "eps_u": "wide",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__wide",
+      "tau_adv": "aggressive",
+      "eps_u": "wide",
+      "scenario": "arterial_v1_5_storage_activation",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 1769,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__wide",
+      "tau_adv": "aggressive",
+      "eps_u": "wide",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    },
+    {
+      "combo": "aggressive__wide",
+      "tau_adv": "aggressive",
+      "eps_u": "wide",
+      "scenario": "arterial_switching_loss_sensitive",
+      "controller": "max_pressure",
+      "metrics": {
+        "avg_travel_time": 62.57636122177955,
+        "total_delay": 6748.0,
+        "completion_rate": 0.8184782608695652,
+        "completed_vehicles": 753,
+        "unfinished_vehicle_count": 167,
+        "penalized_avg_travel_time": 94.78260869565217,
+        "mean_queue": 28.116666666666667,
+        "spillback_count": 0,
+        "switching_count": 54
+      }
+    }
+  ]
+}

@@ -1115,13 +1115,26 @@ def execute_spec(
     max_new_rows: int | None = None,
 ) -> tuple[list[dict[str, Any]], list[str], str]:
     if dry_run:
-        return dry_run_placeholder_rows(spec, route_metadata), ["dry-run requested; no SUMO rows executed"], "dry_run_spec_only"
+        placeholder_rows = dry_run_placeholder_rows(spec, route_metadata)
+        if progress_out is not None:
+            progress_out.parent.mkdir(parents=True, exist_ok=True)
+            progress_payload = {
+                "total_rows": len(spec),
+                "completed_rows": 0,
+                "failed_rows": len(spec),
+                "completed_row_keys": [],
+                "attempted_row_keys": [],
+                "failure_reasons": ["dry-run requested; no SUMO rows executed"],
+                "dry_run": True,
+            }
+            progress_out.write_text(json.dumps(progress_payload, indent=2), encoding="utf-8")
+        return placeholder_rows, ["dry-run requested; no SUMO rows executed"], "dry_run_spec_only"
     rows: list[dict[str, Any]] = []
     reasons: list[str] = []
     attempted_row_keys: list[str] = []
     progress_enabled = progress_out is not None
     if execution_row_limit is not None and len(spec) > execution_row_limit:
-        return [], [f"runtime guard prevented {len(spec)} requested rows from starting; execution_row_limit={execution_row_limit}"], "fail_closed_runtime_guard"
+        spec = spec[:execution_row_limit]
     if resume_progress is not None and resume_progress.exists():
         progress = load_progress(resume_progress, spec)
         rows = list(progress["completed_rows"])

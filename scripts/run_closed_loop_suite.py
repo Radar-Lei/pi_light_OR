@@ -79,7 +79,7 @@ STRESS_SCENARIO_CATEGORIES = {
 }
 STRESS_SCENARIO_MECHANISMS = {
     "arterial_downstream_blockage": "edge_speed_reduction",
-    "arterial_spillback_stress": "edge_speed_reduction",
+    "arterial_spillback_stress": "traci_vehicle_insertion",
     "arterial_incident_capacity_drop": "edge_speed_reduction",
     "arterial_bottleneck_failure_mode": "edge_speed_reduction",
     "arterial_oversaturation": "traci_vehicle_insertion",
