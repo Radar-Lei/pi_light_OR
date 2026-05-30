@@ -1,0 +1,1351 @@
+{
+  "experiment": "phase11_row_progress",
+  "spec_fingerprint": "a22dd03b8e1ce8543328639a9978139e039022454c770102f5c2974c543201c5",
+  "profile": "screen",
+  "steps": 3600,
+  "warmup": 900,
+  "seeds": [
+    20261801
+  ],
+  "demand_multipliers": [
+    1.0
+  ],
+  "expected_row_count": 1,
+  "expected_row_keys": [
+    "arterial_v1_5_storage_activation/1/finite_storage_regime_calibrated_cfs_pd_mpc_v1_8/seed=20261801"
+  ],
+  "updated_at": "2026-05-29T12:20:39Z",
+  "completed_row_count": 1,
+  "attempted_row_count": 1,
+  "completed_row_keys": [
+    "arterial_v1_5_storage_activation/1/finite_storage_regime_calibrated_cfs_pd_mpc_v1_8/seed=20261801"
+  ],
+  "attempted_row_keys": [
+    "arterial_v1_5_storage_activation/1/finite_storage_regime_calibrated_cfs_pd_mpc_v1_8/seed=20261801"
+  ],
+  "failure_reasons": [],
+  "completed_rows": [
+    {
+      "network": "arterial",
+      "scenario_tag": "arterial_v1_5_storage_activation",
+      "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+      "seed": 20261801,
+      "steps": 3600,
+      "warmup": 900,
+      "action_interval": 10,
+      "scenario_status": "completed",
+      "feasibility_status": "run",
+      "sumocfg": "experiments/dual_sensitivity/v1_8_training_scaled_inputs/phase11_arterial_demand_1p0.sumocfg",
+      "base_sumocfg": "networks/arterial/arterial.sumocfg",
+      "net_file": "networks/arterial/arterial.net.xml",
+      "effective_capacity_scale": 0.1,
+      "route_decision": "pressure-equivalent",
+      "route_confidence": "MEDIUM",
+      "route_json": "experiments/dual_sensitivity/block3_static_kill_gate.json",
+      "avg_travel_time": 153.6659588022935,
+      "penalized_avg_travel_time": 318.059793404847,
+      "total_delay": 909972.0,
+      "completed_vehicles": 9418,
+      "completion_rate": 0.9354390147000398,
+      "throughput": 3.488148148148148,
+      "mean_queue": 337.02666666666664,
+      "max_queue": 104.0,
+      "spillback_count": 33084,
+      "blocking_count": 29840,
+      "switching_count": 319,
+      "controller_runtime_sec": 0.8063723252271302,
+      "travel_time_source": "conditional_on_arrival_with_censoring_penalty",
+      "unfinished_vehicle_count": 650,
+      "objective_components": {
+        "delay": 909972.0,
+        "unfinished_vehicle_penalty": 1755000.0,
+        "spillback_blocking_time": 169894800.0,
+        "switching_lost_time": 638.0
+      },
+      "finite_storage_state": {
+        "downstream_storage": {
+          "C12C2": 10.912000000000003,
+          "C12N1": 11.456,
+          "C12S1": 11.456,
+          "C12W_in": 11.456,
+          "C22C1": 10.912000000000003,
+          "C22C3": 10.912000000000003,
+          "C22N2": 11.456,
+          "C22S2": 11.456,
+          "C32C2": 10.912000000000003,
+          "C32C4": 10.912000000000003,
+          "C32N3": 11.456,
+          "C32S3": 11.456,
+          "C42C3": 10.912000000000003,
+          "C42C5": 10.912000000000003,
+          "C42N4": 11.456,
+          "C42S4": 11.456,
+          "C52C4": 10.912000000000003,
+          "C52E_out": 11.456,
+          "C52N5": 11.456,
+          "C52S5": 11.456,
+          "E_out2C5": 11.456,
+          "N12C1": 11.456,
+          "N22C2": 11.456,
+          "N32C3": 11.456,
+          "N42C4": 11.456,
+          "N52C5": 11.456,
+          "S12C1": 11.456,
+          "S22C2": 11.456,
+          "S32C3": 11.456,
+          "S42C4": 11.456,
+          "S52C5": 11.456,
+          "W_in2C1": 11.456
+        },
+        "residual_receiving_capacity": {
+          "C12C2": 0.0,
+          "C12N1": 6.4559999999999995,
+          "C12S1": 7.4559999999999995,
+          "C12W_in": 8.456,
+          "C22C1": 1.9120000000000026,
+          "C22C3": 0.0,
+          "C22N2": 10.456,
+          "C22S2": 10.456,
+          "C32C2": 3.9120000000000026,
+          "C32C4": 0.0,
+          "C32N3": 9.456,
+          "C32S3": 8.456,
+          "C42C3": 5.912000000000003,
+          "C42C5": 0.0,
+          "C42N4": 7.4559999999999995,
+          "C42S4": 7.4559999999999995,
+          "C52C4": 0.0,
+          "C52E_out": 8.456,
+          "C52N5": 10.456,
+          "C52S5": 10.456,
+          "E_out2C5": 0.0,
+          "N12C1": 3.4559999999999995,
+          "N22C2": 0.0,
+          "N32C3": 0.0,
+          "N42C4": 0.0,
+          "N52C5": 10.456,
+          "S12C1": 3.4559999999999995,
+          "S22C2": 7.4559999999999995,
+          "S32C3": 0.0,
+          "S42C4": 0.0,
+          "S52C5": 10.456,
+          "W_in2C1": 8.456
+        },
+        "spillback_blocking": {
+          "C12C2": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 4.215542521994134
+          },
+          "C12N1": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.43645251396648044
+          },
+          "C12S1": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.34916201117318435
+          },
+          "C12W_in": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.26187150837988826
+          },
+          "C22C1": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.8247800586510262
+          },
+          "C22C3": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 8.339442815249265
+          },
+          "C22N2": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.08729050279329609
+          },
+          "C22S2": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.08729050279329609
+          },
+          "C32C2": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.6414956011730204
+          },
+          "C32C4": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 8.889296187683282
+          },
+          "C32N3": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.17458100558659218
+          },
+          "C32S3": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.26187150837988826
+          },
+          "C42C3": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.45821114369501453
+          },
+          "C42C5": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 9.347507331378297
+          },
+          "C42N4": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.34916201117318435
+          },
+          "C42S4": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.34916201117318435
+          },
+          "C52C4": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 1.0997067448680349
+          },
+          "C52E_out": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.26187150837988826
+          },
+          "C52N5": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.08729050279329609
+          },
+          "C52S5": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.08729050279329609
+          },
+          "E_out2C5": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 9.689245810055866
+          },
+          "N12C1": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.6983240223463687
+          },
+          "N22C2": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 1.1347765363128492
+          },
+          "N32C3": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 2.3568435754189947
+          },
+          "N42C4": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 2.3568435754189947
+          },
+          "N52C5": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.08729050279329609
+          },
+          "S12C1": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.6983240223463687
+          },
+          "S22C2": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.34916201117318435
+          },
+          "S32C3": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 1.3093575418994414
+          },
+          "S42C4": {
+            "spillback": true,
+            "blocking": true,
+            "occupancy_ratio": 2.094972067039106
+          },
+          "S52C5": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.08729050279329609
+          },
+          "W_in2C1": {
+            "spillback": false,
+            "blocking": false,
+            "occupancy_ratio": 0.26187150837988826
+          }
+        },
+        "switching_loss_state": {
+          "current_phase": 0,
+          "time_since_switch": 0.0
+        },
+        "service_urgency": {
+          "C12C2": 3.024193548387096,
+          "C12N1": 0.0,
+          "C12S1": 0.0,
+          "C12W_in": 0.0,
+          "C22C1": 0.0,
+          "C22C3": 5.498533724340175,
+          "C22N2": 0.0,
+          "C22S2": 0.0,
+          "C32C2": 0.0,
+          "C32C4": 5.498533724340175,
+          "C32N3": 0.0,
+          "C32S3": 0.0,
+          "C42C3": 0.0,
+          "C42C5": 6.781524926686215,
+          "C42N4": 0.0,
+          "C42S4": 0.0,
+          "C52C4": 0.5498533724340174,
+          "C52E_out": 0.0,
+          "C52N5": 0.0,
+          "C52S5": 0.0,
+          "E_out2C5": 7.419692737430168,
+          "N12C1": 0.43645251396648044,
+          "N22C2": 1.047486033519553,
+          "N32C3": 2.2695530726256985,
+          "N42C4": 2.2695530726256985,
+          "N52C5": 0.0,
+          "S12C1": 0.34916201117318435,
+          "S22C2": 0.26187150837988826,
+          "S32C3": 1.2220670391061452,
+          "S42C4": 2.0076815642458103,
+          "S52C5": 0.0,
+          "W_in2C1": 0.0
+        },
+        "incident_capacity_drop": {
+          "active": false,
+          "edge": null,
+          "factor": 1.0
+        }
+      },
+      "stress_category": "v1_5_storage_activation",
+      "stress_mechanism": "diagnostic_effective_storage_capacity_scale",
+      "action_decomposition": {
+        "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+        "decision_scope": "last_action_decision_per_tls",
+        "last_decision_by_tls": {
+          "C1": {
+            "tls_id": "C1",
+            "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+            "pressure_action": 0,
+            "finite_storage_action": 2,
+            "capacity_aware_action": 0,
+            "finite_storage_double_action": 0,
+            "switching_loss_action": 0,
+            "selected_action": 2,
+            "regime": "storage_binding",
+            "regime_info": {
+              "primary": "storage_binding",
+              "scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 1.0
+              },
+              "n_active_regimes": 3
+            },
+            "phase_scores": {
+              "0": 2711.8680000000004,
+              "2": 2504.802000000001
+            },
+            "baseline_scores": {
+              "max_pressure": {
+                "0": -28.0,
+                "2": -102.0
+              },
+              "capacity_aware_pressure": {
+                "0": -72.4770862170088,
+                "2": -134.1896
+              },
+              "finite_storage_double_pressure": {
+                "0": -80.4770862170088,
+                "2": -134.1896
+              },
+              "occupancy_capacity_aware_pressure": {
+                "0": -91.29111822932877,
+                "2": -137.13960000000003
+              },
+              "delay_based_max_pressure": {
+                "0": -197.91035239764733,
+                "2": -317.8152492668621
+              },
+              "switching_loss_max_pressure": {
+                "0": -28.0,
+                "2": -102.0
+              }
+            },
+            "predicted_J_H": {
+              "0": 649.4616,
+              "2": 657.4616
+            },
+            "predicted_unfinished_risk_H": {
+              "0": 651.0,
+              "2": 643.0
+            },
+            "predicted_spillback_risk_H": {
+              "0": 458.9232,
+              "2": 458.9232
+            },
+            "safe_set": [
+              2
+            ],
+            "advantage": 0.0,
+            "advantage_gate_active": true,
+            "dual_components": {
+              "0": {
+                "pressure": -28.0,
+                "storage_correction": 24.926399999999994,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 114.56000000000002,
+                "service_bonus": 0.0,
+                "switching_penalty": 0.0,
+                "progression_bonus": 0.5
+              },
+              "2": {
+                "pressure": -102.0,
+                "storage_correction": 37.38959999999999,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 111.84000000000003,
+                "service_bonus": 0.0,
+                "switching_penalty": 1.125,
+                "progression_bonus": 0.0
+              }
+            },
+            "selected_component_totals": {
+              "pressure": -102.0,
+              "storage_correction": 37.38959999999999,
+              "cascade_correction": 0.0,
+              "release_bonus": 0.0,
+              "completion_bonus": 111.84000000000003,
+              "service_bonus": 0.0,
+              "switching_penalty": 1.125,
+              "progression_bonus": 0.0
+            },
+            "action_changed_relative_to_pressure": true,
+            "dynamic_params": {
+              "H_rollout": 3.0,
+              "beta_storage": 0.3,
+              "completion_horizon_fraction": 0.3,
+              "delta_release": 0.2,
+              "effective_capacity_scale": 0.1,
+              "eps_u": "{'slack': 0.0, 'completion_critical': 0.0, 'storage_binding': 0.05, 'cascade_risk': 0.05, 'switching_sensitive': 0.03, 'coordination': 0.03}",
+              "eta_completion": 1.0,
+              "finishable_safety_margin": 0.02,
+              "gamma_cascade": 0.3,
+              "kappa_service": 0.1,
+              "kappa_switching_accumulate": 0.5,
+              "lambda_delay": "{'default': 1.0}",
+              "lambda_progression": "{'default': 0.5}",
+              "lambda_spillback": "{'default': 5.0}",
+              "lambda_switching": 0.75,
+              "lambda_switching_loss": "{'default': 2.0}",
+              "lambda_unfinished": "{'default': 50.0}",
+              "min_green_hysteresis": 1.0,
+              "regime_thresholds": "{'slack_max_occupancy': 0.55, 'storage_binding_min_occupancy': 0.65, 'cascade_risk_min_shadow': 0.15, 'completion_critical_min_eta_ratio': 0.5, 'switching_sensitive_min_lost_time': 0.3, 'coordination_min_platoon_value': 0.2}",
+              "rho_switching_decay": 0.85,
+              "rollout_dt": 1.0,
+              "saturation_flow": 0.5,
+              "tau_adv": "{'slack': 0.15, 'completion_critical': 0.15, 'storage_binding': 0.02, 'cascade_risk': 0.02, 'switching_sensitive': 0.05, 'coordination': 0.05}"
+            },
+            "regime_dependent_eps_u": 0.05,
+            "regime_dependent_tau_adv": 0.02,
+            "switching_dual_state": {
+              "0": 0.0,
+              "2": 1.125
+            },
+            "pressure_phase_scores": {
+              "0": -28.0,
+              "2": -102.0
+            },
+            "capacity_aware_phase_scores": {
+              "0": -72.4770862170088,
+              "2": -134.1896
+            },
+            "finite_storage_double_phase_scores": {
+              "0": -80.4770862170088,
+              "2": -134.1896
+            },
+            "switching_loss_phase_scores": {
+              "0": -28.0,
+              "2": -102.0
+            },
+            "calibration": {
+              "regime_primary": "storage_binding",
+              "regime_scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 1.0
+              },
+              "eps_u_used": 0.05,
+              "tau_adv_used": 0.02,
+              "advantage": 0.0,
+              "gate_active": true,
+              "dual_totals": {
+                "pressure": -102.0,
+                "storage_correction": 37.38959999999999,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 111.84000000000003,
+                "service_bonus": 0.0,
+                "switching_penalty": 1.125,
+                "progression_bonus": 0.0
+              }
+            }
+          },
+          "C2": {
+            "tls_id": "C2",
+            "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+            "pressure_action": 2,
+            "finite_storage_action": 2,
+            "capacity_aware_action": 0,
+            "finite_storage_double_action": 0,
+            "switching_loss_action": 2,
+            "selected_action": 2,
+            "regime": "storage_binding",
+            "regime_info": {
+              "primary": "storage_binding",
+              "scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 1.0
+              },
+              "n_active_regimes": 3
+            },
+            "phase_scores": {
+              "0": 2561.4610000000002,
+              "2": 2334.104000000001
+            },
+            "baseline_scores": {
+              "max_pressure": {
+                "0": -37.0,
+                "2": 2.0
+              },
+              "capacity_aware_pressure": {
+                "0": -135.78427214076243,
+                "2": -557.0316105571846
+              },
+              "finite_storage_double_pressure": {
+                "0": -153.50427214076245,
+                "2": -704.1196105571846
+              },
+              "occupancy_capacity_aware_pressure": {
+                "0": -236.99418565507298,
+                "2": -926.160492157473
+              },
+              "delay_based_max_pressure": {
+                "0": -508.0028240141546,
+                "2": -332.47800586510255
+              },
+              "switching_loss_max_pressure": {
+                "0": -37.0,
+                "2": 2.0
+              }
+            },
+            "predicted_J_H": {
+              "0": 649.9176,
+              "2": 654.4616
+            },
+            "predicted_unfinished_risk_H": {
+              "0": 651.0,
+              "2": 646.0
+            },
+            "predicted_spillback_risk_H": {
+              "0": 459.8352,
+              "2": 458.9232
+            },
+            "safe_set": [
+              2
+            ],
+            "advantage": -4.543999999999983,
+            "advantage_gate_active": true,
+            "dual_components": {
+              "0": {
+                "pressure": -37.0,
+                "storage_correction": 52.8528,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 114.56000000000002,
+                "service_bonus": 0.0,
+                "switching_penalty": 0.6375,
+                "progression_bonus": 0.0
+              },
+              "2": {
+                "pressure": 2.0,
+                "storage_correction": 79.2792,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 109.12000000000005,
+                "service_bonus": 0.0,
+                "switching_penalty": 0.0,
+                "progression_bonus": 0.5
+              }
+            },
+            "selected_component_totals": {
+              "pressure": 2.0,
+              "storage_correction": 79.2792,
+              "cascade_correction": 0.0,
+              "release_bonus": 0.0,
+              "completion_bonus": 109.12000000000005,
+              "service_bonus": 0.0,
+              "switching_penalty": 0.0,
+              "progression_bonus": 0.5
+            },
+            "action_changed_relative_to_pressure": false,
+            "dynamic_params": {
+              "H_rollout": 3.0,
+              "beta_storage": 0.3,
+              "completion_horizon_fraction": 0.3,
+              "delta_release": 0.2,
+              "effective_capacity_scale": 0.1,
+              "eps_u": "{'slack': 0.0, 'completion_critical': 0.0, 'storage_binding': 0.05, 'cascade_risk': 0.05, 'switching_sensitive': 0.03, 'coordination': 0.03}",
+              "eta_completion": 1.0,
+              "finishable_safety_margin": 0.02,
+              "gamma_cascade": 0.3,
+              "kappa_service": 0.1,
+              "kappa_switching_accumulate": 0.5,
+              "lambda_delay": "{'default': 1.0}",
+              "lambda_progression": "{'default': 0.5}",
+              "lambda_spillback": "{'default': 5.0}",
+              "lambda_switching": 0.75,
+              "lambda_switching_loss": "{'default': 2.0}",
+              "lambda_unfinished": "{'default': 50.0}",
+              "min_green_hysteresis": 1.0,
+              "regime_thresholds": "{'slack_max_occupancy': 0.55, 'storage_binding_min_occupancy': 0.65, 'cascade_risk_min_shadow': 0.15, 'completion_critical_min_eta_ratio': 0.5, 'switching_sensitive_min_lost_time': 0.3, 'coordination_min_platoon_value': 0.2}",
+              "rho_switching_decay": 0.85,
+              "rollout_dt": 1.0,
+              "saturation_flow": 0.5,
+              "tau_adv": "{'slack': 0.15, 'completion_critical': 0.15, 'storage_binding': 0.02, 'cascade_risk': 0.02, 'switching_sensitive': 0.05, 'coordination': 0.05}"
+            },
+            "regime_dependent_eps_u": 0.05,
+            "regime_dependent_tau_adv": 0.02,
+            "switching_dual_state": {
+              "0": 0.6375,
+              "2": 0.0
+            },
+            "pressure_phase_scores": {
+              "0": -37.0,
+              "2": 2.0
+            },
+            "capacity_aware_phase_scores": {
+              "0": -135.78427214076243,
+              "2": -557.0316105571846
+            },
+            "finite_storage_double_phase_scores": {
+              "0": -153.50427214076245,
+              "2": -704.1196105571846
+            },
+            "switching_loss_phase_scores": {
+              "0": -37.0,
+              "2": 2.0
+            },
+            "calibration": {
+              "regime_primary": "storage_binding",
+              "regime_scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 1.0
+              },
+              "eps_u_used": 0.05,
+              "tau_adv_used": 0.02,
+              "advantage": -4.543999999999983,
+              "gate_active": true,
+              "dual_totals": {
+                "pressure": 2.0,
+                "storage_correction": 79.2792,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 109.12000000000005,
+                "service_bonus": 0.0,
+                "switching_penalty": 0.0,
+                "progression_bonus": 0.5
+              }
+            }
+          },
+          "C3": {
+            "tls_id": "C3",
+            "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+            "pressure_action": 2,
+            "finite_storage_action": 2,
+            "capacity_aware_action": 0,
+            "finite_storage_double_action": 0,
+            "switching_loss_action": 2,
+            "selected_action": 2,
+            "regime": "storage_binding",
+            "regime_info": {
+              "primary": "storage_binding",
+              "scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 0.6594982078853046
+              },
+              "n_active_regimes": 3
+            },
+            "phase_scores": {
+              "0": 2637.065749103943,
+              "2": 2387.354000000001
+            },
+            "baseline_scores": {
+              "max_pressure": {
+                "0": 55.0,
+                "2": 85.0
+              },
+              "capacity_aware_pressure": {
+                "0": -188.104360117302,
+                "2": -952.6543378299118
+              },
+              "finite_storage_double_pressure": {
+                "0": -282.54436011730206,
+                "2": -1209.7423378299118
+              },
+              "occupancy_capacity_aware_pressure": {
+                "0": -340.60469105326086,
+                "2": -1461.2994958436407
+              },
+              "delay_based_max_pressure": {
+                "0": -449.21970993954665,
+                "2": 275.3848973607038
+              },
+              "switching_loss_max_pressure": {
+                "0": 55.0,
+                "2": 85.0
+              }
+            },
+            "predicted_J_H": {
+              "0": 646.368,
+              "2": 654.4616
+            },
+            "predicted_unfinished_risk_H": {
+              "0": 654.912,
+              "2": 646.0
+            },
+            "predicted_spillback_risk_H": {
+              "0": 460.56,
+              "2": 458.9232
+            },
+            "safe_set": [
+              2
+            ],
+            "advantage": -8.093599999999924,
+            "advantage_gate_active": true,
+            "dual_components": {
+              "0": {
+                "pressure": 55.0,
+                "storage_correction": 56.452799999999996,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 114.56000000000002,
+                "service_bonus": 0.0,
+                "switching_penalty": 0.0,
+                "progression_bonus": 0.3297491039426523
+              },
+              "2": {
+                "pressure": 85.0,
+                "storage_correction": 84.67920000000001,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 109.12000000000005,
+                "service_bonus": 0.0,
+                "switching_penalty": 1.125,
+                "progression_bonus": 0.0
+              }
+            },
+            "selected_component_totals": {
+              "pressure": 85.0,
+              "storage_correction": 84.67920000000001,
+              "cascade_correction": 0.0,
+              "release_bonus": 0.0,
+              "completion_bonus": 109.12000000000005,
+              "service_bonus": 0.0,
+              "switching_penalty": 1.125,
+              "progression_bonus": 0.0
+            },
+            "action_changed_relative_to_pressure": false,
+            "dynamic_params": {
+              "H_rollout": 3.0,
+              "beta_storage": 0.3,
+              "completion_horizon_fraction": 0.3,
+              "delta_release": 0.2,
+              "effective_capacity_scale": 0.1,
+              "eps_u": "{'slack': 0.0, 'completion_critical': 0.0, 'storage_binding': 0.05, 'cascade_risk': 0.05, 'switching_sensitive': 0.03, 'coordination': 0.03}",
+              "eta_completion": 1.0,
+              "finishable_safety_margin": 0.02,
+              "gamma_cascade": 0.3,
+              "kappa_service": 0.1,
+              "kappa_switching_accumulate": 0.5,
+              "lambda_delay": "{'default': 1.0}",
+              "lambda_progression": "{'default': 0.5}",
+              "lambda_spillback": "{'default': 5.0}",
+              "lambda_switching": 0.75,
+              "lambda_switching_loss": "{'default': 2.0}",
+              "lambda_unfinished": "{'default': 50.0}",
+              "min_green_hysteresis": 1.0,
+              "regime_thresholds": "{'slack_max_occupancy': 0.55, 'storage_binding_min_occupancy': 0.65, 'cascade_risk_min_shadow': 0.15, 'completion_critical_min_eta_ratio': 0.5, 'switching_sensitive_min_lost_time': 0.3, 'coordination_min_platoon_value': 0.2}",
+              "rho_switching_decay": 0.85,
+              "rollout_dt": 1.0,
+              "saturation_flow": 0.5,
+              "tau_adv": "{'slack': 0.15, 'completion_critical': 0.15, 'storage_binding': 0.02, 'cascade_risk': 0.02, 'switching_sensitive': 0.05, 'coordination': 0.05}"
+            },
+            "regime_dependent_eps_u": 0.05,
+            "regime_dependent_tau_adv": 0.02,
+            "switching_dual_state": {
+              "0": 0.0,
+              "2": 1.125
+            },
+            "pressure_phase_scores": {
+              "0": 55.0,
+              "2": 85.0
+            },
+            "capacity_aware_phase_scores": {
+              "0": -188.104360117302,
+              "2": -952.6543378299118
+            },
+            "finite_storage_double_phase_scores": {
+              "0": -282.54436011730206,
+              "2": -1209.7423378299118
+            },
+            "switching_loss_phase_scores": {
+              "0": 55.0,
+              "2": 85.0
+            },
+            "calibration": {
+              "regime_primary": "storage_binding",
+              "regime_scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 0.6594982078853046
+              },
+              "eps_u_used": 0.05,
+              "tau_adv_used": 0.02,
+              "advantage": -8.093599999999924,
+              "gate_active": true,
+              "dual_totals": {
+                "pressure": 85.0,
+                "storage_correction": 84.67920000000001,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 109.12000000000005,
+                "service_bonus": 0.0,
+                "switching_penalty": 1.125,
+                "progression_bonus": 0.0
+              }
+            }
+          },
+          "C4": {
+            "tls_id": "C4",
+            "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+            "pressure_action": 2,
+            "finite_storage_action": 2,
+            "capacity_aware_action": 0,
+            "finite_storage_double_action": 0,
+            "switching_loss_action": 2,
+            "selected_action": 2,
+            "regime": "storage_binding",
+            "regime_info": {
+              "primary": "storage_binding",
+              "scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 0.753623188405797
+              },
+              "n_active_regimes": 3
+            },
+            "phase_scores": {
+              "0": 2665.1128115942033,
+              "2": 2389.354000000001
+            },
+            "baseline_scores": {
+              "max_pressure": {
+                "0": 95.0,
+                "2": 105.0
+              },
+              "capacity_aware_pressure": {
+                "0": -265.48999061583567,
+                "2": -1273.6887953079176
+              },
+              "finite_storage_double_pressure": {
+                "0": -419.92999061583566,
+                "2": -1575.7767953079174
+              },
+              "occupancy_capacity_aware_pressure": {
+                "0": -474.09275933747256,
+                "2": -1810.0990018971477
+              },
+              "delay_based_max_pressure": {
+                "0": -505.0497939841738,
+                "2": 389.9376832844572
+              },
+              "switching_loss_max_pressure": {
+                "0": 95.0,
+                "2": 105.0
+              }
+            },
+            "predicted_J_H": {
+              "0": 645.8240000000001,
+              "2": 653.4616
+            },
+            "predicted_unfinished_risk_H": {
+              "0": 655.0,
+              "2": 647.0
+            },
+            "predicted_spillback_risk_H": {
+              "0": 459.648,
+              "2": 458.9232
+            },
+            "safe_set": [
+              2
+            ],
+            "advantage": -7.637599999999907,
+            "advantage_gate_active": true,
+            "dual_components": {
+              "0": {
+                "pressure": 95.0,
+                "storage_correction": 58.85280000000001,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 114.56000000000002,
+                "service_bonus": 0.0,
+                "switching_penalty": 0.0,
+                "progression_bonus": 0.3768115942028985
+              },
+              "2": {
+                "pressure": 105.0,
+                "storage_correction": 88.2792,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 109.12000000000005,
+                "service_bonus": 0.0,
+                "switching_penalty": 1.125,
+                "progression_bonus": 0.0
+              }
+            },
+            "selected_component_totals": {
+              "pressure": 105.0,
+              "storage_correction": 88.2792,
+              "cascade_correction": 0.0,
+              "release_bonus": 0.0,
+              "completion_bonus": 109.12000000000005,
+              "service_bonus": 0.0,
+              "switching_penalty": 1.125,
+              "progression_bonus": 0.0
+            },
+            "action_changed_relative_to_pressure": false,
+            "dynamic_params": {
+              "H_rollout": 3.0,
+              "beta_storage": 0.3,
+              "completion_horizon_fraction": 0.3,
+              "delta_release": 0.2,
+              "effective_capacity_scale": 0.1,
+              "eps_u": "{'slack': 0.0, 'completion_critical': 0.0, 'storage_binding': 0.05, 'cascade_risk': 0.05, 'switching_sensitive': 0.03, 'coordination': 0.03}",
+              "eta_completion": 1.0,
+              "finishable_safety_margin": 0.02,
+              "gamma_cascade": 0.3,
+              "kappa_service": 0.1,
+              "kappa_switching_accumulate": 0.5,
+              "lambda_delay": "{'default': 1.0}",
+              "lambda_progression": "{'default': 0.5}",
+              "lambda_spillback": "{'default': 5.0}",
+              "lambda_switching": 0.75,
+              "lambda_switching_loss": "{'default': 2.0}",
+              "lambda_unfinished": "{'default': 50.0}",
+              "min_green_hysteresis": 1.0,
+              "regime_thresholds": "{'slack_max_occupancy': 0.55, 'storage_binding_min_occupancy': 0.65, 'cascade_risk_min_shadow': 0.15, 'completion_critical_min_eta_ratio': 0.5, 'switching_sensitive_min_lost_time': 0.3, 'coordination_min_platoon_value': 0.2}",
+              "rho_switching_decay": 0.85,
+              "rollout_dt": 1.0,
+              "saturation_flow": 0.5,
+              "tau_adv": "{'slack': 0.15, 'completion_critical': 0.15, 'storage_binding': 0.02, 'cascade_risk': 0.02, 'switching_sensitive': 0.05, 'coordination': 0.05}"
+            },
+            "regime_dependent_eps_u": 0.05,
+            "regime_dependent_tau_adv": 0.02,
+            "switching_dual_state": {
+              "0": 0.0,
+              "2": 1.125
+            },
+            "pressure_phase_scores": {
+              "0": 95.0,
+              "2": 105.0
+            },
+            "capacity_aware_phase_scores": {
+              "0": -265.48999061583567,
+              "2": -1273.6887953079176
+            },
+            "finite_storage_double_phase_scores": {
+              "0": -419.92999061583566,
+              "2": -1575.7767953079174
+            },
+            "switching_loss_phase_scores": {
+              "0": 95.0,
+              "2": 105.0
+            },
+            "calibration": {
+              "regime_primary": "storage_binding",
+              "regime_scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 0.753623188405797
+              },
+              "eps_u_used": 0.05,
+              "tau_adv_used": 0.02,
+              "advantage": -7.637599999999907,
+              "gate_active": true,
+              "dual_totals": {
+                "pressure": 105.0,
+                "storage_correction": 88.2792,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 109.12000000000005,
+                "service_bonus": 0.0,
+                "switching_penalty": 1.125,
+                "progression_bonus": 0.0
+              }
+            }
+          },
+          "C5": {
+            "tls_id": "C5",
+            "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+            "pressure_action": 2,
+            "finite_storage_action": 0,
+            "capacity_aware_action": 2,
+            "finite_storage_double_action": 2,
+            "switching_loss_action": 2,
+            "selected_action": 0,
+            "regime": "storage_binding",
+            "regime_info": {
+              "primary": "storage_binding",
+              "scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 0.0
+              },
+              "n_active_regimes": 2
+            },
+            "phase_scores": {
+              "0": 2845.3680000000004,
+              "2": 3580.802000000001
+            },
+            "baseline_scores": {
+              "max_pressure": {
+                "0": -2.0,
+                "2": 812.0
+              },
+              "capacity_aware_pressure": {
+                "0": 3.5735999999999994,
+                "2": 793.3028516129034
+              },
+              "finite_storage_double_pressure": {
+                "0": 3.5735999999999994,
+                "2": 88.23085161290327
+              },
+              "occupancy_capacity_aware_pressure": {
+                "0": -19.950400000000005,
+                "2": 409.31321131735456
+              },
+              "delay_based_max_pressure": {
+                "0": -0.1832844574780058,
+                "2": 5957.0510247546645
+              },
+              "switching_loss_max_pressure": {
+                "0": -2.0,
+                "2": 812.0
+              }
+            },
+            "predicted_J_H": {
+              "0": 657.4616,
+              "2": 646.9616
+            },
+            "predicted_unfinished_risk_H": {
+              "0": 643.0,
+              "2": 655.5
+            },
+            "predicted_spillback_risk_H": {
+              "0": 458.9232,
+              "2": 458.9232
+            },
+            "safe_set": [
+              0
+            ],
+            "advantage": 0.0,
+            "advantage_gate_active": true,
+            "dual_components": {
+              "0": {
+                "pressure": -2.0,
+                "storage_correction": 3.326399999999999,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 114.56000000000002,
+                "service_bonus": 0.0,
+                "switching_penalty": 0.0,
+                "progression_bonus": 0.0
+              },
+              "2": {
+                "pressure": 812.0,
+                "storage_correction": 4.9895999999999985,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 111.84000000000003,
+                "service_bonus": 0.0,
+                "switching_penalty": 1.125,
+                "progression_bonus": 0.0
+              }
+            },
+            "selected_component_totals": {
+              "pressure": -2.0,
+              "storage_correction": 3.326399999999999,
+              "cascade_correction": 0.0,
+              "release_bonus": 0.0,
+              "completion_bonus": 114.56000000000002,
+              "service_bonus": 0.0,
+              "switching_penalty": 0.0,
+              "progression_bonus": 0.0
+            },
+            "action_changed_relative_to_pressure": true,
+            "dynamic_params": {
+              "H_rollout": 3.0,
+              "beta_storage": 0.3,
+              "completion_horizon_fraction": 0.3,
+              "delta_release": 0.2,
+              "effective_capacity_scale": 0.1,
+              "eps_u": "{'slack': 0.0, 'completion_critical': 0.0, 'storage_binding': 0.05, 'cascade_risk': 0.05, 'switching_sensitive': 0.03, 'coordination': 0.03}",
+              "eta_completion": 1.0,
+              "finishable_safety_margin": 0.02,
+              "gamma_cascade": 0.3,
+              "kappa_service": 0.1,
+              "kappa_switching_accumulate": 0.5,
+              "lambda_delay": "{'default': 1.0}",
+              "lambda_progression": "{'default': 0.5}",
+              "lambda_spillback": "{'default': 5.0}",
+              "lambda_switching": 0.75,
+              "lambda_switching_loss": "{'default': 2.0}",
+              "lambda_unfinished": "{'default': 50.0}",
+              "min_green_hysteresis": 1.0,
+              "regime_thresholds": "{'slack_max_occupancy': 0.55, 'storage_binding_min_occupancy': 0.65, 'cascade_risk_min_shadow': 0.15, 'completion_critical_min_eta_ratio': 0.5, 'switching_sensitive_min_lost_time': 0.3, 'coordination_min_platoon_value': 0.2}",
+              "rho_switching_decay": 0.85,
+              "rollout_dt": 1.0,
+              "saturation_flow": 0.5,
+              "tau_adv": "{'slack': 0.15, 'completion_critical': 0.15, 'storage_binding': 0.02, 'cascade_risk': 0.02, 'switching_sensitive': 0.05, 'coordination': 0.05}"
+            },
+            "regime_dependent_eps_u": 0.05,
+            "regime_dependent_tau_adv": 0.02,
+            "switching_dual_state": {
+              "0": 0.0,
+              "2": 1.125
+            },
+            "pressure_phase_scores": {
+              "0": -2.0,
+              "2": 812.0
+            },
+            "capacity_aware_phase_scores": {
+              "0": 3.5735999999999994,
+              "2": 793.3028516129034
+            },
+            "finite_storage_double_phase_scores": {
+              "0": 3.5735999999999994,
+              "2": 88.23085161290327
+            },
+            "switching_loss_phase_scores": {
+              "0": -2.0,
+              "2": 812.0
+            },
+            "calibration": {
+              "regime_primary": "storage_binding",
+              "regime_scores": {
+                "slack": 0.0,
+                "storage_binding": 0.9375,
+                "cascade_risk": 0.0,
+                "completion_critical": 0.6666666666666667,
+                "switching_sensitive": 0.0,
+                "coordination": 0.0
+              },
+              "eps_u_used": 0.05,
+              "tau_adv_used": 0.02,
+              "advantage": 0.0,
+              "gate_active": true,
+              "dual_totals": {
+                "pressure": -2.0,
+                "storage_correction": 3.326399999999999,
+                "cascade_correction": 0.0,
+                "release_bonus": 0.0,
+                "completion_bonus": 114.56000000000002,
+                "service_bonus": 0.0,
+                "switching_penalty": 0.0,
+                "progression_bonus": 0.0
+              }
+            }
+          }
+        },
+        "decision_summary": {
+          "controller": "finite_storage_regime_calibrated_cfs_pd_mpc_v1_8",
+          "total_decisions": 1350,
+          "action_changed_relative_to_pressure_count": 912,
+          "binding_decision_count": 1350,
+          "binding_action_changed_count": 912,
+          "selected_component_nonzero_counts": {
+            "downstream_storage": 0,
+            "spillback": 0,
+            "switching": 0,
+            "service": 0,
+            "incident": 0,
+            "storage_price": 0,
+            "cascade_price": 0,
+            "release": 0,
+            "service_age": 0,
+            "guardrail": 0,
+            "double_pressure_scaffold": 0
+          },
+          "any_phase_component_nonzero_counts": {
+            "downstream_storage": 0,
+            "spillback": 0,
+            "switching": 0,
+            "service": 0,
+            "incident": 0,
+            "storage_price": 0,
+            "cascade_price": 0,
+            "release": 0,
+            "service_age": 0,
+            "guardrail": 0,
+            "double_pressure_scaffold": 0
+          },
+          "double_safety_fallback_count": 0,
+          "terminal_completion_fallback_count": 0,
+          "double_score_safety_filter_count": 0,
+          "multi_baseline_safety_filter_count": 0,
+          "hold_only_safety_filter_count": 0,
+          "max_hold_safety_filter_count": 0,
+          "completion_risk_filter_count": 0,
+          "route_completion_prediction_filter_count": 0,
+          "route_demand_completion_filter_count": 0,
+          "route_demand_double_score_veto_count": 0,
+          "route_horizon_completion_filter_count": 0,
+          "route_horizon_dominance_filter_count": 0,
+          "terminal_exit_protection_guard_count": 0,
+          "route_horizon_max_pressure_envelope_count": 0,
+          "route_horizon_core_baseline_envelope_count": 0,
+          "route_horizon_double_pressure_envelope_count": 0,
+          "route_horizon_core_minimax_guard_count": 0,
+          "route_horizon_capacity_rescue_guard_count": 0,
+          "route_horizon_capacity_score_envelope_count": 0,
+          "route_horizon_native_capacity_score_rescue_guard_count": 0,
+          "route_horizon_severe_double_guard_count": 0,
+          "route_horizon_pressure_double_conflict_guard_count": 0,
+          "route_horizon_completion_conflict_guard_count": 0,
+          "route_horizon_capacity_completion_conflict_guard_count": 0,
+          "route_horizon_early_capacity_completion_conflict_guard_count": 0,
+          "route_horizon_negative_total_completion_conflict_guard_count": 0,
+          "route_horizon_low_total_consensus_completion_guard_count": 0,
+          "route_horizon_negative_total_raw_consensus_guard_count": 0,
+          "route_horizon_core_consensus_guard_count": 0,
+          "route_horizon_raw_consensus_guard_count": 0,
+          "post_completion_veto_double_conflict_guard_count": 0,
+          "route_horizon_pressure_safe_guard_count": 0,
+          "route_horizon_tail_completion_rescue_count": 0,
+          "completion_safety_veto_count": 0,
+          "max_occupancy_ratio_observed": 9.897360703812314,
+          "min_residual_ratio_observed": 0.0,
+          "action_change_rate": 0.6755555555555556,
+          "binding_action_change_rate": 0.6755555555555556,
+          "binding_decision_rate": 1.0,
+          "double_safety_fallback_rate": 0.0,
+          "terminal_completion_fallback_rate": 0.0,
+          "double_score_safety_filter_rate": 0.0,
+          "multi_baseline_safety_filter_rate": 0.0,
+          "hold_only_safety_filter_rate": 0.0,
+          "max_hold_safety_filter_rate": 0.0,
+          "completion_risk_filter_rate": 0.0,
+          "route_completion_prediction_filter_rate": 0.0,
+          "route_demand_completion_filter_rate": 0.0,
+          "route_demand_double_score_veto_rate": 0.0,
+          "route_horizon_completion_filter_rate": 0.0,
+          "route_horizon_dominance_filter_rate": 0.0,
+          "terminal_exit_protection_guard_rate": 0.0,
+          "route_horizon_max_pressure_envelope_rate": 0.0,
+          "route_horizon_core_baseline_envelope_rate": 0.0,
+          "route_horizon_double_pressure_envelope_rate": 0.0,
+          "route_horizon_core_minimax_guard_rate": 0.0,
+          "route_horizon_capacity_rescue_guard_rate": 0.0,
+          "route_horizon_capacity_score_envelope_rate": 0.0,
+          "route_horizon_native_capacity_score_rescue_guard_rate": 0.0,
+          "route_horizon_severe_double_guard_rate": 0.0,
+          "route_horizon_pressure_double_conflict_guard_rate": 0.0,
+          "route_horizon_completion_conflict_guard_rate": 0.0,
+          "route_horizon_capacity_completion_conflict_guard_rate": 0.0,
+          "route_horizon_early_capacity_completion_conflict_guard_rate": 0.0,
+          "route_horizon_negative_total_completion_conflict_guard_rate": 0.0,
+          "route_horizon_low_total_consensus_completion_guard_rate": 0.0,
+          "route_horizon_negative_total_raw_consensus_guard_rate": 0.0,
+          "route_horizon_core_consensus_guard_rate": 0.0,
+          "route_horizon_raw_consensus_guard_rate": 0.0,
+          "post_completion_veto_double_conflict_guard_rate": 0.0,
+          "route_horizon_pressure_safe_guard_rate": 0.0,
+          "route_horizon_tail_completion_rescue_rate": 0.0,
+          "completion_safety_veto_rate": 0.0
+        }
+      },
+      "profile": "screen",
+      "demand_multiplier": 1.0,
+      "demand_scaling_method": "scaled_route_sumocfg_override",
+      "base_demand_total": 10998.755832037325,
+      "scaled_demand_total": 10998.755832037325,
+      "generated_route_file": "experiments/dual_sensitivity/v1_8_training_scaled_inputs/phase11_arterial_demand_1p0.rou.xml",
+      "generated_sumocfg": "experiments/dual_sensitivity/v1_8_training_scaled_inputs/phase11_arterial_demand_1p0.sumocfg",
+      "demand_multiplier_provenance": {
+        "demand_multiplier": 1.0,
+        "demand_scaling_method": "scaled_route_sumocfg_override",
+        "requires_actual_sumo_behavior_change": true,
+        "metadata_only_valid": false,
+        "base_demand_total": 10998.755832037325,
+        "scaled_demand_total": 10998.755832037325,
+        "demand_source": "experiments/dual_sensitivity/v1_8_training_scaled_inputs/phase11_arterial_demand_1p0.rou.xml",
+        "generated_route_file": "experiments/dual_sensitivity/v1_8_training_scaled_inputs/phase11_arterial_demand_1p0.rou.xml",
+        "generated_sumocfg": "experiments/dual_sensitivity/v1_8_training_scaled_inputs/phase11_arterial_demand_1p0.sumocfg",
+        "base_sumocfg": "networks/arterial/arterial.sumocfg",
+        "base_route_file": "networks/arterial/arterial.rou.xml"
+      }
+    }
+  ]
+}
